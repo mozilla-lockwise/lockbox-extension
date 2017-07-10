@@ -23,3 +23,9 @@ This add-on is [licensed][license-link] under the Mozilla Public License,
 version 2.0.
 
 [license-link]: https://github.com/jimporter/gesticulate/blob/master/LICENSE
+
+## For Development
+
+*WARNING* This voids your warranty!
+
+*NOTE*  Firefox caches Javascript even from extensions.  To mitigate this, specify `-purgecaches` when launching Firefox to ensure extension JavaScript files are refreshed.
