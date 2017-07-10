@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+  "name": "Lockbox",
+  "version": "0.1pre",
+
+  "description": "Improved password management for Firefox",
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.mozilla.org/*"],
+      "js": ["alert.js"]
+    }
+  ]
+}
