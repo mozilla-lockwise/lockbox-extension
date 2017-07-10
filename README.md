@@ -14,7 +14,8 @@ $ make package
 ```
 
 Note of course that the resulting add-on is unsigned, and likely won't work on
-release versions of Firefox.
+release versions of Firefox. You can flip the `xpinstall.signatures.required`
+preference on other channels accordingly.
 
 ## License
 
