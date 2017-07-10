@@ -9,5 +9,13 @@
     "default_title": "Saved Logins",
     "default_panel": "sidebar.html",
     "browser_style": true
+  },
+
+  "commands": {
+    "_execute_sidebar_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+L"
+      }
+    }
   }
 }
