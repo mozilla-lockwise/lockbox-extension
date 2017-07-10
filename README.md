@@ -27,7 +27,4 @@ version 2.0.
 
 *WARNING* This voids your warranty!
 
-1. *Allow unsigned extensions* In "about:config" change `xpi.signatures.required` to `true`.
-2. *Create a shortcut* In your (development) Firefox profile directory, add the file `lockbox@mozilla.org` to the `extensions` sub-directory (creating the sub-directory if it does not already exist; the contents of `lockbox@mozilla.org` is the full path to the extension's `src` directory.
-
 *NOTE*  Firefox caches Javascript even from extensions.  To mitigate this, specify `-purgecaches` when launching Firefox to ensure extension JavaScript files are refreshed.
