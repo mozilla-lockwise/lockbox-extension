@@ -5,10 +5,9 @@
 
   "description": "Improved password management for Firefox",
 
-  "content_scripts": [
-    {
-      "matches": ["*://*.mozilla.org/*"],
-      "js": ["alert.js"]
-    }
-  ]
+  "sidebar_action": {
+    "default_title": "Saved Logins",
+    "default_panel": "sidebar.html",
+    "browser_style": true
+  }
 }
