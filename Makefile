@@ -8,4 +8,4 @@ clean:
 .PHONY: package
 package: clean
 	rm -f $(ADDON_NAME)-$(ADDON_VERSION).xpi
-	cd src && zip -r ../$(ADDON_NAME)-$(ADDON_VERSION).xpi *
+	cd dist && zip -r ../$(ADDON_NAME)-$(ADDON_VERSION).xpi *
