@@ -22,4 +22,4 @@ preference on other channels accordingly.
 This add-on is [licensed][license-link] under the Mozilla Public License,
 version 2.0.
 
-[license-link]: https://github.com/jimporter/gesticulate/blob/master/LICENSE
+[license-link]: /LICENSE
