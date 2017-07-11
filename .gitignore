@@ -1,3 +1,4 @@
-node_modules/
+/node_modules/
+/site/
 /lockbox-*.xpi
-/site
+/dist/chrome/content/aboutPage.js
