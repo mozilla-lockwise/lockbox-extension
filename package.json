@@ -20,6 +20,7 @@
     "addon"
   ],
   "devDependencies": {
+    "eslint": "^4.2.0",
     "jpm": "^1.3.1"
   },
   "scripts": {
