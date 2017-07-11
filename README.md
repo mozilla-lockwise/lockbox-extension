@@ -17,6 +17,12 @@ Note of course that the resulting add-on is unsigned, and likely won't work on
 release versions of Firefox. You can flip the `xpinstall.signatures.required`
 preference on other channels accordingly.
 
+## Linting
+
+```sh
+$ eslint src/webextension/background.js
+```
+
 ## License
 
 This add-on is [licensed][license-link] under the Mozilla Public License,
