@@ -29,7 +29,8 @@
     "clean": "git clean -fX .",
     "build": "node_modules/.bin/webpack",
     "package": "cd dist && zip -r ../lockbox-0.1pre.xpi *",
-    "prepackage": "npm run-script clean && npm run-script build"
+    "prepackage": "npm run-script clean && npm run-script build",
+    "lint": "node_modules/.bin/eslint src/chrome/content/aboutPage.js"
   },
   "dependencies": {
     "react": "^15.6.1",
