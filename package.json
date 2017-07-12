@@ -24,10 +24,10 @@
     "addon"
   ],
   "scripts": {
-    "run": "jpm run",
+    "run": "jpm run --addon-dir dist/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "git clean -fX .",
-    "build": "node_modules/.bin/webpack",
+    "build": "webpack",
     "package": "cd dist && zip -r ../lockbox-0.1pre.xpi *",
     "prepackage": "npm run-script clean && npm run-script build"
   },
