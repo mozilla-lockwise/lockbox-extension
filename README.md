@@ -6,11 +6,20 @@ probably come back later when we have more to show!
 
 ## Building
 
-If you'd like to build the .xpi from the latest master, simply run the
-following:
+To build the project, simply call the following:
 
 ```sh
-$ make package
+$ cd lockbox-extension/
+$ npm install
+$ npm run-script build
+```
+
+This puts all the necessary files in the `dist/` directory, which you can then
+load into Firefox (e.g. `about:debugging`). If you'd like to build the .xpi,
+you can run the following:
+
+```sh
+$ npm run-script package
 ```
 
 Note of course that the resulting add-on is unsigned, and likely won't work on
