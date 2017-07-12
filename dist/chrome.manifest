@@ -1,0 +1,2 @@
+content   lockbox  chrome/content/  contentaccessible=yes
+resource  lockbox  chrome/modules/
