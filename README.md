@@ -22,6 +22,13 @@ you can run the following:
 $ npm run-script package
 ```
 
+If you'd like to quickly start up a new Firefox profile with Lockbox installed
+for development/testing, you can call:
+
+```sh
+$ npm run-script run
+```
+
 Note of course that the resulting add-on is unsigned, and likely won't work on
 release versions of Firefox. You can flip the `xpinstall.signatures.required`
 preference on other channels accordingly.
