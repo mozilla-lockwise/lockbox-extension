@@ -29,6 +29,18 @@ for development/testing, you can call:
 $ npm run-script run
 ```
 
+To include additional flags for a specific run, append them after `--`:
+
+```
+npm run-script run -- -b nightly
+```
+
+To specify flags to use regularly, use `npm config set jpm_runflags`:
+
+```
+npm config set jpm_runflags="-b nightly"
+```
+
 Note of course that the resulting add-on is unsigned, and likely won't work on
 release versions of Firefox. You can flip the `xpinstall.signatures.required`
 preference on other channels accordingly.

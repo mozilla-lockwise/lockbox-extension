@@ -24,7 +24,8 @@
     "addon"
   ],
   "scripts": {
-    "run": "jpm run --addon-dir dist/",
+    "prerun": "npm run-script build",
+    "run": "jpm run --addon-dir dist/ $npm_config_jpm_runflags",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "git clean -fX .",
     "build": "webpack",
