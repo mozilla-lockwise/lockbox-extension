@@ -1,8 +1,8 @@
 {
   "title": "Lockbox",
   "name": "lockbox",
-  "version": "0.0.1",
-  "main": "src/bootstrap.js",
+  "version": "0.1.0-pre",
+  "main": "dist/bootstrap.js",
   "description": "A Lockbox extension for Firefox",
   "author": "Lockbox Team <lockbox@mozilla.com>",
   "engines": {
@@ -13,12 +13,20 @@
     "url": "https://github.com/mozilla-lockbox/lockbox-extension.git"
   },
   "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/mozilla-lockbox/lockbox-extension/issues"
+  },
+  "homepage": "https://github.com/mozilla-lockbox/lockbox-extension#readme",
   "keywords": [
     "passwords",
     "crypto",
     "security",
     "addon"
   ],
+  "scripts": {
+    "run": "jpm run",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "devDependencies": {
     "eslint": "^4.2.0",
     "eslint-config-standard": "^10.2.1",
@@ -28,7 +36,8 @@
     "eslint-plugin-standard": "^3.0.1",
     "jpm": "^1.3.1"
   },
-  "scripts": {
-    "run": "jpm run"
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   }
 }

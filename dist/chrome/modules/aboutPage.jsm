@@ -41,9 +41,8 @@ class AboutModule {
   }
 
   newChannel(aURI, aLoadInfo) {
-    let channel = Services.io.newChannelFromURIWithLoadInfo(
-      Services.io.newURI(this._aboutURI, null, null), aLoadInfo
-    );
+    let uri = Services.io.newURI(this._aboutURI, null, null);
+    let channel = Services.io.newChannelFromURIWithLoadInfo(uri, aLoadInfo);
     channel.originalURI = aURI;
     return channel;
   }
