@@ -27,10 +27,10 @@
     "run": "jpm run",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "git clean -fX .",
-    "build": "node_modules/.bin/webpack",
+    "build": "webpack",
     "package": "cd dist && zip -r ../lockbox-0.1pre.xpi *",
     "prepackage": "npm run-script clean && npm run-script build",
-    "lint": "node_modules/.bin/eslint dist/chrome/modules/aboutPage.jsm"
+    "lint": "eslint dist/chrome/modules/aboutPage.jsm"
   },
   "dependencies": {
     "react": "^15.6.1",
