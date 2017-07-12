@@ -6,6 +6,6 @@ clean:
 	git clean -fX .
 
 .PHONY: package
-package: clean
+package:
 	rm -f $(ADDON_NAME)-$(ADDON_VERSION).xpi
 	cd dist && zip -r ../$(ADDON_NAME)-$(ADDON_VERSION).xpi *
