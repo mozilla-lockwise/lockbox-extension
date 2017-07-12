@@ -1,8 +1,8 @@
 {
   "title": "Lockbox",
   "name": "lockbox",
-  "version": "0.0.1",
-  "main": "src/bootstrap.js",
+  "version": "0.1.0-pre",
+  "main": "dist/bootstrap.js",
   "description": "A Lockbox extension for Firefox",
   "author": "Lockbox Team <lockbox@mozilla.com>",
   "engines": {
@@ -13,16 +13,35 @@
     "url": "https://github.com/mozilla-lockbox/lockbox-extension.git"
   },
   "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/mozilla-lockbox/lockbox-extension/issues"
+  },
+  "homepage": "https://github.com/mozilla-lockbox/lockbox-extension#readme",
   "keywords": [
     "passwords",
     "crypto",
     "security",
     "addon"
   ],
-  "devDependencies": {
-    "jpm": "^1.3.1"
-  },
   "scripts": {
-    "run": "jpm run"
+    "run": "jpm run",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "git clean -fX .",
+    "build": "node_modules/.bin/webpack",
+
+    "package": "cd dist && zip -r ../lockbox-0.1pre.xpi *",
+    "prepackage": "npm run-script clean && npm run-script build"
+  },
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "jpm": "^1.3.1",
+    "webpack": "^3.2.0"
   }
 }
