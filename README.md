@@ -6,7 +6,7 @@ probably come back later when we have more to show!
 
 ## Building
 
-To build the project, simply call the following:
+To **build the project**, simply run:
 
 ```sh
 $ cd lockbox-extension/
@@ -15,15 +15,20 @@ $ npm run-script build
 ```
 
 This puts all the necessary files in the `dist/` directory, which you can then
-load into Firefox (e.g. `about:debugging`). If you'd like to build the .xpi,
-you can run the following:
+load into Firefox (e.g. `about:debugging`).
+
+If you'd like to **build an .xpi**, you can run:
 
 ```sh
 $ npm run-script package
 ```
 
-If you'd like to quickly start up a new Firefox profile with Lockbox installed
-for development/testing, you can call:
+The resulting add-on is unsigned and likely won't work on release versions of
+Firefox. You can flip the `xpinstall.signatures.required` preference on other
+channels accordingly.
+
+If you'd like to quickly **start up a new Firefox profile** with Lockbox
+installed for development/testing, you can run:
 
 ```sh
 $ npm run-script run
@@ -40,10 +45,6 @@ To specify flags to use regularly, use `npm config set jpm_runflags`:
 ```
 npm config set jpm_runflags="-b nightly"
 ```
-
-Note of course that the resulting add-on is unsigned, and likely won't work on
-release versions of Firefox. You can flip the `xpinstall.signatures.required`
-preference on other channels accordingly.
 
 ## License
 
