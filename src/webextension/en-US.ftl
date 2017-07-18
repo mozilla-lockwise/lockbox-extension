@@ -1,0 +1,1 @@
+hello = Welcome to Lockbox (localized edition)!

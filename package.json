@@ -36,7 +36,12 @@
     "lint": "eslint src/**/*.js src/**/*.jsm"
   },
   "dependencies": {
+    "fluent": "^0.4.1",
+    "fluent-intl-polyfill": "^0.1.0",
+    "fluent-langneg": "0.0.2",
+    "fluent-react": "^0.4.1",
     "lockbox-datastore": "git+https://github.com/mozilla-lockbox/lockbox-datastore.git",
+    "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
