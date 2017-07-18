@@ -1,9 +1,9 @@
 var config = {
   context: __dirname + "/src",
-  entry: "./chrome/content/aboutPage.js",
+  entry: "./webextension/manage.js",
 
   output: {
-    filename: "chrome/content/aboutPage.js",
+    filename: "./webextension/manage.js",
     path: __dirname + "/dist",
   },
 

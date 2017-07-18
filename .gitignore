@@ -1,4 +1,4 @@
 /node_modules/
 /site/
 /lockbox-*.xpi
-/dist/chrome/content/aboutPage.js
+/dist/webextension/manage.js
