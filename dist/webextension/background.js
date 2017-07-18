@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 function openLockbox() {
-  browser.tabs.create({url: "about:lockbox"});
+  browser.tabs.create({url: browser.extension.getURL("manage.html")});
 }
 
 browser.browserAction.onClicked.addListener(openLockbox);
