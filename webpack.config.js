@@ -1,10 +1,13 @@
+var CopyWebpackPlugin = require("copy-webpack-plugin");
+var path = require("path");
+
 var config = {
-  context: __dirname + "/src",
+  context: path.join(__dirname, "/src"),
   entry: "./webextension/manage.js",
 
   output: {
     filename: "./webextension/manage.js",
-    path: __dirname + "/dist",
+    path: path.join(__dirname, "/dist"),
   },
 
   module: {
@@ -19,5 +22,13 @@ var config = {
       }
     ],
   },
+
+  plugins: [
+    new CopyWebpackPlugin([
+      {from: "**/*"},
+    ], {ignore: [
+      "webextension/manage.js"
+    ]}),
+  ],
 };
 module.exports = config;
