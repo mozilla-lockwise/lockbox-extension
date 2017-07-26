@@ -34,6 +34,7 @@
     "lint": "eslint dist/chrome/modules/aboutPage.jsm"
   },
   "dependencies": {
+    "lockbox-datastore": "git+https://github.com/mozilla-lockbox/lockbox-datastore.git",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
