@@ -25,13 +25,15 @@
   ],
   "scripts": {
     "prerun": "npm run-script build",
-    "run": "jpm run --addon-dir dist/ $npm_config_jpm_runflags",
+    "run": "jpm run --addon-dir dist/ ${npm_config_jpm_runflags}",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "git clean -fX .",
+    "clean": "git clean -fX ./dist ./*.xpi",
+    "distclean": "git clean -dfX",
+    "prebuild": "npm run-script lint",
     "build": "webpack",
-    "package": "cd dist && zip -r ../lockbox-0.1pre.xpi *",
     "prepackage": "npm run-script clean && npm run-script build",
-    "lint": "eslint dist/chrome/modules/aboutPage.jsm"
+    "package": "cd dist && zip -r ../${npm_package_name}-${npm_package_version}.xpi *",
+    "lint": "eslint src/**/*.js src/**/*.jsm"
   },
   "dependencies": {
     "react": "^15.6.1",
