@@ -1,12 +1,22 @@
 var CopyWebpackPlugin = require("copy-webpack-plugin");
 var path = require("path");
 
+var entries = {
+  background: "./webextension/background.js",
+  manage: "./webextension/manage.js"
+};
+
+var ignoreOnCopy = [];
+ignoreOnCopy = ignoreOnCopy.concat(
+  Object.keys(entries).map(n => entries[n].replace(/^\.+\//, ""))
+);
+
 var config = {
   context: path.join(__dirname, "/src"),
-  entry: "./webextension/manage.js",
+  entry: entries,
 
   output: {
-    filename: "./webextension/manage.js",
+    filename: "./webextension/[name].js",
     path: path.join(__dirname, "/dist"),
   },
 
@@ -26,9 +36,7 @@ var config = {
   plugins: [
     new CopyWebpackPlugin([
       {from: "**/*"},
-    ], {ignore: [
-      "webextension/manage.js"
-    ]}),
+    ], {ignore: ignoreOnCopy}),
   ],
 };
 module.exports = config;
