@@ -1,1 +1,1 @@
-hello = Welcome to Lockbox (localized edition)!
+add-entry = Add Entry
