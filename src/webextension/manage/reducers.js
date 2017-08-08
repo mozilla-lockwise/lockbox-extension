@@ -2,14 +2,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { PLUS_ONE, MINUS_ONE } from "./actions";
+import { ADD_ENTRY } from "./actions";
 
-export function reducer(state = {value: 0}, action) {
+export function reducer(state = {entries: []}, action) {
   switch (action.type) {
-  case PLUS_ONE:
-    return {value: state.value + 1};
-  case MINUS_ONE:
-    return {value: state.value - 1};
+  case ADD_ENTRY:
+    return Object.assign({}, state, {entries: [
+      ...state.entries,
+      {id: action.id, name: action.name}
+    ]});
   default:
     return state;
   }

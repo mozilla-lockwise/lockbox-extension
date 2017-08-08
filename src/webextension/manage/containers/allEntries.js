@@ -2,14 +2,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-export const ADD_ENTRY = Symbol("ADD_ENTRY");
+import { connect } from "react-redux";
 
-let nextId = 0;
+import EntryList from "../components/entryList";
 
-export function addEntry(name) {
-  return {
-    type: ADD_ENTRY,
-    id: nextId++,
-    name,
-  };
-}
+const AllEntries = connect(
+  (state) => ({
+    entries: state.entries
+  }),
+)(EntryList);
+
+export default AllEntries;
