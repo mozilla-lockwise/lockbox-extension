@@ -10,7 +10,7 @@ function openLockbox() {
   if (ds.opened) {
     // do something?
   }
-  browser.tabs.create({url: browser.extension.getURL("manage.html")});
+  browser.tabs.create({url: browser.extension.getURL("manage/index.html")});
 }
 
 browser.browserAction.onClicked.addListener(openLockbox);
