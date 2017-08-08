@@ -3,8 +3,8 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 var path = require("path");
 
 var entries = {
-  background: "./webextension/background.js",
-  manage: "./webextension/manage.js"
+  "background": "./webextension/background.js",
+  "manage/index": "./webextension/manage/index.js"
 };
 
 var config = {
@@ -35,8 +35,8 @@ var config = {
       {from: "chrome.manifest"},
       {from: "install.rdf"},
       {from: "webextension/manifest.json", to: "webextension/"},
-      {from: "webextension/*.ftl"},
-      {from: "webextension/*.html"},
+      {from: "webextension/**/*.ftl"},
+      {from: "webextension/**/*.html"},
       {from: "webextension/icons/*"},
     ]),
   ],
