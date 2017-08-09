@@ -8,11 +8,19 @@ import React from "react";
 
 import Entry from "./entry";
 
-export default function EntryList({entries}) {
+export default function EntryList({entries, selected, onEntryClick}) {
+  const style = {
+    margin: 0,
+    padding: 0,
+    listStyle: "none",
+    borderTop: "1px solid black",
+  };
+
   return (
-    <ul>
+    <ul style={style}>
       {entries.map((entry) => (
-        <Entry key={entry.id} name={entry.name}/>
+        <Entry key={entry.id} name={entry.name} selected={entry.id === selected}
+               onClick={() => onEntryClick(entry.id)}/>
       ))}
     </ul>
   );
@@ -25,4 +33,5 @@ EntryList.propTypes = {
       name: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
+  onEntryClick: PropTypes.func.isRequired,
 };

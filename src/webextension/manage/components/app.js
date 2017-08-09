@@ -6,12 +6,18 @@ import React from "react";
 
 import AddEntry from "../containers/addEntry";
 import AllEntries from "../containers/allEntries";
+import CurrentEntry from "../containers/currentEntry";
 
 export default function App() {
   return (
-    <div>
-      <AddEntry/>
-      <AllEntries/>
-    </div>
+    <section style={{display: "flex", width: "100vw", height: "100vh"}}>
+      <aside style={{borderRight: "1px solid black"}}>
+        <AddEntry/>
+        <AllEntries/>
+      </aside>
+      <article>
+        <CurrentEntry/>
+      </article>
+    </section>
   );
 };
