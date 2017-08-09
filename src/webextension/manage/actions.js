@@ -3,6 +3,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 export const ADD_ENTRY = Symbol("ADD_ENTRY");
+export const DELETE_ENTRY = Symbol("DELETE_ENTRY");
+export const SELECT_ENTRY = Symbol("SELECT_ENTRY");
 
 let nextId = 0;
 
@@ -11,5 +13,19 @@ export function addEntry(name) {
     type: ADD_ENTRY,
     id: nextId++,
     name,
+  };
+}
+
+export function deleteEntry(id) {
+  return {
+    type: DELETE_ENTRY,
+    id,
+  };
+}
+
+export function selectEntry(id) {
+  return {
+    type: SELECT_ENTRY,
+    id,
   };
 }

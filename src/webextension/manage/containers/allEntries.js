@@ -4,12 +4,17 @@
 
 import { connect } from "react-redux";
 
+import { selectEntry } from "../actions";
 import EntryList from "../components/entryList";
 
 const AllEntries = connect(
   (state) => ({
-    entries: state.entries
+    entries: state.storage.entries,
+    selected: state.ui.selectedEntry,
   }),
+  (dispatch) => ({
+    onEntryClick: (id) => dispatch(selectEntry(id))
+  })
 )(EntryList);
 
 export default AllEntries;
