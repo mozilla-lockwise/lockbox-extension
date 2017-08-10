@@ -4,15 +4,21 @@
 
 import { combineReducers } from "redux";
 
-import { ADD_ENTRY, DELETE_ENTRY, SELECT_ENTRY } from "./actions";
+import { ADD_ENTRY, UPDATE_ENTRY, DELETE_ENTRY, SELECT_ENTRY } from "./actions";
 
 function storageReducer(state = {entries: []}, action) {
   switch (action.type) {
   case ADD_ENTRY:
     return Object.assign({}, state, {entries: [
       ...state.entries,
-      {id: action.id, name: action.name}
+      Object.assign({id: action.id}, action.details)
     ]});
+  case UPDATE_ENTRY:
+    return Object.assign({}, state, {entries: state.entries.map((x) => {
+      if (x.id === action.id)
+        return Object.assign({id: action.id}, action.details);
+      return x;
+    })});
   case DELETE_ENTRY:
     return Object.assign({}, state, {entries: state.entries.filter(
       (x) => x.id !== action.id

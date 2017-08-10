@@ -19,7 +19,8 @@ export default function EntryList({entries, selected, onEntryClick}) {
   return (
     <ul style={style}>
       {entries.map((entry) => (
-        <Entry key={entry.id} name={entry.name} selected={entry.id === selected}
+        <Entry key={entry.id} name={entry.site}
+               selected={entry.id === selected}
                onClick={() => onEntryClick(entry.id)}/>
       ))}
     </ul>
