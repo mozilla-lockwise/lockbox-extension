@@ -12,7 +12,7 @@ const collator = new Intl.Collator();
 const AllEntries = connect(
   (state) => ({
     entries: [...state.storage.entries].sort(
-      (a, b) => collator.compare(a.name, b.name)
+      (a, b) => collator.compare(a.site, b.site)
     ),
     selected: state.ui.selectedEntry,
   }),

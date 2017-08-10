@@ -4,21 +4,19 @@
 
 import { connect } from "react-redux";
 
-import { deleteEntry } from "../actions";
+import { updateEntry, deleteEntry } from "../actions";
 import EntryDetails from "../components/entryDetails";
 
 const CurrentEntry = connect(
   (state) => {
-    let selected = state.storage.entries.find(
+    const selected = state.storage.entries.find(
       (x) => x.id === state.ui.selectedEntry
     );
-    return {
-      name: selected ? selected.name : null,
-      id: state.ui.selectedEntry,
-    };
+    return selected || { id: null };
   },
   (dispatch) => ({
-    onDelete: (id) => dispatch(deleteEntry(id))
+    onSave: (id, name) => dispatch(updateEntry(id, name)),
+    onDelete: (id) => dispatch(deleteEntry(id)),
   })
 )(EntryDetails);
 

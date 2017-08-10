@@ -3,16 +3,29 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 export const ADD_ENTRY = Symbol("ADD_ENTRY");
+export const UPDATE_ENTRY = Symbol("UPDATE_ENTRY");
 export const DELETE_ENTRY = Symbol("DELETE_ENTRY");
 export const SELECT_ENTRY = Symbol("SELECT_ENTRY");
 
 let nextId = 0;
 
-export function addEntry(name) {
+export function addEntry(site) {
   return {
     type: ADD_ENTRY,
     id: nextId++,
-    name,
+    details: {
+      site,
+      username: "(default)",
+      password: "(default)",
+    }
+  };
+}
+
+export function updateEntry(id, details) {
+  return {
+    type: UPDATE_ENTRY,
+    id,
+    details,
   };
 }
 
