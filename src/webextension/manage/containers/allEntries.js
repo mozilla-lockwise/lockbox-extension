@@ -7,9 +7,13 @@ import { connect } from "react-redux";
 import { selectEntry } from "../actions";
 import EntryList from "../components/entryList";
 
+const collator = new Intl.Collator();
+
 const AllEntries = connect(
   (state) => ({
-    entries: state.storage.entries,
+    entries: [...state.storage.entries].sort(
+      (a, b) => collator.compare(a.name, b.name)
+    ),
     selected: state.ui.selectedEntry,
   }),
   (dispatch) => ({
