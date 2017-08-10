@@ -9,20 +9,20 @@ import { ADD_ENTRY, UPDATE_ENTRY, DELETE_ENTRY, SELECT_ENTRY } from "./actions";
 function storageReducer(state = {entries: []}, action) {
   switch (action.type) {
   case ADD_ENTRY:
-    return Object.assign({}, state, {entries: [
+    return {...state, entries: [
       ...state.entries,
-      Object.assign({id: action.id}, action.details)
-    ]});
+      {id: action.id, ...action.details}
+    ]};
   case UPDATE_ENTRY:
-    return Object.assign({}, state, {entries: state.entries.map((x) => {
+    return {...state, entries: state.entries.map((x) => {
       if (x.id === action.id)
-        return Object.assign({id: action.id}, action.details);
+        return {id: action.id, ...action.details};
       return x;
-    })});
+    })};
   case DELETE_ENTRY:
-    return Object.assign({}, state, {entries: state.entries.filter(
+    return {...state, entries: state.entries.filter(
       (x) => x.id !== action.id
-    )});
+    )};
   default:
     return state;
   }
@@ -32,10 +32,10 @@ function uiReducer(state = {selectedEntry: null}, action) {
   switch (action.type) {
   case ADD_ENTRY:
   case SELECT_ENTRY:
-    return Object.assign({}, state, {selectedEntry: action.id});
+    return {...state, selectedEntry: action.id};
   case DELETE_ENTRY:
     if (state.selectedEntry === action.id)
-      return Object.assign({}, state, {selectedEntry: null});
+      return {...state, selectedEntry: null};
     return state;
   default:
     return state;
