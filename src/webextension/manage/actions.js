@@ -9,12 +9,12 @@ export const SELECT_ENTRY = Symbol("SELECT_ENTRY");
 
 let nextId = 0;
 
-export function addEntry(site) {
+export function addEntry() {
   return {
     type: ADD_ENTRY,
     id: nextId++,
     details: {
-      site,
+      site: "(default)",
       username: "(default)",
       password: "(default)",
     }
