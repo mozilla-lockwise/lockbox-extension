@@ -31,7 +31,7 @@ EntryList.propTypes = {
   entries: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
+      site: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
   onEntryClick: PropTypes.func.isRequired,
