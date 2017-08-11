@@ -8,17 +8,21 @@ import React from "react";
 
 export default class EntryDetails extends React.Component {
   propTypes: {
-    site: PropTypes.string,
-    username: PropTypes.string,
-    password: PropTypes.string,
-    id: PropTypes.number,
+    site: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
   }
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      site: props.site,
+      username: props.username,
+      password: props.password,
+    };
   }
 
   componentWillReceiveProps(props) {
@@ -32,15 +36,6 @@ export default class EntryDetails extends React.Component {
   render() {
     const {id, onSave, onDelete} = this.props;
 
-    // XXX: This probably belongs somewhere else!
-    if (id === null) {
-      return (
-        <Localized id="no-entry">
-          <div style={{margin: "1em"}}>no eNTRy sELECTEd</div>
-        </Localized>
-      );
-    }
-
     return (
       <div style={{margin: "1em"}}>
         <p>
@@ -52,7 +47,7 @@ export default class EntryDetails extends React.Component {
         </p>
         <p>
           <Localized id="entry-username">
-            <span>uUSERNAMe</span>
+            <span>uSERNAMe</span>
           </Localized>
           <input type="text" value={this.state.username}
                  onChange={(e) => this.setState({username: e.target.value})}/>

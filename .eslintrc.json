@@ -20,5 +20,8 @@
   "plugins": [
     "mozilla",
     "react"
-  ]
+  ],
+  "rules": {
+    "no-console": 1
+  }
 }
