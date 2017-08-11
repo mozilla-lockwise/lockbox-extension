@@ -11,7 +11,7 @@ import { addEntry } from "../actions";
 function AddEntry({dispatch}) {
   return (
     <Localized id="add-entry">
-      <button onClick={() => { dispatch(addEntry(prompt("Enter name"))); }}>
+      <button onClick={() => { dispatch(addEntry()); }}>
         aDd eNTRy
       </button>
     </Localized>
