@@ -7,34 +7,44 @@ import PropTypes from "prop-types";
 import React from "react";
 
 export default class EntryDetails extends React.Component {
-  propTypes: {
-    site: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-    onSave: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
+  static get propTypes() {
+    return {
+      entry: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        site: PropTypes.string.isRequired,
+        username: PropTypes.string.isRequired,
+        password: PropTypes.string.isRequired,
+      }),
+      onSave: PropTypes.func.isRequired,
+      onDelete: PropTypes.func.isRequired,
+    };
+  }
+
+  _setState(props, initial) {
+    let state;
+    if (props.entry)
+      state = {...props.entry};
+    else
+      state = {id: undefined, site: "", username: "", password: ""};
+
+    this.newEntry = !props.entry;
+    if (initial)
+      this.state = state;
+    else
+      this.setState(state);
   }
 
   constructor(props) {
     super(props);
-    this.state = {
-      site: props.site,
-      username: props.username,
-      password: props.password,
-    };
+    this._setState(props, true);
   }
 
   componentWillReceiveProps(props) {
-    this.setState({
-      site: props.site,
-      username: props.username,
-      password: props.password,
-    });
+    this._setState(props, false);
   }
 
   render() {
-    const {id, onSave, onDelete} = this.props;
+    const {onSave, onDelete} = this.props;
 
     return (
       <div style={{margin: "1em"}}>
@@ -60,11 +70,11 @@ export default class EntryDetails extends React.Component {
                  onChange={(e) => this.setState({password: e.target.value})}/>
         </p>
         <p>
-          <Localized id="save-entry">
-            <button onClick={() => onSave(id, this.state)}>sAVe</button>
+          <Localized id={this.newEntry ? "save-entry" : "update-entry"}>
+            <button onClick={() => onSave(this.state)}>sAVe</button>
           </Localized>
-          <Localized id="delete-entry">
-            <button onClick={() => onDelete(id)}>dELETe</button>
+          <Localized id={this.newEntry ? "cancel-entry" : "delete-entry"}>
+            <button onClick={() => onDelete(this.state.id)}>dELETe</button>
           </Localized>
         </p>
       </div>

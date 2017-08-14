@@ -14,7 +14,7 @@ const AllEntries = connect(
     entries: [...state.storage.entries].sort(
       (a, b) => collator.compare(a.site, b.site)
     ),
-    selected: state.ui.selectedEntry,
+    selected: state.ui.newEntry ? null : state.ui.selectedEntry,
   }),
   (dispatch) => ({
     onEntryClick: (id) => dispatch(selectEntry(id))

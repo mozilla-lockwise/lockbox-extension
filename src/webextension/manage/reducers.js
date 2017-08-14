@@ -4,22 +4,22 @@
 
 import { combineReducers } from "redux";
 
-import { ADD_ENTRY, UPDATE_ENTRY, DELETE_ENTRY, SELECT_ENTRY } from "./actions";
+import { ADD_ENTRY, UPDATE_ENTRY, REMOVE_ENTRY, START_NEW_ENTRY,
+         CANCEL_NEW_ENTRY, SELECT_ENTRY } from "./actions";
 
 function storageReducer(state = {entries: []}, action) {
   switch (action.type) {
   case ADD_ENTRY:
     return {...state, entries: [
-      ...state.entries,
-      {id: action.id, ...action.details}
+      ...state.entries, action.entry
     ]};
   case UPDATE_ENTRY:
     return {...state, entries: state.entries.map((x) => {
-      if (x.id === action.id)
-        return {id: action.id, ...action.details};
+      if (x.id === action.entry.id)
+        return action.entry;
       return x;
     })};
-  case DELETE_ENTRY:
+  case REMOVE_ENTRY:
     return {...state, entries: state.entries.filter(
       (x) => x.id !== action.id
     )};
@@ -28,12 +28,17 @@ function storageReducer(state = {entries: []}, action) {
   }
 }
 
-function uiReducer(state = {selectedEntry: null}, action) {
+function uiReducer(state = {selectedEntry: null, newEntry: false}, action) {
   switch (action.type) {
-  case ADD_ENTRY:
+  case START_NEW_ENTRY:
+    return {...state, newEntry: true};
+  case CANCEL_NEW_ENTRY:
+    return {...state, newEntry: false};
   case SELECT_ENTRY:
     return {...state, selectedEntry: action.id};
-  case DELETE_ENTRY:
+  case ADD_ENTRY:
+    return {...state, selectedEntry: action.entry.id, newEntry: false};
+  case REMOVE_ENTRY:
     if (state.selectedEntry === action.id)
       return {...state, selectedEntry: null};
     return state;

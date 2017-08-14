@@ -6,12 +6,12 @@ import { Localized } from "fluent-react/compat";
 import React from "react";
 import { connect } from "react-redux";
 
-import { addEntry } from "../actions";
+import { startNewEntry } from "../actions";
 
 function AddEntry({dispatch}) {
   return (
     <Localized id="add-entry">
-      <button onClick={() => { dispatch(addEntry()); }}>
+      <button onClick={() => { dispatch(startNewEntry()); }}>
         aDd eNTRy
       </button>
     </Localized>
