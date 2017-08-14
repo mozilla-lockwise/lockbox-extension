@@ -1,13 +1,20 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const path = require("path");
 
-var path = require("path");
-
-var entries = {
+const entries = {
   "background": "./webextension/background.js",
   "manage/index": "./webextension/manage/index.js"
 };
 
-var config = {
+const NODE_ENV = (process.env.NODE_ENV) ? process.env.NODE_ENV.toLowerCase() :
+                 "development";
+
+const config = {
   context: path.join(__dirname, "/src"),
   entry: entries,
 
@@ -39,6 +46,11 @@ var config = {
       {from: "webextension/**/*.html"},
       {from: "webextension/icons/*"},
     ]),
+    new webpack.DefinePlugin({
+      "process.env": {
+        "NODE_ENV": JSON.stringify(NODE_ENV),
+      },
+    }),
   ],
 };
 module.exports = config;
