@@ -6,4 +6,6 @@ entry-username = Username
 entry-password = Password
 
 save-entry = Save
+cancel-entry = Cancel
+update-entry = Update
 delete-entry = Delete
