@@ -27,6 +27,8 @@ The resulting add-on is unsigned and likely won't work on release versions of
 Firefox. You can flip the `xpinstall.signatures.required` preference on other
 channels accordingly.
 
+In preparation for 57, legacy extensions are also disabled. So you'll need to flip the `extensions.legacy.enabled` preference, too.
+
 If you'd like to quickly **start up a new Firefox profile** with Lockbox
 installed for development/testing, you can run:
 
