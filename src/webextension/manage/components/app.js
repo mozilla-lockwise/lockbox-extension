@@ -8,10 +8,12 @@ import AddEntry from "../containers/addEntry";
 import AllEntries from "../containers/allEntries";
 import CurrentEntry from "../containers/currentEntry";
 
+import styles from "./app.css";
+
 export default function App() {
   return (
-    <section style={{display: "flex", width: "100vw", height: "100vh"}}>
-      <aside style={{borderRight: "1px solid black"}}>
+    <section className={styles.app}>
+      <aside>
         <AddEntry/>
         <AllEntries/>
       </aside>

@@ -9,11 +9,13 @@ import { connect } from "react-redux";
 import { addEntry, cancelNewEntry, updateEntry, removeEntry } from "../actions";
 import EntryDetails from "../components/entryDetails";
 
+import styles from "./currentEntry.css";
+
 function CurrentEntry({noEntry, entry, onSave, onDelete}) {
   if (noEntry) {
     return (
       <Localized id="no-entry">
-        <div style={{margin: "1em"}}>no eNTRy sELECTEd</div>
+        <div className={styles.currentEntry}>no eNTRy sELECTEd</div>
       </Localized>
     );
   }

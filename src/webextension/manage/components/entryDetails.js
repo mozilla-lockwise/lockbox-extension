@@ -6,6 +6,8 @@ import { Localized } from "fluent-react/compat";
 import PropTypes from "prop-types";
 import React from "react";
 
+import styles from "./entryDetails.css";
+
 export default class EntryDetails extends React.Component {
   static get propTypes() {
     return {
@@ -47,7 +49,7 @@ export default class EntryDetails extends React.Component {
     const {onSave, onDelete} = this.props;
 
     return (
-      <form style={{margin: "1em"}} onSubmit={(e) => {
+      <form className={styles.entryDetails} onSubmit={(e) => {
         e.preventDefault();
         onSave(this.state);
       }}>

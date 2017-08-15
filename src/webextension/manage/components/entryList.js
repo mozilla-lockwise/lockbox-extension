@@ -7,17 +7,11 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import Entry from "./entry";
+import styles from "./entryList.css";
 
 export default function EntryList({entries, selected, onEntryClick}) {
-  const style = {
-    margin: 0,
-    padding: 0,
-    listStyle: "none",
-    borderTop: "1px solid black",
-  };
-
   return (
-    <ul style={style}>
+    <ul className={styles.entryList}>
       {entries.map((entry) => (
         <Entry key={entry.id} name={entry.site}
                selected={entry.id === selected}
