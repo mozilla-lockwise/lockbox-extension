@@ -25,7 +25,7 @@
   ],
   "scripts": {
     "prerun": "npm run-script build",
-    "run": "jpm run --addon-dir dist/ ${npm_config_jpm_runflags}",
+    "run": "jpm run --addon-dir dist/ ${npm_config_jpm_runflags} --prefs jpm-prefs.json",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "git clean -fX ./dist ./*.xpi",
     "distclean": "git clean -dfX",
