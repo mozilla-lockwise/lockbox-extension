@@ -47,7 +47,10 @@ export default class EntryDetails extends React.Component {
     const {onSave, onDelete} = this.props;
 
     return (
-      <div style={{margin: "1em"}}>
+      <form style={{margin: "1em"}} onSubmit={(e) => {
+        e.preventDefault();
+        onSave(this.state);
+      }}>
         <p>
           <Localized id="entry-site">
             <span>sITe</span>
@@ -71,13 +74,13 @@ export default class EntryDetails extends React.Component {
         </p>
         <p>
           <Localized id={this.newEntry ? "save-entry" : "update-entry"}>
-            <button onClick={() => onSave(this.state)}>sAVe</button>
+            <button type="submit">sAVe</button>
           </Localized>
           <Localized id={this.newEntry ? "cancel-entry" : "delete-entry"}>
             <button onClick={() => onDelete(this.state.id)}>dELETe</button>
           </Localized>
         </p>
-      </div>
+      </form>
     );
   }
 }
