@@ -14,7 +14,7 @@ npm install
 
 ## Building
 
-To **build the project**, simple run:
+To **build the project**, simply run:
 
 ```sh
 npm run-script build
