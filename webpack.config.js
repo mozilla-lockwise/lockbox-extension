@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 const webpack = require("webpack");
+const combineLoaders = require("webpack-combine-loaders");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const path = require("path");
 
@@ -24,16 +25,26 @@ const config = {
   },
 
   module: {
-    loaders: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: "babel-loader",
-        query: {
-          presets: ["react", "stage-2"]
-        }
+    loaders: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: "babel-loader",
+      query: {
+        presets: ["react", "stage-2"]
       }
-    ],
+    }, {
+      test: /\.css$/,
+      exclude: /node_modules/,
+      loader: combineLoaders([{
+        loader: "style-loader"
+      }, {
+        loader: 'css-loader',
+        query: {
+          modules: true,
+          localIdentName: '[name]__[local]___[hash:base64:5]'
+        }
+      }])
+    }]
   },
 
   plugins: [

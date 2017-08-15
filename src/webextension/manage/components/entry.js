@@ -5,19 +5,12 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-export default function Entry({name, selected, onClick}) {
-  let style = {
-    borderBottom: "1px solid black",
-  };
-  if (selected) {
-    Object.assign(style, {
-      color: "HighlightText",
-      backgroundColor: "Highlight",
-    });
-  }
+import styles from "./entry.css";
 
+export default function Entry({name, selected, onClick}) {
+  const attrs = (selected) ? {"data-selected": true} : {};
   return (
-    <li style={style} onClick={onClick}>{name}</li>
+    <li className={styles.entry} {...attrs} onClick={onClick}>{name}</li>
   );
 }
 
