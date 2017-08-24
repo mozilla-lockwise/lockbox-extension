@@ -10,12 +10,17 @@ import EntryList from "../components/entryList";
 const collator = new Intl.Collator();
 
 const AllEntries = connect(
-  (state) => ({
-    entries: [...state.storage.entries].sort(
-      (a, b) => collator.compare(a.site, b.site)
-    ),
-    selected: state.ui.newEntry ? null : state.ui.selectedEntry,
-  }),
+  (state) => {
+    let currentId = null;
+    if (!state.ui.newEntry && state.cache.currentEntry)
+      currentId = state.cache.currentEntry.id;
+    return {
+      entries: [...state.cache.entries].sort(
+        (a, b) => collator.compare(a.site, b.site)
+      ),
+      selected: currentId,
+    };
+  },
   (dispatch) => ({
     onEntryClick: (id) => dispatch(selectEntry(id))
   })

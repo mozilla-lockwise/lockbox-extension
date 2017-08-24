@@ -5,13 +5,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
 import { AppLocalizationProvider } from "./l10n";
 import App from "./components/app";
 import { reducer } from "./reducers";
 
-const store = createStore(reducer);
+const store = createStore(reducer, undefined, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
