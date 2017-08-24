@@ -15,6 +15,10 @@ function openLockbox() {
 
 browser.browserAction.onClicked.addListener(openLockbox);
 
+function makeEntrySummary(entry) {
+  return {site: entry.site, id: entry.id};
+}
+
 const fakeStore = {
   _nextId: 0,
   _datastore: [],
@@ -52,22 +56,50 @@ const fakeStore = {
     }
     return null;
   },
+
+  list() {
+    return this._datastore.map(makeEntrySummary);
+  },
 };
+
+let ports = new Set();
+browser.runtime.onConnect.addListener((port) => {
+  ports.add(port);
+  port.onDisconnect.addListener(() => {
+    console.log("message port disconnected");
+    ports.delete(port);
+  });
+});
+
+function broadcast(message) {
+  for (let p of ports)
+    p.postMessage(message);
+}
 
 browser.runtime.onMessage.addListener((message, sender, respond) => {
   switch (message.type) {
-  case "add_entry":
-    respond({entry: fakeStore.add(message.entry)});
+  case "add_entry": {
+    const entry = fakeStore.add(message.entry);
+    respond({entry});
+    broadcast({type: "added_entry", entry});
     break;
-  case "update_entry":
-    respond({entry: fakeStore.update(message.entry)});
+  }
+  case "update_entry": {
+    const entry = fakeStore.update(message.entry);
+    respond({entry});
+    broadcast({type: "updated_entry", entry});
     break;
+  }
   case "remove_entry":
     fakeStore.remove(message.id);
     respond({});
+    broadcast({type: "removed_entry", id: message.id});
     break;
   case "get_entry":
     respond({entry: fakeStore.get(message.id)});
+    break;
+  case "list_entries":
+    respond({entries: fakeStore.list()});
     break;
   }
 });

@@ -2,6 +2,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+export const LIST_ENTRIES_STARTING = Symbol("LIST_ENTRIES_STARTING");
+export const LIST_ENTRIES_COMPLETED = Symbol("LIST_ENTRIES_COMPLETED");
+
 export const ADD_ENTRY_STARTING = Symbol("ADD_ENTRY_STARTING");
 export const ADD_ENTRY_COMPLETED = Symbol("ADD_ENTRY_COMPLETED");
 
@@ -21,6 +24,33 @@ export const CANCEL_NEW_ENTRY = Symbol("CANCEL_NEW_ENTRY");
 // FOO_STARTING and FOO_COMPLETED).
 let nextActionId = 0;
 
+export function listEntries() {
+  return async function(dispatch) {
+    const actionId = nextActionId++;
+    dispatch(listEntriesStarting(actionId));
+
+    const response = await browser.runtime.sendMessage({
+      type: "list_entries",
+    });
+    dispatch(listEntriesCompleted(actionId, response.entries));
+  };
+}
+
+function listEntriesStarting(actionId) {
+  return {
+    type: LIST_ENTRIES_STARTING,
+    actionId,
+  };
+}
+
+function listEntriesCompleted(actionId, entries) {
+  return {
+    type: LIST_ENTRIES_COMPLETED,
+    actionId,
+    entries,
+  };
+}
+
 export function addEntry(details) {
   return async function(dispatch) {
     const actionId = nextActionId++;
@@ -32,6 +62,10 @@ export function addEntry(details) {
     });
     dispatch(addEntryCompleted(actionId, response.entry));
   };
+}
+
+export function addedEntry(entry) {
+  return addEntryCompleted(undefined, entry);
 }
 
 function addEntryStarting(actionId, entry) {
@@ -63,6 +97,10 @@ export function updateEntry(entry) {
   };
 }
 
+export function updatedEntry(entry) {
+  return updateEntryCompleted(undefined, entry);
+}
+
 function updateEntryStarting(actionId, entry) {
   return {
     type: UPDATE_ENTRY_STARTING,
@@ -90,6 +128,10 @@ export function removeEntry(id) {
     });
     dispatch(removeEntryCompleted(actionId, id));
   };
+}
+
+export function removedEntry(id) {
+  return removeEntryCompleted(undefined, id);
 }
 
 function removeEntryStarting(actionId, id) {
