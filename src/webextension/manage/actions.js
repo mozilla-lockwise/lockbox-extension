@@ -20,21 +20,17 @@ export const CANCEL_NEW_ENTRY = Symbol("CANCEL_NEW_ENTRY");
 // The action ID is used to correlate async actions with each other (i.e.
 // FOO_STARTING and FOO_COMPLETED).
 let nextActionId = 0;
-let nextId = 0;
-let datastore = [];
 
 export function addEntry(details) {
-  return (dispatch) => {
+  return async function(dispatch) {
     const actionId = nextActionId++;
     dispatch(addEntryStarting(actionId, details));
-    return new Promise((resolve, reject) => {
-      const entry = {
-        ...details,
-        id: nextId++,
-      };
-      datastore.push(entry);
-      dispatch(addEntryCompleted(actionId, entry));
+
+    const response = await browser.runtime.sendMessage({
+      type: "add_entry",
+      entry: details,
     });
+    dispatch(addEntryCompleted(actionId, response.entry));
   };
 }
 
@@ -55,18 +51,15 @@ function addEntryCompleted(actionId, entry) {
 }
 
 export function updateEntry(entry) {
-  return (dispatch) => {
+  return async function(dispatch) {
     const actionId = nextActionId++;
     dispatch(updateEntryStarting(actionId, entry));
-    return new Promise((resolve, reject) => {
-      for (let i = 0; i < datastore.length; i++) {
-        if (datastore[i].id === entry.id) {
-          datastore[i] = entry;
-          break;
-        }
-      }
-      dispatch(updateEntryCompleted(actionId, entry));
+
+    const response = await browser.runtime.sendMessage({
+      type: "update_entry",
+      entry,
     });
+    dispatch(updateEntryCompleted(actionId, response.entry));
   };
 }
 
@@ -87,21 +80,17 @@ function updateEntryCompleted(actionId, entry) {
 }
 
 export function removeEntry(id) {
-  return (dispatch) => {
+  return async function(dispatch) {
     const actionId = nextActionId++;
     dispatch(removeEntryStarting(actionId, id));
-    return new Promise((resolve, reject) => {
-      for (let i = 0; i < datastore.length; i++) {
-        if (datastore[i].id === id) {
-          datastore.splice(i, 1);
-          break;
-        }
-      }
-      dispatch(removeEntryCompleted(actionId, id));
+
+    const response = await browser.runtime.sendMessage({
+      type: "remove_entry",
+      id,
     });
+    dispatch(removeEntryCompleted(actionId, id));
   };
 }
-    const actionId = nextActionId++;
 
 function removeEntryStarting(actionId, id) {
   return {
@@ -120,17 +109,14 @@ function removeEntryCompleted(actionId, id) {
 }
 
 export function selectEntry(id) {
-  return (dispatch) => {
+  return async function(dispatch) {
     const actionId = nextActionId++;
     dispatch(selectEntryStarting(actionId, id));
-    return new Promise((resolve, reject) => {
-      for (let i = 0; i < datastore.length; i++) {
-        if (datastore[i].id === id) {
-          dispatch(selectEntryCompleted(actionId, datastore[i]));
-          return;
-        }
-      }
+    const response = await browser.runtime.sendMessage({
+      type: "get_entry",
+      id,
     });
+    dispatch(selectEntryCompleted(actionId, response.entry));
   };
 }
 
