@@ -5,9 +5,9 @@
 import { combineReducers } from "redux";
 
 import {
-  ADD_ENTRY_STARTING, ADD_ENTRY_COMPLETED, UPDATE_ENTRY_COMPLETED,
-  REMOVE_ENTRY_COMPLETED, SELECT_ENTRY_COMPLETED, START_NEW_ENTRY,
-  CANCEL_NEW_ENTRY
+  LIST_ENTRIES_COMPLETED, ADD_ENTRY_STARTING, ADD_ENTRY_COMPLETED,
+  UPDATE_ENTRY_COMPLETED, REMOVE_ENTRY_COMPLETED, SELECT_ENTRY_COMPLETED,
+  START_NEW_ENTRY, CANCEL_NEW_ENTRY
 } from "./actions";
 
 function makeEntrySummary(entry) {
@@ -36,6 +36,11 @@ function cacheReducer(state = {
   entries: [], currentEntry: null, pendingAdd: null
 }, action) {
   switch (action.type) {
+  case LIST_ENTRIES_COMPLETED:
+    return {
+      ...state,
+      entries: action.entries,
+    };
   case ADD_ENTRY_STARTING:
     return {
       ...state,
