@@ -26,11 +26,11 @@ function CurrentEntry({noEntry, entry, onSave, onDelete}) {
 
 CurrentEntry = connect(
   (state) => {
+    if (state.ui.newEntry)
+      return { noEntry: false, entry: null };
     return {
-      noEntry: !state.ui.newEntry && state.ui.selectedEntry === null,
-      entry: state.ui.newEntry ? null : state.storage.entries.find(
-        (x) => x.id === state.ui.selectedEntry
-      )
+      noEntry: state.cache.currentEntry === null,
+      entry: state.cache.currentEntry,
     };
   },
   (dispatch) => {

@@ -4,50 +4,86 @@
 
 import { combineReducers } from "redux";
 
-import { ADD_ENTRY, UPDATE_ENTRY, REMOVE_ENTRY, START_NEW_ENTRY,
-         CANCEL_NEW_ENTRY, SELECT_ENTRY } from "./actions";
+import {
+  ADD_ENTRY_STARTING, ADD_ENTRY_COMPLETED, UPDATE_ENTRY_COMPLETED,
+  REMOVE_ENTRY_COMPLETED, SELECT_ENTRY_COMPLETED, START_NEW_ENTRY,
+  CANCEL_NEW_ENTRY
+} from "./actions";
 
-function storageReducer(state = {entries: []}, action) {
+function makeEntrySummary(entry) {
+  return {site: entry.site, id: entry.id};
+}
+
+function maybeAddCurrentEntry(state, action) {
+  if (state.pendingAdd === action.actionId)
+    return {currentEntry: action.entry, pendingAdd: null};
+  return {};
+}
+
+function maybeUpdateCurrentEntry(state, action) {
+  if (state.currentEntry && state.currentEntry.id === action.entry.id)
+    return {currentEntry: action.entry};
+  return {};
+}
+
+function maybeRemoveCurrentEntry(state, action) {
+  if (state.currentEntry && state.currentEntry.id === action.id)
+    return {currentEntry: null};
+  return {};
+}
+
+function cacheReducer(state = {
+  entries: [], currentEntry: null, pendingAdd: null
+}, action) {
   switch (action.type) {
-  case ADD_ENTRY:
-    return {...state, entries: [
-      ...state.entries, action.entry
-    ]};
-  case UPDATE_ENTRY:
-    return {...state, entries: state.entries.map((x) => {
-      if (x.id === action.entry.id)
-        return action.entry;
-      return x;
-    })};
-  case REMOVE_ENTRY:
-    return {...state, entries: state.entries.filter(
-      (x) => x.id !== action.id
-    )};
+  case ADD_ENTRY_STARTING:
+    return {
+      ...state,
+      pendingAdd: action.actionId,
+    };
+  case ADD_ENTRY_COMPLETED:
+    return {
+      ...state,
+      entries: [...state.entries, makeEntrySummary(action.entry)],
+      ...maybeAddCurrentEntry(state, action),
+    };
+  case UPDATE_ENTRY_COMPLETED:
+    return {
+      ...state,
+      entries: state.entries.map((x) => {
+        if (x.id === action.entry.id)
+          return makeEntrySummary(action.entry);
+        return x;
+      }),
+      ...maybeUpdateCurrentEntry(state, action),
+    };
+  case REMOVE_ENTRY_COMPLETED:
+    return {
+      ...state,
+      entries: state.entries.filter((x) => x.id !== action.id),
+      ...maybeRemoveCurrentEntry(state, action),
+    };
+  case SELECT_ENTRY_COMPLETED:
+    return {...state, currentEntry: action.entry};
   default:
     return state;
   }
 }
 
-function uiReducer(state = {selectedEntry: null, newEntry: false}, action) {
+function uiReducer(state = {newEntry: false}, action) {
   switch (action.type) {
   case START_NEW_ENTRY:
     return {...state, newEntry: true};
   case CANCEL_NEW_ENTRY:
     return {...state, newEntry: false};
-  case SELECT_ENTRY:
-    return {...state, selectedEntry: action.id};
-  case ADD_ENTRY:
-    return {...state, selectedEntry: action.entry.id, newEntry: false};
-  case REMOVE_ENTRY:
-    if (state.selectedEntry === action.id)
-      return {...state, selectedEntry: null};
-    return state;
+  case ADD_ENTRY_COMPLETED:
+    return {...state, newEntry: false};
   default:
     return state;
   }
 }
 
 export const reducer = combineReducers({
-  storage: storageReducer,
+  cache: cacheReducer,
   ui: uiReducer,
 });
