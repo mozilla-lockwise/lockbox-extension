@@ -31,7 +31,8 @@ const config = {
       exclude: /node_modules/,
       loader: "babel-loader",
       query: {
-        presets: ["react", "stage-2"]
+        presets: ["react"],
+        plugins: ["transform-object-rest-spread"],
       }
     }, {
       test: /\.css$/,

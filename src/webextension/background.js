@@ -26,7 +26,7 @@ const fakeStore = {
   add(details) {
     const entry = {...details, id: this._nextId++};
     this._datastore.push(entry);
-    return entry;
+    return Promise.resolve(entry);
   },
 
   update(entry) {
@@ -36,7 +36,7 @@ const fakeStore = {
         break;
       }
     }
-    return entry;
+    return Promise.resolve(entry);
   },
 
   remove(id) {
@@ -46,19 +46,20 @@ const fakeStore = {
         break;
       }
     }
+    return Promise.resolve();
   },
 
   get(id) {
     for (let i = 0; i < this._datastore.length; i++) {
       if (this._datastore[i].id === id) {
-        return this._datastore[i];
+        return Promise.resolve(this._datastore[i]);
       }
     }
-    return null;
+    return Promise.reject();
   },
 
   list() {
-    return this._datastore.map(makeEntrySummary);
+    return Promise.resolve(this._datastore.map(makeEntrySummary));
   },
 };
 
@@ -76,30 +77,27 @@ function broadcast(message) {
     p.postMessage(message);
 }
 
-browser.runtime.onMessage.addListener((message, sender, respond) => {
+browser.runtime.onMessage.addListener(async function(message) {
   switch (message.type) {
   case "add_entry": {
-    const entry = fakeStore.add(message.entry);
-    respond({entry});
+    const entry = await fakeStore.add(message.entry);
     broadcast({type: "added_entry", entry});
-    break;
+    return {entry};
   }
   case "update_entry": {
-    const entry = fakeStore.update(message.entry);
-    respond({entry});
+    const entry = await fakeStore.update(message.entry);
     broadcast({type: "updated_entry", entry});
-    break;
+    return {entry};
   }
   case "remove_entry":
-    fakeStore.remove(message.id);
-    respond({});
+    await fakeStore.remove(message.id);
     broadcast({type: "removed_entry", id: message.id});
-    break;
+    return {};
   case "get_entry":
-    respond({entry: fakeStore.get(message.id)});
-    break;
+    return {entry: await fakeStore.get(message.id)};
   case "list_entries":
-    respond({entries: fakeStore.list()});
-    break;
+    return {entries: await fakeStore.list()};
+  default:
+    return null;
   }
 });
