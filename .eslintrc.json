@@ -23,6 +23,7 @@
     "react"
   ],
   "rules": {
-    "no-console": 1
+    "no-console": 1,
+    "no-func-assign": 0
   }
 }

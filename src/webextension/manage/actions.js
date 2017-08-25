@@ -122,7 +122,7 @@ export function removeEntry(id) {
     const actionId = nextActionId++;
     dispatch(removeEntryStarting(actionId, id));
 
-    const response = await browser.runtime.sendMessage({
+    await browser.runtime.sendMessage({
       type: "remove_entry",
       id,
     });

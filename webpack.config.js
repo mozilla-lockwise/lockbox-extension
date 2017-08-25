@@ -8,7 +8,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const path = require("path");
 
 const entries = {
-  "background": "./webextension/background.js",
+  "background": "./webextension/background/index.js",
   "manage/index": "./webextension/manage/index.js"
 };
 
