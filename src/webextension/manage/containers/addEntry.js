@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { Localized } from "fluent-react/compat";
+import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
@@ -17,6 +18,10 @@ function AddEntry({dispatch}) {
     </Localized>
   );
 }
+
+AddEntry.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
 
 AddEntry = connect()(AddEntry);
 export default AddEntry;

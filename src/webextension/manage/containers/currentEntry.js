@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { Localized } from "fluent-react/compat";
+import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
@@ -23,6 +24,18 @@ function CurrentEntry({noEntry, entry, onSave, onDelete}) {
     <EntryDetails entry={entry} onSave={onSave} onDelete={onDelete}/>
   );
 }
+
+CurrentEntry.propTypes = {
+  noEntry: PropTypes.bool.isRequired,
+  entry: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    site: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+  }),
+  onSave: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
 
 CurrentEntry = connect(
   (state) => {
