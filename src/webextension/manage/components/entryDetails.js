@@ -12,8 +12,8 @@ export default class EntryDetails extends React.Component {
   static get propTypes() {
     return {
       entry: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        site: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
         username: PropTypes.string.isRequired,
         password: PropTypes.string.isRequired,
       }),
@@ -27,7 +27,7 @@ export default class EntryDetails extends React.Component {
     if (props.entry)
       state = {...props.entry};
     else
-      state = {id: undefined, site: "", username: "", password: ""};
+      state = {id: undefined, title: "", username: "", password: ""};
 
     this.newEntry = !props.entry;
     if (initial)
@@ -57,8 +57,8 @@ export default class EntryDetails extends React.Component {
           <Localized id="entry-site">
             <span>sITe</span>
           </Localized>
-          <input type="text" value={this.state.site}
-                 onChange={(e) => this.setState({site: e.target.value})}/>
+          <input type="text" value={this.state.title}
+                 onChange={(e) => this.setState({title: e.target.value})}/>
         </p>
         <p>
           <Localized id="entry-username">

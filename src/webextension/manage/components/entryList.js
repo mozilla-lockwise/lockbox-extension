@@ -12,7 +12,7 @@ export default function EntryList({entries, selected, onEntryClick}) {
   return (
     <ul className={styles.entryList}>
       {entries.map((entry) => (
-        <Entry key={entry.id} name={entry.site}
+        <Entry key={entry.id} name={entry.title}
                selected={entry.id === selected}
                onClick={() => onEntryClick(entry.id)}/>
       ))}
@@ -23,10 +23,10 @@ export default function EntryList({entries, selected, onEntryClick}) {
 EntryList.propTypes = {
   entries: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      site: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
-  selected: PropTypes.number,
+  selected: PropTypes.string,
   onEntryClick: PropTypes.func.isRequired,
 };

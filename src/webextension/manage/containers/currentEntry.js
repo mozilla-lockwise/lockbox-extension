@@ -12,6 +12,31 @@ import EntryDetails from "../components/entryDetails";
 
 import styles from "./currentEntry.css";
 
+function unflattenEntry(entry) {
+  if (!entry)
+    return entry;
+  return {
+    id: entry.id,
+    title: entry.title,
+    entry: {
+      kind: "login",
+      username: entry.username,
+      password: entry.password,
+    },
+  };
+}
+
+function flattenEntry(entry) {
+  if (!entry)
+    return entry;
+  return {
+    id: entry.id,
+    title: entry.title,
+    username: entry.entry.username,
+    password: entry.entry.password,
+  };
+}
+
 function CurrentEntry({noEntry, entry, onSave, onDelete}) {
   if (noEntry) {
     return (
@@ -21,17 +46,20 @@ function CurrentEntry({noEntry, entry, onSave, onDelete}) {
     );
   }
   return (
-    <EntryDetails entry={entry} onSave={onSave} onDelete={onDelete}/>
+    <EntryDetails entry={flattenEntry(entry)} onSave={onSave}
+                  onDelete={onDelete}/>
   );
 }
 
 CurrentEntry.propTypes = {
   noEntry: PropTypes.bool.isRequired,
   entry: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    site: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    entry: PropTypes.shape({
+      username: PropTypes.string.isRequired,
+      password: PropTypes.string.isRequired,
+    }),
   }),
   onSave: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
@@ -50,8 +78,8 @@ CurrentEntry = connect(
     return {
     onSave: (entry) => {
       if (entry.id === undefined)
-        return dispatch(addEntry(entry));
-      return dispatch(updateEntry(entry));
+        return dispatch(addEntry(unflattenEntry(entry)));
+      return dispatch(updateEntry(unflattenEntry(entry)));
     },
     onDelete: (id) => {
       if (id === undefined)

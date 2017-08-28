@@ -11,7 +11,7 @@ import {
 } from "./actions";
 
 function makeEntrySummary(entry) {
-  return {site: entry.site, id: entry.id};
+  return {title: entry.title, id: entry.id};
 }
 
 function maybeAddCurrentEntry(state, action) {
