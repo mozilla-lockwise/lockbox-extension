@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mozilla-lockbox/lockbox-extension.svg?branch=master)](https://travis-ci.org/mozilla-lockbox/lockbox-extension)
+
 # Lockbox for Firefox
 
 Lockbox for Firefox is a work-in-progress extension for Firefox to improve upon
