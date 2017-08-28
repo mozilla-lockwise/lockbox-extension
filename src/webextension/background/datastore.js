@@ -6,51 +6,42 @@ import DataStore from "lockbox-datastore";
 
 export const datastore = DataStore.create();
 
-function makeEntrySummary(entry) {
-  return {site: entry.site, id: entry.id};
-}
-
 export const fakeStore = {
   _nextId: 0,
-  _datastore: [],
+  _datastore: new Map(),
 
-  add(details) {
-    const entry = {...details, id: this._nextId++};
-    this._datastore.push(entry);
-    return Promise.resolve(entry);
+  unlock() {
+    return Promise.resolve();
   },
 
-  update(entry) {
-    for (let i = 0; i < this._datastore.length; i++) {
-      if (this._datastore[i].id === entry.id) {
-        this._datastore[i] = entry;
-        break;
-      }
-    }
-    return Promise.resolve(entry);
+  add(details) {
+    const id = (this._nextId++).toString();
+    const item = {...details, id};
+    this._datastore.set(id, item);
+    return Promise.resolve(item);
+  },
+
+  update(item) {
+    if (!this._datastore.get(item.id))
+      throw new Error("item does not exist");
+    this._datastore.set(item.id, item);
+    return Promise.resolve(item);
   },
 
   remove(id) {
-    for (let i = 0; i < this._datastore.length; i++) {
-      if (this._datastore[i].id === id) {
-        this._datastore.splice(i, 1);
-        break;
-      }
-    }
+    this._datastore.delete(id);
     return Promise.resolve();
   },
 
   get(id) {
-    for (let i = 0; i < this._datastore.length; i++) {
-      if (this._datastore[i].id === id) {
-        return Promise.resolve(this._datastore[i]);
-      }
-    }
+    const item = this._datastore.get(id);
+    if (item)
+      return Promise.resolve(item);
     return Promise.reject();
   },
 
   list() {
-    return Promise.resolve(this._datastore.map(makeEntrySummary));
+    return Promise.resolve(this._datastore);
   },
 };
 

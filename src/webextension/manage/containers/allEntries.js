@@ -16,7 +16,7 @@ const AllEntries = connect(
       currentId = state.cache.currentEntry.id;
     return {
       entries: [...state.cache.entries].sort(
-        (a, b) => collator.compare(a.site, b.site)
+        (a, b) => collator.compare(a.title, b.title)
       ),
       selected: currentId,
     };
