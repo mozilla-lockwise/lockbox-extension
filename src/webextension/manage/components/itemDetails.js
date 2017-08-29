@@ -6,12 +6,12 @@ import { Localized } from "fluent-react/compat";
 import PropTypes from "prop-types";
 import React from "react";
 
-import styles from "./entryDetails.css";
+import styles from "./itemDetails.css";
 
-export default class EntryDetails extends React.Component {
+export default class ItemDetails extends React.Component {
   static get propTypes() {
     return {
-      entry: PropTypes.shape({
+      item: PropTypes.shape({
         id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         username: PropTypes.string.isRequired,
@@ -24,13 +24,13 @@ export default class EntryDetails extends React.Component {
 
   _setState(props, initial) {
     let state;
-    if (props.entry) {
-      state = {...props.entry};
+    if (props.item) {
+      state = {...props.item};
     } else {
       state = {id: undefined, title: "", username: "", password: ""};
     }
 
-    this.newEntry = !props.entry;
+    this.newItem = !props.item;
     if (initial) {
       this.state = state;
     } else {
@@ -51,36 +51,36 @@ export default class EntryDetails extends React.Component {
     const {onSave, onDelete} = this.props;
 
     return (
-      <form className={styles.entryDetails} onSubmit={(e) => {
+      <form className={styles.itemDetails} onSubmit={(e) => {
         e.preventDefault();
         onSave(this.state);
       }}>
         <p>
-          <Localized id="entry-site">
+          <Localized id="item-site">
             <span>sITe</span>
           </Localized>
           <input type="text" value={this.state.title}
                  onChange={(e) => this.setState({title: e.target.value})}/>
         </p>
         <p>
-          <Localized id="entry-username">
+          <Localized id="item-username">
             <span>uSERNAMe</span>
           </Localized>
           <input type="text" value={this.state.username}
                  onChange={(e) => this.setState({username: e.target.value})}/>
         </p>
         <p>
-          <Localized id="entry-password">
+          <Localized id="item-password">
             <span>pASSWORd</span>
           </Localized>
           <input type="text" value={this.state.password}
                  onChange={(e) => this.setState({password: e.target.value})}/>
         </p>
         <p>
-          <Localized id={this.newEntry ? "save-entry" : "update-entry"}>
+          <Localized id={this.newItem ? "save-item" : "update-item"}>
             <button type="submit">sAVe</button>
           </Localized>
-          <Localized id={this.newEntry ? "cancel-entry" : "delete-entry"}>
+          <Localized id={this.newItem ? "cancel-item" : "delete-item"}>
             <button onClick={() => onDelete(this.state.id)}>dELETe</button>
           </Localized>
         </p>

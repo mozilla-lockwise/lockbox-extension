@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import datastore from "./datastore";
-import { makeEntrySummary } from "../common";
+import { makeItemSummary } from "../common";
 
 const ports = new Set();
 browser.runtime.onConnect.addListener((port) => {
@@ -24,27 +24,27 @@ function broadcast(message, excludeSender = null) {
 
 browser.runtime.onMessage.addListener(async function(message, sender) {
   switch (message.type) {
-  case "add_entry": {
+  case "add_item": {
     await datastore.unlock();
-    const entry = await datastore.add(message.entry);
-    broadcast({type: "added_entry", entry}, sender);
-    return {entry};
+    const item = await datastore.add(message.item);
+    broadcast({type: "added_item", item}, sender);
+    return {item};
   }
-  case "update_entry": {
+  case "update_item": {
     await datastore.unlock();
-    const entry = await datastore.update(message.entry);
-    broadcast({type: "updated_entry", entry}, sender);
-    return {entry};
+    const item = await datastore.update(message.item);
+    broadcast({type: "updated_item", item}, sender);
+    return {item};
   }
-  case "remove_entry":
+  case "remove_item":
     await datastore.remove(message.id);
-    broadcast({type: "removed_entry", id: message.id}, sender);
+    broadcast({type: "removed_item", id: message.id}, sender);
     return {};
-  case "get_entry":
-    return {entry: await datastore.get(message.id)};
-  case "list_entries":
-    return {entries: Array.from((await datastore.list()).values(),
-                                makeEntrySummary)};
+  case "get_item":
+    return {item: await datastore.get(message.id)};
+  case "list_items":
+    return {items: Array.from((await datastore.list()).values(),
+                              makeItemSummary)};
   default:
     return null;
   }

@@ -1,11 +1,11 @@
-add-entry = Add Entry
-no-entry = No entry selected
+add-item = Add Item
+no-item = No item selected
 
-entry-site = Site
-entry-username = Username
-entry-password = Password
+item-site = Site
+item-username = Username
+item-password = Password
 
-save-entry = Save
-cancel-entry = Cancel
-update-entry = Update
-delete-entry = Delete
+save-item = Save
+cancel-item = Cancel
+update-item = Update
+delete-item = Delete

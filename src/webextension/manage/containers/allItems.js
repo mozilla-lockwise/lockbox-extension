@@ -4,27 +4,27 @@
 
 import { connect } from "react-redux";
 
-import { selectEntry } from "../actions";
-import EntryList from "../components/entryList";
+import { selectItem } from "../actions";
+import ItemList from "../components/itemList";
 
 const collator = new Intl.Collator();
 
-const AllEntries = connect(
+const AllItems = connect(
   (state) => {
     let currentId = null;
-    if (!state.ui.newEntry && state.cache.currentEntry) {
-      currentId = state.cache.currentEntry.id;
+    if (!state.ui.newItem && state.cache.currentItem) {
+      currentId = state.cache.currentItem.id;
     }
     return {
-      entries: [...state.cache.entries].sort(
+      items: [...state.cache.items].sort(
         (a, b) => collator.compare(a.title, b.title)
       ),
       selected: currentId,
     };
   },
   (dispatch) => ({
-    onEntryClick: (id) => dispatch(selectEntry(id))
+    onItemClick: (id) => dispatch(selectItem(id))
   })
-)(EntryList);
+)(ItemList);
 
-export default AllEntries;
+export default AllItems;

@@ -4,9 +4,9 @@
 
 import React from "react";
 
-import AddEntry from "../containers/addEntry";
-import AllEntries from "../containers/allEntries";
-import CurrentEntry from "../containers/currentEntry";
+import AddItem from "../containers/addItem";
+import AllItems from "../containers/allItems";
+import CurrentItem from "../containers/currentItem";
 
 import styles from "./app.css";
 
@@ -14,11 +14,11 @@ export default function App() {
   return (
     <section className={styles.app}>
       <aside>
-        <AddEntry/>
-        <AllEntries/>
+        <AddItem/>
+        <AllItems/>
       </aside>
       <article>
-        <CurrentEntry/>
+        <CurrentItem/>
       </article>
     </section>
   );

@@ -5,16 +5,16 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import styles from "./entry.css";
+import styles from "./item.css";
 
-export default function Entry({name, selected, onClick}) {
+export default function Item({name, selected, onClick}) {
   const attrs = (selected) ? {"data-selected": true} : {};
   return (
-    <li className={styles.entry} {...attrs} onClick={onClick}>{name}</li>
+    <li className={styles.item} {...attrs} onClick={onClick}>{name}</li>
   );
 }
 
-Entry.propTypes = {
+Item.propTypes = {
   name: PropTypes.string.isRequired,
   selected: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
