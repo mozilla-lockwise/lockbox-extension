@@ -18,6 +18,7 @@ const NODE_ENV = (process.env.NODE_ENV) ? process.env.NODE_ENV.toLowerCase() :
 const config = {
   context: path.join(__dirname, "/src"),
   entry: entries,
+  devtool: "cheap-module-source-map",
 
   output: {
     filename: "./webextension/[name].js",
@@ -38,10 +39,10 @@ const config = {
       loader: combineLoaders([{
         loader: "style-loader"
       }, {
-        loader: 'css-loader',
+        loader: "css-loader",
         query: {
           modules: true,
-          localIdentName: '[name]__[local]___[hash:base64:5]'
+          localIdentName: "[name]__[local]___[hash:base64:5]"
         }
       }])
     }]
