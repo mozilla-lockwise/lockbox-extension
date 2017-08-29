@@ -13,8 +13,9 @@ import EntryDetails from "../components/entryDetails";
 import styles from "./currentEntry.css";
 
 function unflattenEntry(entry) {
-  if (!entry)
+  if (!entry) {
     return entry;
+  }
   return {
     id: entry.id,
     title: entry.title,
@@ -27,8 +28,9 @@ function unflattenEntry(entry) {
 }
 
 function flattenEntry(entry) {
-  if (!entry)
+  if (!entry) {
     return entry;
+  }
   return {
     id: entry.id,
     title: entry.title,
@@ -67,8 +69,9 @@ CurrentEntry.propTypes = {
 
 CurrentEntry = connect(
   (state) => {
-    if (state.ui.newEntry)
+    if (state.ui.newEntry) {
       return { noEntry: false, entry: null };
+    }
     return {
       noEntry: state.cache.currentEntry === null,
       entry: state.cache.currentEntry,
@@ -77,13 +80,15 @@ CurrentEntry = connect(
   (dispatch) => {
     return {
     onSave: (entry) => {
-      if (entry.id === undefined)
+      if (entry.id === undefined) {
         return dispatch(addEntry(unflattenEntry(entry)));
+      }
       return dispatch(updateEntry(unflattenEntry(entry)));
     },
     onDelete: (id) => {
-      if (id === undefined)
+      if (id === undefined) {
         return dispatch(cancelNewEntry());
+      }
       return dispatch(removeEntry(id));
     },
   }

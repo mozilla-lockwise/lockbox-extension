@@ -23,6 +23,7 @@
     "react"
   ],
   "rules": {
+    "curly": 2,
     "no-console": 1,
     "no-func-assign": 0
   }

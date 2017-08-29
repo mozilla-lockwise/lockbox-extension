@@ -24,16 +24,18 @@ export default class EntryDetails extends React.Component {
 
   _setState(props, initial) {
     let state;
-    if (props.entry)
+    if (props.entry) {
       state = {...props.entry};
-    else
+    } else {
       state = {id: undefined, title: "", username: "", password: ""};
+    }
 
     this.newEntry = !props.entry;
-    if (initial)
+    if (initial) {
       this.state = state;
-    else
+    } else {
       this.setState(state);
+    }
   }
 
   constructor(props) {
