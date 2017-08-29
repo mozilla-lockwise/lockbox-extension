@@ -9,10 +9,7 @@ import {
   UPDATE_ENTRY_COMPLETED, REMOVE_ENTRY_COMPLETED, SELECT_ENTRY_COMPLETED,
   START_NEW_ENTRY, CANCEL_NEW_ENTRY
 } from "./actions";
-
-function makeEntrySummary(entry) {
-  return {title: entry.title, id: entry.id};
-}
+import { makeEntrySummary } from "../common";
 
 function maybeAddCurrentEntry(state, action) {
   if (state.pendingAdd === action.actionId) {
