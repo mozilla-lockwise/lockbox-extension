@@ -15,20 +15,23 @@ function makeEntrySummary(entry) {
 }
 
 function maybeAddCurrentEntry(state, action) {
-  if (state.pendingAdd === action.actionId)
+  if (state.pendingAdd === action.actionId) {
     return {currentEntry: action.entry, pendingAdd: null};
+  }
   return {};
 }
 
 function maybeUpdateCurrentEntry(state, action) {
-  if (state.currentEntry && state.currentEntry.id === action.entry.id)
+  if (state.currentEntry && state.currentEntry.id === action.entry.id) {
     return {currentEntry: action.entry};
+  }
   return {};
 }
 
 function maybeRemoveCurrentEntry(state, action) {
-  if (state.currentEntry && state.currentEntry.id === action.id)
+  if (state.currentEntry && state.currentEntry.id === action.id) {
     return {currentEntry: null};
+  }
   return {};
 }
 
@@ -56,8 +59,9 @@ function cacheReducer(state = {
     return {
       ...state,
       entries: state.entries.map((x) => {
-        if (x.id === action.entry.id)
+        if (x.id === action.entry.id) {
           return makeEntrySummary(action.entry);
+        }
         return x;
       }),
       ...maybeUpdateCurrentEntry(state, action),

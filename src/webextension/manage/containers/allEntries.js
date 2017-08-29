@@ -12,8 +12,9 @@ const collator = new Intl.Collator();
 const AllEntries = connect(
   (state) => {
     let currentId = null;
-    if (!state.ui.newEntry && state.cache.currentEntry)
+    if (!state.ui.newEntry && state.cache.currentEntry) {
       currentId = state.cache.currentEntry.id;
+    }
     return {
       entries: [...state.cache.entries].sort(
         (a, b) => collator.compare(a.title, b.title)

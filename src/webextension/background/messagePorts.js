@@ -15,8 +15,9 @@ browser.runtime.onConnect.addListener((port) => {
 
 function broadcast(message, excludeSender = null) {
   for (let p of ports) {
-    if (!excludeSender || p.sender.contextId !== excludeSender.contextId)
+    if (!excludeSender || p.sender.contextId !== excludeSender.contextId) {
       p.postMessage(message);
+    }
   }
 }
 
@@ -45,9 +46,8 @@ browser.runtime.onMessage.addListener(async function(message, sender) {
   case "get_entry":
     return {entry: await datastore.get(message.id)};
   case "list_entries":
-    return {entries: Array.from((await datastore.list()).values()).map(
-      makeEntrySummary
-    )};
+    return {entries: Array.from((await datastore.list()).values(),
+                                makeEntrySummary)};
   default:
     return null;
   }
