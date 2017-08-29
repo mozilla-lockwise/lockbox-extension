@@ -5,28 +5,28 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import Entry from "./entry";
-import styles from "./entryList.css";
+import Item from "./item";
+import styles from "./itemList.css";
 
-export default function EntryList({entries, selected, onEntryClick}) {
+export default function ItemList({items, selected, onItemClick}) {
   return (
-    <ul className={styles.entryList}>
-      {entries.map((entry) => (
-        <Entry key={entry.id} name={entry.title}
-               selected={entry.id === selected}
-               onClick={() => onEntryClick(entry.id)}/>
+    <ul className={styles.itemList}>
+      {items.map((item) => (
+        <Item key={item.id} name={item.title}
+               selected={item.id === selected}
+               onClick={() => onItemClick(item.id)}/>
       ))}
     </ul>
   );
 }
 
-EntryList.propTypes = {
-  entries: PropTypes.arrayOf(
+ItemList.propTypes = {
+  items: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
   selected: PropTypes.string,
-  onEntryClick: PropTypes.func.isRequired,
+  onItemClick: PropTypes.func.isRequired,
 };

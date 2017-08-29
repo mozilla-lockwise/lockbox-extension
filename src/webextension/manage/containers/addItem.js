@@ -7,21 +7,21 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
-import { startNewEntry } from "../actions";
+import { startNewItem } from "../actions";
 
-function AddEntry({dispatch}) {
+function AddItem({dispatch}) {
   return (
-    <Localized id="add-entry">
-      <button onClick={() => { dispatch(startNewEntry()); }}>
-        aDd eNTRy
+    <Localized id="add-item">
+      <button onClick={() => { dispatch(startNewItem()); }}>
+        aDd iTEm
       </button>
     </Localized>
   );
 }
 
-AddEntry.propTypes = {
+AddItem.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-AddEntry = connect()(AddEntry);
-export default AddEntry;
+AddItem = connect()(AddItem);
+export default AddItem;

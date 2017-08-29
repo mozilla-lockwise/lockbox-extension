@@ -2,190 +2,190 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-export const LIST_ENTRIES_STARTING = Symbol("LIST_ENTRIES_STARTING");
-export const LIST_ENTRIES_COMPLETED = Symbol("LIST_ENTRIES_COMPLETED");
+export const LIST_ITEMS_STARTING = Symbol("LIST_ITEMS_STARTING");
+export const LIST_ITEMS_COMPLETED = Symbol("LIST_ITEMS_COMPLETED");
 
-export const ADD_ENTRY_STARTING = Symbol("ADD_ENTRY_STARTING");
-export const ADD_ENTRY_COMPLETED = Symbol("ADD_ENTRY_COMPLETED");
+export const ADD_ITEM_STARTING = Symbol("ADD_ITEM_STARTING");
+export const ADD_ITEM_COMPLETED = Symbol("ADD_ITEM_COMPLETED");
 
-export const UPDATE_ENTRY_STARTING = Symbol("UPDATE_ENTRY_STARTING");
-export const UPDATE_ENTRY_COMPLETED = Symbol("UPDATE_ENTRY_COMPLETED");
+export const UPDATE_ITEM_STARTING = Symbol("UPDATE_ITEM_STARTING");
+export const UPDATE_ITEM_COMPLETED = Symbol("UPDATE_ITEM_COMPLETED");
 
-export const REMOVE_ENTRY_STARTING = Symbol("REMOVE_ENTRY_STARTING");
-export const REMOVE_ENTRY_COMPLETED = Symbol("REMOVE_ENTRY_COMPLETED");
+export const REMOVE_ITEM_STARTING = Symbol("REMOVE_ITEM_STARTING");
+export const REMOVE_ITEM_COMPLETED = Symbol("REMOVE_ITEM_COMPLETED");
 
-export const SELECT_ENTRY_STARTING = Symbol("SELECT_ENTRY_STARTING");
-export const SELECT_ENTRY_COMPLETED = Symbol("SELECT_ENTRY_COMPLETED");
+export const SELECT_ITEM_STARTING = Symbol("SELECT_ITEM_STARTING");
+export const SELECT_ITEM_COMPLETED = Symbol("SELECT_ITEM_COMPLETED");
 
-export const START_NEW_ENTRY = Symbol("START_NEW_ENTRY");
-export const CANCEL_NEW_ENTRY = Symbol("CANCEL_NEW_ENTRY");
+export const START_NEW_ITEM = Symbol("START_NEW_ITEM");
+export const CANCEL_NEW_ITEM = Symbol("CANCEL_NEW_ITEM");
 
 // The action ID is used to correlate async actions with each other (i.e.
 // FOO_STARTING and FOO_COMPLETED).
 let nextActionId = 0;
 
-export function listEntries() {
+export function listItems() {
   return async function(dispatch) {
     const actionId = nextActionId++;
-    dispatch(listEntriesStarting(actionId));
+    dispatch(listItemsStarting(actionId));
 
     const response = await browser.runtime.sendMessage({
-      type: "list_entries",
+      type: "list_items",
     });
-    dispatch(listEntriesCompleted(actionId, response.entries));
+    dispatch(listItemsCompleted(actionId, response.items));
   };
 }
 
-function listEntriesStarting(actionId) {
+function listItemsStarting(actionId) {
   return {
-    type: LIST_ENTRIES_STARTING,
+    type: LIST_ITEMS_STARTING,
     actionId,
   };
 }
 
-function listEntriesCompleted(actionId, entries) {
+function listItemsCompleted(actionId, items) {
   return {
-    type: LIST_ENTRIES_COMPLETED,
+    type: LIST_ITEMS_COMPLETED,
     actionId,
-    entries,
+    items,
   };
 }
 
-export function addEntry(details) {
+export function addItem(details) {
   return async function(dispatch) {
     const actionId = nextActionId++;
-    dispatch(addEntryStarting(actionId, details));
+    dispatch(addItemStarting(actionId, details));
 
     const response = await browser.runtime.sendMessage({
-      type: "add_entry",
-      entry: details,
+      type: "add_item",
+      item: details,
     });
-    dispatch(addEntryCompleted(actionId, response.entry));
+    dispatch(addItemCompleted(actionId, response.item));
   };
 }
 
-export function addedEntry(entry) {
-  return addEntryCompleted(undefined, entry);
+export function addedItem(item) {
+  return addItemCompleted(undefined, item);
 }
 
-function addEntryStarting(actionId, entry) {
+function addItemStarting(actionId, item) {
   return {
-    type: ADD_ENTRY_STARTING,
+    type: ADD_ITEM_STARTING,
     actionId,
-    entry,
+    item,
   };
 }
 
-function addEntryCompleted(actionId, entry) {
+function addItemCompleted(actionId, item) {
   return {
-    type: ADD_ENTRY_COMPLETED,
+    type: ADD_ITEM_COMPLETED,
     actionId,
-    entry,
+    item,
   };
 }
 
-export function updateEntry(entry) {
+export function updateItem(item) {
   return async function(dispatch) {
     const actionId = nextActionId++;
-    dispatch(updateEntryStarting(actionId, entry));
+    dispatch(updateItemStarting(actionId, item));
 
     const response = await browser.runtime.sendMessage({
-      type: "update_entry",
-      entry,
+      type: "update_item",
+      item,
     });
-    dispatch(updateEntryCompleted(actionId, response.entry));
+    dispatch(updateItemCompleted(actionId, response.item));
   };
 }
 
-export function updatedEntry(entry) {
-  return updateEntryCompleted(undefined, entry);
+export function updatedItem(item) {
+  return updateItemCompleted(undefined, item);
 }
 
-function updateEntryStarting(actionId, entry) {
+function updateItemStarting(actionId, item) {
   return {
-    type: UPDATE_ENTRY_STARTING,
+    type: UPDATE_ITEM_STARTING,
     actionId,
-    entry,
+    item,
   };
 }
 
-function updateEntryCompleted(actionId, entry) {
+function updateItemCompleted(actionId, item) {
   return {
-    type: UPDATE_ENTRY_COMPLETED,
+    type: UPDATE_ITEM_COMPLETED,
     actionId,
-    entry,
+    item,
   };
 }
 
-export function removeEntry(id) {
+export function removeItem(id) {
   return async function(dispatch) {
     const actionId = nextActionId++;
-    dispatch(removeEntryStarting(actionId, id));
+    dispatch(removeItemStarting(actionId, id));
 
     await browser.runtime.sendMessage({
-      type: "remove_entry",
+      type: "remove_item",
       id,
     });
-    dispatch(removeEntryCompleted(actionId, id));
+    dispatch(removeItemCompleted(actionId, id));
   };
 }
 
-export function removedEntry(id) {
-  return removeEntryCompleted(undefined, id);
+export function removedItem(id) {
+  return removeItemCompleted(undefined, id);
 }
 
-function removeEntryStarting(actionId, id) {
+function removeItemStarting(actionId, id) {
   return {
-    type: REMOVE_ENTRY_STARTING,
+    type: REMOVE_ITEM_STARTING,
     actionId,
     id,
   };
 }
 
-function removeEntryCompleted(actionId, id) {
+function removeItemCompleted(actionId, id) {
   return {
-    type: REMOVE_ENTRY_COMPLETED,
+    type: REMOVE_ITEM_COMPLETED,
     actionId,
     id,
   };
 }
 
-export function selectEntry(id) {
+export function selectItem(id) {
   return async function(dispatch) {
     const actionId = nextActionId++;
-    dispatch(selectEntryStarting(actionId, id));
+    dispatch(selectItemStarting(actionId, id));
     const response = await browser.runtime.sendMessage({
-      type: "get_entry",
+      type: "get_item",
       id,
     });
-    dispatch(selectEntryCompleted(actionId, response.entry));
+    dispatch(selectItemCompleted(actionId, response.item));
   };
 }
 
-function selectEntryStarting(actionId, id) {
+function selectItemStarting(actionId, id) {
   return {
-    type: SELECT_ENTRY_STARTING,
+    type: SELECT_ITEM_STARTING,
     actionId,
     id,
   };
 }
 
-function selectEntryCompleted(actionId, entry) {
+function selectItemCompleted(actionId, item) {
   return {
-    type: SELECT_ENTRY_COMPLETED,
+    type: SELECT_ITEM_COMPLETED,
     actionId,
-    entry,
+    item,
   };
 }
 
-export function startNewEntry() {
+export function startNewItem() {
   return {
-    type: START_NEW_ENTRY,
+    type: START_NEW_ITEM,
   };
 }
 
-export function cancelNewEntry() {
+export function cancelNewItem() {
   return {
-    type: CANCEL_NEW_ENTRY,
+    type: CANCEL_NEW_ITEM,
   };
 }

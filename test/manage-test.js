@@ -19,8 +19,8 @@ const mockStore = configureStore(middlewares);
 
 // Keep this in sync with <src/webextension/manage/reducers.js>.
 const initialState = {
-  storage: {entries: []},
-  ui: {selectedEntry: null, newEntry: false},
+  cache: {items: [], currentItem: null, pendingAdd: null},
+  ui: {newItem: false},
 };
 
 describe("It renders without crashing", () => {
