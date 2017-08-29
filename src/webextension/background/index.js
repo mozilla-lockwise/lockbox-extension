@@ -5,11 +5,16 @@
 import datastore from "./datastore";
 import "./messagePorts";
 
-function openLockbox() {
-  if (datastore.opened) {
-    // do something?
+// XXX: For now, initialize the datastore on startup and then hook up the
+// button. Eventually, we'll have UX to create new datastores (and persist
+// existing ones).
+datastore.initialize().then(() => {
+  function openLockbox() {
+    if (datastore.opened) {
+      // do something?
+    }
+    browser.tabs.create({url: browser.extension.getURL("manage/index.html")});
   }
-  browser.tabs.create({url: browser.extension.getURL("manage/index.html")});
-}
 
-browser.browserAction.onClicked.addListener(openLockbox);
+  browser.browserAction.onClicked.addListener(openLockbox);
+});
