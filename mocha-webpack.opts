@@ -1,4 +1,5 @@
 --colors
+--recursive
 --require ignore-styles
 --require babel-core/register
 --require jsdom-global/register
