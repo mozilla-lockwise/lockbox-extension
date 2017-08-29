@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import datastore from "./datastore";
+import { makeEntrySummary } from "../common";
 
 const ports = new Set();
 browser.runtime.onConnect.addListener((port) => {
@@ -19,10 +20,6 @@ function broadcast(message, excludeSender = null) {
       p.postMessage(message);
     }
   }
-}
-
-function makeEntrySummary(item) {
-  return {title: item.title, id: item.id};
 }
 
 browser.runtime.onMessage.addListener(async function(message, sender) {
