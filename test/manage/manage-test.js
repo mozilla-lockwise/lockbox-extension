@@ -11,8 +11,8 @@ import ReactDOM from "react-dom";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 
-import MockLocalizationProvider from "./mock-l10n";
-import App from "../src/webextension/manage/components/app";
+import MockLocalizationProvider from "../mock-l10n";
+import App from "../../src/webextension/manage/components/app";
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);

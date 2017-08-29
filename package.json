@@ -78,6 +78,8 @@
     "mocha-webpack": "^1.0.0-rc.1",
     "react-addons-test-utils": "^15.6.0",
     "redux-mock-store": "^1.2.3",
+    "sinon": "^3.2.1",
+    "sinon-chai": "^2.13.0",
     "source-map-support": "^0.4.16",
     "webpack": "^3.2.0",
     "webpack-combine-loaders": "^2.0.3",
