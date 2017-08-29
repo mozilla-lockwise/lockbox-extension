@@ -1,16 +1,37 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 require("babel-polyfill");
-import React from "react";
+
 import { expect } from "chai";
-import { shallow } from "enzyme";
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store'
-// import manage from './src/manage';
-// import { Score, Provider } from "../src/webextension/manage";
+import { mount } from "enzyme";
+import React from "react";
+import ReactDOM from "react-dom";
+import configureStore from "redux-mock-store";
+import { Provider } from "react-redux";
 
+import MockLocalizationProvider from "./mock-l10n";
+import App from "../src/webextension/manage/components/app";
 
-describe("The math should be right", () => {
-  it("1 + 1 should equal 2", () => {
-    expect(1 + 1).to.equal(2);
-  })
+const middlewares = [];
+const mockStore = configureStore(middlewares);
+
+// Keep this in sync with <src/webextension/manage/reducers.js>.
+const initialState = {
+  storage: {entries: []},
+  ui: {selectedEntry: null, newEntry: false},
+};
+
+describe("It renders without crashing", () => {
+  it("It loads", () => {
+    const store = mockStore(initialState);
+    mount(
+      <Provider store={store}>
+        <MockLocalizationProvider>
+          <App/>
+        </MockLocalizationProvider>
+      </Provider>
+    );
+  });
 });
