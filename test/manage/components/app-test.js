@@ -14,7 +14,7 @@ import { Provider } from "react-redux";
 
 chai.use(chaiEnzyme());
 
-import initialState from "../mock-initial-state";
+import { initialState } from "../mock-redux-state";
 import MockLocalizationProvider from "../../mock-l10n";
 import App from "../../../src/webextension/manage/components/app";
 import AddItem from "../../../src/webextension/manage/containers/addItem";
