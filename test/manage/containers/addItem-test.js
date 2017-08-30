@@ -11,7 +11,7 @@ import ReactDOM from "react-dom";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 
-import initialState from "../mock-initial-state";
+import { initialState } from "../mock-redux-state";
 import MockLocalizationProvider from "../../mock-l10n";
 import AddItem from "../../../src/webextension/manage/containers/addItem";
 import { startNewItem } from "../../../src/webextension/manage/actions";
