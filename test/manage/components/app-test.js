@@ -4,15 +4,22 @@
 
 require("babel-polyfill");
 
-import { expect } from "chai";
+import chai, { expect } from "chai";
+import chaiEnzyme from "chai-enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import ReactDOM from "react-dom";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 
-import MockLocalizationProvider from "../mock-l10n";
-import App from "../../src/webextension/manage/components/app";
+chai.use(chaiEnzyme());
+
+import MockLocalizationProvider from "../../mock-l10n";
+import App from "../../../src/webextension/manage/components/app";
+import AddItem from "../../../src/webextension/manage/containers/addItem";
+import AllItems from "../../../src/webextension/manage/containers/allItems";
+import CurrentItem from
+       "../../../src/webextension/manage/containers/currentItem";
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -23,15 +30,19 @@ const initialState = {
   ui: {newItem: false},
 };
 
-describe("It renders without crashing", () => {
-  it("It loads", () => {
+describe("<App/>", () => {
+  it("render app", () => {
     const store = mockStore(initialState);
-    mount(
+    const wrapper = mount(
       <Provider store={store}>
         <MockLocalizationProvider>
           <App/>
         </MockLocalizationProvider>
       </Provider>
     );
+
+    expect(wrapper).to.contain(<AddItem/>);
+    expect(wrapper).to.contain(<AllItems/>);
+    expect(wrapper).to.contain(<CurrentItem/>);
   });
 });
