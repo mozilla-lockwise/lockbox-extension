@@ -1,4 +1,9 @@
-{
+let extraPlugins = [];
+if (process.env.STRICT_LINT !== "1") {
+  extraPlugins.push("only-warn");
+}
+
+module.exports = {
   "parserOptions": {
     "ecmaVersion": 2017,
     "sourceType": "module",
@@ -20,7 +25,8 @@
   },
   "plugins": [
     "mozilla",
-    "react"
+    "react",
+    ...extraPlugins
   ],
   "rules": {
     "curly": 2,
