@@ -1,0 +1,17 @@
+{
+  "presets": [
+    "react",
+    ["env", {"targets": {"browsers": ["firefox >= 54"]}}]
+  ],
+  "plugins": [
+    ["transform-object-rest-spread", {"useBuiltins": true}]
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "istanbul",
+        "transform-runtime"
+      ]
+    }
+  }
+}

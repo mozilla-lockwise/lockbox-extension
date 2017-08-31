@@ -2,11 +2,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-const combineLoaders = require("webpack-combine-loaders");
-const nodeExternals = require("webpack-node-externals");
-const path = require("path");
+import combineLoaders from "webpack-combine-loaders";
+import nodeExternals from "webpack-node-externals";
+import path from "path";
 
-const config = {
+export default {
   target: "node",
   externals: [nodeExternals()],
   devtool: "cheap-module-source-map",
@@ -16,10 +16,6 @@ const config = {
       test: /\.js$/,
       exclude: /node_modules/,
       loader: "babel-loader",
-      options: {
-        presets: ["react", "stage-2"],
-        plugins: ["istanbul", "transform-runtime"]
-      }
     }, {
       test: /\.css$/,
       exclude: /node_modules/,
@@ -35,4 +31,3 @@ const config = {
     }]
   }
 };
-module.exports = config;

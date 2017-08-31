@@ -2,10 +2,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-const webpack = require("webpack");
-const combineLoaders = require("webpack-combine-loaders");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const path = require("path");
+import webpack from "webpack";
+import combineLoaders from "webpack-combine-loaders";
+import CopyWebpackPlugin from "copy-webpack-plugin";
+import path from "path";
 
 const entries = {
   "background": "./webextension/background/index.js",
@@ -15,7 +15,7 @@ const entries = {
 const NODE_ENV = (process.env.NODE_ENV) ? process.env.NODE_ENV.toLowerCase() :
                  "development";
 
-const config = {
+export default {
   context: path.join(__dirname, "/src"),
   entry: entries,
   devtool: "cheap-module-source-map",
@@ -30,10 +30,6 @@ const config = {
       test: /\.js$/,
       exclude: /node_modules/,
       loader: "babel-loader",
-      query: {
-        presets: ["react"],
-        plugins: ["transform-object-rest-spread"],
-      }
     }, {
       test: /\.css$/,
       exclude: /node_modules/,
@@ -66,4 +62,3 @@ const config = {
     }),
   ],
 };
-module.exports = config;
