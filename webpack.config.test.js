@@ -18,7 +18,7 @@ const config = {
       loader: "babel-loader",
       options: {
         presets: ["react", "stage-2"],
-        plugins: ["transform-runtime"]
+        plugins: ["istanbul", "transform-runtime"]
       }
     }, {
       test: /\.css$/,
