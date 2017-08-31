@@ -77,22 +77,23 @@ CurrentItem = connect(
       item: state.cache.currentItem,
     };
   },
-  (dispatch) => {
-    return {
+  (dispatch) => ({
     onSave: (item) => {
+      item = unflattenItem(item);
       if (item.id === undefined) {
-        return dispatch(addItem(unflattenItem(item)));
+        dispatch(addItem(item));
+      } else {
+        dispatch(updateItem(item));
       }
-      return dispatch(updateItem(unflattenItem(item)));
     },
     onDelete: (id) => {
       if (id === undefined) {
-        return dispatch(cancelNewItem());
+        dispatch(cancelNewItem());
+      } else {
+        dispatch(removeItem(id));
       }
-      return dispatch(removeItem(id));
     },
-  }
-  }
+  })
 )(CurrentItem);
 
 export default CurrentItem;
