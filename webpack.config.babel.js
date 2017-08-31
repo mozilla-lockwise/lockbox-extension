@@ -5,6 +5,7 @@
 import webpack from "webpack";
 import combineLoaders from "webpack-combine-loaders";
 import CopyWebpackPlugin from "copy-webpack-plugin";
+import MinifyPlugin from "babel-minify-webpack-plugin";
 import path from "path";
 
 const entries = {
@@ -14,6 +15,11 @@ const entries = {
 
 const NODE_ENV = (process.env.NODE_ENV) ? process.env.NODE_ENV.toLowerCase() :
                  "development";
+
+let extraPlugins = [];
+if (NODE_ENV === "production") {
+  extraPlugins.push(new MinifyPlugin({mangle: false}));
+}
 
 export default {
   context: path.join(__dirname, "/src"),
@@ -60,5 +66,6 @@ export default {
         "NODE_ENV": JSON.stringify(NODE_ENV),
       },
     }),
+    ...extraPlugins
   ],
 };
