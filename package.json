@@ -24,16 +24,23 @@
     "addon"
   ],
   "scripts": {
-    "prerun": "npm run-script build",
-    "run": "jpm run --addon-dir dist/ ${npm_config_jpm_runflags} --prefs jpm-prefs.json",
-    "test": "cross-env NODE_ENV=test nyc --all --include \"src/**/*.js\" mocha-webpack --opts ./mocha-webpack.opts --webpack-config ./webpack.config.test.js -r test/setup.js test",
-    "clean": "git clean -fX ./dist ./*.xpi",
-    "distclean": "git clean -dfX",
+    "lint": "eslint \"src/**/*.js\" --ignore-pattern '!.eslintrc.js' .eslintrc.js",
     "prebuild": "npm run-script lint",
     "build": "webpack",
+    "prerun": "npm run-script build",
+    "run": "jpm run --addon-dir dist/ ${npm_config_jpm_runflags} --prefs jpm-prefs.json",
+    "pretest": "npm run-script lint",
+    "test": "cross-env NODE_ENV=test nyc mocha-webpack --opts ./mocha-webpack.opts --webpack-config ./webpack.config.test.js -r test/setup.js test",
+    "clean": "git clean -fX ./dist ./*.xpi",
+    "distclean": "git clean -dfX",
     "prepackage": "npm run-script clean && npm run-script build",
-    "package": "cd dist && zip -r ../${npm_package_name}-${npm_package_version}.xpi *",
-    "lint": "eslint \"src/**/*.js\""
+    "package": "cd dist && zip -r ../${npm_package_name}-${npm_package_version}.xpi *"
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "src"
+    ]
   },
   "dependencies": {
     "css-loader": "^0.28.4",
@@ -71,6 +78,7 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-mozilla": "^0.4.0",
     "eslint-plugin-node": "^5.1.0",
+    "eslint-plugin-only-warn": "^1.0.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^7.1.0",
     "eslint-plugin-standard": "^3.0.1",
