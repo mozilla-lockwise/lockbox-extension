@@ -5,20 +5,62 @@
 import webpack from "webpack";
 import combineLoaders from "webpack-combine-loaders";
 import CopyWebpackPlugin from "copy-webpack-plugin";
+import ExtractTextPlugin from "extract-text-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
 import MinifyPlugin from "babel-minify-webpack-plugin";
 import path from "path";
 
 const entries = {
-  "background": "./webextension/background/index.js",
-  "manage/index": "./webextension/manage/index.js"
+  "webextension/background": "./webextension/background/index.js",
+  "webextension/manage/index": "./webextension/manage/index.js"
 };
 
 const NODE_ENV = (process.env.NODE_ENV) ? process.env.NODE_ENV.toLowerCase() :
                  "development";
 
+const cssLoader = {
+  loader: "css-loader",
+  query: {
+    modules: true,
+    importLoaders: 1,
+    localIdentName: "[name]__[local]___[hash:base64:5]"
+  }
+};
+
 let extraPlugins = [];
+let extraLoaders = [];
+let htmlMinifyOptions = false;
 if (NODE_ENV === "production") {
-  extraPlugins.push(new MinifyPlugin({mangle: false}));
+
+  extraPlugins.push(
+    new MinifyPlugin({mangle: false}),
+    new ExtractTextPlugin("[name].css"),
+  );
+
+  extraLoaders.push({
+    test: /\.css$/,
+    loader: ExtractTextPlugin.extract({
+      fallback: "style-loader",
+      use: combineLoaders([cssLoader])
+    })
+  });
+
+  htmlMinifyOptions = {
+    removeComments: true,
+    collapseWhitespace: true,
+  };
+
+} else {
+
+  extraLoaders.push({
+    test: /\.css$/,
+    exclude: /node_modules/,
+    loader: combineLoaders([
+      {loader: "style-loader"},
+      cssLoader,
+    ])
+  });
+
 }
 
 export default {
@@ -27,28 +69,20 @@ export default {
   devtool: "cheap-module-source-map",
 
   output: {
-    filename: "./webextension/[name].js",
+    filename: "[name].js",
     path: path.join(__dirname, "/dist"),
+    publicPath: "",
   },
 
   module: {
-    loaders: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: "babel-loader",
-    }, {
-      test: /\.css$/,
-      exclude: /node_modules/,
-      loader: combineLoaders([{
-        loader: "style-loader"
-      }, {
-        loader: "css-loader",
-        query: {
-          modules: true,
-          localIdentName: "[name]__[local]___[hash:base64:5]"
-        }
-      }])
-    }]
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "babel-loader",
+      },
+      ...extraLoaders
+    ]
   },
 
   plugins: [
@@ -58,13 +92,20 @@ export default {
       {from: "install.rdf"},
       {from: "webextension/manifest.json", to: "webextension/"},
       {from: "webextension/**/*.ftl"},
-      {from: "webextension/**/*.html"},
       {from: "webextension/icons/*"},
     ]),
     new webpack.DefinePlugin({
       "process.env": {
         "NODE_ENV": JSON.stringify(NODE_ENV),
       },
+    }),
+    new HtmlWebpackPlugin({
+      title: "Lockbox",
+      inject: false,
+      minify: htmlMinifyOptions,
+      template: "template.ejs",
+      chunks: ["webextension/manage/index"],
+      filename: "webextension/manage/index.html",
     }),
     ...extraPlugins
   ],
