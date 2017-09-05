@@ -14,8 +14,8 @@ export default function App() {
   return (
     <section className={styles.app}>
       <aside>
-        <AddItem/>
         <AllItems/>
+        <AddItem/>
       </aside>
       <article>
         <CurrentItem/>
