@@ -7,11 +7,20 @@ body {
 }
 
 .app {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: auto;
+  grid-gap: 1em;
   width: 100vw;
   height: 100vh;
 }
 
 .app > aside {
-  border-right: 1px solid black;
+  grid-column: 1;
+  background-color: #f9f9fa;
+  padding: 0 
+}
+
+.app > article {
+  grid-column: 2;
 }
