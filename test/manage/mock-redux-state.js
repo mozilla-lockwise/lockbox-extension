@@ -22,11 +22,17 @@ export const filledState = {
       {id: "1", title: "title 1"},
       {id: "2", title: "title 2"},
     ],
-    currentItem: {id: "1", title: "title 1"},
+    currentItem: {
+      id: "1",
+      title: "title 1",
+      entry: {
+        username: "username 1",
+        password: "password 1",
+      },
+    },
     pendingAdd: null,
   },
   ui: {
     newItem: false,
   },
 };
-

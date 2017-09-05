@@ -24,3 +24,7 @@ body {
 .app > article {
   grid-column: 2;
 }
+
+.app > article {
+  margin: 1em;
+}

@@ -31,7 +31,8 @@ describe("<ItemDetails/>", () => {
       onDelete = sinon.spy();
       wrapper = mount(
         <MockLocalizationProvider>
-          <ItemDetails onSave={onSave} onDelete={onDelete}/>
+          <ItemDetails saveLabel="save-item" deleteLabel="delete-item"
+                       onSave={onSave} onDelete={onDelete}/>
         </MockLocalizationProvider>
       );
     });
@@ -39,29 +40,27 @@ describe("<ItemDetails/>", () => {
     it("onSave called", () => {
       wrapper.find('button[type="submit"]').simulate("submit");
 
-      const item = {
-        id: undefined,
+      const fields = {
         title: "",
         username: "",
         password: "",
       };
-      expect(onSave).to.have.been.calledWith(item);
+      expect(onSave).to.have.been.calledWith(fields);
     });
 
     it("onSave called after editing", () => {
-      const fields = wrapper.find("input");
-      simulateTyping(fields.at(0), "new title");
-      simulateTyping(fields.at(1), "new username");
-      simulateTyping(fields.at(2), "new password");
+      const formFields = wrapper.find("input");
+      simulateTyping(formFields.at(0), "new title");
+      simulateTyping(formFields.at(1), "new username");
+      simulateTyping(formFields.at(2), "new password");
       wrapper.find('button[type="submit"]').simulate("submit");
 
-      const item = {
-        id: undefined,
+      const fields = {
         title: "new title",
         username: "new username",
         password: "new password",
       };
-      expect(onSave).to.have.been.calledWith(item);
+      expect(onSave).to.have.been.calledWith(fields);
     });
 
     it("onDelete called", () => {
@@ -71,8 +70,7 @@ describe("<ItemDetails/>", () => {
   });
 
   describe("existing item", () => {
-    const item = {
-      id: "0",
+    const fields = {
       title: "title",
       username: "username",
       password: "password",
@@ -83,14 +81,16 @@ describe("<ItemDetails/>", () => {
       onDelete = sinon.spy();
       wrapper = mount(
         <MockLocalizationProvider>
-          <ItemDetails item={item} onSave={onSave} onDelete={onDelete}/>
+          <ItemDetails fields={fields}
+                       saveLabel="save-item" deleteLabel="delete-item"
+                       onSave={onSave} onDelete={onDelete}/>
         </MockLocalizationProvider>
       );
     });
 
     it("onSave called", () => {
       wrapper.find('button[type="submit"]').simulate("submit");
-      expect(onSave).to.have.been.calledWith(item);
+      expect(onSave).to.have.been.calledWith(fields);
     });
 
     it("onSave called after editing", () => {
@@ -100,18 +100,17 @@ describe("<ItemDetails/>", () => {
       simulateTyping(fields.at(2), "new password");
       wrapper.find('button[type="submit"]').simulate("submit");
 
-      const updatedItem = {
-        id: item.id,
+      const updatedFields = {
         title: "new title",
         username: "new username",
         password: "new password",
       };
-      expect(onSave).to.have.been.calledWith(updatedItem);
+      expect(onSave).to.have.been.calledWith(updatedFields);
     });
 
     it("onDelete called", () => {
       wrapper.find("button").not('[type="submit"]').simulate("click");
-      expect(onDelete).to.have.been.calledWith(item.id);
+      expect(onDelete).to.have.been.calledWith();
     });
   });
 });

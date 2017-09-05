@@ -12,12 +12,11 @@ import ItemDetails from "../components/itemDetails";
 
 import styles from "./currentItem.css";
 
-function unflattenItem(item) {
-  if (!item) {
-    return item;
-  }
+const NEW_ITEM = Symbol("NEW_ITEM");
+
+function unflattenItem(item, id) {
   return {
-    id: item.id,
+    id,
     title: item.title,
     entry: {
       kind: "login",
@@ -28,70 +27,98 @@ function unflattenItem(item) {
 }
 
 function flattenItem(item) {
-  if (!item) {
-    return item;
-  }
   return {
-    id: item.id,
     title: item.title,
     username: item.entry.username,
     password: item.entry.password,
   };
 }
 
-function CurrentItem({noItem, item, onSave, onDelete}) {
-  if (noItem) {
-    return (
-      <Localized id="no-item">
-        <div className={styles.currentItem}>no iTEm sELECTEd</div>
-      </Localized>
-    );
+const itemProps = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  item: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+  }),
+});
+
+function NewItem({onAction}) {
+  function onSave(item) {
+    onAction(addItem(unflattenItem(item)));
   }
+  function onDelete() {
+    onAction(cancelNewItem());
+  }
+
   return (
-    <ItemDetails item={flattenItem(item)} onSave={onSave}
-                 onDelete={onDelete}/>
+    <section>
+      <Localized id="new-item-title">
+        <h1>nEw iTEm</h1>
+      </Localized>
+      <ItemDetails saveLabel="save-item" deleteLabel="cancel-item"
+                   onSave={onSave} onDelete={onDelete}/>
+    </section>
   );
 }
 
+NewItem.propTypes = {
+  onAction: PropTypes.func.isRequired,
+};
+
+function UpdateItem({item, onAction}) {
+  function onSave(updatedItem) {
+    onAction(updateItem(unflattenItem(updatedItem, item.id)));
+  }
+  function onDelete(id) {
+    onAction(removeItem(id));
+  }
+
+  return (
+    <section>
+      <Localized id="update-item-title">
+        <h1>nEw iTEm</h1>
+      </Localized>
+      <ItemDetails fields={flattenItem(item)}
+                   saveLabel="update-item" deleteLabel="delete-item"
+                   onSave={onSave} onDelete={onDelete}/>
+    </section>
+  );
+}
+
+UpdateItem.propTypes = {
+  item: itemProps.isRequired,
+  onAction: PropTypes.func.isRequired,
+};
+
+function CurrentItem({item, onAction}) {
+  let inner;
+  if (item === NEW_ITEM) {
+    inner = <NewItem onAction={onAction}/>;
+  } else if (item) {
+    inner = <UpdateItem item={item} onAction={onAction}/>;
+  } else {
+    inner = (
+      <Localized id="no-item">
+        <div>no iTEm sELECTEd</div>
+      </Localized>
+    );
+  }
+  return <div className={styles.currentItem}>{inner}</div>;
+}
+
 CurrentItem.propTypes = {
-  noItem: PropTypes.bool.isRequired,
-  item: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    item: PropTypes.shape({
-      username: PropTypes.string.isRequired,
-      password: PropTypes.string.isRequired,
-    }),
-  }),
-  onSave: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  item: PropTypes.oneOfType([itemProps, PropTypes.symbol]),
+  onAction: PropTypes.func.isRequired,
 };
 
 CurrentItem = connect(
-  (state) => {
-    if (state.ui.newItem) {
-      return { noItem: false, item: null };
-    }
-    return {
-      noItem: state.cache.currentItem === null,
-      item: state.cache.currentItem,
-    };
-  },
+  (state) => ({
+    item: state.ui.newItem ? NEW_ITEM : state.cache.currentItem,
+  }),
   (dispatch) => ({
-    onSave: (item) => {
-      item = unflattenItem(item);
-      if (item.id === undefined) {
-        dispatch(addItem(item));
-      } else {
-        dispatch(updateItem(item));
-      }
-    },
-    onDelete: (id) => {
-      if (id === undefined) {
-        dispatch(cancelNewItem());
-      } else {
-        dispatch(removeItem(id));
-      }
+    onAction: (action) => {
+      dispatch(action);
     },
   })
 )(CurrentItem);

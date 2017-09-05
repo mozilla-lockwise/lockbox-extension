@@ -8,15 +8,19 @@ import React from "react";
 
 import styles from "./itemDetails.css";
 
+// Note: ItemDetails doesn't directly interact with items from the Lockbox
+// datastore. For that, please consult <../containers/currentItem.js>.
+
 export default class ItemDetails extends React.Component {
   static get propTypes() {
     return {
-      item: PropTypes.shape({
-        id: PropTypes.string.isRequired,
+      fields: PropTypes.shape({
         title: PropTypes.string.isRequired,
         username: PropTypes.string.isRequired,
         password: PropTypes.string.isRequired,
       }),
+      saveLabel: PropTypes.string.isRequired,
+      deleteLabel: PropTypes.string.isRequired,
       onSave: PropTypes.func.isRequired,
       onDelete: PropTypes.func.isRequired,
     };
@@ -24,13 +28,12 @@ export default class ItemDetails extends React.Component {
 
   _setState(props, initial) {
     let state;
-    if (props.item) {
-      state = {...props.item};
+    if (props.fields) {
+      state = {...props.fields};
     } else {
-      state = {id: undefined, title: "", username: "", password: ""};
+      state = {title: "", username: "", password: ""};
     }
 
-    this.newItem = !props.item;
     if (initial) {
       this.state = state;
     } else {
@@ -48,7 +51,7 @@ export default class ItemDetails extends React.Component {
   }
 
   render() {
-    const {onSave, onDelete} = this.props;
+    const {saveLabel, deleteLabel, onSave, onDelete} = this.props;
 
     return (
       <form className={styles.itemDetails} onSubmit={(e) => {
@@ -77,10 +80,10 @@ export default class ItemDetails extends React.Component {
                  onChange={(e) => this.setState({password: e.target.value})}/>
         </p>
         <p>
-          <Localized id={this.newItem ? "save-item" : "update-item"}>
+          <Localized id={saveLabel}>
             <button type="submit" className="browser-style">sAVe</button>
           </Localized>
-          <Localized id={this.newItem ? "cancel-item" : "delete-item"}>
+          <Localized id={deleteLabel}>
             <button type="button" className="browser-style"
                     onClick={(e) => onDelete(this.state.id)}>dELETe</button>
           </Localized>
