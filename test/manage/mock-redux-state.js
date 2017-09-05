@@ -26,6 +26,7 @@ export const filledState = {
       id: "1",
       title: "title 1",
       entry: {
+        kind: "login",
         username: "username 1",
         password: "password 1",
       },

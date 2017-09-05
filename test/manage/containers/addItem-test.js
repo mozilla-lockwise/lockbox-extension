@@ -19,7 +19,7 @@ const middlewares = [];
 const mockStore = configureStore(middlewares);
 
 describe("<AddItem/>", () => {
-  it("START_NEW_ITEM dispatched", () => {
+  it("startNewItem() dispatched", () => {
     const store = mockStore(initialState);
     const wrapper = mountWithL10n(
       <Provider store={store}>

@@ -62,7 +62,7 @@ describe("<CurrentItem/>", () => {
       expect(details.prop("fields")).to.equal(undefined);
     });
 
-    it("ADD_ITEM dispatched", () => {
+    it("addItem() dispatched", () => {
       wrapper.find('button[type="submit"]').simulate("submit");
       expect(store.getActions()[0]).to.deep.include({
         type: actions.ADD_ITEM_STARTING,
@@ -78,7 +78,7 @@ describe("<CurrentItem/>", () => {
       });
     });
 
-    it("CANCEL_NEW_ITEM dispatched", () => {
+    it("cancelNewItem() dispatched", () => {
       wrapper.find("button").not('[type="submit"]').simulate("click");
       expect(store.getActions()[0]).to.deep.equal({
         type: actions.CANCEL_NEW_ITEM,
@@ -109,7 +109,7 @@ describe("<CurrentItem/>", () => {
       });
     });
 
-    it("UPDATE_ITEM dispatched", () => {
+    it("updateItem() dispatched", () => {
       wrapper.find('button[type="submit"]').simulate("submit");
       expect(store.getActions()[0]).to.deep.include({
         type: actions.UPDATE_ITEM_STARTING,
@@ -125,7 +125,7 @@ describe("<CurrentItem/>", () => {
       });
     });
 
-    it("REMOVE_ITEM dispatched", () => {
+    it("removeItem() dispatched", () => {
       wrapper.find("button").not('[type="submit"]').simulate("click");
       expect(store.getActions()[0]).to.deep.include({
         type: actions.REMOVE_ITEM_STARTING,
