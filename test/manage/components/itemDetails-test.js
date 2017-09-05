@@ -6,10 +6,8 @@ require("babel-polyfill");
 
 import chai, { expect } from "chai";
 import React from "react";
-import ReactDOM from "react-dom";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
-import PropTypes from "prop-types";
 
 chai.use(sinonChai);
 

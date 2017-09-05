@@ -3,7 +3,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { mount } from "enzyme";
-import PropTypes from "prop-types";
 import React from "react";
 import { MessageContext } from "fluent/compat";
 import {
