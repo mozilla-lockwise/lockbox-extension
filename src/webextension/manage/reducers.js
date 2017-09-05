@@ -32,7 +32,7 @@ function maybeRemoveCurrentItem(state, action) {
   return {};
 }
 
-function cacheReducer(state = {
+export function cacheReducer(state = {
   items: [], currentItem: null, pendingAdd: null
 }, action) {
   switch (action.type) {
@@ -76,7 +76,7 @@ function cacheReducer(state = {
   }
 }
 
-function uiReducer(state = {newItem: false}, action) {
+export function uiReducer(state = {newItem: false}, action) {
   switch (action.type) {
   case START_NEW_ITEM:
     return {...state, newItem: true};
@@ -89,7 +89,9 @@ function uiReducer(state = {newItem: false}, action) {
   }
 }
 
-export const reducer = combineReducers({
+const reducer = combineReducers({
   cache: cacheReducer,
   ui: uiReducer,
 });
+
+export default reducer;
