@@ -31,8 +31,20 @@ global.navigator = {
 
 global.browser = {
   runtime: {
-    sendMessage: async function(msg) {
-      return {};
-    }
+    onMessage: {
+      _listener: null,
+
+      addListener(fn) {
+        this._listener = fn;
+      },
+
+      clearListener() {
+        this.addListener(null);
+      },
+    },
+
+    async sendMessage(msg) {
+      return this.onMessage._listener ? this.onMessage._listener(msg) : {};
+    },
   }
 };

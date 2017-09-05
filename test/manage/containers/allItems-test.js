@@ -57,7 +57,7 @@ describe("<AllItems/>", () => {
       ).prop("name")).to.equal(filledState.cache.currentItem.title);
     });
 
-    it("SELECT_ITEM dispatched", () => {
+    it("selectItem() dispatched", () => {
       wrapper.find(Item).at(0).simulate("click");
       expect(store.getActions()[0].type).to.equal(SELECT_ITEM_STARTING);
     });
