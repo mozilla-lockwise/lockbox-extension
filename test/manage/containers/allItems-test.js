@@ -6,7 +6,6 @@ require("babel-polyfill");
 
 import { expect } from "chai";
 import React from "react";
-import ReactDOM from "react-dom";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";

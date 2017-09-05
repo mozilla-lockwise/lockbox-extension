@@ -4,21 +4,12 @@
 
 require("babel-polyfill");
 
-import chai, { expect } from "chai";
-import React from "react";
-import ReactDOM from "react-dom";
-import configureStore from "redux-mock-store";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk";
+import { expect } from "chai";
 
-import { initialState } from "./mock-redux-state";
 import * as actions from "../../src/webextension/manage/actions";
 import {
   cacheReducer, uiReducer
 } from "../../src/webextension/manage/reducers";
-
-const middlewares = [thunk];
-const mockStore = configureStore(middlewares);
 
 describe("reducers", () => {
   describe("cache reducer", () => {

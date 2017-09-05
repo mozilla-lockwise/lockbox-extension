@@ -4,7 +4,7 @@
 
 require("babel-polyfill");
 
-import chai, { expect } from "chai";
+import { expect } from "chai";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 

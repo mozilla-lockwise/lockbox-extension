@@ -24,7 +24,7 @@
     "addon"
   ],
   "scripts": {
-    "lint": "eslint \"src/**/*.js\" --ignore-pattern '!.eslintrc.js' .eslintrc.js",
+    "lint": "eslint src test --ignore-pattern '!.eslintrc.js' .eslintrc.js",
     "prebuild": "npm run-script lint",
     "build": "webpack",
     "prerun": "npm run-script build",
