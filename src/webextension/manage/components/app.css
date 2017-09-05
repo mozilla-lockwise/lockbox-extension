@@ -4,22 +4,6 @@
 
 body {
   margin: 0;
-  font-family: sans-serif;
-}
-
-button {
-  border: 1px solid #d7d7db;
-  background-color: #f9f9fa;
-  color: #0c0c0d;
-  padding: .5em;
-  margin: .5em;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-}
-
-button:hover{
-  background-color: #d7d7db;
 }
 
 .app {
