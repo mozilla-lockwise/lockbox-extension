@@ -11,7 +11,7 @@ import thunk from "redux-thunk";
 import { AppLocalizationProvider } from "./l10n";
 import App from "./components/app";
 import { listItems, addedItem, updatedItem, removedItem } from "./actions";
-import { reducer } from "./reducers";
+import reducer from "./reducers";
 
 const store = createStore(reducer, undefined, applyMiddleware(thunk));
 store.dispatch(listItems());
