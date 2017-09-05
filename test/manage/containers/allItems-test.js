@@ -5,7 +5,6 @@
 require("babel-polyfill");
 
 import { expect } from "chai";
-import { mount } from "enzyme";
 import React from "react";
 import ReactDOM from "react-dom";
 import configureStore from "redux-mock-store";
@@ -13,7 +12,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
 import { initialState, filledState } from "../mock-redux-state";
-import MockLocalizationProvider from "../../mock-l10n";
+import mountWithL10n from "../../mock-l10n";
 import Item from "../../../src/webextension/manage/components/item";
 import AllItems from "../../../src/webextension/manage/containers/allItems";
 import { SELECT_ITEM_STARTING } from "../../../src/webextension/manage/actions";
@@ -27,11 +26,9 @@ describe("<AllItems/>", () => {
 
     beforeEach(() => {
       store = mockStore(initialState);
-      wrapper = mount(
+      wrapper = mountWithL10n(
         <Provider store={store}>
-          <MockLocalizationProvider>
-            <AllItems/>
-          </MockLocalizationProvider>
+          <AllItems/>
         </Provider>
       );
     });
@@ -46,11 +43,9 @@ describe("<AllItems/>", () => {
 
     beforeEach(() => {
       store = mockStore(filledState);
-      wrapper = mount(
+      wrapper = mountWithL10n(
         <Provider store={store}>
-          <MockLocalizationProvider>
-            <AllItems/>
-          </MockLocalizationProvider>
+          <AllItems/>
         </Provider>
       );
     });

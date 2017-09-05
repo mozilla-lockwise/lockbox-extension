@@ -5,7 +5,6 @@
 require("babel-polyfill");
 
 import chai, { expect } from "chai";
-import { mount } from "enzyme";
 import React from "react";
 import ReactDOM from "react-dom";
 import sinon from "sinon";
@@ -13,7 +12,7 @@ import sinonChai from "sinon-chai";
 
 chai.use(sinonChai);
 
-import MockLocalizationProvider from "../../mock-l10n";
+import mountWithL10n from "../../mock-l10n";
 import ItemDetails from
        "../../../src/webextension/manage/components/itemDetails";
 
@@ -29,11 +28,9 @@ describe("<ItemDetails/>", () => {
     beforeEach(() => {
       onSave = sinon.spy();
       onDelete = sinon.spy();
-      wrapper = mount(
-        <MockLocalizationProvider>
-          <ItemDetails saveLabel="save-item" deleteLabel="delete-item"
-                       onSave={onSave} onDelete={onDelete}/>
-        </MockLocalizationProvider>
+      wrapper = mountWithL10n(
+        <ItemDetails saveLabel="save-item" deleteLabel="delete-item"
+                     onSave={onSave} onDelete={onDelete}/>
       );
     });
 
@@ -79,12 +76,10 @@ describe("<ItemDetails/>", () => {
     beforeEach(() => {
       onSave = sinon.spy();
       onDelete = sinon.spy();
-      wrapper = mount(
-        <MockLocalizationProvider>
-          <ItemDetails fields={fields}
-                       saveLabel="save-item" deleteLabel="delete-item"
-                       onSave={onSave} onDelete={onDelete}/>
-        </MockLocalizationProvider>
+      wrapper = mountWithL10n(
+        <ItemDetails fields={fields}
+                     saveLabel="save-item" deleteLabel="delete-item"
+                     onSave={onSave} onDelete={onDelete}/>
       );
     });
 

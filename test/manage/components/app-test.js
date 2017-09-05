@@ -6,7 +6,6 @@ require("babel-polyfill");
 
 import chai, { expect } from "chai";
 import chaiEnzyme from "chai-enzyme";
-import { mount } from "enzyme";
 import React from "react";
 import ReactDOM from "react-dom";
 import configureStore from "redux-mock-store";
@@ -15,7 +14,7 @@ import { Provider } from "react-redux";
 chai.use(chaiEnzyme());
 
 import { initialState } from "../mock-redux-state";
-import MockLocalizationProvider from "../../mock-l10n";
+import mountWithL10n from "../../mock-l10n";
 import App from "../../../src/webextension/manage/components/app";
 import AddItem from "../../../src/webextension/manage/containers/addItem";
 import AllItems from "../../../src/webextension/manage/containers/allItems";
@@ -28,11 +27,9 @@ const mockStore = configureStore(middlewares);
 describe("<App/>", () => {
   it("render app", () => {
     const store = mockStore(initialState);
-    const wrapper = mount(
+    const wrapper = mountWithL10n(
       <Provider store={store}>
-        <MockLocalizationProvider>
-          <App/>
-        </MockLocalizationProvider>
+        <App/>
       </Provider>
     );
 

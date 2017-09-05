@@ -5,7 +5,6 @@
 require("babel-polyfill");
 
 import chai, { expect } from "chai";
-import { mount } from "enzyme";
 import React from "react";
 import ReactDOM from "react-dom";
 import sinon from "sinon";
@@ -13,7 +12,7 @@ import sinonChai from "sinon-chai";
 
 chai.use(sinonChai);
 
-import MockLocalizationProvider from "../../mock-l10n";
+import mountWithL10n from "../../mock-l10n";
 import Item from "../../../src/webextension/manage/components/item";
 import ItemList from "../../../src/webextension/manage/components/itemList";
 
@@ -27,11 +26,9 @@ describe("<ItemList/>", () => {
 
   beforeEach(() => {
     onItemClick = sinon.spy();
-    wrapper = mount(
-      <MockLocalizationProvider>
-        <ItemList items={items} selected={items[0].id}
-                  onItemClick={onItemClick}/>
-      </MockLocalizationProvider>
+    wrapper = mountWithL10n(
+      <ItemList items={items} selected={items[0].id}
+                onItemClick={onItemClick}/>
     );
   });
 
