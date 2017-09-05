@@ -5,7 +5,6 @@
 require("babel-polyfill");
 
 import chai, { expect } from "chai";
-import { mount } from "enzyme";
 import React from "react";
 import ReactDOM from "react-dom";
 import sinon from "sinon";
@@ -13,7 +12,7 @@ import sinonChai from "sinon-chai";
 
 chai.use(sinonChai);
 
-import MockLocalizationProvider from "../../mock-l10n";
+import mountWithL10n from "../../mock-l10n";
 import Item from "../../../src/webextension/manage/components/item";
 
 describe("<Item/>", () => {
@@ -24,10 +23,8 @@ describe("<Item/>", () => {
   });
 
   it("onClick called", () => {
-    const wrapper = mount(
-      <MockLocalizationProvider>
-        <Item name="title" selected={true} onClick={onClick}/>
-      </MockLocalizationProvider>
+    const wrapper = mountWithL10n(
+      <Item name="title" selected={true} onClick={onClick}/>
     );
     wrapper.simulate("click");
     expect(onClick).to.have.been.calledWith();

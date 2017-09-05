@@ -5,7 +5,6 @@
 require("babel-polyfill");
 
 import chai, { expect } from "chai";
-import { mount } from "enzyme";
 import React from "react";
 import ReactDOM from "react-dom";
 import configureStore from "redux-mock-store";
@@ -13,7 +12,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
 import { initialState, filledState } from "../mock-redux-state";
-import MockLocalizationProvider from "../../mock-l10n";
+import mountWithL10n from "../../mock-l10n";
 import ItemDetails from
        "../../../src/webextension/manage/components/itemDetails";
 import CurrentItem from
@@ -32,11 +31,9 @@ describe("<CurrentItem/>", () => {
 
     beforeEach(() => {
       store = mockStore(initialState);
-      wrapper = mount(
+      wrapper = mountWithL10n(
         <Provider store={store}>
-          <MockLocalizationProvider>
-            <CurrentItem/>
-          </MockLocalizationProvider>
+          <CurrentItem/>
         </Provider>
       );
     });
@@ -54,11 +51,9 @@ describe("<CurrentItem/>", () => {
       store = mockStore({...filledState, ui: {
         ...filledState.ui, newItem: true
       }});
-      wrapper = mount(
+      wrapper = mountWithL10n(
         <Provider store={store}>
-          <MockLocalizationProvider>
-            <CurrentItem/>
-          </MockLocalizationProvider>
+          <CurrentItem/>
         </Provider>
       );
     });
@@ -85,11 +80,9 @@ describe("<CurrentItem/>", () => {
 
     beforeEach(() => {
       store = mockStore(filledState);
-      wrapper = mount(
+      wrapper = mountWithL10n(
         <Provider store={store}>
-          <MockLocalizationProvider>
-            <CurrentItem/>
-          </MockLocalizationProvider>
+          <CurrentItem/>
         </Provider>
       );
     });
