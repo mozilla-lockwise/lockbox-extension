@@ -23,6 +23,14 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe("<CurrentItem/>", () => {
+  beforeEach(() => {
+    browser.runtime.onMessage.addListener(() => ({}));
+  });
+
+  afterEach(() => {
+    browser.runtime.onMessage.mockClearListener();
+  });
+
   describe("nothing selected", () => {
     let store, wrapper;
 
