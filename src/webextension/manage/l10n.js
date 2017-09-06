@@ -2,10 +2,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { MessageContext } from "fluent/compat";
-import "fluent-intl-polyfill/compat";
-import negotiateLanguages from "fluent-langneg/compat";
-import { LocalizationProvider } from "fluent-react/compat";
+import { MessageContext } from "fluent";
+import "fluent-intl-polyfill";
+import negotiateLanguages from "fluent-langneg";
+import { LocalizationProvider } from "fluent-react";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 
