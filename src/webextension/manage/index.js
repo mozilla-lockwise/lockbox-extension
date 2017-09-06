@@ -10,28 +10,13 @@ import thunk from "redux-thunk";
 
 import { AppLocalizationProvider } from "./l10n";
 import App from "./components/app";
-import { listItems, addedItem, updatedItem, removedItem } from "./actions";
+import { listItems } from "./actions";
 import reducer from "./reducers";
+import initializeMessagePorts from "./messagePorts";
 
 const store = createStore(reducer, undefined, applyMiddleware(thunk));
 store.dispatch(listItems());
-
-// Listen for changes to the datastore from other sources and dispatch actions
-// to sync those changes with our Redux store.
-const messagePort = browser.runtime.connect();
-messagePort.onMessage.addListener((message) => {
-  switch (message.type) {
-  case "added_item":
-    store.dispatch(addedItem(message.item));
-    break;
-  case "updated_item":
-    store.dispatch(updatedItem(message.item));
-    break;
-  case "removed_item":
-    store.dispatch(removedItem(message.id));
-    break;
-  }
-});
+initializeMessagePorts(store);
 
 ReactDOM.render(
   <Provider store={store}>

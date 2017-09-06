@@ -16,7 +16,7 @@ import datastore from "../../src/webextension/background/datastore";
 import initializeMessagePorts from
        "../../src/webextension/background/messagePorts";
 
-describe("message ports", () => {
+describe("message ports (background side)", () => {
   let itemId, selfMessagePort, otherMessagePort, selfListener, otherListener;
 
   before(async() => {
@@ -38,7 +38,8 @@ describe("message ports", () => {
   });
 
   after(() => {
-    // Clear the listener set in <src/webextension/background/messagePorts.js>.
+    // Clear the listeners set in <src/webextension/background/messagePorts.js>.
+    browser.runtime.onConnect.mockClearListener();
     browser.runtime.onMessage.mockClearListener();
   });
 
