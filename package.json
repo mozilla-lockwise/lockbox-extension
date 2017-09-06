@@ -31,7 +31,7 @@
     "run": "jpm run --addon-dir dist/ ${npm_config_jpm_runflags} --prefs jpm-prefs.json",
     "pretest": "npm run-script lint",
     "test": "cross-env NODE_ENV=test nyc mocha-webpack --opts ./mocha-webpack.opts --webpack-config ./webpack.config.test.js -r test/setup.js test",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "clean": "git clean -fX ./dist ./*.xpi",
     "distclean": "git clean -dfX",
     "prepackage": "npm run-script clean && npm run-script build",
