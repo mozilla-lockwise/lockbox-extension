@@ -70,8 +70,8 @@ function UpdateItem({item, onAction}) {
   function onSave(updatedItem) {
     onAction(updateItem(unflattenItem(updatedItem, item.id)));
   }
-  function onDelete(id) {
-    onAction(removeItem(id));
+  function onDelete() {
+    onAction(removeItem(item.id));
   }
 
   return (

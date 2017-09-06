@@ -17,9 +17,7 @@ import ItemDetails from
        "../../../src/webextension/manage/components/itemDetails";
 import CurrentItem from
        "../../../src/webextension/manage/containers/currentItem";
-import {
-  ADD_ITEM_STARTING, CANCEL_NEW_ITEM, UPDATE_ITEM_STARTING, REMOVE_ITEM_STARTING
-} from "../../../src/webextension/manage/actions";
+import * as actions from "../../../src/webextension/manage/actions";
 
 
 const middlewares = [thunk];
@@ -66,12 +64,25 @@ describe("<CurrentItem/>", () => {
 
     it("ADD_ITEM dispatched", () => {
       wrapper.find('button[type="submit"]').simulate("submit");
-      expect(store.getActions()[0].type).to.equal(ADD_ITEM_STARTING);
+      expect(store.getActions()[0]).to.deep.include({
+        type: actions.ADD_ITEM_STARTING,
+        item: {
+          title: "",
+          id: undefined,
+          entry: {
+            kind: "login",
+            password: "",
+            username: "",
+          },
+        }
+      });
     });
 
     it("CANCEL_NEW_ITEM dispatched", () => {
       wrapper.find("button").not('[type="submit"]').simulate("click");
-      expect(store.getActions()[0].type).to.equal(CANCEL_NEW_ITEM);
+      expect(store.getActions()[0]).to.deep.equal({
+        type: actions.CANCEL_NEW_ITEM,
+      });
     });
   });
 
@@ -100,12 +111,26 @@ describe("<CurrentItem/>", () => {
 
     it("UPDATE_ITEM dispatched", () => {
       wrapper.find('button[type="submit"]').simulate("submit");
-      expect(store.getActions()[0].type).to.equal(UPDATE_ITEM_STARTING);
+      expect(store.getActions()[0]).to.deep.include({
+        type: actions.UPDATE_ITEM_STARTING,
+        item: {
+          title: "title 1",
+          id: "1",
+          entry: {
+            kind: "login",
+            password: "password 1",
+            username: "username 1",
+          },
+        },
+      });
     });
 
     it("REMOVE_ITEM dispatched", () => {
       wrapper.find("button").not('[type="submit"]').simulate("click");
-      expect(store.getActions()[0].type).to.equal(REMOVE_ITEM_STARTING);
+      expect(store.getActions()[0]).to.deep.include({
+        type: actions.REMOVE_ITEM_STARTING,
+        id: "1",
+      });
     });
   });
 });
