@@ -22,7 +22,7 @@ describe("actions", () => {
   });
 
   afterEach(() => {
-    browser.runtime.onMessage.clearListener();
+    browser.runtime.onMessage.mockClearListener();
   });
 
   it("listItems() dispatched", async() => {

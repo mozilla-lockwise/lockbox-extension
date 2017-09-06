@@ -29,22 +29,95 @@ global.navigator = {
   userAgent: "node.js"
 };
 
+// Mock the WebExtension message ports so that our tests can pretend to talk
+// between the front- and back-end.
+
+class MockListener {
+  constructor() {
+    this.mockClearListener();
+  }
+
+  addListener(fn) {
+    if (this._listener) {
+      // eslint-disable-next-line no-console
+      console.warn("Warning: only one listener supported; did you forget to " +
+                   "call mockClearListener()?");
+    }
+    this._listener = fn;
+  }
+
+  mockClearListener() {
+    this._listener = null;
+  }
+
+  mockFireListener(...args) {
+    if (this._listener) {
+      return this._listener(...args);
+    }
+    return null;
+  }
+}
+
+let nextContextId = 1;
+class MockMessageSender {
+  constructor(contextId) {
+    this.contextId = contextId === undefined ? nextContextId++ : contextId;
+  }
+}
+
+// This is the message sender that matches the real sender's context most
+// closely. It's useful for correlating connectionless messages with
+// connection-based messages. Call browser.connect() to create the primary
+// connection-based message port or browser.connect(..., {mockPrimary: false})
+// to create a secondary one.
+const primaryContextId = 0;
+const primaryMessageSender = new MockMessageSender(primaryContextId);
+
+class MockPort {
+  constructor(sender) {
+    this._otherPort = null;
+    this.onMessage = new MockListener();
+    this.onDisconnect = new MockListener();
+    if (sender) {
+      this.sender = sender;
+    }
+  }
+
+  postMessage(msg) {
+    this._otherPort.onMessage.mockFireListener(msg);
+  }
+
+  disconnect() {
+    this._otherPort.onDisconnect.mockFireListener();
+  }
+}
+
+function makePairedPorts(contextId) {
+  const left = new MockPort();
+  const right = new MockPort(new MockMessageSender(contextId));
+  left._otherPort = right;
+  right._otherPort = left;
+  return [left, right];
+}
+
 global.browser = {
   runtime: {
-    onMessage: {
-      _listener: null,
-
-      addListener(fn) {
-        this._listener = fn;
-      },
-
-      clearListener() {
-        this.addListener(null);
-      },
-    },
+    onMessage: new MockListener(),
+    onConnect: new MockListener(),
 
     async sendMessage(msg) {
-      return this.onMessage._listener ? this.onMessage._listener(msg) : {};
+      if (this.onMessage._listener) {
+        return await this.onMessage._listener(msg, primaryMessageSender);
+      }
+      return null;
+    },
+
+    connect(extensionId, {mockPrimary = true} = {}) {
+      const [left, right] = makePairedPorts(
+        mockPrimary ? primaryContextId : undefined
+      );
+      this.onConnect.mockFireListener(right);
+      return left;
     },
   }
 };
