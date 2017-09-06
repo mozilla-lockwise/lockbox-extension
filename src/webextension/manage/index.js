@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
-import { AppLocalizationProvider } from "./l10n";
+import AppLocalizationProvider from "../l10n";
 import App from "./components/app";
 import { listItems } from "./actions";
 import reducer from "./reducers";
@@ -20,7 +20,8 @@ initializeMessagePorts(store);
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppLocalizationProvider userLocales={navigator.languages}>
+    <AppLocalizationProvider baseDir="locales"
+                             userLocales={navigator.languages}>
       <App/>
     </AppLocalizationProvider>
   </Provider>,
