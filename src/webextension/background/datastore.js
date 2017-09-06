@@ -4,8 +4,6 @@
 
 import DataStore from "lockbox-datastore";
 
-const datastore = DataStore.create({
-  prompts: {unlock: () => ""},
-});
+const datastore = DataStore.create({});
 
 export default datastore;
