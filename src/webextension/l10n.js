@@ -37,6 +37,7 @@ export default class AppLocalizationProvider extends Component {
   static get propTypes() {
     return {
       baseDir: PropTypes.string,
+      availableLocales: PropTypes.array.isRequired,
       userLocales: PropTypes.array,
       children: PropTypes.any,
     };
@@ -45,10 +46,11 @@ export default class AppLocalizationProvider extends Component {
   constructor(props) {
     super(props);
 
-    const { baseDir = ".", userLocales } = props;
+    // XXX: Pull `availableLocales` from a config file?
+    const { baseDir = ".", availableLocales, userLocales } = props;
     const currentLocales = negotiateLanguages(
-      userLocales, ["en-US"],
-      { defaultLocale: "en-US" }
+      userLocales, availableLocales,
+      { defaultLocale: availableLocales[0] }
     );
 
     this.state = {
