@@ -73,7 +73,7 @@ describe("message ports (background side)", () => {
         kind: "login",
         username: "updated username",
         password: "updated password",
-      }
+      },
     };
     const result = await browser.runtime.sendMessage({
       type: "update_item",

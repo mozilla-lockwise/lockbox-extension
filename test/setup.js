@@ -26,7 +26,7 @@ Object.keys(document.defaultView).forEach((property) => {
 });
 
 global.navigator = {
-  userAgent: "node.js"
+  userAgent: "node.js",
 };
 
 // Mock the WebExtension message ports so that our tests can pretend to talk
@@ -119,5 +119,5 @@ global.browser = {
       this.onConnect.mockFireListener(right);
       return left;
     },
-  }
+  },
 };

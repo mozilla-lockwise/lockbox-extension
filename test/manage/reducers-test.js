@@ -8,7 +8,7 @@ import { expect } from "chai";
 
 import * as actions from "../../src/webextension/manage/actions";
 import {
-  cacheReducer, uiReducer
+  cacheReducer, uiReducer,
 } from "../../src/webextension/manage/reducers";
 
 describe("reducers", () => {
@@ -50,7 +50,7 @@ describe("reducers", () => {
               kind: "login",
               username: "username",
               password: "password",
-            }
+            },
           },
         };
 
@@ -77,7 +77,7 @@ describe("reducers", () => {
               kind: "login",
               username: "username",
               password: "password",
-            }
+            },
           },
         };
 
@@ -104,7 +104,7 @@ describe("reducers", () => {
               kind: "login",
               username: "username",
               password: "password",
-            }
+            },
           },
         };
 

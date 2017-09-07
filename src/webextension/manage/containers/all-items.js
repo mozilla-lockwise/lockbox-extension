@@ -23,7 +23,7 @@ const AllItems = connect(
     };
   },
   (dispatch) => ({
-    onItemClick: (id) => dispatch(selectItem(id))
+    onItemClick: (id) => dispatch(selectItem(id)),
   })
 )(ItemList);
 
