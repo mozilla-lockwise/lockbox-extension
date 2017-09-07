@@ -54,7 +54,7 @@ describe("<CurrentItem/>", () => {
 
     beforeEach(() => {
       store = mockStore({...filledState, ui: {
-        ...filledState.ui, newItem: true
+        ...filledState.ui, newItem: true,
       }});
       wrapper = mountWithL10n(
         <Provider store={store}>
@@ -81,7 +81,7 @@ describe("<CurrentItem/>", () => {
             password: "",
             username: "",
           },
-        }
+        },
       });
     });
 

@@ -12,7 +12,7 @@ import path from "path";
 
 const entries = {
   "webextension/background": "./webextension/background/index.js",
-  "webextension/manage/index": "./webextension/manage/index.js"
+  "webextension/manage/index": "./webextension/manage/index.js",
 };
 
 const NODE_ENV = (process.env.NODE_ENV) ? process.env.NODE_ENV.toLowerCase() :
@@ -25,7 +25,7 @@ const cssLoader = {
     camelCase: "dashes",
     importLoaders: 1,
     localIdentName: "[name]__[local]___[hash:base64:5]",
-  }
+  },
 };
 
 let extraPlugins = [];
@@ -42,8 +42,8 @@ if (NODE_ENV === "production") {
     test: /\.css$/,
     loader: ExtractTextPlugin.extract({
       fallback: "style-loader",
-      use: combineLoaders([cssLoader])
-    })
+      use: combineLoaders([cssLoader]),
+    }),
   });
 
   htmlMinifyOptions = {
@@ -59,7 +59,7 @@ if (NODE_ENV === "production") {
     loader: combineLoaders([
       {loader: "style-loader"},
       cssLoader,
-    ])
+    ]),
   });
 
 }
@@ -82,8 +82,8 @@ export default {
         exclude: /node_modules/,
         loader: "babel-loader",
       },
-      ...extraLoaders
-    ]
+      ...extraLoaders,
+    ],
   },
 
   plugins: [
@@ -107,8 +107,8 @@ export default {
       template: "template.ejs",
       chunks: ["webextension/manage/index"],
       filename: "webextension/manage/index.html",
-      icon: "../icons/lock.png"
+      icon: "../icons/lock.png",
     }),
-    ...extraPlugins
+    ...extraPlugins,
   ],
 };

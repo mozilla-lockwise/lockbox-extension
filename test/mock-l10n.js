@@ -6,7 +6,7 @@ import { mount } from "enzyme";
 import React from "react";
 import { MessageContext } from "fluent";
 import {
-  LocalizationProvider, ReactLocalization, isReactLocalization
+  LocalizationProvider, ReactLocalization, isReactLocalization,
 } from "fluent-react";
 
 function *generateMessages() {
@@ -32,6 +32,6 @@ export default function mountWithL10n(node, options = {}) {
     childContextTypes: {
       l10n: isReactLocalization,
     },
-    ...options
+    ...options,
   });
 }

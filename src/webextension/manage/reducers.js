@@ -7,7 +7,7 @@ import { combineReducers } from "redux";
 import {
   LIST_ITEMS_COMPLETED, ADD_ITEM_STARTING, ADD_ITEM_COMPLETED,
   UPDATE_ITEM_COMPLETED, REMOVE_ITEM_COMPLETED, SELECT_ITEM_COMPLETED,
-  START_NEW_ITEM, CANCEL_NEW_ITEM
+  START_NEW_ITEM, CANCEL_NEW_ITEM,
 } from "./actions";
 import { makeItemSummary } from "../common";
 
@@ -33,7 +33,7 @@ function maybeRemoveCurrentItem(state, action) {
 }
 
 export function cacheReducer(state = {
-  items: [], currentItem: null, pendingAdd: null
+  items: [], currentItem: null, pendingAdd: null,
 }, action) {
   switch (action.type) {
   case LIST_ITEMS_COMPLETED:
