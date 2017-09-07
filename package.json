@@ -73,6 +73,7 @@
     "chai": "^4.1.1",
     "chai-as-promised": "^7.1.1",
     "chai-enzyme": "^0.8.0",
+    "codecov": "^2.3.0",
     "copy-webpack-plugin": "^4.0.1",
     "coveralls": "^2.13.1",
     "cross-env": "^5.0.5",
