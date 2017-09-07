@@ -13,7 +13,7 @@ import thunk from "redux-thunk";
 import { initialState, filledState } from "../mock-redux-state";
 import mountWithL10n from "../../mock-l10n";
 import Item from "../../../src/webextension/manage/components/item";
-import AllItems from "../../../src/webextension/manage/containers/allItems";
+import AllItems from "../../../src/webextension/manage/containers/all-items";
 import { SELECT_ITEM_STARTING } from "../../../src/webextension/manage/actions";
 
 const middlewares = [thunk];

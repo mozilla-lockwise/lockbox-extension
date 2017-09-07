@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 
 import { initialState } from "../mock-redux-state";
 import mountWithL10n from "../../mock-l10n";
-import AddItem from "../../../src/webextension/manage/containers/addItem";
+import AddItem from "../../../src/webextension/manage/containers/add-item";
 import { startNewItem } from "../../../src/webextension/manage/actions";
 
 const middlewares = [];

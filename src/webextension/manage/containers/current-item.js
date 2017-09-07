@@ -8,9 +8,9 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { addItem, cancelNewItem, updateItem, removeItem } from "../actions";
-import ItemDetails from "../components/itemDetails";
+import ItemDetails from "../components/item-details";
 
-import styles from "./currentItem.css";
+import styles from "./current-item.css";
 
 const NEW_ITEM = Symbol("NEW_ITEM");
 
