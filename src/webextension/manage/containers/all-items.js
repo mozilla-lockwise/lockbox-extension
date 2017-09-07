@@ -5,7 +5,7 @@
 import { connect } from "react-redux";
 
 import { selectItem } from "../actions";
-import ItemList from "../components/itemList";
+import ItemList from "../components/item-list";
 
 const collator = new Intl.Collator();
 

@@ -13,7 +13,7 @@ chai.use(sinonChai);
 
 import mountWithL10n from "../../mock-l10n";
 import ItemDetails from
-       "../../../src/webextension/manage/components/itemDetails";
+       "../../../src/webextension/manage/components/item-details";
 
 function simulateTyping(wrapper, value) {
   wrapper.get(0).value = value;

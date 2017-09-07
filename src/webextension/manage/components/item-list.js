@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import Item from "./item";
-import styles from "./itemList.css";
+import styles from "./item-list.css";
 
 export default function ItemList({items, selected, onItemClick}) {
   return (
