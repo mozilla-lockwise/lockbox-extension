@@ -22,8 +22,9 @@ const cssLoader = {
   loader: "css-loader",
   query: {
     modules: true,
+    camelCase: "dashes",
     importLoaders: 1,
-    localIdentName: "[name]__[local]___[hash:base64:5]"
+    localIdentName: "[name]__[local]___[hash:base64:5]",
   }
 };
 
