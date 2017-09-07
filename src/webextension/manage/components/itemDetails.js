@@ -78,10 +78,10 @@ export default class ItemDetails extends React.Component {
         </p>
         <p>
           <Localized id={this.newItem ? "save-item" : "update-item"}>
-            <button type="submit">sAVe</button>
+            <button type="submit" className="browser-style">sAVe</button>
           </Localized>
           <Localized id={this.newItem ? "cancel-item" : "delete-item"}>
-            <button type="button"
+            <button type="button" className="browser-style"
                     onClick={(e) => onDelete(this.state.id)}>dELETe</button>
           </Localized>
         </p>

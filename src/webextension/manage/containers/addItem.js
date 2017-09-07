@@ -12,7 +12,8 @@ import { startNewItem } from "../actions";
 function AddItem({dispatch}) {
   return (
     <Localized id="add-item">
-      <button onClick={() => { dispatch(startNewItem()); }}>
+      <button className="browser-style"
+        onClick={() => { dispatch(startNewItem()); }}>
         aDd iTEm
       </button>
     </Localized>

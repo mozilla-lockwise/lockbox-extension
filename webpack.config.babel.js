@@ -106,6 +106,7 @@ export default {
       template: "template.ejs",
       chunks: ["webextension/manage/index"],
       filename: "webextension/manage/index.html",
+      icon: "../icons/lock.png"
     }),
     ...extraPlugins
   ],

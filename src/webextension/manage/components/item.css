@@ -3,7 +3,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .item {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #d7d7db;
+  padding: .5em;
 }
 
 .item[data-selected] {
