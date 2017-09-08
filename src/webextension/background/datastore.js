@@ -4,6 +4,11 @@
 
 import * as DataStore from "lockbox-datastore";
 
-const datastore = DataStore.create({});
+let datastore;
 
-export default datastore;
+export default async function openDataStore() {
+  if (!datastore) {
+    datastore = (typeof DataStore.open === "function") ? await DataStore.open() : DataStore.create();
+  }
+  return datastore;
+}
