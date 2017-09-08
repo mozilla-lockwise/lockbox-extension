@@ -8,7 +8,7 @@ probably come back later when we have more to show!
 
 ## Installing
 
-To **build the project** and install dependencies, simply run:
+To **install the project dependencies**, you can run:
 
 ```sh
 npm install
@@ -16,14 +16,14 @@ npm install
 
 ## Building
 
-To **build the project**, simply run:
+To **build the project**, you can run:
 
 ```sh
 npm run-script build
 ```
 
 This puts all the necessary files in the `dist/` directory, which you can then
-load into Firefox (e.g. `about:debugging`).
+temporarily load into Firefox (e.g. `about:debugging`).
 
 If you'd like to **build an extension .xpi**, you can run:
 
@@ -31,11 +31,30 @@ If you'd like to **build an extension .xpi**, you can run:
 npm run-script package
 ```
 
-The resulting add-on is unsigned and likely won't work on release versions of
-Firefox. You can flip the `xpinstall.signatures.required` preference on other
-channels accordingly.
+:warning: The resulting add-on is unsigned and likely won't work on release
+versions of Firefox. You can flip the `xpinstall.signatures.required` preference
+on other channels accordingly.
 
-In preparation for 57, legacy extensions are also disabled. So you'll need to flip the `extensions.legacy.enabled` preference, too.
+:warning: In preparation for Firefox 57, legacy extensions are also disabled. So
+you'll need to flip the `extensions.legacy.enabled` preference, too.
+
+## Releasing
+
+If you'd like to **build a signed extension .xpi**, you can run:
+
+```sh
+npm run-script packagesign
+```
+
+To specify the signing keys for jpm to use, use `npm config set`:
+
+```sh
+npm config set jwt_issuer=JWTissuer
+npm config set jwt_secret=JWTsecret
+```
+
+:warning: In preparation for Firefox 57, legacy extensions are also disabled. So
+users would need to flip the `extensions.legacy.enabled` preference, too.
 
 ## Quick Start
 
