@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/mozilla-lockbox/lockbox-extension.svg?branch=master)](https://travis-ci.org/mozilla-lockbox/lockbox-extension) [![Coverage Status](https://coveralls.io/repos/github/mozilla-lockbox/lockbox-extension/badge.svg?branch=master)](https://coveralls.io/github/mozilla-lockbox/lockbox-extension?branch=master) [![codecov](https://codecov.io/gh/mozilla-lockbox/lockbox-extension/branch/master/graph/badge.svg)](https://codecov.io/gh/mozilla-lockbox/lockbox-extension)
+[![Build Status](https://travis-ci.org/mozilla-lockbox/lockbox-extension.svg?branch=master)](https://travis-ci.org/mozilla-lockbox/lockbox-extension) [![codecov](https://codecov.io/gh/mozilla-lockbox/lockbox-extension/branch/master/graph/badge.svg)](https://codecov.io/gh/mozilla-lockbox/lockbox-extension)
 
 # Lockbox for Firefox
 
