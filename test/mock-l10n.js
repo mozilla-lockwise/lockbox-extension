@@ -4,10 +4,10 @@
 
 import { mount } from "enzyme";
 import React from "react";
-import { MessageContext } from "fluent/compat";
+import { MessageContext } from "fluent";
 import {
   LocalizationProvider, ReactLocalization, isReactLocalization
-} from "fluent-react/compat";
+} from "fluent-react";
 
 function *generateMessages() {
   const context = new MessageContext("en-US");

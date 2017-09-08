@@ -2,23 +2,23 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { MessageContext } from "fluent/compat";
-import "fluent-intl-polyfill/compat";
-import negotiateLanguages from "fluent-langneg/compat";
-import { LocalizationProvider } from "fluent-react/compat";
+import { MessageContext } from "fluent";
+import "fluent-intl-polyfill";
+import negotiateLanguages from "fluent-langneg";
+import { LocalizationProvider } from "fluent-react";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 
-async function fetchMessages(locale) {
-  const response = await fetch(`${locale}.ftl`);
+async function fetchMessages(baseDir, locale) {
+  const response = await fetch(`${baseDir}/${locale}.ftl`);
   const messages = await response.text();
 
   return { [locale]: messages };
 }
 
-async function createMessagesGenerator(currentLocales) {
+async function createMessagesGenerator(baseDir, currentLocales) {
   const fetched = await Promise.all(
-    currentLocales.map(fetchMessages)
+    currentLocales.map((x) => fetchMessages(baseDir, x))
   );
   const bundle = fetched.reduce(
     (obj, cur) => Object.assign(obj, cur)
@@ -33,9 +33,11 @@ async function createMessagesGenerator(currentLocales) {
   }
 }
 
-export class AppLocalizationProvider extends Component {
+export default class AppLocalizationProvider extends Component {
   static get propTypes() {
     return {
+      baseDir: PropTypes.string,
+      availableLocales: PropTypes.array.isRequired,
       userLocales: PropTypes.array,
       children: PropTypes.any,
     };
@@ -44,20 +46,24 @@ export class AppLocalizationProvider extends Component {
   constructor(props) {
     super(props);
 
-    const { userLocales } = props;
+    // XXX: Pull `availableLocales` from a config file?
+    const { baseDir = ".", availableLocales, userLocales } = props;
     const currentLocales = negotiateLanguages(
-      userLocales, ["en-US"],
-      { defaultLocale: "en-US" }
+      userLocales, availableLocales,
+      { defaultLocale: availableLocales[0] }
     );
 
     this.state = {
       currentLocales,
+      baseDir,
     };
   }
 
   async componentWillMount() {
-    const { currentLocales } = this.state;
-    const generateMessages = await createMessagesGenerator(currentLocales);
+    const { baseDir, currentLocales } = this.state;
+    const generateMessages = await createMessagesGenerator(
+      baseDir, currentLocales
+    );
     this.setState({ messages: generateMessages() });
   }
 
@@ -66,7 +72,7 @@ export class AppLocalizationProvider extends Component {
     const { messages } = this.state;
 
     if (!messages) {
-      return <div>…</div>;
+      return <div/>;
     }
 
     return (
