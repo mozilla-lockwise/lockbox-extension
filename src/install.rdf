@@ -2,7 +2,7 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
-    <em:id>lockbox@mozilla.org</em:id>
+    <em:id>lockbox@mozilla.com</em:id>
     <em:type>2</em:type>
     <em:bootstrap>true</em:bootstrap>
     <em:name>Lockbox</em:name>
