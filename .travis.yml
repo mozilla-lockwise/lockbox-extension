@@ -7,4 +7,4 @@ before_script:
 script:
   - STRICT_LINT=1 npm run test
 
-after_success: npm run coveralls
+after_success: npm run report-coverage
