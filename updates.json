@@ -1,0 +1,13 @@
+{
+    "addons": {
+        "lockbox@mozilla.com": {
+            "updates": [
+                {
+                    "update_hash": "sha256:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                    "update_link": "https://github.com/mozilla-lockbox/lockbox-extension/releases/latest",
+                    "version": "1.0"
+                }
+            ]
+        }
+    }
+}

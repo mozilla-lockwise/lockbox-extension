@@ -5,6 +5,13 @@
 
   "description": "Improved password management for Firefox",
 
+"applications": {
+  "gecko": {
+    "id": "lockbox@mozilla.com",
+    "update_url": "https://github.com/mozilla-lockbox/lockbox-extension/blob/master/updates.json"
+  }
+}
+
   "background": {
     "scripts": ["background.js"]
   },
