@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/mozilla-lockbox/lockbox-extension.svg?branch=master)](https://travis-ci.org/mozilla-lockbox/lockbox-extension) [![codecov](https://codecov.io/gh/mozilla-lockbox/lockbox-extension/branch/master/graph/badge.svg)](https://codecov.io/gh/mozilla-lockbox/lockbox-extension)
+[![Build Status][travis-image]][travis-link]
+[![Coverage Status][codecov-image]][codecov-link]
 
 # Lockbox for Firefox
 
@@ -63,4 +64,8 @@ npm config set jpm_runflags="-b nightly"
 This add-on is [licensed][license-link] under the Mozilla Public License,
 version 2.0.
 
+[travis-image]: https://travis-ci.org/mozilla-lockbox/lockbox-extension.svg?branch=master
+[travis-link]: https://travis-ci.org/mozilla-lockbox/lockbox-extension
+[codecov-image]: https://img.shields.io/codecov/c/github/mozilla-lockbox/lockbox-extension.svg
+[codecov-link]: https://codecov.io/gh/mozilla-lockbox/lockbox-extension
 [license-link]: /LICENSE
