@@ -4,7 +4,7 @@
 
 import { MessageContext } from "fluent";
 import "fluent-intl-polyfill";
-import negotiateLanguages from "fluent-langneg";
+import { negotiateLanguages } from "fluent-langneg";
 import { LocalizationProvider } from "fluent-react";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
