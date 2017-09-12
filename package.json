@@ -34,7 +34,7 @@
     "pretest": "npm run-script autolint",
     "test": "cross-env NODE_ENV=test nyc mocha-webpack --opts ./mocha-webpack.opts --webpack-config ./webpack.config.test.js -r test/setup.js test",
     "report-coverage": "nyc report --reporter=lcov && codecov",
-    "clean": "git clean -fX ./dist ./*.xpi",
+    "clean": "git clean -fX ./build ./dist",
     "distclean": "git clean -dfX",
     "prepackage": "npm run-script clean && npm run-script build",
     "package": "mkdir -p build && cd dist && zip -r ../build/${npm_package_name}-${npm_package_version}.xpi *",
