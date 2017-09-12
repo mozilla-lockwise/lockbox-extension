@@ -24,7 +24,8 @@
     "addon"
   ],
   "scripts": {
-    "lint": "eslint src test --ignore-pattern '!.eslintrc.js' .eslintrc.js",
+    "template-replace": "./bin/template-replace.py src/webextension/manifest-template.json src/webextension/manifest.json && ./bin/template-replace.py src/install-template.rdf src/install.rdf",
+    "lint": "npm run-script template-replace && eslint src test --ignore-pattern '!.eslintrc.js' .eslintrc.js",
     "prebuild": "npm run-script lint",
     "build": "webpack",
     "prerun": "npm run-script build",
