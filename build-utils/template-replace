@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+const fs = require("fs");
+const pkg = require("../package.json");
+const argv = process.argv.slice(2);
+
+if ((argv.length < 2) || (argv[0] === "-h") || (argv[0] === "--help")) {
+  const path = require("path");
+  console.error(`Usage: ${path.basename(__filename)} <TEMPLATE> <OUTPUT>
+  Writes OUTPUT with tokenized values based on TEMPLATE")
+  Uses package.json to determine values`);
+  process.exit(64);
+}
+
+fs.readFile(argv[0], 'utf-8', (er, s) => {
+  if (er) {
+    console.error(er);
+    process.exit(1);
+  }
+  s = s.replace(/__([A-Z]+)__/g, (match, p1) => {
+    switch (p1) {
+      case "TITLE":
+        return pkg.title;
+      case "VERSION":
+        return pkg.version;
+      case "DESCRIPTION":
+        return pkg.description;
+      case "AUTHORID":
+        return pkg.author;
+      default:
+        return match;
+    }
+  });
+  fs.writeFile(argv[1], s, (er) => {
+    if (er) {
+      console.error(er);
+      process.exit(1);
+    }
+  })
+});
