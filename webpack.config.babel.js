@@ -100,7 +100,6 @@ export default {
   plugins: [
     new CopyWebpackPlugin([
       {from: "bootstrap.js"},
-      {from: "chrome.manifest"},
       {from: "webextension/**/*.ftl"},
       {from: "webextension/icons/*"},
     ]),
