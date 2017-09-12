@@ -13,7 +13,7 @@ chai.use(sinonChai);
 
 import mountWithL10n from "../../mock-l10n";
 import Item from "../../../src/webextension/manage/components/item";
-import ItemList from "../../../src/webextension/manage/components/itemList";
+import ItemList from "../../../src/webextension/manage/components/item-list";
 
 describe("<ItemList/>", () => {
   let onItemClick, wrapper;

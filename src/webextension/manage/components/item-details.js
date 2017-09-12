@@ -6,7 +6,7 @@ import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
-import styles from "./itemDetails.css";
+import styles from "./item-details.css";
 
 // Note: ItemDetails doesn't directly interact with items from the Lockbox
 // datastore. For that, please consult <../containers/currentItem.js>.

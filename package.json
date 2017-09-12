@@ -24,12 +24,13 @@
     "addon"
   ],
   "scripts": {
-    "lint": "eslint src test --ignore-pattern '!.eslintrc.js' .eslintrc.js",
-    "prebuild": "npm run-script lint",
+    "autolint": "eslint src test webpack*.js --ignore-pattern '!.eslintrc.js' .eslintrc.js",
+    "lint": "cross-env STRICT_LINT=1 npm run autolint --",
+    "prebuild": "npm run-script autolint",
     "build": "webpack",
     "prerun": "npm run-script build",
     "run": "jpm run --addon-dir dist/ ${npm_config_jpm_runflags} --prefs jpm-prefs.json",
-    "pretest": "npm run-script lint",
+    "pretest": "npm run-script autolint",
     "test": "cross-env NODE_ENV=test nyc mocha-webpack --opts ./mocha-webpack.opts --webpack-config ./webpack.config.test.js -r test/setup.js test",
     "report-coverage": "nyc report --reporter=lcov && codecov",
     "clean": "git clean -fX ./dist ./*.xpi",

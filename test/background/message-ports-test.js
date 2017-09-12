@@ -14,7 +14,7 @@ chai.use(sinonChai);
 
 import datastore from "../../src/webextension/background/datastore";
 import initializeMessagePorts from
-       "../../src/webextension/background/messagePorts";
+       "../../src/webextension/background/message-ports";
 
 describe("message ports (background side)", () => {
   let itemId, selfMessagePort, otherMessagePort, selfListener, otherListener;
@@ -73,7 +73,7 @@ describe("message ports (background side)", () => {
         kind: "login",
         username: "updated username",
         password: "updated password",
-      }
+      },
     };
     const result = await browser.runtime.sendMessage({
       type: "update_item",

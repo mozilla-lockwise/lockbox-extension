@@ -4,7 +4,6 @@
 
 import combineLoaders from "webpack-combine-loaders";
 import nodeExternals from "webpack-node-externals";
-import path from "path";
 
 export default {
   target: "node",
@@ -20,14 +19,16 @@ export default {
       test: /\.css$/,
       exclude: /node_modules/,
       loader: combineLoaders([{
-        loader: "style-loader"
+        loader: "style-loader",
       }, {
         loader: "css-loader",
         query: {
           modules: true,
-          localIdentName: "[name]__[local]___[hash:base64:5]"
-        }
-      }])
-    }]
-  }
+          camelCase: "dashes",
+          importLoaders: 1,
+          localIdentName: "[name]__[local]___[hash:base64:5]",
+        },
+      }]),
+    }],
+  },
 };

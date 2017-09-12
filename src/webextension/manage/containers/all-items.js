@@ -5,7 +5,7 @@
 import { connect } from "react-redux";
 
 import { selectItem } from "../actions";
-import ItemList from "../components/itemList";
+import ItemList from "../components/item-list";
 
 const collator = new Intl.Collator();
 
@@ -23,7 +23,7 @@ const AllItems = connect(
     };
   },
   (dispatch) => ({
-    onItemClick: (id) => dispatch(selectItem(id))
+    onItemClick: (id) => dispatch(selectItem(id)),
   })
 )(ItemList);
 

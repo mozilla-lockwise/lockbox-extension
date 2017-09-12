@@ -13,9 +13,9 @@ import thunk from "redux-thunk";
 import { initialState, filledState } from "../mock-redux-state";
 import mountWithL10n from "../../mock-l10n";
 import ItemDetails from
-       "../../../src/webextension/manage/components/itemDetails";
+       "../../../src/webextension/manage/components/item-details";
 import CurrentItem from
-       "../../../src/webextension/manage/containers/currentItem";
+       "../../../src/webextension/manage/containers/current-item";
 import * as actions from "../../../src/webextension/manage/actions";
 
 
@@ -54,7 +54,7 @@ describe("<CurrentItem/>", () => {
 
     beforeEach(() => {
       store = mockStore({...filledState, ui: {
-        ...filledState.ui, newItem: true
+        ...filledState.ui, newItem: true,
       }});
       wrapper = mountWithL10n(
         <Provider store={store}>
@@ -81,7 +81,7 @@ describe("<CurrentItem/>", () => {
             password: "",
             username: "",
           },
-        }
+        },
       });
     });
 
