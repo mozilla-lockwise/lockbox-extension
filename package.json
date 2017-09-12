@@ -37,7 +37,8 @@
     "clean": "git clean -fX ./dist ./*.xpi",
     "distclean": "git clean -dfX",
     "prepackage": "npm run-script clean && npm run-script build",
-    "package": "cd dist && zip -r ../${npm_package_name}-${npm_package_version}.xpi *"
+    "package": "mkdir -p build && cd dist && zip -r ../build/${npm_package_name}-${npm_package_version}.xpi *",
+    "release": "export NODE_ENV='production' && npm run-script package"
   },
   "nyc": {
     "all": true,
