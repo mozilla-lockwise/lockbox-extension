@@ -7,4 +7,15 @@ before_script:
 script:
   - STRICT_LINT=1 npm run test
 
-after_success: npm run report-coverage
+after_success: npm run report-coverage && npm run package
+
+deploy:
+  provider: releases
+  api_key:
+    secure: U17sjsZ5zD4LaTUCZv32bOcCZ3AhL8d/hHKp0QJy4Q8//zFdO3WH6p3nth1fggMxsRfjx5+DYnqAg9u9l716s143ZCMtYmTEBrQ0h9VQ1ohFKgmGjq57VJEGqrUBO6nv1gf+sB2wDH7DnWjOs5rGWkLLvlKCNCMVf5OwnsqFGNzQArZ8u8g72zf6lcZBhyVVXiNQ5qwZgcwH48GwErtfme1HdChkX5ZADWSGHGjFE8hy2ks7zoXhj0FeBKM8o5P4aYIXGmHdqsVa7Cd6p1r1QkGA4yOrYXe5x9WGe+LrqC6/qyuNWSh1u3+rBfnX2B19YwOhL8tE0lKkLboANd04V0+8Gy81UqBUDIDEeIStnQ64YPHoZEou47+XyM6G94NalSsYWpl3RCaHk780u4g28vW5m3B38oIxLjZc6IVE1sCN1yJhGbpY9mHpB6L6j6yqrlQBCE7S6JLo4viOoZc7nPzIcw1W8HGfrtl0O1Kq0xhBg/G6EVpYAuT8ZplInf5UjY15hOtzumYEQiOxrtUmUg0k/vH7OS5cC82gxhc1Gnsv4Uz4KGHit7Wg1+bbjypawMg5rDpmGgcfk8QGYyc0eMzRWNApNiu81bvipCXb7y+y3PUwvcyRkOOrQFXrKzsuTdYr5Qn3uXq4dvPD5141o2fX426gIPu8JxMDGPNio/Y=
+  file_glob: true
+  file: build/*
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: mozilla-lockbox/lockbox-extension
