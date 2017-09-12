@@ -6,7 +6,7 @@ before_script:
 script:
   - STRICT_LINT=1 npm run test
 
-after_success: npm run report-coverage && npm run package
+after_success: npm run report-coverage && npm run release
 
 deploy:
   provider: releases
