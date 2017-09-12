@@ -1,13 +1,13 @@
 {
   "manifest_version": 2,
-  "name": "Lockbox",
-  "version": "0.1.0-pre",
+  "name": "__TITLE__",
+  "version": "__VERSION__",
 
-  "description": "Improved password management for Firefox",
+  "description": "__DESCRIPTION__",
 
   "applications": {
     "gecko": {
-      "id": "lockbox@mozilla.com",
+      "id": "__AUTHORID__",
       "update_url": "https://github.com/mozilla-lockbox/lockbox-extension/blob/master/updates.json"
     }
   },
@@ -21,7 +21,7 @@
     "default_icon": {
       "512": "icons/lock.png"
     },
-    "default_title": "Lockbox"
+    "default_title": "__TITLE__"
   },
 
   "commands": {
