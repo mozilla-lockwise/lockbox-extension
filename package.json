@@ -1,6 +1,7 @@
 {
   "title": "Lockbox",
   "name": "lockbox",
+  "id": "lockbox@mozilla.com",
   "version": "0.1.0-pre",
   "main": "dist/bootstrap.js",
   "description": "A Lockbox extension for Firefox",
