@@ -4,9 +4,9 @@
 
 import React from "react";
 
-import AddItem from "../containers/addItem";
-import AllItems from "../containers/allItems";
-import CurrentItem from "../containers/currentItem";
+import AddItem from "../containers/add-item";
+import AllItems from "../containers/all-items";
+import CurrentItem from "../containers/current-item";
 
 import styles from "./app.css";
 

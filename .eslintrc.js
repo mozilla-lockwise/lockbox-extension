@@ -9,28 +9,29 @@ module.exports = {
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true,
-      "experimentalObjectRestSpread": true
-    }
+      "experimentalObjectRestSpread": true,
+    },
   },
   "extends": [
     "eslint:recommended",
     "plugin:mozilla/recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
   ],
   "env": {
     "browser": true,
     "node": true,
     "webextensions": true,
-    "es6": true
+    "es6": true,
   },
   "plugins": [
     "mozilla",
     "react",
-    ...extraPlugins
+    ...extraPlugins,
   ],
   "rules": {
-    "curly": 2,
-    "no-console": 1,
-    "no-func-assign": 0
-  }
+    "comma-dangle": ["error", "always-multiline"],
+    "curly": "error",
+    "no-console": "warn",
+    "no-func-assign": "off",
+  },
 }

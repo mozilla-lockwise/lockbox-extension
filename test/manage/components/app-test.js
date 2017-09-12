@@ -15,10 +15,10 @@ chai.use(chaiEnzyme());
 import { initialState } from "../mock-redux-state";
 import mountWithL10n from "../../mock-l10n";
 import App from "../../../src/webextension/manage/components/app";
-import AddItem from "../../../src/webextension/manage/containers/addItem";
-import AllItems from "../../../src/webextension/manage/containers/allItems";
+import AddItem from "../../../src/webextension/manage/containers/add-item";
+import AllItems from "../../../src/webextension/manage/containers/all-items";
 import CurrentItem from
-       "../../../src/webextension/manage/containers/currentItem";
+       "../../../src/webextension/manage/containers/current-item";
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);

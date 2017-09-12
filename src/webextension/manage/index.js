@@ -12,7 +12,7 @@ import AppLocalizationProvider from "../l10n";
 import App from "./components/app";
 import { listItems } from "./actions";
 import reducer from "./reducers";
-import initializeMessagePorts from "./messagePorts";
+import initializeMessagePorts from "./message-ports";
 
 const store = createStore(reducer, undefined, applyMiddleware(thunk));
 store.dispatch(listItems());
