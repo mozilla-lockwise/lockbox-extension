@@ -14,14 +14,6 @@ import MinifyPlugin from "babel-minify-webpack-plugin";
 import JSONWebpackPlugin from "./json-webpack-plugin";
 import thisPackage from "./package.json";
 
-const addonInfo = {
-  name: thisPackage.title,
-  id: "lockbox@mozilla.com",
-  version: thisPackage.version,
-  description: thisPackage.description,
-  author: thisPackage.author,
-};
-
 const NODE_ENV = (process.env.NODE_ENV) ? process.env.NODE_ENV.toLowerCase() :
                  "development";
 
@@ -120,12 +112,12 @@ export default {
     new XMLWebpackPlugin({files: [{
       template: path.join(__dirname, "src/install.rdf.ejs"),
       filename: "install.rdf",
-      data: addonInfo,
+      data: thisPackage,
     }]}),
     new JSONWebpackPlugin({
       template: "src/webextension/manifest.json.tpl",
       filename: "webextension/manifest.json",
-      data: addonInfo,
+      data: thisPackage,
     }),
     ...extraPlugins,
   ],
