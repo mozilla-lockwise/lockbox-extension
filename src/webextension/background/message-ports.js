@@ -22,6 +22,11 @@ export default function initializeMessagePorts() {
   });
 
   browser.runtime.onMessage.addListener(async function(message, sender) {
+    // ensure only this extension can send itself messages
+    if (sender.id !== browser.runtime.id) {
+      throw new Error(`unauthorized sender "${sender.id}"`);
+    }
+
     switch (message.type) {
     case "list_items":
       return {items: Array.from((await datastore.list()).values(),

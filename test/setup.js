@@ -60,7 +60,8 @@ class MockListener {
 
 let nextContextId = 1;
 class MockMessageSender {
-  constructor(contextId) {
+  constructor(extensionId, contextId) {
+    this.id = extensionId;
     this.contextId = contextId === undefined ? nextContextId++ : contextId;
   }
 }
@@ -70,17 +71,16 @@ class MockMessageSender {
 // connection-based messages. Call browser.connect() to create the primary
 // connection-based message port or browser.connect(..., {mockPrimary: false})
 // to create a secondary one.
+const mockExtensionId = "lockbox@example.com";
 const primaryContextId = 0;
-const primaryMessageSender = new MockMessageSender(primaryContextId);
+const primaryMessageSender = new MockMessageSender(mockExtensionId, primaryContextId);
 
 class MockPort {
   constructor(sender) {
     this._otherPort = null;
     this.onMessage = new MockListener();
     this.onDisconnect = new MockListener();
-    if (sender) {
-      this.sender = sender;
-    }
+    this.sender = sender || primaryMessageSender;
   }
 
   postMessage(msg) {
@@ -92,9 +92,10 @@ class MockPort {
   }
 }
 
-function makePairedPorts(contextId) {
-  const left = new MockPort();
-  const right = new MockPort(new MockMessageSender(contextId));
+function makePairedPorts(extensionId, contextId) {
+  const sender = new MockMessageSender(extensionId || mockExtensionId, contextId);
+  const left = new MockPort(sender);
+  const right = new MockPort(sender);
   left._otherPort = right;
   right._otherPort = left;
   return [left, right];
@@ -102,18 +103,20 @@ function makePairedPorts(contextId) {
 
 global.browser = {
   runtime: {
+    id: mockExtensionId,
     onMessage: new MockListener(),
     onConnect: new MockListener(),
 
-    async sendMessage(msg) {
+    async sendMessage(msg, sender) {
       if (this.onMessage._listener) {
-        return await this.onMessage._listener(msg, primaryMessageSender);
+        return await this.onMessage._listener(msg, sender || primaryMessageSender);
       }
       return null;
     },
 
     connect(extensionId, {mockPrimary = true} = {}) {
       const [left, right] = makePairedPorts(
+        extensionId,
         mockPrimary ? primaryContextId : undefined
       );
       this.onConnect.mockFireListener(right);

@@ -17,139 +17,183 @@ import initializeMessagePorts from
        "../../src/webextension/background/message-ports";
 
 describe("message ports (background side)", () => {
-  let itemId, selfMessagePort, otherMessagePort, selfListener, otherListener;
-
   before(async() => {
     await datastore.initialize();
-    initializeMessagePorts();
-
-    selfMessagePort = browser.runtime.connect();
-    otherMessagePort = browser.runtime.connect(undefined, {mockPrimary: false});
   });
 
-  beforeEach(() => {
-    selfMessagePort.onMessage.addListener(selfListener = sinon.spy());
-    otherMessagePort.onMessage.addListener(otherListener = sinon.spy());
-  });
+  describe("happy path", () => {
+    let itemId, selfMessagePort, otherMessagePort, selfListener, otherListener;
 
-  afterEach(() => {
-    selfMessagePort.onMessage.mockClearListener();
-    otherMessagePort.onMessage.mockClearListener();
-  });
-
-  after(() => {
-    // Clear the listeners set in <src/webextension/background/messagePorts.js>.
-    browser.runtime.onConnect.mockClearListener();
-    browser.runtime.onMessage.mockClearListener();
-  });
-
-  it('handle "add_item"', async() => {
-    const item = {
-      title: "title",
-      entry: {
-        kind: "login",
-        username: "username",
-        password: "password",
-      },
-    };
-    const result = await browser.runtime.sendMessage({
-      type: "add_item",
-      item,
-    });
-    itemId = result.item.id;
-
-    expect(result.item).to.deep.include(item);
-    expect(selfListener).to.have.callCount(0);
-    expect(otherListener).to.have.callCount(1);
-    expect(otherListener.args[0][0].type).to.equal("added_item");
-    expect(otherListener.args[0][0].item).to.deep.include(item);
-  });
-
-  it('handle "update_item"', async() => {
-    const item = {
-      title: "updated title",
-      id: itemId,
-      entry: {
-        kind: "login",
-        username: "updated username",
-        password: "updated password",
-      },
-    };
-    const result = await browser.runtime.sendMessage({
-      type: "update_item",
-      item,
+    before(() => {
+      initializeMessagePorts();
+      selfMessagePort = browser.runtime.connect();
+      otherMessagePort = browser.runtime.connect(undefined, {mockPrimary: false});
     });
 
-    expect(result.item).to.deep.include(item);
-    expect(selfListener).to.have.callCount(0);
-    expect(otherListener).to.have.callCount(1);
-    expect(otherListener.args[0][0].type).to.equal("updated_item");
-    expect(otherListener.args[0][0].item).to.deep.include(item);
-  });
-
-  it('handle "get_item"', async() => {
-    const result = await browser.runtime.sendMessage({
-      type: "get_item",
-      id: itemId,
+    beforeEach(() => {
+      selfMessagePort.onMessage.addListener(selfListener = sinon.spy());
+      otherMessagePort.onMessage.addListener(otherListener = sinon.spy());
     });
 
-    expect(result.item).to.deep.include({
-      title: "updated title",
-      entry: {
-        kind: "login",
-        username: "updated username",
-        password: "updated password",
-      },
+    afterEach(() => {
+      selfMessagePort.onMessage.mockClearListener();
+      otherMessagePort.onMessage.mockClearListener();
+    });
+
+    after(() => {
+      // Clear the listeners set in <src/webextension/background/messagePorts.js>.
+      browser.runtime.onConnect.mockClearListener();
+      browser.runtime.onMessage.mockClearListener();
+    });
+
+    it('handle "add_item"', async() => {
+      const item = {
+        title: "title",
+        entry: {
+          kind: "login",
+          username: "username",
+          password: "password",
+        },
+      };
+      const result = await browser.runtime.sendMessage({
+        type: "add_item",
+        item,
+      });
+      itemId = result.item.id;
+
+      expect(result.item).to.deep.include(item);
+      expect(selfListener).to.have.callCount(0);
+      expect(otherListener).to.have.callCount(1);
+      expect(otherListener.args[0][0].type).to.equal("added_item");
+      expect(otherListener.args[0][0].item).to.deep.include(item);
+    });
+
+    it('handle "update_item"', async() => {
+      const item = {
+        title: "updated title",
+        id: itemId,
+        entry: {
+          kind: "login",
+          username: "updated username",
+          password: "updated password",
+        },
+      };
+      const result = await browser.runtime.sendMessage({
+        type: "update_item",
+        item,
+      });
+
+      expect(result.item).to.deep.include(item);
+      expect(selfListener).to.have.callCount(0);
+      expect(otherListener).to.have.callCount(1);
+      expect(otherListener.args[0][0].type).to.equal("updated_item");
+      expect(otherListener.args[0][0].item).to.deep.include(item);
+    });
+
+    it('handle "get_item"', async() => {
+      const result = await browser.runtime.sendMessage({
+        type: "get_item",
+        id: itemId,
+      });
+
+      expect(result.item).to.deep.include({
+        title: "updated title",
+        entry: {
+          kind: "login",
+          username: "updated username",
+          password: "updated password",
+        },
+      });
+    });
+
+    it('handle "list_items"', async() => {
+      const result = await browser.runtime.sendMessage({
+        type: "list_items",
+      });
+
+      expect(result).to.deep.equal({items: [
+        {id: itemId, title: "updated title"},
+      ]});
+    });
+
+    it('handle "remove_item"', async() => {
+      const result = await browser.runtime.sendMessage({
+        type: "remove_item",
+        id: itemId,
+      });
+
+      expect(result).to.deep.equal({});
+      expect(selfListener).to.have.callCount(0);
+      expect(otherListener).to.have.callCount(1);
+      expect(otherListener).to.be.calledWith({
+        type: "removed_item",
+        id: itemId,
+      });
+    });
+
+    it("handle unknown message type", async() => {
+      await expect(browser.runtime.sendMessage({
+        type: "nonexist",
+      })).to.be.rejectedWith(Error);
+    });
+
+    it("handle message port disconnect", async() => {
+      otherMessagePort.disconnect();
+
+      // Make sure no message is broadcast now that we've disconnected.
+      const item = {
+        title: "title",
+        entry: {
+          kind: "login",
+          username: "username",
+          password: "password",
+        },
+      };
+      await browser.runtime.sendMessage({
+        type: "add_item",
+        item,
+      });
+      expect(otherListener).to.have.callCount(0);
     });
   });
 
-  it('handle "list_items"', async() => {
-    const result = await browser.runtime.sendMessage({
-      type: "list_items",
+  describe("failure modes", () => {
+    let selfMessagePort, otherMessagePort, selfListener, otherListener;
+    const badSender = "nefarious@hacker.example";
+
+    before(() => {
+      initializeMessagePorts();
+      selfMessagePort = browser.runtime.connect();
+      otherMessagePort = browser.runtime.connect(badSender, {mockPrimary: false});
     });
 
-    expect(result).to.deep.equal({items: [
-      {id: itemId, title: "updated title"},
-    ]});
-  });
-
-  it('handle "remove_item"', async() => {
-    const result = await browser.runtime.sendMessage({
-      type: "remove_item",
-      id: itemId,
+    beforeEach(() => {
+      selfMessagePort.onMessage.addListener(selfListener = sinon.spy());
+      otherMessagePort.onMessage.addListener(otherListener = sinon.spy());
     });
 
-    expect(result).to.deep.equal({});
-    expect(selfListener).to.have.callCount(0);
-    expect(otherListener).to.have.callCount(1);
-    expect(otherListener).to.be.calledWith({
-      type: "removed_item",
-      id: itemId,
+    afterEach(() => {
+      selfMessagePort.onMessage.mockClearListener();
+      otherMessagePort.onMessage.mockClearListener();
+    });
+
+    after(() => {
+      // Clear the listeners set in <src/webextension/background/messagePorts.js>.
+      browser.runtime.onConnect.mockClearListener();
+      browser.runtime.onMessage.mockClearListener();
+    });
+
+    it("fails on unauthorized sender", async() => {
+      try {
+        await browser.runtime.sendMessage({
+          type: "list_items",
+        }, otherMessagePort.sender);
+      } catch (err) {
+        expect(err).to.be.an.instanceof(Error);
+      }
+      expect(selfListener).to.have.callCount(0);
+      expect(otherListener).to.have.callCount(0);
     });
   });
 
-  it("handle unknown message type", async() => {
-    await expect(browser.runtime.sendMessage({
-      type: "nonexist",
-    })).to.be.rejectedWith(Error);
-  });
-
-  it("handle message port disconnect", async() => {
-    otherMessagePort.disconnect();
-
-    // Make sure no message is broadcast now that we've disconnected.
-    const item = {
-      title: "title",
-      entry: {
-        kind: "login",
-        username: "username",
-        password: "password",
-      },
-    };
-    await browser.runtime.sendMessage({
-      type: "add_item",
-      item,
-    });
-    expect(otherListener).to.have.callCount(0);
-  });
 });
