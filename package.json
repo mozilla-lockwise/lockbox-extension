@@ -24,7 +24,7 @@
     "addon"
   ],
   "scripts": {
-    "template-replace": "./bin/template-replace.py src/webextension/manifest-template.json src/webextension/manifest.json && ./bin/template-replace.py src/install-template.rdf src/install.rdf",
+    "template-replace": "./build-utils/template-replace src/webextension/manifest-template.json src/webextension/manifest.json && ./build-utils/template-replace src/install-template.rdf src/install.rdf",
     "autolint": "eslint src test webpack*.js --ignore-pattern '!.eslintrc.js' .eslintrc.js",
     "lint": "npm run-script template-replace && cross-env STRICT_LINT=1 npm run autolint --",
     "prebuild": "npm run-script autolint",
