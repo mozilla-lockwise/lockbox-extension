@@ -1,6 +1,6 @@
 /.nyc_output/
+/build/
 /coverage/
 /dist/
 /node_modules/
 /site/
-/lockbox-*.xpi

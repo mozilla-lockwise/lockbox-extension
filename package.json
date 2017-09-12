@@ -33,11 +33,10 @@
     "pretest": "npm run-script autolint",
     "test": "cross-env NODE_ENV=test nyc mocha-webpack --opts ./mocha-webpack.opts --webpack-config ./webpack.config.test.js -r test/setup.js test",
     "report-coverage": "nyc report --reporter=lcov && codecov",
-    "clean": "git clean -fX ./dist ./*.xpi",
+    "clean": "git clean -fX ./dist ./build *.xpi",
     "distclean": "git clean -dfX",
     "prepackage": "npm run-script clean && npm run-script build",
-    "package": "cd dist && zip -r ../${npm_package_name}-${npm_package_version}.xpi *",
-    "packagesign": "npm run-script package && jpm sign --api-key ${npm_config_jwt_issuer} --api-secret ${npm_config_jwt_secret} --xpi ${npm_package_name}-${npm_package_version}.xpi"
+    "package": "mkdir -p build && cd dist && zip -r ../build/${npm_package_name}-${npm_package_version}.xpi *"
   },
   "nyc": {
     "all": true,
