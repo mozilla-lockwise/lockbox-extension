@@ -3,8 +3,8 @@
   "name": "lockbox",
   "version": "0.1.0-pre",
   "main": "dist/bootstrap.js",
-  "description": "A Lockbox extension for Firefox",
-  "author": "Lockbox Team <lockbox@mozilla.com>",
+  "description": "Improved password management for Firefox",
+  "author": "lockbox@mozilla.com",
   "engines": {
     "firefox": ">=54"
   },
