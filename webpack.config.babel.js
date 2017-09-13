@@ -2,18 +2,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import path from "path";
 import webpack from "webpack";
 import combineLoaders from "webpack-combine-loaders";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import ExtractTextPlugin from "extract-text-webpack-plugin";
-import HtmlWebpackPlugin from "html-webpack-plugin";
+import HTMLWebpackPlugin from "html-webpack-plugin";
+import XMLWebpackPlugin from "xml-webpack-plugin";
 import MinifyPlugin from "babel-minify-webpack-plugin";
-import path from "path";
 
-const entries = {
-  "webextension/background": "./webextension/background/index.js",
-  "webextension/manage/index": "./webextension/manage/index.js",
-};
+import JSONWebpackPlugin from "./json-webpack-plugin";
+import thisPackage from "./package.json";
 
 const NODE_ENV = (process.env.NODE_ENV) ? process.env.NODE_ENV.toLowerCase() :
                  "development";
@@ -65,9 +64,13 @@ if (NODE_ENV === "production") {
 }
 
 export default {
-  context: path.join(__dirname, "/src"),
-  entry: entries,
+  context: path.join(__dirname, "src"),
   devtool: "cheap-module-source-map",
+
+  entry: {
+    "webextension/background": "./webextension/background/index.js",
+    "webextension/manage/index": "./webextension/manage/index.js",
+  },
 
   output: {
     filename: "[name].js",
@@ -89,9 +92,6 @@ export default {
   plugins: [
     new CopyWebpackPlugin([
       {from: "bootstrap.js"},
-      {from: "chrome.manifest"},
-      {from: "install.rdf"},
-      {from: "webextension/manifest.json", to: "webextension/"},
       {from: "webextension/**/*.ftl"},
       {from: "webextension/icons/*"},
     ]),
@@ -100,14 +100,24 @@ export default {
         "NODE_ENV": JSON.stringify(NODE_ENV),
       },
     }),
-    new HtmlWebpackPlugin({
-      title: "Lockbox",
+    new HTMLWebpackPlugin({
+      template: "template.ejs",
+      filename: "webextension/manage/index.html",
+      chunks: ["webextension/manage/index"],
       inject: false,
       minify: htmlMinifyOptions,
-      template: "template.ejs",
-      chunks: ["webextension/manage/index"],
-      filename: "webextension/manage/index.html",
+      title: "Lockbox",
       icon: "../icons/lock.png",
+    }),
+    new XMLWebpackPlugin({files: [{
+      template: path.join(__dirname, "src/install.rdf.ejs"),
+      filename: "install.rdf",
+      data: thisPackage,
+    }]}),
+    new JSONWebpackPlugin({
+      template: "src/webextension/manifest.json.tpl",
+      filename: "webextension/manifest.json",
+      data: thisPackage,
     }),
     ...extraPlugins,
   ],

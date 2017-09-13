@@ -2,14 +2,14 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
-    <em:id>lockbox@mozilla.com</em:id>
+    <em:id><%= id %></em:id>
     <em:type>2</em:type>
     <em:bootstrap>true</em:bootstrap>
-    <em:name>Lockbox</em:name>
-    <em:version>0.1pre</em:version>
+    <em:name><%= name %></em:name>
+    <em:version><%= version %></em:version>
     <em:creator>Mozilla Corporation</em:creator>
-    <em:contributor></em:contributor>
-    <em:description>Improved password management for Firefox</em:description>
+    <em:contributor><%= author %></em:contributor>
+    <em:description><%= description %></em:description>
     <em:multiprocessCompatible>true</em:multiprocessCompatible>
     <em:hasEmbeddedWebExtension>true</em:hasEmbeddedWebExtension>
     <em:targetApplication>

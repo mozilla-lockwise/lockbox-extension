@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "Lockbox",
-  "version": "0.1pre",
+  "name": "{{name}}",
+  "version": "{{version}}",
 
-  "description": "Improved password management for Firefox",
+  "description": "{{description}}",
 
   "applications": {
     "gecko": {
