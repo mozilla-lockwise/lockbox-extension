@@ -94,6 +94,7 @@ export default {
       {from: "bootstrap.js"},
       {from: "webextension/**/*.ftl"},
       {from: "webextension/icons/*"},
+      {from: "icon.png"},
     ]),
     new webpack.DefinePlugin({
       "process.env": {
