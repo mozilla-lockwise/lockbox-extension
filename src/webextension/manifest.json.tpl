@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "{{name}}",
+  "name": "{{title}}",
   "version": "{{version}}",
 
   "description": "{{description}}",
