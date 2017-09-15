@@ -12,7 +12,7 @@ import sinonChai from "sinon-chai";
 chai.use(chaiAsPromised);
 chai.use(sinonChai);
 
-import datastore from "../../src/webextension/background/datastore";
+import openDataStore from "../../src/webextension/background/datastore";
 import initializeMessagePorts from
        "../../src/webextension/background/message-ports";
 
@@ -20,7 +20,7 @@ describe("message ports (background side)", () => {
   let itemId, selfMessagePort, otherMessagePort, selfListener, otherListener;
 
   before(async() => {
-    await datastore.initialize();
+    await openDataStore().then(async(ds) => ds.initialize());
     initializeMessagePorts();
 
     selfMessagePort = browser.runtime.connect();
