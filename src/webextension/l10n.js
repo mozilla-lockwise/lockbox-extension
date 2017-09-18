@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 
 async function fetchMessages(baseDir, locale) {
-  const response = await fetch(`${baseDir}/${locale}.ftl`);
+  const response = await fetch(`${baseDir}/${locale}/extension.ftl`);
   const messages = await response.text();
 
   return { [locale]: messages };

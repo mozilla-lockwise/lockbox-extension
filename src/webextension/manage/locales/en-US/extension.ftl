@@ -1,7 +1,7 @@
-add-item = Add Item
-no-item = No item selected
+add-item = Add Item NOW
+no-item = No item selected SORRY
 
-new-item-title = New Item
+new-item-title = New Item IT
 update-item-title = Update Item
 
 item-site = Site
