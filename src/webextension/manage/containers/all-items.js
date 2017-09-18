@@ -5,20 +5,22 @@
 import { connect } from "react-redux";
 
 import { selectItem } from "../actions";
+import { filterItem } from "../filter.js";
 import ItemList from "../components/item-list";
 
 const collator = new Intl.Collator();
 
-const AllItems = connect(
+export default connect(
   (state) => {
     let currentId = null;
     if (!state.ui.newItem && state.cache.currentItem) {
       currentId = state.cache.currentItem.id;
     }
+
     return {
-      items: [...state.cache.items].sort(
-        (a, b) => collator.compare(a.title, b.title)
-      ),
+      items: state.cache.items
+             .filter((i) => filterItem(state.ui.filter, i))
+             .sort((a, b) => collator.compare(a.title, b.title)),
       selected: currentId,
     };
   },
@@ -26,5 +28,3 @@ const AllItems = connect(
     onItemClick: (id) => dispatch(selectItem(id)),
   })
 )(ItemList);
-
-export default AllItems;

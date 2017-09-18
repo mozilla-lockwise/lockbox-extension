@@ -218,4 +218,12 @@ describe("actions", () => {
       { type: actions.CANCEL_NEW_ITEM },
     ]);
   });
+
+  it("filterItems() dispatched", () => {
+    store.dispatch(actions.filterItems("my filter"));
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.FILTER_ITEMS,
+        filter: "my filter" },
+    ]);
+  });
 });

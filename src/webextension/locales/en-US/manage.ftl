@@ -1,4 +1,5 @@
 add-item = Add Item
+item-filter.placeholder = Filter…
 
 item-summary-no-title = (no title)
 item-summary-no-username = (no username)
