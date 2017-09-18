@@ -8,7 +8,7 @@
   "applications": {
     "gecko": {
       "id": "lockbox@mozilla.com",
-      "update_url": "https://raw.githubusercontent.com/mozilla-lockbox/lockbox-extension/master/updates.json"
+      "update_url": "https://testpilot.firefox.com/files/lockbox@mozilla.com/updates.json"
     }
   },
 
