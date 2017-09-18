@@ -12,6 +12,7 @@ export const initialState = {
   },
   ui: {
     newItem: false,
+    filter: [],
   },
 };
 
@@ -35,5 +36,6 @@ export const filledState = {
   },
   ui: {
     newItem: false,
+    filter: [],
   },
 };

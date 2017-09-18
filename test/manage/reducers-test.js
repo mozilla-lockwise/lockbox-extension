@@ -298,6 +298,7 @@ describe("reducers", () => {
     it("initial state", () => {
       expect(uiReducer(undefined, {})).to.deep.equal({
         newItem: false,
+        filter: [],
       });
     });
 
@@ -308,12 +309,14 @@ describe("reducers", () => {
 
       expect(uiReducer(undefined, action)).to.deep.equal({
         newItem: true,
+        filter: [],
       });
     });
 
     it("handle CANCEL_NEW_ITEM", () => {
       const state = {
         newItem: true,
+        filter: [],
       };
       const action = {
         type: actions.CANCEL_NEW_ITEM,
@@ -321,12 +324,14 @@ describe("reducers", () => {
 
       expect(uiReducer(state, action)).to.deep.equal({
         newItem: false,
+        filter: [],
       });
     });
 
     it("handle ADD_ITEM_COMPLETED", () => {
       const state = {
         newItem: true,
+        filter: [],
       };
       const action = {
         type: actions.ADD_ITEM_COMPLETED,
@@ -334,6 +339,23 @@ describe("reducers", () => {
 
       expect(uiReducer(state, action)).to.deep.equal({
         newItem: false,
+        filter: [],
+      });
+    });
+
+    it("handle FILTER_ITEMS", () => {
+      const state = {
+        newItem: false,
+        filter: [],
+      };
+      const action = {
+        type: actions.FILTER_ITEMS,
+        filter: ["my filter"],
+      };
+
+      expect(uiReducer(state, action)).to.deep.equal({
+        newItem: false,
+        filter: ["my filter"],
       });
     });
   });

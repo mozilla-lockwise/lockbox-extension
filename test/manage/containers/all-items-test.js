@@ -69,4 +69,24 @@ describe("<AllItems/>", () => {
       expect(store.getActions()[0].type).to.equal(SELECT_ITEM_STARTING);
     });
   });
+
+  describe("filled state (with filters)", () => {
+    let store, wrapper;
+
+    beforeEach(() => {
+      store = mockStore({
+        ...filledState,
+        ui: {...filledState.ui, filter: ["2"]},
+      });
+      wrapper = mountWithL10n(
+        <Provider store={store}>
+          <AllItems/>
+        </Provider>
+      );
+    });
+
+    it("render items", () => {
+      expect(wrapper.find(Item)).to.have.length(1);
+    });
+  });
 });

@@ -112,7 +112,7 @@ CurrentItem.propTypes = {
   onAction: PropTypes.func.isRequired,
 };
 
-CurrentItem = connect(
+export default connect(
   (state) => ({
     item: state.ui.newItem ? NEW_ITEM : state.cache.currentItem,
   }),
@@ -122,5 +122,3 @@ CurrentItem = connect(
     },
   })
 )(CurrentItem);
-
-export default CurrentItem;

@@ -7,9 +7,10 @@ import { combineReducers } from "redux";
 import {
   LIST_ITEMS_COMPLETED, ADD_ITEM_STARTING, ADD_ITEM_COMPLETED,
   UPDATE_ITEM_COMPLETED, REMOVE_ITEM_COMPLETED, SELECT_ITEM_COMPLETED,
-  START_NEW_ITEM, CANCEL_NEW_ITEM,
+  START_NEW_ITEM, CANCEL_NEW_ITEM, FILTER_ITEMS,
 } from "./actions";
 import { makeItemSummary } from "../common";
+import { defaultFilter } from "./filter";
 
 function maybeAddCurrentItem(state, action) {
   if (state.pendingAdd === action.actionId) {
@@ -76,7 +77,9 @@ export function cacheReducer(state = {
   }
 }
 
-export function uiReducer(state = {newItem: false}, action) {
+export function uiReducer(state = {
+  newItem: false, filter: defaultFilter,
+}, action) {
   switch (action.type) {
   case START_NEW_ITEM:
     return {...state, newItem: true};
@@ -84,6 +87,8 @@ export function uiReducer(state = {newItem: false}, action) {
     return {...state, newItem: false};
   case ADD_ITEM_COMPLETED:
     return {...state, newItem: false};
+  case FILTER_ITEMS:
+    return {...state, filter: action.filter};
   default:
     return state;
   }
