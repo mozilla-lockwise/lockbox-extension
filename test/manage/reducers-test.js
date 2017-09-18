@@ -82,7 +82,11 @@ describe("reducers", () => {
         };
 
         expect(cacheReducer(state, action)).to.deep.equal({
-          items: [{id: action.item.id, title: action.item.title}],
+          items: [{
+            id: action.item.id,
+            title: action.item.title,
+            username: action.item.entry.username,
+          }],
           currentItem: action.item,
           pendingAdd: null,
         });
@@ -109,7 +113,11 @@ describe("reducers", () => {
         };
 
         expect(cacheReducer(state, action)).to.deep.equal({
-          items: [{id: action.item.id, title: action.item.title}],
+          items: [{
+            id: action.item.id,
+            title: action.item.title,
+            username: action.item.entry.username,
+          }],
           currentItem: null,
           pendingAdd: 1,
         });
@@ -150,7 +158,11 @@ describe("reducers", () => {
 
         expect(cacheReducer(state, action)).to.deep.equal({
           items: [
-            {id: action.item.id, title: action.item.title},
+            {
+              id: action.item.id,
+              title: action.item.title,
+              username: action.item.entry.username,
+            },
             state.items[1],
           ],
           currentItem: action.item,
@@ -183,7 +195,11 @@ describe("reducers", () => {
 
         expect(cacheReducer(state, action)).to.deep.equal({
           items: [
-            {id: action.item.id, title: action.item.title},
+            {
+              id: action.item.id,
+              title: action.item.title,
+              username: action.item.entry.username,
+            },
             state.items[1],
           ],
           currentItem: null,

@@ -12,7 +12,7 @@ export default function ItemList({items, selected, onItemClick}) {
   return (
     <ul className={styles.itemList}>
       {items.map((item) => (
-        <Item key={item.id} name={item.title}
+         <Item key={item.id} title={item.title} username={item.username}
                selected={item.id === selected}
                onClick={() => onItemClick(item.id)}/>
       ))}
@@ -25,6 +25,7 @@ ItemList.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
   selected: PropTypes.string,

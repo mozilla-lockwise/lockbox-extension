@@ -21,9 +21,27 @@ describe("<Item/>", () => {
     onClick = sinon.spy();
   });
 
+  it("render title and username", () => {
+    const wrapper = mountWithL10n(
+      <Item title="title" username="username" onClick={onClick}/>
+    );
+    expect(wrapper.find("div").at(0).text()).to.equal("title");
+    expect(wrapper.find("div").at(1).text()).to.equal("username");
+  });
+
+  it("render blank", () => {
+    const wrapper = mountWithL10n(
+      <Item onClick={onClick}/>
+    );
+    expect(wrapper.find("div").at(0).text()).to.equal("item-summary-no-title");
+    expect(wrapper.find("div").at(1).text()).to.equal(
+      "item-summary-no-username"
+    );
+  });
+
   it("onClick called", () => {
     const wrapper = mountWithL10n(
-      <Item name="title" selected={true} onClick={onClick}/>
+      <Item title="title" username="username" onClick={onClick}/>
     );
     wrapper.simulate("click");
     expect(onClick).to.have.been.calledWith();

@@ -11,3 +11,8 @@
   color: HighlightText;
   background-color: Highlight;
 }
+
+.subtitle {
+  font-size: 80%;
+  opacity: 0.75;
+}

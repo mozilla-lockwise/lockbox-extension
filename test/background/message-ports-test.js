@@ -108,9 +108,11 @@ describe("message ports (background side)", () => {
       type: "list_items",
     });
 
-    expect(result).to.deep.equal({items: [
-      {id: itemId, title: "updated title"},
-    ]});
+    expect(result).to.deep.equal({items: [{
+      id: itemId,
+      title: "updated title",
+      username: "updated username",
+    }]});
   });
 
   it('handle "remove_item"', async() => {
