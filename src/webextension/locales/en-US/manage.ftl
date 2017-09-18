@@ -1,4 +1,8 @@
 add-item = Add Item
+
+item-summary-no-title = (no title)
+item-summary-no-username = (no username)
+
 no-item = No item selected
 
 new-item-title = New Item

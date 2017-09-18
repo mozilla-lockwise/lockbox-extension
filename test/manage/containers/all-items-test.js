@@ -61,7 +61,7 @@ describe("<AllItems/>", () => {
       expect(wrapper.find(Item)).to.have.length(3);
       expect(wrapper.find(Item).filterWhere(
         (x) => x.prop("selected")
-      ).prop("name")).to.equal(filledState.cache.currentItem.title);
+      ).prop("title")).to.equal(filledState.cache.currentItem.title);
     });
 
     it("selectItem() dispatched", () => {

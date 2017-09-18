@@ -3,5 +3,5 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 export function makeItemSummary(item) {
-  return {title: item.title, id: item.id};
+  return {title: item.title, id: item.id, username: item.entry.username};
 }

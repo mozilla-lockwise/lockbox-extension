@@ -24,5 +24,4 @@ AddItem.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-AddItem = connect()(AddItem);
-export default AddItem;
+export default connect()(AddItem);
