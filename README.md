@@ -7,6 +7,28 @@ Lockbox for Firefox is a work-in-progress extension for Firefox to improve upon
 Firefox's built-in password management. If you're interested, you should
 probably come back later when we have more to show!
 
+## Quick Start
+
+If you'd like to quickly **start up a new Firefox profile on Nightly** with
+Lockbox installed for development/testing, you can run:
+
+```sh
+npm install
+npm run-script run -- -b nightly
+```
+
+To specify flags for `run` to use regularly, use `npm config set jpm_runflags`:
+
+```sh
+npm config set jpm_runflags="-b nightly"
+```
+
+This way you can just run:
+
+```sh
+npm run run
+```
+
 ## Installing
 
 To **install the project dependencies**, you can run:
@@ -41,42 +63,17 @@ you'll need to flip the `extensions.legacy.enabled` preference, too.
 
 ## Releasing
 
-If you'd like to **build a signed extension .xpi**, you can run:
+To **prepare the extension for a new version**, you must:
 
-```sh
-npm run-script packagesign
-```
+- update and commit the version in `package.json`
+- update and commit the `CHANGELOG.md`
+- tag, push, and merge to the `master` branch on GitHub
 
-To specify the signing keys for jpm to use, use `npm config set`:
+To **build a signed extension .xpi**, you must: commit and push to the
+`production` branch (ideally as a merge commit from `master`) on GitHub.
 
-```sh
-npm config set jwt_issuer=JWTissuer
-npm config set jwt_secret=JWTsecret
-```
-
-:warning: In preparation for Firefox 57, legacy extensions are also disabled. So
-users would need to flip the `extensions.legacy.enabled` preference, too.
-
-## Quick Start
-
-If you'd like to quickly **start up a new Firefox profile** with Lockbox
-installed for development/testing, you can run:
-
-```sh
-npm run-script run
-```
-
-To include additional flags for a specific run, append them after `--`:
-
-```sh
-npm run-script run -- -b nightly
-```
-
-To specify flags to use regularly, use `npm config set jpm_runflags`:
-
-```sh
-npm config set jpm_runflags="-b nightly"
-```
+Learn more about the deployment and hosting process here:
+https://github.com/mozilla/testpilot/blob/master/docs/development/hosting.md
 
 ## License
 
