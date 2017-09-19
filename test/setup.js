@@ -107,7 +107,7 @@ global.browser = {
 
     async sendMessage(msg) {
       if (this.onMessage._listener) {
-        return await this.onMessage._listener(msg, primaryMessageSender);
+        return this.onMessage._listener(msg, primaryMessageSender);
       }
       return null;
     },
