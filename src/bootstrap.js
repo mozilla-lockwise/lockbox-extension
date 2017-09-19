@@ -4,8 +4,6 @@
 
 /* eslint-disable no-unused-vars */
 
-const {utils: Cu} = Components;
-
 function startup({webExtension}, reason) {
   webExtension.startup().then(() => {
     console.log("embedded webextension has started");
