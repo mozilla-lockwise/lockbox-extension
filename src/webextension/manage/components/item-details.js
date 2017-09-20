@@ -29,29 +29,23 @@ export default class ItemDetails extends React.Component {
     };
   }
 
-  _setState(props, initial) {
-    let state;
-    if (props.fields) {
-      state = {...props.fields};
-    } else {
-      state = {title: "", username: "", password: ""};
-    }
-
-    if (initial) {
-      // eslint-disable-next-line react/no-direct-mutation-state
-      this.state = state;
-    } else {
-      this.setState(state);
-    }
+  static get defaultProps() {
+    return {
+      fields: {
+        title: "",
+        username: "",
+        password: "",
+      },
+    };
   }
 
   constructor(props) {
     super(props);
-    this._setState(props, true);
+    this.state = {...props.fields};
   }
 
   componentWillReceiveProps(props) {
-    this._setState(props, false);
+    this.setState({...props.fields});
   }
 
   render() {

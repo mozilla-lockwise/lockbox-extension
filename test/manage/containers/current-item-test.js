@@ -66,7 +66,11 @@ describe("<CurrentItem/>", () => {
     it("render item", () => {
       const details = wrapper.find(ItemDetails);
       expect(details).to.have.length(1);
-      expect(details.prop("fields")).to.equal(undefined);
+      expect(details.prop("fields")).to.deep.equal({
+        title: "",
+        username: "",
+        password: "",
+      });
     });
 
     it("addItem() dispatched", () => {
