@@ -3,4 +3,20 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .item-details {
+  display: grid;
+  grid-template-columns: max-content 200px;
+  grid-column-gap: 1em;
+}
+
+.item-details > label {
+  display: contents;
+}
+
+.item-details > label > span:first-child {
+  /* This lines up our labels with the text in <input> elements. */
+  margin-top: 3.5px;
+}
+
+.item-details > p > button + button {
+  margin-inline-start: 1ch;
 }

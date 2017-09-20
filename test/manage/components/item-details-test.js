@@ -21,6 +21,30 @@ function simulateTyping(wrapper, value) {
 }
 
 describe("<ItemDetails/>", () => {
+  const blankFields = {
+    title: "",
+    origin: "",
+    username: "",
+    password: "",
+    notes: "",
+  };
+
+  const originalFields = {
+    title: "title",
+    origin: "origin",
+    username: "username",
+    password: "password",
+    notes: "notes",
+  };
+
+  const updatedFields = {
+    title: "new title",
+    origin: "new origin",
+    username: "new username",
+    password: "new password",
+    notes: "new notes",
+  };
+
   let onSave, onDelete, wrapper;
 
   describe("new item", () => {
@@ -34,36 +58,24 @@ describe("<ItemDetails/>", () => {
     });
 
     it("form fields unfilled", () => {
-      const formFields = wrapper.find("input");
-      expect(formFields.get(0).value).to.equal("");
-      expect(formFields.get(1).value).to.equal("");
-      expect(formFields.get(2).value).to.equal("");
+      for (let i in blankFields) {
+        expect(wrapper.find(`[name="${i}"]`).prop("value"))
+              .to.equal(blankFields[i]);
+      }
     });
 
     it("onSave called", () => {
       wrapper.find('button[type="submit"]').simulate("submit");
-
-      const fields = {
-        title: "",
-        username: "",
-        password: "",
-      };
-      expect(onSave).to.have.been.calledWith(fields);
+      expect(onSave).to.have.been.calledWith(blankFields);
     });
 
     it("onSave called after editing", () => {
-      const formFields = wrapper.find("input");
-      simulateTyping(formFields.at(0), "new title");
-      simulateTyping(formFields.at(1), "new username");
-      simulateTyping(formFields.at(2), "new password");
+      for (let i in updatedFields) {
+        simulateTyping(wrapper.find(`[name="${i}"]`), updatedFields[i]);
+      }
       wrapper.find('button[type="submit"]').simulate("submit");
 
-      const fields = {
-        title: "new title",
-        username: "new username",
-        password: "new password",
-      };
-      expect(onSave).to.have.been.calledWith(fields);
+      expect(onSave).to.have.been.calledWith(updatedFields);
     });
 
     it("onDelete called", () => {
@@ -73,45 +85,32 @@ describe("<ItemDetails/>", () => {
   });
 
   describe("existing item", () => {
-    const fields = {
-      title: "title",
-      username: "username",
-      password: "password",
-    };
-
     beforeEach(() => {
       onSave = sinon.spy();
       onDelete = sinon.spy();
       wrapper = mountWithL10n(
-        <ItemDetails fields={fields}
+        <ItemDetails fields={originalFields}
                      saveLabel="save-item" deleteLabel="delete-item"
                      onSave={onSave} onDelete={onDelete}/>
       );
     });
 
     it("form fields filled", () => {
-      const formFields = wrapper.find("input");
-      expect(formFields.get(0).value).to.equal(fields.title);
-      expect(formFields.get(1).value).to.equal(fields.username);
-      expect(formFields.get(2).value).to.equal(fields.password);
+      for (let i in originalFields) {
+        expect(wrapper.find(`[name="${i}"]`).prop("value"))
+              .to.equal(originalFields[i]);
+      }
     });
 
     it("onSave called", () => {
       wrapper.find('button[type="submit"]').simulate("submit");
-      expect(onSave).to.have.been.calledWith(fields);
+      expect(onSave).to.have.been.calledWith(originalFields);
     });
 
     it("onSave called after editing", () => {
-      const updatedFields = {
-        title: "new title",
-        username: "new username",
-        password: "new password",
-      };
-
-      const formFields = wrapper.find("input");
-      simulateTyping(formFields.at(0), updatedFields.title);
-      simulateTyping(formFields.at(1), updatedFields.username);
-      simulateTyping(formFields.at(2), updatedFields.password);
+      for (let i in updatedFields) {
+        simulateTyping(wrapper.find(`[name="${i}"]`), updatedFields[i]);
+      }
       wrapper.find('button[type="submit"]').simulate("submit");
 
       expect(onSave).to.have.been.calledWith(updatedFields);
@@ -124,38 +123,28 @@ describe("<ItemDetails/>", () => {
   });
 
   describe("change selected item", () => {
-    const fields = {
-      title: "title",
-      username: "username",
-      password: "password",
-    };
-
     beforeEach(() => {
       onSave = sinon.spy();
       onDelete = sinon.spy();
       wrapper = mountWithL10n(
-        <ItemDetails fields={fields}
+        <ItemDetails fields={originalFields}
                      saveLabel="save-item" deleteLabel="delete-item"
                      onSave={onSave} onDelete={onDelete}/>
       );
     });
 
     it("form fields updated", () => {
-      const formFields = wrapper.find("input");
-      expect(formFields.get(0).value).to.equal(fields.title);
-      expect(formFields.get(1).value).to.equal(fields.username);
-      expect(formFields.get(2).value).to.equal(fields.password);
-
-      const updatedFields = {
-        title: "new title",
-        username: "new username",
-        password: "new password",
-      };
+      for (let i in originalFields) {
+        expect(wrapper.find(`[name="${i}"]`).prop("value"))
+              .to.equal(originalFields[i]);
+      }
 
       wrapper.setProps({fields: updatedFields});
-      expect(formFields.get(0).value).to.equal(updatedFields.title);
-      expect(formFields.get(1).value).to.equal(updatedFields.username);
-      expect(formFields.get(2).value).to.equal(updatedFields.password);
+
+      for (let i in updatedFields) {
+        expect(wrapper.find(`[name="${i}"]`).prop("value"))
+              .to.equal(updatedFields[i]);
+      }
     });
   });
 });

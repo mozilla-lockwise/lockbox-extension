@@ -25,11 +25,13 @@ export const filledState = {
     ],
     currentItem: {
       id: "1",
+      origins: ["origin 1"],
       title: "title 1",
       entry: {
         kind: "login",
         username: "username 1",
         password: "password 1",
+        notes: "notes 1",
       },
     },
     pendingAdd: null,
