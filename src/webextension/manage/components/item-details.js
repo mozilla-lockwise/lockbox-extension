@@ -35,6 +35,7 @@ export default class ItemDetails extends React.Component {
     }
 
     if (initial) {
+      // eslint-disable-next-line react/no-direct-mutation-state
       this.state = state;
     } else {
       this.setState(state);
