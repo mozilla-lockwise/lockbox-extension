@@ -8,7 +8,8 @@
 /docs/    @jimporter @devinreams
 
 # include Flod for l10n string changes
-src/webextension/locales/en-US/*.ftl    @flodolo
+# @todo uncomment below after initial string freeze
+#src/webextension/locales/en-US/*.ftl    @flodolo
 
 # otherwise, everything is to be reviewed by @jimporter
 *         @jimporter
