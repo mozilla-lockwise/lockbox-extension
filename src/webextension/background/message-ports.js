@@ -24,33 +24,33 @@ export default function initializeMessagePorts() {
   browser.runtime.onMessage.addListener(async function(message, sender) {
     switch (message.type) {
     case "list_items":
-      return await openDataStore().then(async(ds) => {
+      return openDataStore().then(async(ds) => {
         return {items: Array.from((await ds.list()).values(),
                                   makeItemSummary)};
       });
 
     case "add_item":
-      return await openDataStore().then(async(ds) => {
+      return openDataStore().then(async(ds) => {
         await ds.unlock();
         const item = await ds.add(message.item);
         broadcast({type: "added_item", item}, sender);
         return {item};
       });
     case "update_item":
-      return await openDataStore().then(async(ds) => {
+      return openDataStore().then(async(ds) => {
         await ds.unlock();
         const item = await ds.update(message.item);
         broadcast({type: "updated_item", item}, sender);
         return {item};
       });
     case "remove_item":
-      return await openDataStore().then(async(ds) => {
+      return openDataStore().then(async(ds) => {
         await ds.remove(message.id);
         broadcast({type: "removed_item", id: message.id}, sender);
         return {};
       });
     case "get_item":
-      return await openDataStore().then(async(ds) => {
+      return openDataStore().then(async(ds) => {
         return {item: await ds.get(message.id)};
       });
     default:

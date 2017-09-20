@@ -9,7 +9,7 @@ import {
   LocalizationProvider, ReactLocalization, isReactLocalization,
 } from "fluent-react";
 
-function *generateMessages() {
+function* generateMessages() {
   const context = new MessageContext("en-US");
   yield context;
 }
