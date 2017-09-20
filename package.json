@@ -25,7 +25,7 @@
     "addon"
   ],
   "scripts": {
-    "autolint": "eslint src test webpack*.js --ignore-pattern '!.eslintrc.js' .eslintrc.js",
+    "autolint": "eslint .",
     "lint": "cross-env STRICT_LINT=1 npm run autolint --",
     "prebuild": "npm run-script autolint",
     "build": "webpack",
