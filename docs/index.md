@@ -1,7 +1,3 @@
----
-layout: default
----
-
 # Welcome to Lockbox's Docs
 
 ## Commands

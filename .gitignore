@@ -1,8 +1,6 @@
 /.nyc_output/
 /coverage/
-/docs/_site/
-/docs/.sass-cache/
-/docs/Gemfile.lock
 /dist/
 /node_modules/
+/site/
 /lockbox-*.xpi
