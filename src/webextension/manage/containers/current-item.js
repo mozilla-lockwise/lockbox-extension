@@ -13,7 +13,11 @@ import ItemDetails from "../components/item-details";
 import styles from "./current-item.css";
 
 const NEW_ITEM = Symbol("NEW_ITEM");
-
+/**
+ * Unflattens an item
+ *
+ * @returns {unflattenItem} this unflattened object
+ */
 function unflattenItem(item, id) {
   return {
     id,
@@ -25,6 +29,11 @@ function unflattenItem(item, id) {
     },
   };
 }
+/**
+ * Flattens an item
+ *
+ * @returns {flattenItem} this flattened object
+ */
 
 function flattenItem(item) {
   return {
@@ -43,6 +52,11 @@ const itemProps = PropTypes.shape({
   }),
 });
 
+/**
+ * Creates a new item heading
+ *
+ * @returns React markup for rendering the heading
+ */
 function NewItem({onAction}) {
   function onSave(item) {
     onAction(addItem(unflattenItem(item)));

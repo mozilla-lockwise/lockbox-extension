@@ -8,10 +8,18 @@ import React from "react";
 
 import styles from "./item-details.css";
 
-// Note: ItemDetails doesn't directly interact with items from the Lockbox
-// datastore. For that, please consult <../containers/currentItem.js>.
-
+/**
+ * Represents properties for an item's details
+ *
+ * **NOTE:** ItemDetails doesn't directly interact with items from the Lockbox
+ * datastore. For that, please consult {@link ../containers/currentItem.js}.
+ */
 export default class ItemDetails extends React.Component {
+/**
+ * Gets the properties and returns them with the types to be enforced
+ *
+ * @returns {propTypes} Each property's type
+ */
   static get propTypes() {
     return {
       fields: PropTypes.shape({
@@ -51,6 +59,9 @@ export default class ItemDetails extends React.Component {
     this._setState(props, false);
   }
 
+  /**
+   * Renders the React front-end for display
+   */
   render() {
     const {saveLabel, deleteLabel, onSave, onDelete} = this.props;
 
