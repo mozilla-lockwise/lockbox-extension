@@ -5,6 +5,13 @@
 
   "description": "{{description}}",
 
+  "applications": {
+    "gecko": {
+      "id": "{{id}}",
+      "update_url": "https://testpilot.firefox.com/files/{{id}}/updates.json"
+    }
+  },
+
   "background": {
     "scripts": ["background.js"]
   },
