@@ -23,8 +23,8 @@ describe("<AppLocalizationProvider/>", () => {
   }
 
   before(() => {
-    fetchMock.get("./en-US/extension.ftl", "hello = Hello\n");
-    fetchMock.get("./es-ES/extension.ftl", "hello = Hola\n");
+    fetchMock.get("locales/en-US/extension.ftl", "hello = Hello\n");
+    fetchMock.get("locales/es-ES/extension.ftl", "hello = Hola\n");
   });
 
   after(() => {

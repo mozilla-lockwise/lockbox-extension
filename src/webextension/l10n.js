@@ -47,7 +47,7 @@ export default class AppLocalizationProvider extends Component {
     super(props);
 
     // XXX: Pull `availableLocales` from a config file?
-    const { baseDir = ".", availableLocales, userLocales } = props;
+    const { baseDir = "locales", availableLocales, userLocales } = props;
     const currentLocales = negotiateLanguages(
       userLocales, availableLocales,
       { defaultLocale: availableLocales[0] }
