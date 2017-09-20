@@ -1,0 +1,11 @@
+# lockbox-extension code owners
+# https://help.github.com/articles/about-codeowners/
+
+# tests should also be reviewed by @m8ttyB
+/test/    @jimporter @m8ttyB
+
+# docs are shepherded by @devinreams
+/docs/    @jimporter @devinreams
+
+# otherwise, everything is to be reviewed by @jimporter
+*         @jimporter
