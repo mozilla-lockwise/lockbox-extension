@@ -16,18 +16,18 @@ async function fetchMessages(baseDir, locale, bundle) {
   return { [locale]: messages };
 }
 
-async function createMessagesGenerator(baseDir, currentLocales, stringBundle) {
+async function createMessagesGenerator(baseDir, currentLocales, bundle) {
   const fetched = await Promise.all(
-    currentLocales.map((x) => fetchMessages(baseDir, x, stringBundle))
+    currentLocales.map((x) => fetchMessages(baseDir, x, bundle))
   );
-  const bundle = fetched.reduce(
+  const bundles = fetched.reduce(
     (obj, cur) => Object.assign(obj, cur)
   );
 
   return function* generateMessages() {
     for (const locale of currentLocales) {
       const cx = new MessageContext(locale);
-      cx.addMessages(bundle[locale]);
+      cx.addMessages(bundles[locale]);
       yield cx;
     }
   }
