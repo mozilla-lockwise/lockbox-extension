@@ -5,6 +5,13 @@
 
   "description": "{{description}}",
 
+  "applications": {
+    "gecko": {
+      "id": "lockbox@mozilla.com",
+      "update_url": "https://testpilot.firefox.com/files/lockbox@mozilla.com/updates.json"
+    }
+  },
+
   "background": {
     "scripts": ["background.js"]
   },

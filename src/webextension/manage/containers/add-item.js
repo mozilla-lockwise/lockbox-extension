@@ -7,15 +7,15 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
+import Button from "../../widgets/button";
 import { startNewItem } from "../actions";
 
 function AddItem({dispatch}) {
   return (
     <Localized id="add-item">
-      <button className="browser-style"
-        onClick={() => { dispatch(startNewItem()); }}>
+      <Button onClick={() => { dispatch(startNewItem()); }}>
         aDd iTEm
-      </button>
+      </Button>
     </Localized>
   );
 }
