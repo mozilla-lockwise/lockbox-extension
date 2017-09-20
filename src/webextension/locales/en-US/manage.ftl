@@ -9,9 +9,11 @@ no-item = No item selected
 new-item-title = New Item
 update-item-title = Update Item
 
-item-site = Site
-item-username = Username
-item-password = Password
+item-details-title = Title
+item-details-origin = Origin
+item-details-username = Username
+item-details-password = Password
+item-details-notes = Notes
 
 save-item = Save
 cancel-item = Cancel

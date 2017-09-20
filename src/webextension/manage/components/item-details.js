@@ -8,6 +8,7 @@ import React from "react";
 
 import Button from "../../widgets/button";
 import Input from "../../widgets/input";
+import TextArea from "../../widgets/text-area";
 
 import styles from "./item-details.css";
 
@@ -19,8 +20,10 @@ export default class ItemDetails extends React.Component {
     return {
       fields: PropTypes.shape({
         title: PropTypes.string.isRequired,
+        origin: PropTypes.string.isRequired,
         username: PropTypes.string.isRequired,
         password: PropTypes.string.isRequired,
+        notes: PropTypes.string.isRequired,
       }),
       saveLabel: PropTypes.string.isRequired,
       deleteLabel: PropTypes.string.isRequired,
@@ -33,8 +36,10 @@ export default class ItemDetails extends React.Component {
     return {
       fields: {
         title: "",
+        origin: "",
         username: "",
         password: "",
+        notes: "",
       },
     };
   }
@@ -56,27 +61,42 @@ export default class ItemDetails extends React.Component {
         e.preventDefault();
         onSave(this.state);
       }}>
-        <p>
-          <Localized id="item-site">
-            <span>sITe</span>
+        <label>
+          <Localized id="item-details-title">
+            <span>tITLe</span>
           </Localized>
-          <Input type="text" value={this.state.title}
+          <Input type="text" name="title" value={this.state.title}
                  onChange={(e) => this.setState({title: e.target.value})}/>
-        </p>
-        <p>
-          <Localized id="item-username">
+        </label>
+        <label>
+          <Localized id="item-details-origin">
+            <span>oRIGIn</span>
+          </Localized>
+          <Input type="text" name="origin" value={this.state.origin}
+                 onChange={(e) => this.setState({origin: e.target.value})}/>
+        </label>
+        <label>
+          <Localized id="item-details-username">
             <span>uSERNAMe</span>
           </Localized>
-          <Input type="text" value={this.state.username}
+          <Input type="text" name="username" value={this.state.username}
                  onChange={(e) => this.setState({username: e.target.value})}/>
-        </p>
-        <p>
-          <Localized id="item-password">
+        </label>
+        <label>
+          <Localized id="item-details-password">
             <span>pASSWORd</span>
           </Localized>
-          <Input type="text" value={this.state.password}
+          <Input type="text" name="password" value={this.state.password}
                  onChange={(e) => this.setState({password: e.target.value})}/>
-        </p>
+        </label>
+        <label>
+          <Localized id="item-details-notes">
+            <span>nOTEs</span>
+          </Localized>
+          <TextArea name="notes" value={this.state.notes}
+                    onChange={(e) => this.setState({notes: e.target.value})}/>
+        </label>
+        <p></p>
         <p>
           <Localized id={saveLabel}>
             <Button type="submit">sAVe</Button>

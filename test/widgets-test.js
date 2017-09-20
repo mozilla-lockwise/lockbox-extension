@@ -18,6 +18,7 @@ import mountWithL10n from "./mock-l10n";
 import Button from "../src/webextension/widgets/button";
 import FilterInput from "../src/webextension/widgets/filter-input";
 import Input from "../src/webextension/widgets/input";
+import TextArea from "../src/webextension/widgets/text-area";
 
 describe("widgets", () => {
   describe("<Button/>", () => {
@@ -82,6 +83,30 @@ describe("widgets", () => {
       const wrapper = mount(<Input value="text" onChange={() => {}}/>);
       const realInput = wrapper.find("input");
       expect(realInput.prop("value")).to.equal("text");
+    });
+
+    it("merge classNames", () => {
+      const wrapper = mount(
+        <Input className="foo" value="text" onChange={() => {}}/>
+      );
+      const realInput = wrapper.find("input");
+      expect(realInput.prop("className")).to.match(/ foo$/);
+    });
+  });
+
+  describe("<TextArea/>", () => {
+    it("render textarea", () => {
+      const wrapper = mount(<TextArea value="text" onChange={() => {}}/>);
+      const realTextArea = wrapper.find("textarea");
+      expect(realTextArea.prop("value")).to.equal("text");
+    });
+
+    it("merge classNames", () => {
+      const wrapper = mount(
+        <TextArea className="foo" value="text" onChange={() => {}}/>
+      );
+      const realTextArea = wrapper.find("textarea");
+      expect(realTextArea.prop("className")).to.equal("browser-style foo");
     });
   });
 });

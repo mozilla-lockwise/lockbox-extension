@@ -18,10 +18,12 @@ function unflattenItem(item, id) {
   return {
     id,
     title: item.title,
+    origins: item.origin ? [item.origin] : [],
     entry: {
       kind: "login",
       username: item.username,
       password: item.password,
+      notes: item.notes,
     },
   };
 }
@@ -29,17 +31,22 @@ function unflattenItem(item, id) {
 function flattenItem(item) {
   return {
     title: item.title,
+    origin: item.origins[0] || "",
     username: item.entry.username,
     password: item.entry.password,
+    notes: item.entry.notes,
   };
 }
 
 const itemProps = PropTypes.shape({
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  origins: PropTypes.arrayOf(PropTypes.string).isRequired,
   item: PropTypes.shape({
+    kind: PropTypes.oneOf(["login"]).isRequired,
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
+    notes: PropTypes.string.isRequired,
   }),
 });
 
