@@ -26,7 +26,6 @@
   ],
   "scripts": {
     "doc": "documentation build src/webextension/** -f md -o docs/api.md",
-    "postdoc": "echo \"---\ntitle: API documentation\nlayout: page\n---\n$(cat docs/api.md)\" > docs/api.md",
     "autolint": "eslint src test webpack*.js --ignore-pattern '!.eslintrc.js' .eslintrc.js",
     "lint": "cross-env STRICT_LINT=1 npm run autolint --",
     "prebuild": "npm run-script autolint",
