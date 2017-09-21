@@ -159,7 +159,7 @@ describe("widgets", () => {
 
       describe("onItemSelected()", () => {
         it("dispatched on clicking item", () => {
-          wrapper.find("li").first().simulate("click");
+          wrapper.find("li").first().simulate("mousedown");
           expect(onItemSelected).to.have.been.calledWith("1");
         });
 

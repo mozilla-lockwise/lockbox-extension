@@ -67,7 +67,7 @@ describe("<AllItems/>", () => {
     });
 
     it("selectItem() dispatched", () => {
-      wrapper.find(ItemSummary).at(0).simulate("click");
+      wrapper.find(ItemSummary).at(0).simulate("mousedown");
       expect(store.getActions()[0].type).to.equal(SELECT_ITEM_STARTING);
     });
   });
