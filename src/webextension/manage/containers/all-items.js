@@ -25,6 +25,6 @@ export default connect(
     };
   },
   (dispatch) => ({
-    onItemClick: (id) => dispatch(selectItem(id)),
+    onItemSelected: (id) => dispatch(selectItem(id)),
   })
 )(ItemList);

@@ -17,7 +17,9 @@ export default function App() {
       <aside>
         <ItemFilter/>
         <AllItems/>
-        <AddItem/>
+        <div>
+          <AddItem/>
+        </div>
       </aside>
       <article>
         <CurrentItem/>

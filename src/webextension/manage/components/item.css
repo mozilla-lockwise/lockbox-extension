@@ -8,6 +8,11 @@
 }
 
 .item[data-selected] {
+  color: InactiveCaptionText;
+  background-color: InactiveCaption;
+}
+
+*:focus .item[data-selected] {
   color: HighlightText;
   background-color: Highlight;
 }

@@ -16,7 +16,7 @@ import Item from "../../../src/webextension/manage/components/item";
 import ItemList from "../../../src/webextension/manage/components/item-list";
 
 describe("<ItemList/>", () => {
-  let onItemClick, wrapper;
+  let onItemSelected, wrapper;
   const items = [
     {id: "0", title: "title 0", username: "username 0"},
     {id: "1", title: "title 1", username: "username 1"},
@@ -24,10 +24,10 @@ describe("<ItemList/>", () => {
   ];
 
   beforeEach(() => {
-    onItemClick = sinon.spy();
+    onItemSelected = sinon.spy();
     wrapper = mountWithL10n(
       <ItemList items={items} selected={items[0].id}
-                onItemClick={onItemClick}/>
+                onItemSelected={onItemSelected}/>
     );
   });
 
@@ -39,8 +39,8 @@ describe("<ItemList/>", () => {
     expect(wrapper.find(Item).at(0).prop("selected")).to.equal(true);
   });
 
-  it("onItemClick called", () => {
+  it("onItemSelected called", () => {
     wrapper.find(Item).at(0).simulate("click");
-    expect(onItemClick).to.have.been.calledWith(items[0].id);
+    expect(onItemSelected).to.have.been.calledWith(items[0].id);
   });
 });
