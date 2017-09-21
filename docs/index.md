@@ -1,5 +1,3 @@
-# Welcome to Lockbox's Docs
+Welcome to Lockbox's extension documentation!
 
-## Commands
-
-* `Ctrl-Shift-L`: open Lockbox sidebar
+*(INSERT PICTURE AND TOC HERE?)*
