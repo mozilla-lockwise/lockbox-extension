@@ -37,7 +37,7 @@ export default class ScrollingList extends React.Component {
 
     switch (e.key) {
     case "ArrowDown":
-      currentIndex = this._getCurrentIndex();
+      currentIndex = this.getCurrentIndex();
       if (currentIndex === -1) {
         newIndex = 0;
       } else if (currentIndex < this.props.data.length - 1) {
@@ -45,7 +45,7 @@ export default class ScrollingList extends React.Component {
       }
       break;
     case "ArrowUp":
-      currentIndex = this._getCurrentIndex();
+      currentIndex = this.getCurrentIndex();
       if (currentIndex === -1) {
         newIndex = 0;
       } else if (currentIndex > 0) {
@@ -58,26 +58,59 @@ export default class ScrollingList extends React.Component {
 
     if (newIndex !== undefined) {
       this.props.onItemSelected(this.props.data[newIndex].id);
-      e.stopPropagation();
-      e.preventDefault();
+    }
+    e.stopPropagation();
+    e.preventDefault();
+  }
+
+  getCurrentIndex() {
+    return this.props.data.findIndex((i) => i.id === this.props.selected);
+  }
+
+  scrollIntoViewIfNeeded(item) {
+    const root = this._rootElement;
+
+    const overlapsTop = (item.offsetTop - root.offsetTop) < root.scrollTop;
+    const overlapsBottom = (
+      item.offsetTop + item.clientHeight - root.offsetTop
+    ) > (root.scrollTop + root.clientHeight);
+
+    if (overlapsTop) {
+      item.scrollIntoView({behavior: "smooth", block: "start"});
+    } else if (overlapsBottom) {
+      item.scrollIntoView({behavior: "smooth", block: "end"});
     }
   }
 
-  _getCurrentIndex() {
-    return this.props.data.findIndex((i) => i.id === this.props.selected);
+  componentDidUpdate(prevProps) {
+    if (this.props.selected && this.props.selected !== prevProps.selected) {
+      this.scrollIntoViewIfNeeded(this._selectedElement);
+    }
   }
 
   render() {
     const {children, data, tabIndex, selected, onItemSelected} = this.props;
     return (
       <ul tabIndex={tabIndex} className={styles.scrollingList}
+          ref={(element) => this._rootElement = element}
           onKeyDown={(e) => this.handleKeyDown(e)}>
-        {data.map((item) => children({
-          item,
-          key: item.id,
-          selected: item.id === selected,
-          onClick: () => onItemSelected(item.id),
-        }))}
+        {data.map((item) => {
+          let props = {
+            onClick: () => onItemSelected(item.id),
+          };
+          if (item.id === selected) {
+            Object.assign(props, {
+              "data-selected": true,
+              "ref": (element) => this._selectedElement = element,
+            });
+          }
+
+          return (
+            <li key={item.id} {...props}>
+              {children(item)}
+            </li>
+          );
+        })}
       </ul>
     );
   }

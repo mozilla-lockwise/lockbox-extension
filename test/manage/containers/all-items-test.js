@@ -59,10 +59,11 @@ describe("<AllItems/>", () => {
     });
 
     it("render items", () => {
+      const expectedTitle = filledState.cache.currentItem.title;
       expect(wrapper.find(ItemSummary)).to.have.length(3);
-      expect(wrapper.find(ItemSummary).filterWhere(
-        (x) => x.prop("selected")
-      ).prop("title")).to.equal(filledState.cache.currentItem.title);
+      expect(wrapper.find("li").filterWhere(
+        (x) => x.prop("data-selected")
+      ).find(ItemSummary).prop("title")).to.equal(expectedTitle);
     });
 
     it("selectItem() dispatched", () => {

@@ -37,7 +37,7 @@ describe("<ItemList/>", () => {
   });
 
   it("correct item is selected", () => {
-    expect(wrapper.find(ItemSummary).at(0).prop("selected")).to.equal(true);
+    expect(wrapper.find("li").at(0).prop("data-selected")).to.equal(true);
   });
 
   it("onItemSelected called", () => {

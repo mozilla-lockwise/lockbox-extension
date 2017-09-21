@@ -120,14 +120,16 @@ describe("widgets", () => {
         expect(wrapper.find("li")).to.have.length(0);
       });
 
-      it("onItemSelected() not dispatched on arrow down", () => {
-        wrapper.simulate("keydown", {key: "ArrowDown"});
-        expect(onItemSelected).to.have.callCount(0);
-      });
+      describe("onItemSelected()", () => {
+        it("not dispatched on arrow down", () => {
+          wrapper.simulate("keydown", {key: "ArrowDown"});
+          expect(onItemSelected).to.have.callCount(0);
+        });
 
-      it("onItemSelected() not dispatched on arrow up", () => {
-        wrapper.simulate("keydown", {key: "ArrowUp"});
-        expect(onItemSelected).to.have.callCount(0);
+        it("not dispatched on arrow up", () => {
+          wrapper.simulate("keydown", {key: "ArrowUp"});
+          expect(onItemSelected).to.have.callCount(0);
+        });
       });
     });
 
@@ -141,9 +143,9 @@ describe("widgets", () => {
       beforeEach(() => {
         wrapper = mount(
           <ScrollingList data={data} onItemSelected={onItemSelected}>
-            {({item, ...props}) => {
+            {({name}) => {
               return (
-                <li {...props}>{item.name}</li>
+                <div>{name}</div>
               );
             }}
           </ScrollingList>
@@ -155,48 +157,85 @@ describe("widgets", () => {
         expect(wrapper.find("li")).to.have.length(3);
       });
 
-      it("onItemSelected() dispatched on clicking item", () => {
-        wrapper.find("li").first().simulate("click");
-        expect(onItemSelected).to.have.been.calledWith("1");
+      describe("onItemSelected()", () => {
+        it("dispatched on clicking item", () => {
+          wrapper.find("li").first().simulate("click");
+          expect(onItemSelected).to.have.been.calledWith("1");
+        });
+
+        it("dispatched on arrow down", () => {
+          wrapper.setProps({selected: "1"});
+          wrapper.simulate("keydown", {key: "ArrowDown"});
+          expect(onItemSelected).to.have.been.calledWith("2");
+        });
+
+        it("dispatched on arrow up", () => {
+          wrapper.setProps({selected: "3"});
+          wrapper.simulate("keydown", {key: "ArrowUp"});
+          expect(onItemSelected).to.have.been.calledWith("2");
+        });
+
+        it("dispatched on arrow down for no selection", () => {
+          wrapper.simulate("keydown", {key: "ArrowDown"});
+          expect(onItemSelected).to.have.been.calledWith("1");
+        });
+
+        it("dispatched on arrow up for no selection", () => {
+          wrapper.simulate("keydown", {key: "ArrowUp"});
+          expect(onItemSelected).to.have.been.calledWith("1");
+        });
+
+        it("not dispatched on arrow down for last item", () => {
+          wrapper.setProps({selected: "3"});
+          wrapper.simulate("keydown", {key: "ArrowDown"});
+          expect(onItemSelected).to.have.callCount(0);
+        });
+
+        it("not dispatched on arrow up for first item", () => {
+          wrapper.setProps({selected: "1"});
+          wrapper.simulate("keydown", {key: "ArrowUp"});
+          expect(onItemSelected).to.have.callCount(0);
+        });
+
+        it("not dispatched for irrelevant key press", () => {
+          wrapper.simulate("keydown", {key: "Enter"});
+          expect(onItemSelected).to.have.callCount(0);
+        });
       });
 
-      it("onItemSelected() dispatched on arrow down", () => {
-        wrapper.setProps({selected: "1"});
-        wrapper.simulate("keydown", {key: "ArrowDown"});
-        expect(onItemSelected).to.have.been.calledWith("2");
-      });
+      describe("scrolling", () => {
+        it("scroll up into view", () => {
+          const scrollIntoView = sinon.spy();
+          wrapper.find("ul").get(0).scrollTop = 42;
+          wrapper.find("li").get(0).scrollIntoView = scrollIntoView;
+          wrapper.setProps({selected: "1"});
 
-      it("onItemSelected() dispatched on arrow up", () => {
-        wrapper.setProps({selected: "3"});
-        wrapper.simulate("keydown", {key: "ArrowUp"});
-        expect(onItemSelected).to.have.been.calledWith("2");
-      });
+          expect(scrollIntoView).to.have.been.calledWith({
+            behavior: "smooth", block: "start",
+          });
+        });
 
-      it("onItemSelected() dispatched on arrow down for no selection", () => {
-        wrapper.simulate("keydown", {key: "ArrowDown"});
-        expect(onItemSelected).to.have.been.calledWith("1");
-      });
+        it("scroll down into view", () => {
+          const scrollIntoView = sinon.spy();
+          wrapper.find("ul").get(0).scrollTop = -42;
+          wrapper.find("li").get(2).scrollIntoView = scrollIntoView;
+          wrapper.setProps({selected: "3"});
 
-      it("onItemSelected() dispatched on arrow up for no selection", () => {
-        wrapper.simulate("keydown", {key: "ArrowUp"});
-        expect(onItemSelected).to.have.been.calledWith("1");
-      });
+          expect(scrollIntoView).to.have.been.calledWith({
+            behavior: "smooth", block: "end",
+          });
+        });
 
-      it("onItemSelected() not dispatched on arrow down for last item", () => {
-        wrapper.setProps({selected: "3"});
-        wrapper.simulate("keydown", {key: "ArrowDown"});
-        expect(onItemSelected).to.have.callCount(0);
-      });
+        it("does not scroll if selection is unchanged", () => {
+          const scrollIntoView = sinon.spy();
+          wrapper.find("ul").get(0).scrollTop = -42;
+          wrapper.find("li").get(2).scrollIntoView = scrollIntoView;
+          wrapper.setProps({selected: "3"});
+          scrollIntoView.reset();
+          wrapper.setProps({selected: "3"});
 
-      it("onItemSelected() not dispatched on arrow up for first item", () => {
-        wrapper.setProps({selected: "1"});
-        wrapper.simulate("keydown", {key: "ArrowUp"});
-        expect(onItemSelected).to.have.callCount(0);
-      });
-
-      it("onItemSelected() not dispatched for irrelevant key press", () => {
-        wrapper.simulate("keydown", {key: "Enter"});
-        expect(onItemSelected).to.have.callCount(0);
+          expect(scrollIntoView).to.have.callCount(0);
+        });
       });
     });
   });
