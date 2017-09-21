@@ -41,7 +41,7 @@ describe("<ItemList/>", () => {
   });
 
   it("onItemSelected called", () => {
-    wrapper.find(ItemSummary).at(0).simulate("click");
+    wrapper.find(ItemSummary).at(0).simulate("mousedown");
     expect(onItemSelected).to.have.been.calledWith(items[0].id);
   });
 });

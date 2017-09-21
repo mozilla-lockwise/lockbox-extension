@@ -96,7 +96,7 @@ export default class ScrollingList extends React.Component {
           onKeyDown={(e) => this.handleKeyDown(e)}>
         {data.map((item) => {
           let props = {
-            onClick: () => onItemSelected(item.id),
+            onMouseDown: () => onItemSelected(item.id),
           };
           if (item.id === selected) {
             Object.assign(props, {
