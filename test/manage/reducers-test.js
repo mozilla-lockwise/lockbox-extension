@@ -325,6 +325,7 @@ describe("reducers", () => {
     it("initial state", () => {
       expect(uiReducer(undefined, {})).to.deep.equal({
         newItem: false,
+        selectedItemId: null,
         filter: [],
       });
     });
@@ -336,6 +337,7 @@ describe("reducers", () => {
 
       expect(uiReducer(undefined, action)).to.deep.equal({
         newItem: true,
+        selectedItemId: null,
         filter: [],
       });
     });
@@ -343,6 +345,7 @@ describe("reducers", () => {
     it("handle CANCEL_NEW_ITEM", () => {
       const state = {
         newItem: true,
+        selectedItemId: null,
         filter: [],
       };
       const action = {
@@ -351,6 +354,7 @@ describe("reducers", () => {
 
       expect(uiReducer(state, action)).to.deep.equal({
         newItem: false,
+        selectedItemId: null,
         filter: [],
       });
     });
@@ -358,14 +362,37 @@ describe("reducers", () => {
     it("handle ADD_ITEM_COMPLETED", () => {
       const state = {
         newItem: true,
+        selectedItemId: null,
         filter: [],
       };
       const action = {
         type: actions.ADD_ITEM_COMPLETED,
+        item: {
+          id: "1",
+        },
       };
 
       expect(uiReducer(state, action)).to.deep.equal({
         newItem: false,
+        selectedItemId: "1",
+        filter: [],
+      });
+    });
+
+    it("handle SELECT_ITEM_STARTING", () => {
+      const state = {
+        newItem: false,
+        selectedItemId: null,
+        filter: [],
+      };
+      const action = {
+        type: actions.SELECT_ITEM_STARTING,
+        id: "1",
+      };
+
+      expect(uiReducer(state, action)).to.deep.equal({
+        newItem: false,
+        selectedItemId: "1",
         filter: [],
       });
     });

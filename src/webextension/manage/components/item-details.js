@@ -13,7 +13,7 @@ import TextArea from "../../widgets/text-area";
 import styles from "./item-details.css";
 
 // Note: ItemDetails doesn't directly interact with items from the Lockbox
-// datastore. For that, please consult <../containers/currentItem.js>.
+// datastore. For that, please consult <../containers/current-item.js>.
 
 export default class ItemDetails extends React.Component {
   static get propTypes() {
