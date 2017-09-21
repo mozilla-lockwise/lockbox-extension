@@ -17,3 +17,9 @@ save-item = Save
 cancel-item = Cancel
 update-item = Update
 delete-item = Delete
+
+// These strings are for our generic widgets. They should probably go in a
+// separate file when we have a way to do that.
+[[widgets]]
+
+filter-input-clear = Clear
