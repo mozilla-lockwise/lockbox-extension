@@ -9,25 +9,25 @@ import { LocalizationProvider } from "fluent-react";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 
-async function fetchMessages(baseDir, locale) {
-  const response = await fetch(`${baseDir}/${locale}.ftl`);
+async function fetchMessages(baseDir, locale, bundle) {
+  const response = await fetch(`${baseDir}/${locale}/${bundle}.ftl`);
   const messages = await response.text();
 
   return { [locale]: messages };
 }
 
-async function createMessagesGenerator(baseDir, currentLocales) {
+async function createMessagesGenerator(baseDir, currentLocales, bundle) {
   const fetched = await Promise.all(
-    currentLocales.map((x) => fetchMessages(baseDir, x))
+    currentLocales.map((x) => fetchMessages(baseDir, x, bundle))
   );
-  const bundle = fetched.reduce(
+  const bundles = fetched.reduce(
     (obj, cur) => Object.assign(obj, cur)
   );
 
   return function* generateMessages() {
     for (const locale of currentLocales) {
       const cx = new MessageContext(locale);
-      cx.addMessages(bundle[locale]);
+      cx.addMessages(bundles[locale]);
       yield cx;
     }
   }
@@ -39,6 +39,7 @@ export default class AppLocalizationProvider extends Component {
       baseDir: PropTypes.string,
       availableLocales: PropTypes.array.isRequired,
       userLocales: PropTypes.array,
+      bundle: PropTypes.string.isRequired,
       children: PropTypes.any,
     };
   }
@@ -47,22 +48,23 @@ export default class AppLocalizationProvider extends Component {
     super(props);
 
     // XXX: Pull `availableLocales` from a config file?
-    const { baseDir = ".", availableLocales, userLocales } = props;
+    const { baseDir = "/locales", availableLocales, userLocales, bundle } = props;
     const currentLocales = negotiateLanguages(
       userLocales, availableLocales,
       { defaultLocale: availableLocales[0] }
     );
 
     this.state = {
-      currentLocales,
       baseDir,
+      currentLocales,
+      bundle,
     };
   }
 
   async componentWillMount() {
-    const { baseDir, currentLocales } = this.state;
+    const { baseDir, currentLocales, bundle } = this.state;
     const generateMessages = await createMessagesGenerator(
-      baseDir, currentLocales
+      baseDir, currentLocales, bundle
     );
     this.setState({ messages: generateMessages() });
   }
