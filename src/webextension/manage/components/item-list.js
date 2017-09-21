@@ -6,17 +6,18 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import Item from "./item";
-import styles from "./item-list.css";
+import ScrollingList from "../../widgets/scrolling-list";
 
-export default function ItemList({items, selected, onItemClick}) {
+export default function ItemList({items, selected, onItemSelected}) {
   return (
-    <ul className={styles.itemList}>
-      {items.map((item) => (
-         <Item key={item.id} title={item.title} username={item.username}
-               selected={item.id === selected}
-               onClick={() => onItemClick(item.id)}/>
-      ))}
-    </ul>
+    <ScrollingList data={items} selected={selected}
+                   onItemSelected={onItemSelected}>
+      {({item, ...props}) => {
+        return (
+          <Item title={item.title} username={item.username} {...props}/>
+        );
+      }}
+    </ScrollingList>
   );
 }
 
@@ -29,5 +30,5 @@ ItemList.propTypes = {
     }).isRequired
   ).isRequired,
   selected: PropTypes.string,
-  onItemClick: PropTypes.func.isRequired,
+  onItemSelected: PropTypes.func.isRequired,
 };

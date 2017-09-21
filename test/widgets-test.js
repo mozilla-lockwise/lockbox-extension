@@ -18,6 +18,7 @@ import mountWithL10n from "./mock-l10n";
 import Button from "../src/webextension/widgets/button";
 import FilterInput from "../src/webextension/widgets/filter-input";
 import Input from "../src/webextension/widgets/input";
+import ScrollingList from "../src/webextension/widgets/scrolling-list";
 import TextArea from "../src/webextension/widgets/text-area";
 
 describe("widgets", () => {
@@ -91,6 +92,112 @@ describe("widgets", () => {
       );
       const realInput = wrapper.find("input");
       expect(realInput.prop("className")).to.match(/ foo$/);
+    });
+  });
+
+  describe("<ScrollingList/>", () => {
+    let wrapper, onItemSelected;
+
+    beforeEach(() => {
+      onItemSelected = sinon.spy();
+    });
+
+    describe("empty list", () => {
+      beforeEach(() => {
+        wrapper = mount(
+          <ScrollingList data={[]} onItemSelected={onItemSelected}>
+            {({item, ...props}) => {
+              return (
+                <li {...props}>{item.name}</li>
+              );
+            }}
+          </ScrollingList>
+        );
+      });
+
+      it("render list", () => {
+        expect(wrapper.find("ul")).to.have.length(1);
+        expect(wrapper.find("li")).to.have.length(0);
+      });
+
+      it("onItemSelected() not dispatched on arrow down", () => {
+        wrapper.simulate("keydown", {key: "ArrowDown"});
+        expect(onItemSelected).to.have.callCount(0);
+      });
+
+      it("onItemSelected() not dispatched on arrow up", () => {
+        wrapper.simulate("keydown", {key: "ArrowUp"});
+        expect(onItemSelected).to.have.callCount(0);
+      });
+    });
+
+    describe("filled list", () => {
+      const data = [
+        {id: "1", name: "item 1"},
+        {id: "2", name: "item 2"},
+        {id: "3", name: "item 3"},
+      ];
+
+      beforeEach(() => {
+        wrapper = mount(
+          <ScrollingList data={data} onItemSelected={onItemSelected}>
+            {({item, ...props}) => {
+              return (
+                <li {...props}>{item.name}</li>
+              );
+            }}
+          </ScrollingList>
+        );
+      });
+
+      it("render list", () => {
+        expect(wrapper.find("ul")).to.have.length(1);
+        expect(wrapper.find("li")).to.have.length(3);
+      });
+
+      it("onItemSelected() dispatched on clicking item", () => {
+        wrapper.find("li").first().simulate("click");
+        expect(onItemSelected).to.have.been.calledWith("1");
+      });
+
+      it("onItemSelected() dispatched on arrow down", () => {
+        wrapper.setProps({selected: "1"});
+        wrapper.simulate("keydown", {key: "ArrowDown"});
+        expect(onItemSelected).to.have.been.calledWith("2");
+      });
+
+      it("onItemSelected() dispatched on arrow up", () => {
+        wrapper.setProps({selected: "3"});
+        wrapper.simulate("keydown", {key: "ArrowUp"});
+        expect(onItemSelected).to.have.been.calledWith("2");
+      });
+
+      it("onItemSelected() dispatched on arrow down for no selection", () => {
+        wrapper.simulate("keydown", {key: "ArrowDown"});
+        expect(onItemSelected).to.have.been.calledWith("1");
+      });
+
+      it("onItemSelected() dispatched on arrow up for no selection", () => {
+        wrapper.simulate("keydown", {key: "ArrowUp"});
+        expect(onItemSelected).to.have.been.calledWith("1");
+      });
+
+      it("onItemSelected() not dispatched on arrow down for last item", () => {
+        wrapper.setProps({selected: "3"});
+        wrapper.simulate("keydown", {key: "ArrowDown"});
+        expect(onItemSelected).to.have.callCount(0);
+      });
+
+      it("onItemSelected() not dispatched on arrow up for first item", () => {
+        wrapper.setProps({selected: "1"});
+        wrapper.simulate("keydown", {key: "ArrowUp"});
+        expect(onItemSelected).to.have.callCount(0);
+      });
+
+      it("onItemSelected() not dispatched for irrelevant key press", () => {
+        wrapper.simulate("keydown", {key: "Enter"});
+        expect(onItemSelected).to.have.callCount(0);
+      });
     });
   });
 
