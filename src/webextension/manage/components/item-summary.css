@@ -7,16 +7,6 @@
   padding: .5em;
 }
 
-.item-summary[data-selected] {
-  color: InactiveCaptionText;
-  background-color: InactiveCaption;
-}
-
-*:focus .item-summary[data-selected] {
-  color: HighlightText;
-  background-color: Highlight;
-}
-
 .subtitle {
   font-size: 80%;
   opacity: 0.75;

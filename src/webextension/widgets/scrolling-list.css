@@ -12,3 +12,13 @@
 .scrolling-list:-moz-focusring {
   outline-style: none;
 }
+
+.scrolling-list > li[data-selected] {
+  color: InactiveCaptionText;
+  background-color: InactiveCaption;
+}
+
+.scrolling-list:focus > li[data-selected] {
+  color: HighlightText;
+  background-color: Highlight;
+}

@@ -4,47 +4,31 @@
 
 require("babel-polyfill");
 
-import chai, { expect } from "chai";
+import { expect } from "chai";
 import React from "react";
-import sinon from "sinon";
-import sinonChai from "sinon-chai";
-
-chai.use(sinonChai);
 
 import mountWithL10n from "../../mock-l10n";
 import ItemSummary from
        "../../../src/webextension/manage/components/item-summary";
 
 describe("<ItemSummary/>", () => {
-  let onClick;
-
-  beforeEach(() => {
-    onClick = sinon.spy();
-  });
-
   it("render title and username", () => {
     const wrapper = mountWithL10n(
-      <ItemSummary title="title" username="username" onClick={onClick}/>
+      <ItemSummary title="title" username="username"/>
     );
-    expect(wrapper.find("div").at(0).text()).to.equal("title");
-    expect(wrapper.find("div").at(1).text()).to.equal("username");
+    expect(wrapper.find("div > div").at(0).text()).to.equal("title");
+    expect(wrapper.find("div > div").at(1).text()).to.equal("username");
   });
 
   it("render blank", () => {
     const wrapper = mountWithL10n(
-      <ItemSummary onClick={onClick}/>
+      <ItemSummary/>
     );
-    expect(wrapper.find("div").at(0).text()).to.equal("item-summary-no-title");
-    expect(wrapper.find("div").at(1).text()).to.equal(
+    expect(wrapper.find("div > div").at(0).text()).to.equal(
+      "item-summary-no-title"
+    );
+    expect(wrapper.find("div > div").at(1).text()).to.equal(
       "item-summary-no-username"
     );
-  });
-
-  it("onClick called", () => {
-    const wrapper = mountWithL10n(
-      <ItemSummary title="title" username="username" onClick={onClick}/>
-    );
-    wrapper.simulate("click");
-    expect(onClick).to.have.been.calledWith();
   });
 });

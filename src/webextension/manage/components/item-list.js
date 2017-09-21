@@ -12,9 +12,9 @@ export default function ItemList({items, selected, onItemSelected}) {
   return (
     <ScrollingList data={items} selected={selected}
                    onItemSelected={onItemSelected}>
-      {({item, ...props}) => {
+      {({title, username}) => {
         return (
-          <ItemSummary title={item.title} username={item.username} {...props}/>
+          <ItemSummary title={title} username={username}/>
         );
       }}
     </ScrollingList>
