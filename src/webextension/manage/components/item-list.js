@@ -5,7 +5,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import Item from "./item";
+import ItemSummary from "./item-summary";
 import ScrollingList from "../../widgets/scrolling-list";
 
 export default function ItemList({items, selected, onItemSelected}) {
@@ -14,7 +14,7 @@ export default function ItemList({items, selected, onItemSelected}) {
                    onItemSelected={onItemSelected}>
       {({item, ...props}) => {
         return (
-          <Item title={item.title} username={item.username} {...props}/>
+          <ItemSummary title={item.title} username={item.username} {...props}/>
         );
       }}
     </ScrollingList>

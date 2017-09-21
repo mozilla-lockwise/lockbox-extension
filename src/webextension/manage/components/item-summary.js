@@ -6,12 +6,12 @@ import { withLocalization } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
-import styles from "./item.css";
+import styles from "./item-summary.css";
 
-function Item({title, username, selected, getString, onClick}) {
+function ItemSummary({title, username, selected, getString, onClick}) {
   const attrs = (selected) ? {"data-selected": true} : {};
   return (
-    <li className={styles.item} {...attrs} onClick={onClick}>
+    <li className={styles.itemSummary} {...attrs} onClick={onClick}>
       <div>
         {title || getString("item-summary-no-title")}
       </div>
@@ -22,7 +22,7 @@ function Item({title, username, selected, getString, onClick}) {
   );
 }
 
-Item.propTypes = {
+ItemSummary.propTypes = {
   title: PropTypes.string,
   username: PropTypes.string,
   selected: PropTypes.bool,
@@ -30,4 +30,10 @@ Item.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export default withLocalization(Item);
+ItemSummary.defaultProps = {
+  title: "",
+  username: "",
+  selected: false,
+};
+
+export default withLocalization(ItemSummary);

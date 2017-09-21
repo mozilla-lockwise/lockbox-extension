@@ -12,8 +12,9 @@ import sinonChai from "sinon-chai";
 chai.use(sinonChai);
 
 import mountWithL10n from "../../mock-l10n";
-import Item from "../../../src/webextension/manage/components/item";
 import ItemList from "../../../src/webextension/manage/components/item-list";
+import ItemSummary from
+       "../../../src/webextension/manage/components/item-summary";
 
 describe("<ItemList/>", () => {
   let onItemSelected, wrapper;
@@ -32,15 +33,15 @@ describe("<ItemList/>", () => {
   });
 
   it("render all items", () => {
-    expect(wrapper.find(Item)).to.have.length(3);
+    expect(wrapper.find(ItemSummary)).to.have.length(3);
   });
 
   it("correct item is selected", () => {
-    expect(wrapper.find(Item).at(0).prop("selected")).to.equal(true);
+    expect(wrapper.find(ItemSummary).at(0).prop("selected")).to.equal(true);
   });
 
   it("onItemSelected called", () => {
-    wrapper.find(Item).at(0).simulate("click");
+    wrapper.find(ItemSummary).at(0).simulate("click");
     expect(onItemSelected).to.have.been.calledWith(items[0].id);
   });
 });
