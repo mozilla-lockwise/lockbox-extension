@@ -12,7 +12,8 @@ import thunk from "redux-thunk";
 
 import { initialState, filledState } from "../mock-redux-state";
 import mountWithL10n from "../../mock-l10n";
-import Item from "../../../src/webextension/manage/components/item";
+import ItemSummary from
+       "../../../src/webextension/manage/components/item-summary";
 import AllItems from "../../../src/webextension/manage/containers/all-items";
 import { SELECT_ITEM_STARTING } from "../../../src/webextension/manage/actions";
 
@@ -41,7 +42,7 @@ describe("<AllItems/>", () => {
     });
 
     it("render items", () => {
-      expect(wrapper.find(Item)).to.have.length(0);
+      expect(wrapper.find(ItemSummary)).to.have.length(0);
     });
   });
 
@@ -58,14 +59,14 @@ describe("<AllItems/>", () => {
     });
 
     it("render items", () => {
-      expect(wrapper.find(Item)).to.have.length(3);
-      expect(wrapper.find(Item).filterWhere(
+      expect(wrapper.find(ItemSummary)).to.have.length(3);
+      expect(wrapper.find(ItemSummary).filterWhere(
         (x) => x.prop("selected")
       ).prop("title")).to.equal(filledState.cache.currentItem.title);
     });
 
     it("selectItem() dispatched", () => {
-      wrapper.find(Item).at(0).simulate("click");
+      wrapper.find(ItemSummary).at(0).simulate("click");
       expect(store.getActions()[0].type).to.equal(SELECT_ITEM_STARTING);
     });
   });
@@ -86,7 +87,7 @@ describe("<AllItems/>", () => {
     });
 
     it("render items", () => {
-      expect(wrapper.find(Item)).to.have.length(1);
+      expect(wrapper.find(ItemSummary)).to.have.length(1);
     });
   });
 });

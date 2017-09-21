@@ -2,17 +2,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-.item {
+.item-summary {
   border-bottom: 1px solid #d7d7db;
   padding: .5em;
 }
 
-.item[data-selected] {
+.item-summary[data-selected] {
   color: InactiveCaptionText;
   background-color: InactiveCaption;
 }
 
-*:focus .item[data-selected] {
+*:focus .item-summary[data-selected] {
   color: HighlightText;
   background-color: Highlight;
 }

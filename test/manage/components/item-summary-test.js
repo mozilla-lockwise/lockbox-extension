@@ -12,9 +12,10 @@ import sinonChai from "sinon-chai";
 chai.use(sinonChai);
 
 import mountWithL10n from "../../mock-l10n";
-import Item from "../../../src/webextension/manage/components/item";
+import ItemSummary from
+       "../../../src/webextension/manage/components/item-summary";
 
-describe("<Item/>", () => {
+describe("<ItemSummary/>", () => {
   let onClick;
 
   beforeEach(() => {
@@ -23,7 +24,7 @@ describe("<Item/>", () => {
 
   it("render title and username", () => {
     const wrapper = mountWithL10n(
-      <Item title="title" username="username" onClick={onClick}/>
+      <ItemSummary title="title" username="username" onClick={onClick}/>
     );
     expect(wrapper.find("div").at(0).text()).to.equal("title");
     expect(wrapper.find("div").at(1).text()).to.equal("username");
@@ -31,7 +32,7 @@ describe("<Item/>", () => {
 
   it("render blank", () => {
     const wrapper = mountWithL10n(
-      <Item onClick={onClick}/>
+      <ItemSummary onClick={onClick}/>
     );
     expect(wrapper.find("div").at(0).text()).to.equal("item-summary-no-title");
     expect(wrapper.find("div").at(1).text()).to.equal(
@@ -41,7 +42,7 @@ describe("<Item/>", () => {
 
   it("onClick called", () => {
     const wrapper = mountWithL10n(
-      <Item title="title" username="username" onClick={onClick}/>
+      <ItemSummary title="title" username="username" onClick={onClick}/>
     );
     wrapper.simulate("click");
     expect(onClick).to.have.been.calledWith();
