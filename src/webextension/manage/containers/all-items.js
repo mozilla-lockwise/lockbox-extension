@@ -13,8 +13,8 @@ const collator = new Intl.Collator();
 export default connect(
   (state) => {
     let currentId = null;
-    if (!state.ui.newItem && state.cache.currentItem) {
-      currentId = state.cache.currentItem.id;
+    if (!state.ui.newItem && state.ui.selectedItemId) {
+      currentId = state.ui.selectedItemId;
     }
 
     return {

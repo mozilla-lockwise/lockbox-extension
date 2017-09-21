@@ -6,8 +6,8 @@ import { combineReducers } from "redux";
 
 import {
   LIST_ITEMS_COMPLETED, ADD_ITEM_STARTING, ADD_ITEM_COMPLETED,
-  UPDATE_ITEM_COMPLETED, REMOVE_ITEM_COMPLETED, SELECT_ITEM_COMPLETED,
-  START_NEW_ITEM, CANCEL_NEW_ITEM, FILTER_ITEMS,
+  UPDATE_ITEM_COMPLETED, REMOVE_ITEM_COMPLETED, SELECT_ITEM_STARTING,
+  SELECT_ITEM_COMPLETED, START_NEW_ITEM, CANCEL_NEW_ITEM, FILTER_ITEMS,
 } from "./actions";
 import { makeItemSummary } from "../common";
 import { defaultFilter } from "./filter";
@@ -78,7 +78,7 @@ export function cacheReducer(state = {
 }
 
 export function uiReducer(state = {
-  newItem: false, filter: defaultFilter,
+  newItem: false, selectedItemId: null, filter: defaultFilter,
 }, action) {
   switch (action.type) {
   case START_NEW_ITEM:
@@ -86,7 +86,9 @@ export function uiReducer(state = {
   case CANCEL_NEW_ITEM:
     return {...state, newItem: false};
   case ADD_ITEM_COMPLETED:
-    return {...state, newItem: false};
+    return {...state, newItem: false, selectedItemId: action.item.id};
+  case SELECT_ITEM_STARTING:
+    return {...state, selectedItemId: action.id};
   case FILTER_ITEMS:
     return {...state, filter: action.filter};
   default:
