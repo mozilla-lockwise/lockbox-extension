@@ -26,7 +26,7 @@
   ],
   "scripts": {
     "doc": "documentation build src/webextension/** -f md -o docs/api.md",
-    "autolint": "eslint src test webpack*.js --ignore-pattern '!.eslintrc.js' .eslintrc.js",
+    "autolint": "eslint .",
     "lint": "cross-env STRICT_LINT=1 npm run autolint --",
     "prebuild": "npm run-script autolint",
     "build": "webpack",
@@ -37,8 +37,8 @@
     "report-coverage": "nyc report --reporter=lcov && codecov",
     "clean": "git clean -fX ./dist ./*.xpi",
     "distclean": "git clean -dfX",
-    "prepackage": "npm run-script clean && npm run-script build",
-    "package": "cd dist && zip -r ../${npm_package_name}-${npm_package_version}.xpi *"
+    "prepackage": "npm run-script clean && cross-ENV NODE_ENV=production npm run-script build",
+    "package": "cd dist && zip -r ../addon.xpi *"
   },
   "nyc": {
     "all": true,

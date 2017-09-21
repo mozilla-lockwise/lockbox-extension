@@ -11,7 +11,7 @@ export default class JSONWebpackPlugin {
       template: undefined,
       filename: undefined,
       data: {},
-      ...options
+      ...options,
     };
   }
 

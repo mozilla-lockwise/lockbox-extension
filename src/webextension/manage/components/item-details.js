@@ -6,6 +6,9 @@ import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
+import Button from "../../widgets/button";
+import Input from "../../widgets/input";
+
 import styles from "./item-details.css";
 
 /**
@@ -74,30 +77,31 @@ export default class ItemDetails extends React.Component {
           <Localized id="item-site">
             <span>sITe</span>
           </Localized>
-          <input type="text" value={this.state.title}
+          <Input type="text" value={this.state.title}
                  onChange={(e) => this.setState({title: e.target.value})}/>
         </p>
         <p>
           <Localized id="item-username">
             <span>uSERNAMe</span>
           </Localized>
-          <input type="text" value={this.state.username}
+          <Input type="text" value={this.state.username}
                  onChange={(e) => this.setState({username: e.target.value})}/>
         </p>
         <p>
           <Localized id="item-password">
             <span>pASSWORd</span>
           </Localized>
-          <input type="text" value={this.state.password}
+          <Input type="text" value={this.state.password}
                  onChange={(e) => this.setState({password: e.target.value})}/>
         </p>
         <p>
           <Localized id={saveLabel}>
-            <button type="submit" className="browser-style">sAVe</button>
+            <Button type="submit">sAVe</Button>
           </Localized>
           <Localized id={deleteLabel}>
-            <button type="button" className="browser-style"
-                    onClick={(e) => onDelete(this.state.id)}>dELETe</button>
+            <Button type="button" onClick={(e) => onDelete(this.state.id)}>
+              dELETe
+            </Button>
           </Localized>
         </p>
       </form>
