@@ -13,6 +13,7 @@ import sinonChai from "sinon-chai";
 chai.use(sinonChai);
 
 import { simulateTyping } from "./common";
+import mountWithL10n from "./mock-l10n";
 
 import Button from "../src/webextension/widgets/button";
 import FilterInput from "../src/webextension/widgets/filter-input";
@@ -36,13 +37,13 @@ describe("widgets", () => {
 
   describe("<FilterInput/>", () => {
     it("render input", () => {
-      const wrapper = mount(<FilterInput value="text"/>);
+      const wrapper = mountWithL10n(<FilterInput value="text"/>);
       const realInput = wrapper.find("input");
       expect(realInput.prop("value")).to.equal("text");
     });
 
     it("reset button clears filter", () => {
-      const wrapper = mount(<FilterInput/>);
+      const wrapper = mountWithL10n(<FilterInput/>);
       simulateTyping(wrapper.find("input"), "text");
       wrapper.find("button").simulate("click");
 
@@ -52,7 +53,7 @@ describe("widgets", () => {
 
     it("onChange fired on input", () => {
       const onChange = sinon.spy();
-      const wrapper = mount(<FilterInput onChange={onChange}/>);
+      const wrapper = mountWithL10n(<FilterInput onChange={onChange}/>);
       simulateTyping(wrapper.find("input"), "text");
 
       expect(onChange).to.have.been.calledWith("text");
@@ -60,7 +61,7 @@ describe("widgets", () => {
 
     it("onChange fired on reset", () => {
       const onChange = sinon.spy();
-      const wrapper = mount(<FilterInput onChange={onChange}/>);
+      const wrapper = mountWithL10n(<FilterInput onChange={onChange}/>);
       simulateTyping(wrapper.find("input"), "text");
       wrapper.find("button").simulate("click");
 
@@ -69,7 +70,7 @@ describe("widgets", () => {
 
     it("onChange not fired if no text changed", () => {
       const onChange = sinon.spy();
-      const wrapper = mount(<FilterInput onChange={onChange}/>);
+      const wrapper = mountWithL10n(<FilterInput onChange={onChange}/>);
       wrapper.find("button").simulate("click");
 
       expect(onChange).to.have.callCount(0);
