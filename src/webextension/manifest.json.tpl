@@ -30,5 +30,10 @@
         "default": "Ctrl+Shift+L"
       }
     }
-  }
+  },
+
+  "permissions": [
+    "identity",
+    "storage"
+  ]
 }
