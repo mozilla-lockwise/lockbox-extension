@@ -56,6 +56,7 @@
     "fluent-react": "^0.4.1",
     "intl-pluralrules": "^0.1.0",
     "lockbox-datastore": "git+https://github.com/mozilla-lockbox/lockbox-datastore.git",
+    "node-jose": "^0.10.0",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-copy-to-clipboard": "^5.0.0",
