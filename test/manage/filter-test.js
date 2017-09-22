@@ -29,8 +29,10 @@ describe("filters", () => {
 
   describe("filterItem()", () => {
     const items = [
-      { title: "foo title", username: "foo username" },
-      { title: "bar title", username: "bar username" },
+      {title: "foo title", username: "foo username",
+       origins: ["foo-origin.com"]},
+      {title: "bar title", username: "bar username",
+       origins: ["bar-origin.com"]},
     ];
 
     describe("empty filter", () => {
@@ -45,11 +47,11 @@ describe("filters", () => {
       let myFilter;
 
       beforeEach(() => {
-        myFilter = filter.parseFilterString("foo TITLE UserName");
+        myFilter = filter.parseFilterString("foo TITLE UserName origin");
       });
 
       it("parsed correctly", () => {
-        expect(myFilter).to.deep.equal(["foo", "title", "username"]);
+        expect(myFilter).to.deep.equal(["foo", "title", "username", "origin"]);
       });
 
       it("match first item", () => {

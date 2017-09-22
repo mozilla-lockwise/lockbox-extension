@@ -19,13 +19,16 @@ export const initialState = {
 export const filledState = {
   cache: {
     items: [
-      {id: "0", title: "title 0", username: "username 0"},
-      {id: "1", title: "title 1", username: "username 1"},
-      {id: "2", title: "title 2", username: "username 2"},
+      {id: "0", title: "title 0", username: "username 0",
+       origins: ["origin-0.com"]},
+      {id: "1", title: "title 1", username: "username 1",
+       origins: ["origin-1.com"]},
+      {id: "2", title: "title 2", username: "username 2",
+       origins: ["origin-2.com"]},
     ],
     currentItem: {
       id: "1",
-      origins: ["origin 1"],
+      origins: ["origin-1.com"],
       title: "title 1",
       entry: {
         kind: "login",

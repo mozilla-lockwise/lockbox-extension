@@ -12,10 +12,26 @@ export function parseFilterString(filter) {
   return filter.split(/\s+/).map((i) => i.toLocaleLowerCase());
 }
 
+function match(filterElement, value) {
+  return value.includes(filterElement);
+}
+
+function matchAny(filterElement, values) {
+  for (let i of values) {
+    if (match(filterElement, i)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 export function filterItem(filter, item) {
+  const title = item.title.toLocaleLowerCase();
+  const username = item.username.toLocaleLowerCase();
+  const origins = item.origins.map((i) => i.toLocaleLowerCase());
+
   for (let i of filter) {
-    if (!item.title.toLocaleLowerCase().includes(i) &&
-        !item.username.toLocaleLowerCase().includes(i)) {
+    if (!match(i, title) && !match(i, username) && !matchAny(i, origins)) {
       return false;
     }
   }
