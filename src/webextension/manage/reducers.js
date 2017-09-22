@@ -7,7 +7,8 @@ import { combineReducers } from "redux";
 import {
   LIST_ITEMS_COMPLETED, ADD_ITEM_STARTING, ADD_ITEM_COMPLETED,
   UPDATE_ITEM_COMPLETED, REMOVE_ITEM_COMPLETED, SELECT_ITEM_STARTING,
-  SELECT_ITEM_COMPLETED, START_NEW_ITEM, CANCEL_NEW_ITEM, FILTER_ITEMS,
+  SELECT_ITEM_COMPLETED, START_NEW_ITEM, EDIT_CURRENT_ITEM, CANCEL_EDITING,
+  FILTER_ITEMS,
 } from "./actions";
 import { makeItemSummary } from "../common";
 import { defaultFilter } from "./filter";
@@ -78,17 +79,23 @@ export function cacheReducer(state = {
 }
 
 export function uiReducer(state = {
-  newItem: false, selectedItemId: null, filter: defaultFilter,
+  editing: false, newItem: false, selectedItemId: null, filter: defaultFilter,
 }, action) {
   switch (action.type) {
   case START_NEW_ITEM:
-    return {...state, newItem: true};
-  case CANCEL_NEW_ITEM:
-    return {...state, newItem: false};
+    return {...state, editing: true, newItem: true};
+  case EDIT_CURRENT_ITEM:
+    return {...state, editing: true};
+  case CANCEL_EDITING:
+    return {...state, editing: false, newItem: false};
   case ADD_ITEM_COMPLETED:
-    return {...state, newItem: false, selectedItemId: action.item.id};
+    return {...state, editing: false, newItem: false,
+            selectedItemId: action.item.id};
+  case UPDATE_ITEM_COMPLETED:
+    return {...state, editing: false};
   case SELECT_ITEM_STARTING:
-    return {...state, selectedItemId: action.id};
+    return {...state, editing: false, newItem: false,
+            selectedItemId: action.id};
   case FILTER_ITEMS:
     return {...state, filter: action.filter};
   default:

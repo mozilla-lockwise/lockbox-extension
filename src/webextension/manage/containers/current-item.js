@@ -7,12 +7,13 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
-import { addItem, cancelNewItem, updateItem, removeItem } from "../actions";
+import {
+  addItem, updateItem, removeItem, editCurrentItem, cancelEditing,
+} from "../actions";
+import EditItemDetails from "../components/edit-item-details";
 import ItemDetails from "../components/item-details";
 
 import styles from "./current-item.css";
-
-const NEW_ITEM = Symbol("NEW_ITEM");
 
 function unflattenItem(item, id) {
   return {
@@ -38,72 +39,51 @@ function flattenItem(item) {
   };
 }
 
-const itemProps = PropTypes.shape({
-  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  origins: PropTypes.arrayOf(PropTypes.string).isRequired,
-  item: PropTypes.shape({
-    kind: PropTypes.oneOf(["login"]).isRequired,
-    username: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    notes: PropTypes.string.isRequired,
+const ConnectedEditItemDetails = connect(
+  (state, ownProps) => ({
+    fields: ownProps.item ? flattenItem(ownProps.item) : undefined,
   }),
-});
+  (dispatch, ownProps) => {
+    let onSave;
+    if (ownProps.item) {
+      onSave = (fields) => {
+        dispatch(updateItem(unflattenItem(fields, ownProps.item.id)));
+      };
+    } else {
+      onSave = (fields) => {
+        dispatch(addItem(unflattenItem(fields)));
+      };
+    }
 
-function NewItem({onAction}) {
-  function onSave(item) {
-    onAction(addItem(unflattenItem(item)));
-  }
-  function onDelete() {
-    onAction(cancelNewItem());
-  }
+    return {
+      onSave,
+      onCancel: () => {
+        dispatch(cancelEditing());
+      },
+    };
+  },
+)(EditItemDetails);
 
-  return (
-    <section>
-      <Localized id="new-item-title">
-        <h1>nEw iTEm</h1>
-      </Localized>
-      <ItemDetails saveLabel="save-item" deleteLabel="cancel-item"
-                   onSave={onSave} onDelete={onDelete}/>
-    </section>
-  );
-}
+const ConnectedItemDetails = connect(
+  (state, ownProps) => ({
+    fields: flattenItem(ownProps.item),
+  }),
+  (dispatch, ownProps) => ({
+    onEdit: () => {
+      dispatch(editCurrentItem());
+    },
+    onDelete: () => {
+      dispatch(removeItem(ownProps.item.id));
+    },
+  })
+)(ItemDetails);
 
-NewItem.propTypes = {
-  onAction: PropTypes.func.isRequired,
-};
-
-function UpdateItem({item, onAction}) {
-  function onSave(updatedItem) {
-    onAction(updateItem(unflattenItem(updatedItem, item.id)));
-  }
-  function onDelete() {
-    onAction(removeItem(item.id));
-  }
-
-  return (
-    <section>
-      <Localized id="update-item-title">
-        <h1>nEw iTEm</h1>
-      </Localized>
-      <ItemDetails fields={flattenItem(item)}
-                   saveLabel="update-item" deleteLabel="delete-item"
-                   onSave={onSave} onDelete={onDelete}/>
-    </section>
-  );
-}
-
-UpdateItem.propTypes = {
-  item: itemProps.isRequired,
-  onAction: PropTypes.func.isRequired,
-};
-
-function CurrentItem({item, onAction}) {
+function CurrentItem({editing, item}) {
   let inner;
-  if (item === NEW_ITEM) {
-    inner = <NewItem onAction={onAction}/>;
+  if (editing) {
+    inner = <ConnectedEditItemDetails item={item}/>;
   } else if (item) {
-    inner = <UpdateItem item={item} onAction={onAction}/>;
+    inner = <ConnectedItemDetails item={item}/>;
   } else {
     inner = (
       <Localized id="no-item">
@@ -115,17 +95,13 @@ function CurrentItem({item, onAction}) {
 }
 
 CurrentItem.propTypes = {
-  item: PropTypes.oneOfType([itemProps, PropTypes.symbol]),
-  onAction: PropTypes.func.isRequired,
+  editing: PropTypes.bool.isRequired,
+  item: PropTypes.object,
 };
 
 export default connect(
   (state) => ({
-    item: state.ui.newItem ? NEW_ITEM : state.cache.currentItem,
-  }),
-  (dispatch) => ({
-    onAction: (action) => {
-      dispatch(action);
-    },
+    editing: state.ui.editing,
+    item: state.ui.newItem ? null : state.cache.currentItem,
   })
 )(CurrentItem);

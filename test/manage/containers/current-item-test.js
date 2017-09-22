@@ -12,6 +12,8 @@ import thunk from "redux-thunk";
 
 import { initialState, filledState } from "../mock-redux-state";
 import mountWithL10n from "../../mock-l10n";
+import EditItemDetails from
+       "../../../src/webextension/manage/components/edit-item-details";
 import ItemDetails from
        "../../../src/webextension/manage/components/item-details";
 import CurrentItem from
@@ -48,14 +50,11 @@ describe("<CurrentItem/>", () => {
     });
   });
 
-
-  describe("new item", () => {
+  describe("item selected", () => {
     let store, wrapper;
 
     beforeEach(() => {
-      store = mockStore({...filledState, ui: {
-        ...filledState.ui, newItem: true,
-      }});
+      store = mockStore(filledState);
       wrapper = mountWithL10n(
         <Provider store={store}>
           <CurrentItem/>
@@ -65,6 +64,41 @@ describe("<CurrentItem/>", () => {
 
     it("render item", () => {
       const details = wrapper.find(ItemDetails);
+      expect(details).to.have.length(1);
+    });
+
+    it("editCurrentItem() dispatched", () => {
+      wrapper.find("button").at(0).simulate("click");
+      expect(store.getActions()[0]).to.deep.equal({
+        type: actions.EDIT_CURRENT_ITEM,
+      });
+    });
+
+    it("removeItem() dispatched", () => {
+      wrapper.find("button").at(1).simulate("click");
+      expect(store.getActions()[0]).to.deep.include({
+        type: actions.REMOVE_ITEM_STARTING,
+        id: "1",
+      });
+    });
+  });
+
+  describe("edit new item", () => {
+    let store, wrapper;
+
+    beforeEach(() => {
+      store = mockStore({...filledState, ui: {
+        ...filledState.ui, editing: true, newItem: true,
+      }});
+      wrapper = mountWithL10n(
+        <Provider store={store}>
+          <CurrentItem/>
+        </Provider>
+      );
+    });
+
+    it("render item", () => {
+      const details = wrapper.find(EditItemDetails);
       expect(details).to.have.length(1);
       expect(details.prop("fields")).to.deep.equal({
         title: "",
@@ -93,19 +127,21 @@ describe("<CurrentItem/>", () => {
       });
     });
 
-    it("cancelNewItem() dispatched", () => {
+    it("cancelEditing() dispatched", () => {
       wrapper.find("button").not('[type="submit"]').simulate("click");
       expect(store.getActions()[0]).to.deep.equal({
-        type: actions.CANCEL_NEW_ITEM,
+        type: actions.CANCEL_EDITING,
       });
     });
   });
 
-  describe("item selected", () => {
+  describe("edit existing item", () => {
     let store, wrapper;
 
     beforeEach(() => {
-      store = mockStore(filledState);
+      store = mockStore({...filledState, ui: {
+        ...filledState.ui, editing: true,
+      }});
       wrapper = mountWithL10n(
         <Provider store={store}>
           <CurrentItem/>
@@ -114,7 +150,7 @@ describe("<CurrentItem/>", () => {
     });
 
     it("render item", () => {
-      const details = wrapper.find(ItemDetails);
+      const details = wrapper.find(EditItemDetails);
       const currentItem = filledState.cache.currentItem;
       expect(details).to.have.length(1);
       expect(details.prop("fields")).to.deep.equal({
@@ -144,16 +180,15 @@ describe("<CurrentItem/>", () => {
       });
     });
 
-    it("removeItem() dispatched", () => {
+    it("cancelEditing() dispatched", () => {
       wrapper.find("button").not('[type="submit"]').simulate("click");
       expect(store.getActions()[0]).to.deep.include({
-        type: actions.REMOVE_ITEM_STARTING,
-        id: "1",
+        type: actions.CANCEL_EDITING,
       });
     });
   });
 
-  describe("item selected (no origin)", () => {
+  describe("edit existing item (no origin)", () => {
     let store, wrapper;
     let state = {
       ...filledState,
@@ -163,6 +198,10 @@ describe("<CurrentItem/>", () => {
           ...filledState.cache.currentItem,
           origins: [],
         },
+      },
+      ui: {
+        ...filledState.ui,
+        editing: true,
       },
     };
 
@@ -176,7 +215,7 @@ describe("<CurrentItem/>", () => {
     });
 
     it("render item", () => {
-      const details = wrapper.find(ItemDetails);
+      const details = wrapper.find(EditItemDetails);
       const currentItem = state.cache.currentItem;
       expect(details).to.have.length(1);
       expect(details.prop("fields")).to.deep.equal({

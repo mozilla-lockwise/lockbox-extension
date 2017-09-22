@@ -324,6 +324,7 @@ describe("reducers", () => {
   describe("ui reducer", () => {
     it("initial state", () => {
       expect(uiReducer(undefined, {})).to.deep.equal({
+        editing: false,
         newItem: false,
         selectedItemId: null,
         filter: [],
@@ -336,23 +337,39 @@ describe("reducers", () => {
       };
 
       expect(uiReducer(undefined, action)).to.deep.equal({
+        editing: true,
         newItem: true,
         selectedItemId: null,
         filter: [],
       });
     });
 
-    it("handle CANCEL_NEW_ITEM", () => {
+    it("handle EDIT_CURRENT_ITEM", () => {
+      const action = {
+        type: actions.EDIT_CURRENT_ITEM,
+      };
+
+      expect(uiReducer(undefined, action)).to.deep.equal({
+        editing: true,
+        newItem: false,
+        selectedItemId: null,
+        filter: [],
+      });
+    });
+
+    it("handle CANCEL_EDITING", () => {
       const state = {
+        editing: true,
         newItem: true,
         selectedItemId: null,
         filter: [],
       };
       const action = {
-        type: actions.CANCEL_NEW_ITEM,
+        type: actions.CANCEL_EDITING,
       };
 
       expect(uiReducer(state, action)).to.deep.equal({
+        editing: false,
         newItem: false,
         selectedItemId: null,
         filter: [],
@@ -361,6 +378,7 @@ describe("reducers", () => {
 
     it("handle ADD_ITEM_COMPLETED", () => {
       const state = {
+        editing: true,
         newItem: true,
         selectedItemId: null,
         filter: [],
@@ -373,6 +391,26 @@ describe("reducers", () => {
       };
 
       expect(uiReducer(state, action)).to.deep.equal({
+        editing: false,
+        newItem: false,
+        selectedItemId: "1",
+        filter: [],
+      });
+    });
+
+    it("handle UPDATE_ITEM_COMPLETED", () => {
+      const state = {
+        editing: true,
+        newItem: false,
+        selectedItemId: "1",
+        filter: [],
+      };
+      const action = {
+        type: actions.UPDATE_ITEM_COMPLETED,
+      };
+
+      expect(uiReducer(state, action)).to.deep.equal({
+        editing: false,
         newItem: false,
         selectedItemId: "1",
         filter: [],
@@ -381,7 +419,8 @@ describe("reducers", () => {
 
     it("handle SELECT_ITEM_STARTING", () => {
       const state = {
-        newItem: false,
+        editing: true,
+        newItem: true,
         selectedItemId: null,
         filter: [],
       };
@@ -391,6 +430,7 @@ describe("reducers", () => {
       };
 
       expect(uiReducer(state, action)).to.deep.equal({
+        editing: false,
         newItem: false,
         selectedItemId: "1",
         filter: [],
