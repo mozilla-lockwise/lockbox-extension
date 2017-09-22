@@ -83,6 +83,8 @@ export default {
   entry: {
     "webextension/background": "./webextension/background/index.js",
     "webextension/manage/index": "./webextension/manage/index.js",
+    "webextension/firstrun/index": "./webextension/firstrun/index.js",
+    "webextension/popup/unlock/index": "./webextension/popup/unlock/index.js",
   },
 
   output: {
@@ -123,7 +125,25 @@ export default {
       chunks: ["webextension/manage/index"],
       inject: false,
       minify: htmlMinifyOptions,
-      title: "Lockbox",
+      title: "Lockox Entries",
+      icon: "../icons/lock.png",
+    }),
+    new HTMLWebpackPlugin({
+      template: "template.ejs",
+      filename: "webextension/firstrun/index.html",
+      chunks: ["webextension/firstrun/index"],
+      inject: false,
+      minify: htmlMinifyOptions,
+      title: "Welcome to Lockbox",
+      icon: "../icons/lock.png",
+    }),
+    new HTMLWebpackPlugin({
+      template: "template.ejs",
+      filename: "webextension/popup/unlock/index.html",
+      chunks: ["webextension/popup/unlock/index"],
+      inject: false,
+      minify: htmlMinifyOptions,
+      title: "Unlock",
       icon: "../icons/lock.png",
     }),
     new XMLWebpackPlugin({files: [{
