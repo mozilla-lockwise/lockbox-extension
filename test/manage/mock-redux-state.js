@@ -11,6 +11,7 @@ export const initialState = {
     pendingAdd: null,
   },
   ui: {
+    editing: false,
     newItem: false,
     selectedItemId: null,
     filter: [],
@@ -41,6 +42,7 @@ export const filledState = {
     pendingAdd: null,
   },
   ui: {
+    editing: false,
     newItem: false,
     selectedItemId: "1",
     filter: [],

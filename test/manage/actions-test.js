@@ -204,7 +204,6 @@ describe("actions", () => {
     ]);
   });
 
-
   it("startNewItem() dispatched", () => {
     store.dispatch(actions.startNewItem());
     expect(store.getActions()).to.deep.equal([
@@ -212,10 +211,17 @@ describe("actions", () => {
     ]);
   });
 
-  it("cancelNewItem() dispatched", () => {
-    store.dispatch(actions.cancelNewItem());
+  it("editCurrentItem() dispatched", () => {
+    store.dispatch(actions.editCurrentItem());
     expect(store.getActions()).to.deep.equal([
-      { type: actions.CANCEL_NEW_ITEM },
+      { type: actions.EDIT_CURRENT_ITEM },
+    ]);
+  });
+
+  it("cancelEditing() dispatched", () => {
+    store.dispatch(actions.cancelEditing());
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.CANCEL_EDITING },
     ]);
   });
 
