@@ -11,11 +11,11 @@ import styles from "./item-summary.css";
 function ItemSummary({title, username, getString}) {
   return (
     <div className={styles.itemSummary}>
-      <div>
-        {title || getString("item-summary-no-title")}
+      <div className={styles.title}>
+        {title.trim() || getString("item-summary-no-title")}
       </div>
       <div className={styles.subtitle}>
-        {username || getString("item-summary-no-username")}
+        {username.trim() || getString("item-summary-no-username")}
       </div>
     </div>
   );

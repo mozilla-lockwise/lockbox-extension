@@ -15,6 +15,7 @@ body {
 
 .app > aside {
   grid-column: 1;
+  min-width: 0;
   background-color: #f9f9fa;
   display: grid;
   grid-template-rows: auto 1fr auto;

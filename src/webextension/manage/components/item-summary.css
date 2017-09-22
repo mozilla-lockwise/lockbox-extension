@@ -7,6 +7,12 @@
   padding: .5em;
 }
 
+.title, .subtitle {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .subtitle {
   font-size: 80%;
   opacity: 0.75;
