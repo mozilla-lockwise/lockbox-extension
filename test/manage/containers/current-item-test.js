@@ -132,7 +132,7 @@ describe("<CurrentItem/>", () => {
         type: actions.UPDATE_ITEM_STARTING,
         item: {
           title: "title 1",
-          origins: ["origin 1"],
+          origins: ["origin-1.com"],
           id: "1",
           entry: {
             kind: "login",

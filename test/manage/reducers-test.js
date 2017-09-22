@@ -46,10 +46,12 @@ describe("reducers", () => {
           actionId: 0,
           item: {
             title: "title",
+            origins: ["origin.com"],
             entry: {
               kind: "login",
               username: "username",
               password: "password",
+              notes: "notes",
             },
           },
         };
@@ -72,11 +74,13 @@ describe("reducers", () => {
           actionId: 0,
           item: {
             title: "title",
+            origins: ["origin.com"],
             id: "1",
             entry: {
               kind: "login",
               username: "username",
               password: "password",
+              notes: "notes",
             },
           },
         };
@@ -85,6 +89,7 @@ describe("reducers", () => {
           items: [{
             id: action.item.id,
             title: action.item.title,
+            origins: action.item.origins,
             username: action.item.entry.username,
           }],
           currentItem: action.item,
@@ -103,11 +108,13 @@ describe("reducers", () => {
           actionId: 0,
           item: {
             title: "title",
+            origins: ["origin.com"],
             id: "1",
             entry: {
               kind: "login",
               username: "username",
               password: "password",
+              notes: "notes",
             },
           },
         };
@@ -117,6 +124,7 @@ describe("reducers", () => {
             id: action.item.id,
             title: action.item.title,
             username: action.item.entry.username,
+            origins: action.item.origins,
           }],
           currentItem: null,
           pendingAdd: 1,
@@ -134,10 +142,12 @@ describe("reducers", () => {
           currentItem: {
             title: "original title",
             id: "1",
+            origins: ["original-origin.com"],
             entry: {
               kind: "login",
               username: "original username",
               password: "original password",
+              notes: "original notes",
             },
           },
           pendingAdd: null,
@@ -148,10 +158,12 @@ describe("reducers", () => {
           item: {
             title: "updated title",
             id: "1",
+            origins: ["updated-origin.com"],
             entry: {
               kind: "login",
               username: "updated username",
               password: "updated password",
+              notes: "updated notes",
             },
           },
         };
@@ -162,6 +174,7 @@ describe("reducers", () => {
               id: action.item.id,
               title: action.item.title,
               username: action.item.entry.username,
+              origins: action.item.origins,
             },
             state.items[1],
           ],
@@ -173,8 +186,10 @@ describe("reducers", () => {
       it("unselected", () => {
         const state = {
           items: [
-            {id: "1", title: "original title"},
-            {id: "2", title: "another title"},
+            {id: "1", title: "original title", username: "original username",
+             origins: ["original-origin.com"]},
+            {id: "2", title: "another title", username: "another username",
+             origins: ["another-origin.com"]},
           ],
           currentItem: null,
           pendingAdd: null,
@@ -185,10 +200,12 @@ describe("reducers", () => {
           item: {
             title: "updated title",
             id: "1",
+            origins: ["updated-origin.com"],
             entry: {
               kind: "login",
               username: "updated username",
               password: "updated password",
+              notes: "updated notes",
             },
           },
         };
@@ -199,6 +216,7 @@ describe("reducers", () => {
               id: action.item.id,
               title: action.item.title,
               username: action.item.entry.username,
+              origins: action.item.origins,
             },
             state.items[1],
           ],
@@ -211,14 +229,17 @@ describe("reducers", () => {
     describe("handle REMOVE_ITEM_COMPLETED", () => {
       it("selected", () => {
         const state = {
-          items: [{id: "1", title: "title"}],
+          items: [{id: "1", title: "title", username: "username",
+                   origins: ["origin.com"]}],
           currentItem: {
             title: "title",
             id: "1",
+            origins: ["origin.com"],
             entry: {
               kind: "login",
               username: "username",
               password: "password",
+              notes: "notes",
             },
           },
           pendingAdd: null,
@@ -239,16 +260,20 @@ describe("reducers", () => {
       it("unselected", () => {
         const state = {
           items: [
-            {id: "1", title: "title"},
-            {id: "2", title: "other title"},
+            {id: "1", title: "title", username: "username",
+             origins: ["origin.com"]},
+            {id: "2", title: "other title", username: "another username",
+             origins: ["another-origin.com"]},
           ],
           currentItem: {
             title: "title",
             id: "1",
+            origins: ["origin.com"],
             entry: {
               kind: "login",
               username: "username",
               password: "password",
+              notes: "notes",
             },
           },
           pendingAdd: null,
@@ -278,10 +303,12 @@ describe("reducers", () => {
         item: {
           title: "title",
           id: "1",
+          origins: ["origin.com"],
           entry: {
             kind: "login",
             username: "username",
             password: "password",
+            notes: "notes",
           },
         },
       };
