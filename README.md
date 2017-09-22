@@ -19,14 +19,19 @@ npm run-script run -- -b nightly
 
 ## [Documentation](docs-link)
 
-For more detailed documentation and installation instructions, please see the
+For detailed documentation and installation instructions, please see the
 [`docs` directory](docs-link).
 
+## Contributing ##
+
+See the [guidelines](contributing-link) for contributing to this project.
+
+This project is governed by a [Code Of Conduct](coc-link).
 
 ## [License](license-link)
 
-This extension is [licensed][license-link] under the Mozilla Public License,
-version 2.0.
+This extension is licensed under the [Mozilla Public License,
+version 2.0][license-link].
 
 [travis-image]: https://travis-ci.org/mozilla-lockbox/lockbox-extension.svg?branch=master
 [travis-link]: https://travis-ci.org/mozilla-lockbox/lockbox-extension
