@@ -26,9 +26,9 @@ For detailed documentation and installation instructions, please see the
 
 See the [guidelines][contributing-link] for contributing to this project.
 
-This project is governed by a [Code Of Conduct](coc-link).
+This project is governed by a [Code Of Conduct][coc-link].
 
-## [License](license-link)
+## [License][license-link]
 
 This extension is licensed under the [Mozilla Public License,
 version 2.0][license-link].
