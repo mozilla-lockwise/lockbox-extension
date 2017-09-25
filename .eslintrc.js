@@ -31,7 +31,9 @@ module.exports = {
     ...extraPlugins,
   ],
   "rules": {
-    "jsx-a11y/click-events-have-key-events": "warn",
+    "jsx-a11y/click-events-have-key-events": "error",
+    "jsx-a11y/label-has-for": ["error", {"components": ["Label"], "allowChildren": true}],
+    "jsx-a11y/no-interactive-element-to-noninteractive-role": "warn",
     "jsx-a11y/no-noninteractive-element-interactions": "warn",
 
     "comma-dangle": ["error", "always-multiline"],
