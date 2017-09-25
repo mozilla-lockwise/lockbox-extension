@@ -109,6 +109,13 @@ describe("<CurrentItem/>", () => {
       });
     });
 
+    it("first field focused", () => {
+      const firstField = wrapper.find("input").at(0);
+      expect(firstField.matchesElement(document.activeElement)).to.equal(
+        true, "the element was not focused"
+      );
+    });
+
     it("addItem() dispatched", () => {
       wrapper.find('button[type="submit"]').simulate("submit");
       expect(store.getActions()[0]).to.deep.include({
@@ -160,6 +167,13 @@ describe("<CurrentItem/>", () => {
         password: currentItem.entry.password,
         notes: currentItem.entry.notes,
       });
+    });
+
+    it("first field focused", () => {
+      const firstField = wrapper.find("input").at(0);
+      expect(firstField.matchesElement(document.activeElement)).to.equal(
+        true, "the element was not focused"
+      );
     });
 
     it("updateItem() dispatched", () => {

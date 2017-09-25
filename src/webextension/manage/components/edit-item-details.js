@@ -47,6 +47,10 @@ export default class EditItemDetails extends React.Component {
     this.state = {...props.fields};
   }
 
+  componentDidMount() {
+    this._firstField.focus();
+  }
+
   componentWillReceiveProps(props) {
     this.setState({...props.fields});
   }
@@ -65,6 +69,7 @@ export default class EditItemDetails extends React.Component {
             <span>tITLe</span>
           </Localized>
           <Input type="text" name="title" value={this.state.title}
+                 ref={(element) => this._firstField = element}
                  onChange={(e) => this.setState({title: e.target.value})}/>
         </label>
         <label>
