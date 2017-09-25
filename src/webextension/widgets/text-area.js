@@ -5,17 +5,13 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import styles from "./input.css";
-
-export default function Input({className, ...props}) {
-  let finalClassName = `${styles.input} ${className || ""}`.trimRight();
+export default function TextArea({className, ...props}) {
+  let finalClassName = `browser-style ${className || ""}`.trimRight();
   return (
-    <span className="browser-style">
-      <input className={finalClassName} {...props}/>
-    </span>
+    <textarea className={finalClassName} {...props}/>
   );
 }
 
-Input.propTypes = {
+TextArea.propTypes = {
   className: PropTypes.string,
 };

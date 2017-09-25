@@ -7,6 +7,7 @@ import React from "react";
 import AddItem from "../containers/add-item";
 import AllItems from "../containers/all-items";
 import CurrentItem from "../containers/current-item";
+import ItemFilter from "../containers/item-filter";
 
 import styles from "./app.css";
 
@@ -14,8 +15,11 @@ export default function App() {
   return (
     <section className={styles.app}>
       <aside>
+        <ItemFilter/>
         <AllItems/>
-        <AddItem/>
+        <div>
+          <AddItem/>
+        </div>
       </aside>
       <article>
         <CurrentItem/>

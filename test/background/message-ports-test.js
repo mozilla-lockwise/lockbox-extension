@@ -46,10 +46,12 @@ describe("message ports (background side)", () => {
   it('handle "add_item"', async() => {
     const item = {
       title: "title",
+      origins: ["origin.com"],
       entry: {
         kind: "login",
         username: "username",
         password: "password",
+        notes: "notes",
       },
     };
     const result = await browser.runtime.sendMessage({
@@ -69,10 +71,12 @@ describe("message ports (background side)", () => {
     const item = {
       title: "updated title",
       id: itemId,
+      origins: ["updated-origin.com"],
       entry: {
         kind: "login",
         username: "updated username",
         password: "updated password",
+        notes: "updated notes",
       },
     };
     const result = await browser.runtime.sendMessage({
@@ -95,10 +99,12 @@ describe("message ports (background side)", () => {
 
     expect(result.item).to.deep.include({
       title: "updated title",
+      origins: ["updated-origin.com"],
       entry: {
         kind: "login",
         username: "updated username",
         password: "updated password",
+        notes: "updated notes",
       },
     });
   });
@@ -108,9 +114,12 @@ describe("message ports (background side)", () => {
       type: "list_items",
     });
 
-    expect(result).to.deep.equal({items: [
-      {id: itemId, title: "updated title"},
-    ]});
+    expect(result).to.deep.equal({items: [{
+      id: itemId,
+      title: "updated title",
+      username: "updated username",
+      origins: ["updated-origin.com"],
+    }]});
   });
 
   it('handle "remove_item"', async() => {

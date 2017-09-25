@@ -5,18 +5,19 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import Item from "./item";
-import styles from "./item-list.css";
+import ItemSummary from "./item-summary";
+import ScrollingList from "../../widgets/scrolling-list";
 
-export default function ItemList({items, selected, onItemClick}) {
+export default function ItemList({items, selected, onItemSelected}) {
   return (
-    <ul className={styles.itemList}>
-      {items.map((item) => (
-        <Item key={item.id} name={item.title}
-               selected={item.id === selected}
-               onClick={() => onItemClick(item.id)}/>
-      ))}
-    </ul>
+    <ScrollingList data={items} selected={selected}
+                   onItemSelected={onItemSelected}>
+      {({title, username}) => {
+        return (
+          <ItemSummary title={title} username={username}/>
+        );
+      }}
+    </ScrollingList>
   );
 }
 
@@ -25,8 +26,9 @@ ItemList.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
   selected: PropTypes.string,
-  onItemClick: PropTypes.func.isRequired,
+  onItemSelected: PropTypes.func.isRequired,
 };

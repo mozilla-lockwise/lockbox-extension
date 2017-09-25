@@ -7,21 +7,22 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
-import Button from "../../widgets/button";
-import { startNewItem } from "../actions";
+import { filterItems } from "../actions";
+import { parseFilterString } from "../filter";
+import FilterInput from "../../widgets/filter-input";
 
-function AddItem({dispatch}) {
+function ItemFilter({dispatch}) {
   return (
-    <Localized id="add-item">
-      <Button onClick={() => { dispatch(startNewItem()); }}>
-        aDd iTEm
-      </Button>
+    <Localized id="item-filter">
+      <FilterInput placeholder="fILTEr…" onChange={(value) => {
+        dispatch(filterItems(parseFilterString(value)));
+      }}/>
     </Localized>
   );
 }
 
-AddItem.propTypes = {
+ItemFilter.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect()(AddItem);
+export default connect()(ItemFilter);

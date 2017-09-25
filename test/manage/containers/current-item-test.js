@@ -66,7 +66,13 @@ describe("<CurrentItem/>", () => {
     it("render item", () => {
       const details = wrapper.find(ItemDetails);
       expect(details).to.have.length(1);
-      expect(details.prop("fields")).to.equal(undefined);
+      expect(details.prop("fields")).to.deep.equal({
+        title: "",
+        origin: "",
+        username: "",
+        password: "",
+        notes: "",
+      });
     });
 
     it("addItem() dispatched", () => {
@@ -75,11 +81,13 @@ describe("<CurrentItem/>", () => {
         type: actions.ADD_ITEM_STARTING,
         item: {
           title: "",
+          origins: [],
           id: undefined,
           entry: {
             kind: "login",
             password: "",
             username: "",
+            notes: "",
           },
         },
       });
@@ -111,8 +119,10 @@ describe("<CurrentItem/>", () => {
       expect(details).to.have.length(1);
       expect(details.prop("fields")).to.deep.equal({
         title: currentItem.title,
+        origin: currentItem.origins[0],
         username: currentItem.entry.username,
         password: currentItem.entry.password,
+        notes: currentItem.entry.notes,
       });
     });
 
@@ -122,11 +132,13 @@ describe("<CurrentItem/>", () => {
         type: actions.UPDATE_ITEM_STARTING,
         item: {
           title: "title 1",
+          origins: ["origin-1.com"],
           id: "1",
           entry: {
             kind: "login",
             password: "password 1",
             username: "username 1",
+            notes: "notes 1",
           },
         },
       });
@@ -137,6 +149,42 @@ describe("<CurrentItem/>", () => {
       expect(store.getActions()[0]).to.deep.include({
         type: actions.REMOVE_ITEM_STARTING,
         id: "1",
+      });
+    });
+  });
+
+  describe("item selected (no origin)", () => {
+    let store, wrapper;
+    let state = {
+      ...filledState,
+      cache: {
+        ...filledState.cache,
+        currentItem: {
+          ...filledState.cache.currentItem,
+          origins: [],
+        },
+      },
+    };
+
+    beforeEach(() => {
+      store = mockStore(state);
+      wrapper = mountWithL10n(
+        <Provider store={store}>
+          <CurrentItem/>
+        </Provider>
+      );
+    });
+
+    it("render item", () => {
+      const details = wrapper.find(ItemDetails);
+      const currentItem = state.cache.currentItem;
+      expect(details).to.have.length(1);
+      expect(details.prop("fields")).to.deep.equal({
+        title: currentItem.title,
+        origin: "",
+        username: currentItem.entry.username,
+        password: currentItem.entry.password,
+        notes: currentItem.entry.notes,
       });
     });
   });

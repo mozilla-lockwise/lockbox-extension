@@ -12,35 +12,36 @@ import sinonChai from "sinon-chai";
 chai.use(sinonChai);
 
 import mountWithL10n from "../../mock-l10n";
-import Item from "../../../src/webextension/manage/components/item";
 import ItemList from "../../../src/webextension/manage/components/item-list";
+import ItemSummary from
+       "../../../src/webextension/manage/components/item-summary";
 
 describe("<ItemList/>", () => {
-  let onItemClick, wrapper;
+  let onItemSelected, wrapper;
   const items = [
-    {id: "0", title: "title 0"},
-    {id: "1", title: "title 1"},
-    {id: "2", title: "title 2"},
+    {id: "0", title: "title 0", username: "username 0"},
+    {id: "1", title: "title 1", username: "username 1"},
+    {id: "2", title: "title 2", username: "username 2"},
   ];
 
   beforeEach(() => {
-    onItemClick = sinon.spy();
+    onItemSelected = sinon.spy();
     wrapper = mountWithL10n(
       <ItemList items={items} selected={items[0].id}
-                onItemClick={onItemClick}/>
+                onItemSelected={onItemSelected}/>
     );
   });
 
   it("render all items", () => {
-    expect(wrapper.find(Item)).to.have.length(3);
+    expect(wrapper.find(ItemSummary)).to.have.length(3);
   });
 
   it("correct item is selected", () => {
-    expect(wrapper.find(Item).at(0).prop("selected")).to.equal(true);
+    expect(wrapper.find("li").at(0).prop("data-selected")).to.equal(true);
   });
 
-  it("onItemClick called", () => {
-    wrapper.find(Item).at(0).simulate("click");
-    expect(onItemClick).to.have.been.calledWith(items[0].id);
+  it("onItemSelected called", () => {
+    wrapper.find(ItemSummary).at(0).simulate("mousedown");
+    expect(onItemSelected).to.have.been.calledWith(items[0].id);
   });
 });
