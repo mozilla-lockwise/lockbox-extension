@@ -1,2 +1,4 @@
 !.eslintrc.js
 dist
+site
+node_modules
