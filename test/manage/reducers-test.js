@@ -10,6 +10,7 @@ import * as actions from "../../src/webextension/manage/actions";
 import {
   cacheReducer, uiReducer,
 } from "../../src/webextension/manage/reducers";
+import { NEW_ITEM_ID } from "../../src/webextension/manage/common";
 
 describe("reducers", () => {
   describe("cache reducer", () => {
@@ -319,58 +320,42 @@ describe("reducers", () => {
         pendingAdd: null,
       });
     });
+
+    it("handle START_NEW_ITEM", () => {
+      const state = {
+        items: [
+          {id: "1", title: "title", username: "username",
+           origins: ["origin.com"]},
+        ],
+        currentItem: {
+          title: "title",
+          id: "1",
+          origins: ["origin.com"],
+          entry: {
+            kind: "login",
+            username: "username",
+            password: "password",
+            notes: "notes",
+          },
+        },
+        pendingAdd: null,
+      };
+      const action = {
+        type: actions.START_NEW_ITEM,
+      };
+
+      expect(cacheReducer(state, action)).to.deep.equal({
+        items: state.items,
+        currentItem: null,
+        pendingAdd: null,
+      });
+    });
   });
 
   describe("ui reducer", () => {
     it("initial state", () => {
       expect(uiReducer(undefined, {})).to.deep.equal({
         editing: false,
-        newItem: false,
-        selectedItemId: null,
-        filter: [],
-      });
-    });
-
-    it("handle START_NEW_ITEM", () => {
-      const action = {
-        type: actions.START_NEW_ITEM,
-      };
-
-      expect(uiReducer(undefined, action)).to.deep.equal({
-        editing: true,
-        newItem: true,
-        selectedItemId: null,
-        filter: [],
-      });
-    });
-
-    it("handle EDIT_CURRENT_ITEM", () => {
-      const action = {
-        type: actions.EDIT_CURRENT_ITEM,
-      };
-
-      expect(uiReducer(undefined, action)).to.deep.equal({
-        editing: true,
-        newItem: false,
-        selectedItemId: null,
-        filter: [],
-      });
-    });
-
-    it("handle CANCEL_EDITING", () => {
-      const state = {
-        editing: true,
-        newItem: true,
-        selectedItemId: null,
-        filter: [],
-      };
-      const action = {
-        type: actions.CANCEL_EDITING,
-      };
-
-      expect(uiReducer(state, action)).to.deep.equal({
-        editing: false,
-        newItem: false,
         selectedItemId: null,
         filter: [],
       });
@@ -379,7 +364,6 @@ describe("reducers", () => {
     it("handle ADD_ITEM_COMPLETED", () => {
       const state = {
         editing: true,
-        newItem: true,
         selectedItemId: null,
         filter: [],
       };
@@ -392,7 +376,6 @@ describe("reducers", () => {
 
       expect(uiReducer(state, action)).to.deep.equal({
         editing: false,
-        newItem: false,
         selectedItemId: "1",
         filter: [],
       });
@@ -401,7 +384,6 @@ describe("reducers", () => {
     it("handle UPDATE_ITEM_COMPLETED", () => {
       const state = {
         editing: true,
-        newItem: false,
         selectedItemId: "1",
         filter: [],
       };
@@ -411,7 +393,6 @@ describe("reducers", () => {
 
       expect(uiReducer(state, action)).to.deep.equal({
         editing: false,
-        newItem: false,
         selectedItemId: "1",
         filter: [],
       });
@@ -420,7 +401,6 @@ describe("reducers", () => {
     it("handle SELECT_ITEM_STARTING", () => {
       const state = {
         editing: true,
-        newItem: true,
         selectedItemId: null,
         filter: [],
       };
@@ -431,7 +411,64 @@ describe("reducers", () => {
 
       expect(uiReducer(state, action)).to.deep.equal({
         editing: false,
-        newItem: false,
+        selectedItemId: "1",
+        filter: [],
+      });
+    });
+
+    it("handle START_NEW_ITEM", () => {
+      const action = {
+        type: actions.START_NEW_ITEM,
+      };
+
+      expect(uiReducer(undefined, action)).to.deep.equal({
+        editing: true,
+        selectedItemId: NEW_ITEM_ID,
+        filter: [],
+      });
+    });
+
+    it("handle EDIT_CURRENT_ITEM", () => {
+      const action = {
+        type: actions.EDIT_CURRENT_ITEM,
+      };
+
+      expect(uiReducer(undefined, action)).to.deep.equal({
+        editing: true,
+        selectedItemId: null,
+        filter: [],
+      });
+    });
+
+    it("handle CANCEL_EDITING (new item)", () => {
+      const state = {
+        editing: true,
+        selectedItemId: NEW_ITEM_ID,
+        filter: [],
+      };
+      const action = {
+        type: actions.CANCEL_EDITING,
+      };
+
+      expect(uiReducer(state, action)).to.deep.equal({
+        editing: false,
+        selectedItemId: null,
+        filter: [],
+      });
+    });
+
+    it("handle CANCEL_EDITING (existing item)", () => {
+      const state = {
+        editing: true,
+        selectedItemId: "1",
+        filter: [],
+      };
+      const action = {
+        type: actions.CANCEL_EDITING,
+      };
+
+      expect(uiReducer(state, action)).to.deep.equal({
+        editing: false,
         selectedItemId: "1",
         filter: [],
       });
@@ -439,7 +476,8 @@ describe("reducers", () => {
 
     it("handle FILTER_ITEMS", () => {
       const state = {
-        newItem: false,
+        editing: false,
+        selectedItemId: null,
         filter: [],
       };
       const action = {
@@ -448,7 +486,8 @@ describe("reducers", () => {
       };
 
       expect(uiReducer(state, action)).to.deep.equal({
-        newItem: false,
+        editing: false,
+        selectedItemId: null,
         filter: ["my filter"],
       });
     });

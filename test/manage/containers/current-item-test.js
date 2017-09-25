@@ -12,6 +12,7 @@ import thunk from "redux-thunk";
 
 import { initialState, filledState } from "../mock-redux-state";
 import mountWithL10n from "../../mock-l10n";
+import { NEW_ITEM_ID } from "../../../src/webextension/manage/common";
 import EditItemDetails from
        "../../../src/webextension/manage/components/edit-item-details";
 import ItemDetails from
@@ -87,9 +88,19 @@ describe("<CurrentItem/>", () => {
     let store, wrapper;
 
     beforeEach(() => {
-      store = mockStore({...filledState, ui: {
-        ...filledState.ui, editing: true, newItem: true,
-      }});
+      const state = {
+        ...filledState,
+        cache: {
+          ...filledState.cache,
+          currentItem: null,
+        },
+        ui: {
+          ...filledState.ui,
+          editing: true,
+          selectedItemId: NEW_ITEM_ID,
+        },
+      };
+      store = mockStore(state);
       wrapper = mountWithL10n(
         <Provider store={store}>
           <CurrentItem/>

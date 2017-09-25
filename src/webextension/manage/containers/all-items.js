@@ -2,29 +2,44 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import { withLocalization } from "fluent-react";
+import React from "react";
 import { connect } from "react-redux";
 
 import { selectItem } from "../actions";
-import { filterItem } from "../filter.js";
+import { filterItem } from "../filter";
+import { NEW_ITEM_ID } from "../common";
 import ItemList from "../components/item-list";
 
 const collator = new Intl.Collator();
 
-export default connect(
-  (state) => {
-    let currentId = null;
-    if (!state.ui.newItem && state.ui.selectedItemId) {
-      currentId = state.ui.selectedItemId;
-    }
+function AllItems({items, selected, getString, ...props}) {
+  if (selected === NEW_ITEM_ID) {
+    items = [
+      { title: getString("item-summary-new-item"),
+        id: NEW_ITEM_ID,
+        username: "" },
+      ...items,
+    ];
+  }
 
+  return <ItemList {...{items, selected, ...props}}/>;
+}
+
+AllItems.propTypes = {
+  ...ItemList.propTypes,
+};
+
+export default connect(
+  (state, ownProps) => {
     return {
       items: state.cache.items
-             .filter((i) => filterItem(state.ui.filter, i))
-             .sort((a, b) => collator.compare(a.title, b.title)),
-      selected: currentId,
+                  .filter((i) => filterItem(state.ui.filter, i))
+                  .sort((a, b) => collator.compare(a.title, b.title)),
+      selected: state.ui.selectedItemId,
     };
   },
   (dispatch) => ({
     onItemSelected: (id) => dispatch(selectItem(id)),
-  })
-)(ItemList);
+  }),
+)(withLocalization(AllItems));

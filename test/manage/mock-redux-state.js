@@ -12,7 +12,6 @@ export const initialState = {
   },
   ui: {
     editing: false,
-    newItem: false,
     selectedItemId: null,
     filter: [],
   },
@@ -43,7 +42,6 @@ export const filledState = {
   },
   ui: {
     editing: false,
-    newItem: false,
     selectedItemId: "1",
     filter: [],
   },
