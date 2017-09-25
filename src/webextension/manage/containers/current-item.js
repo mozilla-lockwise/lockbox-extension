@@ -102,6 +102,6 @@ CurrentItem.propTypes = {
 export default connect(
   (state) => ({
     editing: state.ui.editing,
-    item: state.ui.newItem ? null : state.cache.currentItem,
+    item: state.cache.currentItem,
   })
 )(CurrentItem);

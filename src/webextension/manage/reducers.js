@@ -11,6 +11,7 @@ import {
   FILTER_ITEMS,
 } from "./actions";
 import { makeItemSummary } from "../common";
+import { NEW_ITEM_ID } from "./common";
 import { defaultFilter } from "./filter";
 
 function maybeAddCurrentItem(state, action) {
@@ -73,29 +74,32 @@ export function cacheReducer(state = {
     };
   case SELECT_ITEM_COMPLETED:
     return {...state, currentItem: action.item};
+  case START_NEW_ITEM:
+    return {...state, currentItem: null};
   default:
     return state;
   }
 }
 
 export function uiReducer(state = {
-  editing: false, newItem: false, selectedItemId: null, filter: defaultFilter,
+  editing: false, selectedItemId: null, filter: defaultFilter,
 }, action) {
   switch (action.type) {
-  case START_NEW_ITEM:
-    return {...state, editing: true, newItem: true};
-  case EDIT_CURRENT_ITEM:
-    return {...state, editing: true};
-  case CANCEL_EDITING:
-    return {...state, editing: false, newItem: false};
   case ADD_ITEM_COMPLETED:
-    return {...state, editing: false, newItem: false,
-            selectedItemId: action.item.id};
+    return {...state, editing: false, selectedItemId: action.item.id};
   case UPDATE_ITEM_COMPLETED:
     return {...state, editing: false};
   case SELECT_ITEM_STARTING:
-    return {...state, editing: false, newItem: false,
-            selectedItemId: action.id};
+    return {...state, editing: false, selectedItemId: action.id};
+  case START_NEW_ITEM:
+    return {...state, editing: true, selectedItemId: NEW_ITEM_ID};
+  case EDIT_CURRENT_ITEM:
+    return {...state, editing: true};
+  case CANCEL_EDITING:
+    if (state.selectedItemId === NEW_ITEM_ID) {
+      return {...state, editing: false, selectedItemId: null};
+    }
+    return {...state, editing: false};
   case FILTER_ITEMS:
     return {...state, filter: action.filter};
   default:
