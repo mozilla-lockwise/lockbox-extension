@@ -7,7 +7,7 @@ Lockbox for Firefox is a work-in-progress extension for Firefox to improve upon
 Firefox's built-in password management. If you're interested, you should
 probably come back later when we have more to show!
 
-## [Quick Installation](install-link)
+## [Quick Installation][install-link]
 
 If you'd like to quickly **start up a new Firefox profile on Nightly** with
 Lockbox installed for development/testing, you can run:
@@ -17,14 +17,14 @@ npm install
 npm run-script run -- -b nightly
 ```
 
-## [Documentation](docs-link)
+## [Documentation][docs-link]
 
 For detailed documentation and installation instructions, please see the
-[`docs` directory](docs-link).
+[`docs` directory][docs-link].
 
 ## Contributing ##
 
-See the [guidelines](contributing-link) for contributing to this project.
+See the [guidelines][contributing-link] for contributing to this project.
 
 This project is governed by a [Code Of Conduct](coc-link).
 
@@ -39,4 +39,6 @@ version 2.0][license-link].
 [codecov-link]: https://codecov.io/gh/mozilla-lockbox/lockbox-extension
 [install-link]: /docs/install.md
 [docs-link]: /docs
+[contributing-link]: docs/contributing.md
+[coc-link]: docs/code_of_conduct.md
 [license-link]: /LICENSE
