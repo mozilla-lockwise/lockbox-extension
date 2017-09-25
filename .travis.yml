@@ -1,7 +1,20 @@
 language: node_js
 node_js: stable
 
+# DEFAULT: Travis runs `npm install`
+
 script:
   - STRICT_LINT=1 npm run test
 
-after_success: npm run report-coverage
+after_success:
+  - npm run codecov
+  - pip install --user mkdocs
+  - npm run doc
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: site
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
