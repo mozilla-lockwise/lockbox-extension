@@ -18,6 +18,7 @@ import mountWithL10n from "./mock-l10n";
 import Button from "../src/webextension/widgets/button";
 import FilterInput from "../src/webextension/widgets/filter-input";
 import Input from "../src/webextension/widgets/input";
+import PasswordInput from "../src/webextension/widgets/password-input";
 import ScrollingList from "../src/webextension/widgets/scrolling-list";
 import TextArea from "../src/webextension/widgets/text-area";
 
@@ -81,17 +82,41 @@ describe("widgets", () => {
 
   describe("<Input/>", () => {
     it("render input", () => {
-      const wrapper = mount(<Input value="text" onChange={() => {}}/>);
+      const wrapper = mount(<Input value="some text" onChange={() => {}}/>);
       const realInput = wrapper.find("input");
-      expect(realInput.prop("value")).to.equal("text");
+      expect(realInput.prop("value")).to.equal("some text");
     });
 
     it("merge classNames", () => {
       const wrapper = mount(
-        <Input className="foo" value="text" onChange={() => {}}/>
+        <Input className="foo" value="some text" onChange={() => {}}/>
       );
       const realInput = wrapper.find("input");
       expect(realInput.prop("className")).to.match(/ foo$/);
+    });
+  });
+
+  describe("<PasswordInput/>", () => {
+    it("render input", () => {
+      const wrapper = mountWithL10n(
+        <PasswordInput value="my password" onChange={() => {}}/>
+      );
+      const realInput = wrapper.find("input");
+      expect(realInput.prop("value")).to.equal("my password");
+    });
+
+    it("show/hide button toggles password visibility", () => {
+      const wrapper = mountWithL10n(
+        <PasswordInput value="password" onChange={() => {}}/>
+      );
+      const realInput = wrapper.find("input");
+      const button = wrapper.find("button");
+
+      expect(realInput.prop("type")).to.equal("password");
+      button.simulate("click");
+      expect(realInput.prop("type")).to.equal("text");
+      button.simulate("click");
+      expect(realInput.prop("type")).to.equal("password");
     });
   });
 

@@ -69,14 +69,16 @@ describe("<CurrentSelection/>", () => {
     });
 
     it("editCurrentItem() dispatched", () => {
-      wrapper.find("button").at(0).simulate("click");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-edit")
+             .find("button").simulate("click");
       expect(store.getActions()[0]).to.deep.equal({
         type: actions.EDIT_CURRENT_ITEM,
       });
     });
 
     it("removeItem() dispatched", () => {
-      wrapper.find("button").at(1).simulate("click");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-delete")
+             .find("button").simulate("click");
       expect(store.getActions()[0]).to.deep.include({
         type: actions.REMOVE_ITEM_STARTING,
         id: "1",
@@ -128,7 +130,8 @@ describe("<CurrentSelection/>", () => {
     });
 
     it("addItem() dispatched", () => {
-      wrapper.find('button[type="submit"]').simulate("submit");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-save")
+             .find("button").simulate("submit");
       expect(store.getActions()[0]).to.deep.include({
         type: actions.ADD_ITEM_STARTING,
         item: {
@@ -146,7 +149,8 @@ describe("<CurrentSelection/>", () => {
     });
 
     it("cancelEditing() dispatched", () => {
-      wrapper.find("button").not('[type="submit"]').simulate("click");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-cancel")
+             .find("button").simulate("click");
       expect(store.getActions()[0]).to.deep.equal({
         type: actions.CANCEL_EDITING,
       });
@@ -188,7 +192,8 @@ describe("<CurrentSelection/>", () => {
     });
 
     it("updateItem() dispatched", () => {
-      wrapper.find('button[type="submit"]').simulate("submit");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-save")
+             .find("button").simulate("submit");
       expect(store.getActions()[0]).to.deep.include({
         type: actions.UPDATE_ITEM_STARTING,
         item: {
@@ -206,7 +211,8 @@ describe("<CurrentSelection/>", () => {
     });
 
     it("cancelEditing() dispatched", () => {
-      wrapper.find("button").not('[type="submit"]').simulate("click");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-cancel")
+             .find("button").simulate("click");
       expect(store.getActions()[0]).to.deep.include({
         type: actions.CANCEL_EDITING,
       });
