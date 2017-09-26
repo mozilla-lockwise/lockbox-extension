@@ -20,32 +20,32 @@ export default function ItemDetails({fields, onEdit, onDelete}) {
         <Localized id="item-details-title">
           <span>tITLe</span>
         </Localized>
-        <span>{fields.title}</span>
+        <span data-name="title">{fields.title}</span>
       </div>
       <div className={styles.field}>
         <Localized id="item-details-origin">
           <span>oRIGIn</span>
         </Localized>
-        <span>{fields.origin}</span>
+        <span data-name="origin">{fields.origin}</span>
       </div>
       <div className={styles.field}>
         <Localized id="item-details-username">
           <span>uSERNAMe</span>
         </Localized>
-        <span>{fields.username}</span>
+        <span data-name="username">{fields.username}</span>
       </div>
       <div className={styles.field}>
         <Localized id="item-details-notes">
           <span>nOTEs</span>
         </Localized>
-        <span>{fields.notes}</span>
+        <span data-name="notes">{fields.notes}</span>
       </div>
       <div className={styles.buttons}>
         <Localized id="item-details-edit">
-          <Button onClick={onEdit}>eDIt</Button>
+          <Button onClick={() => onEdit()}>eDIt</Button>
         </Localized>
         <Localized id="item-details-delete">
-          <Button onClick={onDelete}>dELETe</Button>
+          <Button onClick={() => onDelete()}>dELETe</Button>
         </Localized>
       </div>
     </div>

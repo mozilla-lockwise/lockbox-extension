@@ -8,6 +8,7 @@ import React from "react";
 
 import Button from "../../widgets/button";
 import Input from "../../widgets/input";
+import PasswordInput from "../../widgets/password-input";
 import TextArea from "../../widgets/text-area";
 
 import styles from "./item-details.css";
@@ -90,8 +91,10 @@ export default class EditItemDetails extends React.Component {
           <Localized id="item-details-password">
             <span>pASSWORd</span>
           </Localized>
-          <Input type="text" name="password" value={this.state.password}
-                 onChange={(e) => this.setState({password: e.target.value})}/>
+          <PasswordInput name="password" value={this.state.password}
+                         onChange={(e) => this.setState({
+                           password: e.target.value,
+                         })}/>
         </label>
         <label>
           <Localized id="item-details-notes">
