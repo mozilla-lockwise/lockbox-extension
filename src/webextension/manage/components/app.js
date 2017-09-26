@@ -6,7 +6,7 @@ import React from "react";
 
 import AddItem from "../containers/add-item";
 import AllItems from "../containers/all-items";
-import CurrentItem from "../containers/current-item";
+import CurrentSelection from "../containers/current-selection";
 import ItemFilter from "../containers/item-filter";
 
 import styles from "./app.css";
@@ -22,7 +22,7 @@ export default function App() {
         </div>
       </aside>
       <article>
-        <CurrentItem/>
+        <CurrentSelection/>
       </article>
     </section>
   );
