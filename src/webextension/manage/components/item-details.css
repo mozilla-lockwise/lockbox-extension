@@ -6,6 +6,7 @@
   display: grid;
   grid-template-columns: max-content 200px;
   grid-column-gap: 1em;
+  margin: 1em;
 }
 
 .item-details > label,

@@ -155,6 +155,19 @@ describe("actions", () => {
     ]);
   });
 
+  it("selectItem(null) dispatched", async() => {
+    await store.dispatch(actions.selectItem(null));
+    const dispatched = store.getActions();
+    expect(dispatched).to.deep.equal([
+      { type: actions.SELECT_ITEM_STARTING,
+        actionId: dispatched[0].actionId,
+        id: null },
+      { type: actions.SELECT_ITEM_COMPLETED,
+        actionId: dispatched[0].actionId,
+        item: null },
+    ]);
+  });
+
   it("addedItem() dispatched", () => {
     const item = {
       id: "1",

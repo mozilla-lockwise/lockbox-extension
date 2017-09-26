@@ -79,14 +79,14 @@ export default {
   },
 
   module: {
-    loaders: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: "babel-loader",
-      },
-      ...extraLoaders,
-    ],
+    loaders: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: "babel-loader",
+    }, {
+      test: /\.txt$/,
+      use: "raw-loader",
+    }, ...extraLoaders],
   },
 
   plugins: [

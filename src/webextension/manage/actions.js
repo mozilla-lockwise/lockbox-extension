@@ -157,6 +157,12 @@ export function selectItem(id) {
   return async function(dispatch) {
     const actionId = nextActionId++;
     dispatch(selectItemStarting(actionId, id));
+
+    if (id === null) {
+      dispatch(selectItemCompleted(actionId, null));
+      return;
+    }
+
     const response = await browser.runtime.sendMessage({
       type: "get_item",
       id,
