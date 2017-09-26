@@ -13,7 +13,7 @@ import {
 import EditItemDetails from "../components/edit-item-details";
 import ItemDetails from "../components/item-details";
 
-import styles from "./current-item.css";
+import styles from "./current-selection.css";
 
 function unflattenItem(item, id) {
   return {
@@ -78,7 +78,7 @@ const ConnectedItemDetails = connect(
   })
 )(ItemDetails);
 
-function CurrentItem({editing, item}) {
+function CurrentSelection({editing, item}) {
   let inner;
   if (editing) {
     inner = <ConnectedEditItemDetails item={item}/>;
@@ -91,10 +91,10 @@ function CurrentItem({editing, item}) {
       </Localized>
     );
   }
-  return <div className={styles.currentItem}>{inner}</div>;
+  return <div className={styles.currentSelection}>{inner}</div>;
 }
 
-CurrentItem.propTypes = {
+CurrentSelection.propTypes = {
   editing: PropTypes.bool.isRequired,
   item: PropTypes.object,
 };
@@ -104,4 +104,4 @@ export default connect(
     editing: state.ui.editing,
     item: state.cache.currentItem,
   })
-)(CurrentItem);
+)(CurrentSelection);

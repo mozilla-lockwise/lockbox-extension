@@ -17,15 +17,15 @@ import EditItemDetails from
        "../../../src/webextension/manage/components/edit-item-details";
 import ItemDetails from
        "../../../src/webextension/manage/components/item-details";
-import CurrentItem from
-       "../../../src/webextension/manage/containers/current-item";
+import CurrentSelection from
+       "../../../src/webextension/manage/containers/current-selection";
 import * as actions from "../../../src/webextension/manage/actions";
 
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe("<CurrentItem/>", () => {
+describe("<CurrentSelection/>", () => {
   beforeEach(() => {
     browser.runtime.onMessage.addListener(() => ({}));
   });
@@ -41,7 +41,7 @@ describe("<CurrentItem/>", () => {
       store = mockStore(initialState);
       wrapper = mountWithL10n(
         <Provider store={store}>
-          <CurrentItem/>
+          <CurrentSelection/>
         </Provider>
       );
     });
@@ -58,7 +58,7 @@ describe("<CurrentItem/>", () => {
       store = mockStore(filledState);
       wrapper = mountWithL10n(
         <Provider store={store}>
-          <CurrentItem/>
+          <CurrentSelection/>
         </Provider>
       );
     });
@@ -103,7 +103,7 @@ describe("<CurrentItem/>", () => {
       store = mockStore(state);
       wrapper = mountWithL10n(
         <Provider store={store}>
-          <CurrentItem/>
+          <CurrentSelection/>
         </Provider>
       );
     });
@@ -162,7 +162,7 @@ describe("<CurrentItem/>", () => {
       }});
       wrapper = mountWithL10n(
         <Provider store={store}>
-          <CurrentItem/>
+          <CurrentSelection/>
         </Provider>
       );
     });
@@ -234,7 +234,7 @@ describe("<CurrentItem/>", () => {
       store = mockStore(state);
       wrapper = mountWithL10n(
         <Provider store={store}>
-          <CurrentItem/>
+          <CurrentSelection/>
         </Provider>
       );
     });
