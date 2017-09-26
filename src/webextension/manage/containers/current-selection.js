@@ -2,7 +2,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
@@ -12,8 +11,7 @@ import {
 } from "../actions";
 import EditItemDetails from "../components/edit-item-details";
 import ItemDetails from "../components/item-details";
-
-import styles from "./current-selection.css";
+import Homepage from "../components/homepage";
 
 function unflattenItem(item, id) {
   return {
@@ -78,30 +76,28 @@ const ConnectedItemDetails = connect(
   })
 )(ItemDetails);
 
-function CurrentSelection({editing, item}) {
+function CurrentSelection({editing, item, numItems}) {
   let inner;
   if (editing) {
     inner = <ConnectedEditItemDetails item={item}/>;
   } else if (item) {
     inner = <ConnectedItemDetails item={item}/>;
   } else {
-    inner = (
-      <Localized id="no-item">
-        <div>no iTEm sELECTEd</div>
-      </Localized>
-    );
+    inner = <Homepage count={numItems}/>;
   }
-  return <div className={styles.currentSelection}>{inner}</div>;
+  return <div>{inner}</div>;
 }
 
 CurrentSelection.propTypes = {
   editing: PropTypes.bool.isRequired,
   item: PropTypes.object,
+  numItems: PropTypes.number.isRequired,
 };
 
 export default connect(
   (state) => ({
     editing: state.ui.editing,
     item: state.cache.currentItem,
+    numItems: state.cache.items.length,
   })
 )(CurrentSelection);

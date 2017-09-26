@@ -47,7 +47,7 @@ describe("<CurrentSelection/>", () => {
     });
 
     it("render item", () => {
-      expect(wrapper.text()).to.equal("no iTEm sELECTEd");
+      expect(wrapper.text()).to.include("homepage-no-passwords");
     });
   });
 
