@@ -8,3 +8,4 @@
 addon.env
 .DS_Store
 *.log
+/temp/
