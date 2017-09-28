@@ -1,7 +1,6 @@
 site_name: Lockbox Extension
 site_description: Documentation for the Firefox extension
 theme: readthedocs
-repo_name: GitHub
 repo_url: https://github.com/mozilla-lockbox/lockbox-extension
 
 pages:
