@@ -1,6 +1,7 @@
 /.nyc_output/
 /coverage/
 /dist/
+/docs/api.md
 /node_modules/
 /site/
 /*.xpi
