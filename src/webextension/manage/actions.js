@@ -18,7 +18,8 @@ export const SELECT_ITEM_STARTING = Symbol("SELECT_ITEM_STARTING");
 export const SELECT_ITEM_COMPLETED = Symbol("SELECT_ITEM_COMPLETED");
 
 export const START_NEW_ITEM = Symbol("START_NEW_ITEM");
-export const CANCEL_NEW_ITEM = Symbol("CANCEL_NEW_ITEM");
+export const EDIT_CURRENT_ITEM = Symbol("EDIT_CURRENT_ITEM");
+export const CANCEL_EDITING = Symbol("CANCEL_EDITING");
 
 export const FILTER_ITEMS = Symbol("FILTER_ITEMS");
 
@@ -156,6 +157,12 @@ export function selectItem(id) {
   return async function(dispatch) {
     const actionId = nextActionId++;
     dispatch(selectItemStarting(actionId, id));
+
+    if (id === null) {
+      dispatch(selectItemCompleted(actionId, null));
+      return;
+    }
+
     const response = await browser.runtime.sendMessage({
       type: "get_item",
       id,
@@ -186,9 +193,15 @@ export function startNewItem() {
   };
 }
 
-export function cancelNewItem() {
+export function editCurrentItem() {
   return {
-    type: CANCEL_NEW_ITEM,
+    type: EDIT_CURRENT_ITEM,
+  };
+}
+
+export function cancelEditing() {
+  return {
+    type: CANCEL_EDITING,
   };
 }
 

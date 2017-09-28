@@ -155,6 +155,19 @@ describe("actions", () => {
     ]);
   });
 
+  it("selectItem(null) dispatched", async() => {
+    await store.dispatch(actions.selectItem(null));
+    const dispatched = store.getActions();
+    expect(dispatched).to.deep.equal([
+      { type: actions.SELECT_ITEM_STARTING,
+        actionId: dispatched[0].actionId,
+        id: null },
+      { type: actions.SELECT_ITEM_COMPLETED,
+        actionId: dispatched[0].actionId,
+        item: null },
+    ]);
+  });
+
   it("addedItem() dispatched", () => {
     const item = {
       id: "1",
@@ -204,7 +217,6 @@ describe("actions", () => {
     ]);
   });
 
-
   it("startNewItem() dispatched", () => {
     store.dispatch(actions.startNewItem());
     expect(store.getActions()).to.deep.equal([
@@ -212,10 +224,17 @@ describe("actions", () => {
     ]);
   });
 
-  it("cancelNewItem() dispatched", () => {
-    store.dispatch(actions.cancelNewItem());
+  it("editCurrentItem() dispatched", () => {
+    store.dispatch(actions.editCurrentItem());
     expect(store.getActions()).to.deep.equal([
-      { type: actions.CANCEL_NEW_ITEM },
+      { type: actions.EDIT_CURRENT_ITEM },
+    ]);
+  });
+
+  it("cancelEditing() dispatched", () => {
+    store.dispatch(actions.cancelEditing());
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.CANCEL_EDITING },
     ]);
   });
 
