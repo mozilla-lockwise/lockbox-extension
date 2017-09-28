@@ -20,6 +20,8 @@ export const SELECT_ITEM_COMPLETED = Symbol("SELECT_ITEM_COMPLETED");
 export const START_NEW_ITEM = Symbol("START_NEW_ITEM");
 export const CANCEL_NEW_ITEM = Symbol("CANCEL_NEW_ITEM");
 
+export const FILTER_ITEMS = Symbol("FILTER_ITEMS");
+
 // The action ID is used to correlate async actions with each other (i.e.
 // FOO_STARTING and FOO_COMPLETED).
 let nextActionId = 0;
@@ -187,5 +189,13 @@ export function startNewItem() {
 export function cancelNewItem() {
   return {
     type: CANCEL_NEW_ITEM,
+  };
+}
+
+
+export function filterItems(filter) {
+  return {
+    type: FILTER_ITEMS,
+    filter,
   };
 }

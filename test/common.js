@@ -2,8 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-.item-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+export function simulateTyping(wrapper, value) {
+  wrapper.get(0).value = value;
+  wrapper.at(0).simulate("change");
 }
+

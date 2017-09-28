@@ -9,22 +9,19 @@ body {
 .app {
   display: grid;
   grid-template-columns: 1fr 5fr;
-  grid-template-rows: auto;
+  grid-template-rows: 100vh;
   grid-gap: 1em;
-  width: 100vw;
-  height: 100vh;
 }
 
 .app > aside {
   grid-column: 1;
+  min-width: 0;
   background-color: #f9f9fa;
-  padding: 0 
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
 .app > article {
   grid-column: 2;
-}
-
-.app > article {
   margin: 1em;
 }

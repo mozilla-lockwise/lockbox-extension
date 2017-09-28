@@ -36,7 +36,7 @@
     "report-coverage": "nyc report --reporter=lcov && codecov",
     "clean": "git clean -fX ./dist ./*.xpi",
     "distclean": "git clean -dfX",
-    "prepackage": "npm run-script clean && cross-ENV NODE_ENV=production npm run-script build",
+    "prepackage": "npm run-script clean && cross-env NODE_ENV=production npm run-script build",
     "package": "cd dist && zip -r ../addon.xpi *"
   },
   "nyc": {

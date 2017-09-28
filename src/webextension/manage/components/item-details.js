@@ -8,19 +8,22 @@ import React from "react";
 
 import Button from "../../widgets/button";
 import Input from "../../widgets/input";
+import TextArea from "../../widgets/text-area";
 
 import styles from "./item-details.css";
 
 // Note: ItemDetails doesn't directly interact with items from the Lockbox
-// datastore. For that, please consult <../containers/currentItem.js>.
+// datastore. For that, please consult <../containers/current-item.js>.
 
 export default class ItemDetails extends React.Component {
   static get propTypes() {
     return {
       fields: PropTypes.shape({
         title: PropTypes.string.isRequired,
+        origin: PropTypes.string.isRequired,
         username: PropTypes.string.isRequired,
         password: PropTypes.string.isRequired,
+        notes: PropTypes.string.isRequired,
       }),
       saveLabel: PropTypes.string.isRequired,
       deleteLabel: PropTypes.string.isRequired,
@@ -29,29 +32,25 @@ export default class ItemDetails extends React.Component {
     };
   }
 
-  _setState(props, initial) {
-    let state;
-    if (props.fields) {
-      state = {...props.fields};
-    } else {
-      state = {title: "", username: "", password: ""};
-    }
-
-    if (initial) {
-      // eslint-disable-next-line react/no-direct-mutation-state
-      this.state = state;
-    } else {
-      this.setState(state);
-    }
+  static get defaultProps() {
+    return {
+      fields: {
+        title: "",
+        origin: "",
+        username: "",
+        password: "",
+        notes: "",
+      },
+    };
   }
 
   constructor(props) {
     super(props);
-    this._setState(props, true);
+    this.state = {...props.fields};
   }
 
   componentWillReceiveProps(props) {
-    this._setState(props, false);
+    this.setState({...props.fields});
   }
 
   render() {
@@ -62,27 +61,42 @@ export default class ItemDetails extends React.Component {
         e.preventDefault();
         onSave(this.state);
       }}>
-        <p>
-          <Localized id="item-site">
-            <span>sITe</span>
+        <label>
+          <Localized id="item-details-title">
+            <span>tITLe</span>
           </Localized>
-          <Input type="text" value={this.state.title}
+          <Input type="text" name="title" value={this.state.title}
                  onChange={(e) => this.setState({title: e.target.value})}/>
-        </p>
-        <p>
-          <Localized id="item-username">
+        </label>
+        <label>
+          <Localized id="item-details-origin">
+            <span>oRIGIn</span>
+          </Localized>
+          <Input type="text" name="origin" value={this.state.origin}
+                 onChange={(e) => this.setState({origin: e.target.value})}/>
+        </label>
+        <label>
+          <Localized id="item-details-username">
             <span>uSERNAMe</span>
           </Localized>
-          <Input type="text" value={this.state.username}
+          <Input type="text" name="username" value={this.state.username}
                  onChange={(e) => this.setState({username: e.target.value})}/>
-        </p>
-        <p>
-          <Localized id="item-password">
+        </label>
+        <label>
+          <Localized id="item-details-password">
             <span>pASSWORd</span>
           </Localized>
-          <Input type="text" value={this.state.password}
+          <Input type="text" name="password" value={this.state.password}
                  onChange={(e) => this.setState({password: e.target.value})}/>
-        </p>
+        </label>
+        <label>
+          <Localized id="item-details-notes">
+            <span>nOTEs</span>
+          </Localized>
+          <TextArea name="notes" value={this.state.notes}
+                    onChange={(e) => this.setState({notes: e.target.value})}/>
+        </label>
+        <p></p>
         <p>
           <Localized id={saveLabel}>
             <Button type="submit">sAVe</Button>
