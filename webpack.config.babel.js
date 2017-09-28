@@ -71,6 +71,7 @@ export default {
     "webextension/background": "./webextension/background/index.js",
     "webextension/manage/index": "./webextension/manage/index.js",
     "webextension/firstrun/index": "./webextension/firstrun/index.js",
+    "webextension/popup/unlock": "./webextension/popup/unlock.js",
   },
 
   output: {
@@ -120,6 +121,15 @@ export default {
       inject: false,
       minify: htmlMinifyOptions,
       title: "Welcome to Lockbox",
+      icon: "../icons/lock.png",
+    }),
+    new HTMLWebpackPlugin({
+      template: "template.ejs",
+      filename: "webextension/popup/unlock.html",
+      chunks: ["webextension/popup/unlock"],
+      inject: false,
+      minify: htmlMinifyOptions,
+      title: "Unlock",
       icon: "../icons/lock.png",
     }),
     new XMLWebpackPlugin({files: [{

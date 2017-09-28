@@ -30,6 +30,7 @@ export default function initializeMessagePorts() {
       return openView(message.name);
     case "close_view":
       return closeView(message.name);
+
     case "signin":
       return authz.signIn(message.interactive);
     case "initialize":
@@ -39,14 +40,13 @@ export default function initializeMessagePorts() {
           password: message.password,
         })).
         then(updateBrowserAction);
+
     case "unlock":
-      return openDataStore().then(async(ds) => {
-        await ds.unlock(message.password);
-      });
+      return openDataStore().then((ds) => ds.unlock(message.password)).
+        then(updateBrowserAction);
     case "lock":
-      return openDataStore().then(async(ds) => {
-        await ds.lock();
-      });
+      return openDataStore().then((ds) => ds.lock()).
+        then(updateBrowserAction);
 
     case "list_items":
       return openDataStore().then(async(ds) => {

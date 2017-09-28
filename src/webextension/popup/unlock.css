@@ -1,0 +1,27 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+body {
+  margin: 0;
+}
+
+.unlock-prompt {
+  width: 300px;
+  height: 200px;
+
+  display: grid;
+  justify-content: stretch;
+  justify-items: center;
+  align-content: stretch;
+  align-items: center;
+  grid-cap: 0.5em;
+}
+
+.unlock-prompt .error {
+  color: red;
+}
+
+.unlock-prompt input {
+  display: block;
+}
