@@ -120,7 +120,7 @@ export default {
       chunks: ["webextension/firstrun/index"],
       inject: false,
       minify: htmlMinifyOptions,
-      title: "Welcome to Lockbox",
+      title: "Welcome to Lockbox!",
       icon: "../icons/lock.png",
     }),
     new HTMLWebpackPlugin({
