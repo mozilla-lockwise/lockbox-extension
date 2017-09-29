@@ -7,7 +7,7 @@ Lockbox for Firefox is a work-in-progress extension for Firefox to improve upon
 Firefox's built-in password management. If you're interested, you should
 probably come back later when we have more to show!
 
-## Quick Start
+## [Quick Installation][install-link]
 
 If you'd like to quickly **start up a new Firefox profile on Nightly** with
 Lockbox installed for development/testing, you can run:
@@ -17,71 +17,28 @@ npm install
 npm run-script run -- -b nightly
 ```
 
-To specify flags for `run` to use regularly, use `npm config set jpm_runflags`:
+## [Documentation][docs-link]
 
-```sh
-npm config set jpm_runflags="-b nightly"
-```
+For detailed documentation and installation instructions, please see the
+[`docs` directory][docs-link].
 
-This way you can just run:
+## Contributing ##
 
-```sh
-npm run run
-```
+See the [guidelines][contributing-link] for contributing to this project.
 
-## Installing
+This project is governed by a [Code Of Conduct][coc-link].
 
-To **install the project dependencies**, you can run:
+## [License][license-link]
 
-```sh
-npm install
-```
-
-## Building
-
-To **build the project**, you can run:
-
-```sh
-npm run-script build
-```
-
-This puts all the necessary files in the `dist/` directory, which you can then
-temporarily load into Firefox (e.g. `about:debugging`).
-
-If you'd like to **build an extension .xpi**, you can run:
-
-```sh
-npm run-script package
-```
-
-:warning: The resulting add-on is unsigned and likely won't work on release
-versions of Firefox. You can flip the `xpinstall.signatures.required` preference
-on other channels accordingly.
-
-:warning: In preparation for Firefox 57, legacy extensions are also disabled. So
-you'll need to flip the `extensions.legacy.enabled` preference, too.
-
-## Releasing
-
-To **prepare the extension for a new version**, you must:
-
-- update and commit the version in `package.json`
-- update and commit the `CHANGELOG.md`
-- tag, push, and merge to the `master` branch on GitHub
-
-To **build a signed extension .xpi**, you must: commit and push to the
-`production` branch (ideally as a merge commit from `master`) on GitHub.
-
-Learn more about the deployment and hosting process here:
-https://github.com/mozilla/testpilot/blob/master/docs/development/hosting.md
-
-## License
-
-This add-on is [licensed][license-link] under the Mozilla Public License,
-version 2.0.
+This extension is licensed under the [Mozilla Public License,
+version 2.0][license-link].
 
 [travis-image]: https://travis-ci.org/mozilla-lockbox/lockbox-extension.svg?branch=master
 [travis-link]: https://travis-ci.org/mozilla-lockbox/lockbox-extension
 [codecov-image]: https://img.shields.io/codecov/c/github/mozilla-lockbox/lockbox-extension.svg
 [codecov-link]: https://codecov.io/gh/mozilla-lockbox/lockbox-extension
+[install-link]: /docs/install.md
+[docs-link]: /docs
+[contributing-link]: docs/contributing.md
+[coc-link]: docs/code_of_conduct.md
 [license-link]: /LICENSE

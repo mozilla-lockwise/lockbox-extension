@@ -12,15 +12,15 @@ import sinonChai from "sinon-chai";
 chai.use(sinonChai);
 
 import mountWithL10n from "../../mock-l10n";
-import ItemDetails from
-       "../../../src/webextension/manage/components/item-details";
+import EditItemDetails from
+       "../../../src/webextension/manage/components/edit-item-details";
 
 function simulateTyping(wrapper, value) {
   wrapper.get(0).value = value;
   wrapper.at(0).simulate("change");
 }
 
-describe("<ItemDetails/>", () => {
+describe("<EditItemDetails/>", () => {
   const blankFields = {
     title: "",
     origin: "",
@@ -45,15 +45,17 @@ describe("<ItemDetails/>", () => {
     notes: "new notes",
   };
 
-  let onSave, onDelete, wrapper;
+  let onSave, onCancel, wrapper;
+
+  beforeEach(() => {
+    onSave = sinon.spy();
+    onCancel = sinon.spy();
+  });
 
   describe("new item", () => {
     beforeEach(() => {
-      onSave = sinon.spy();
-      onDelete = sinon.spy();
       wrapper = mountWithL10n(
-        <ItemDetails saveLabel="save-item" deleteLabel="delete-item"
-                     onSave={onSave} onDelete={onDelete}/>
+        <EditItemDetails onSave={onSave} onCancel={onCancel}/>
       );
     });
 
@@ -78,20 +80,17 @@ describe("<ItemDetails/>", () => {
       expect(onSave).to.have.been.calledWith(updatedFields);
     });
 
-    it("onDelete called", () => {
+    it("onCancel called", () => {
       wrapper.find("button").not('[type="submit"]').simulate("click");
-      expect(onDelete).to.have.been.calledWith();
+      expect(onCancel).to.have.been.calledWith();
     });
   });
 
   describe("existing item", () => {
     beforeEach(() => {
-      onSave = sinon.spy();
-      onDelete = sinon.spy();
       wrapper = mountWithL10n(
-        <ItemDetails fields={originalFields}
-                     saveLabel="save-item" deleteLabel="delete-item"
-                     onSave={onSave} onDelete={onDelete}/>
+        <EditItemDetails fields={originalFields}
+                         onSave={onSave} onCancel={onCancel}/>
       );
     });
 
@@ -116,20 +115,17 @@ describe("<ItemDetails/>", () => {
       expect(onSave).to.have.been.calledWith(updatedFields);
     });
 
-    it("onDelete called", () => {
+    it("onCancel called", () => {
       wrapper.find("button").not('[type="submit"]').simulate("click");
-      expect(onDelete).to.have.been.calledWith();
+      expect(onCancel).to.have.been.calledWith();
     });
   });
 
   describe("change selected item", () => {
     beforeEach(() => {
-      onSave = sinon.spy();
-      onDelete = sinon.spy();
       wrapper = mountWithL10n(
-        <ItemDetails fields={originalFields}
-                     saveLabel="save-item" deleteLabel="delete-item"
-                     onSave={onSave} onDelete={onDelete}/>
+        <EditItemDetails fields={originalFields}
+                         onSave={onSave} onCancel={onCancel}/>
       );
     });
 

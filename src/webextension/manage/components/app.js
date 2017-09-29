@@ -6,7 +6,8 @@ import React from "react";
 
 import AddItem from "../containers/add-item";
 import AllItems from "../containers/all-items";
-import CurrentItem from "../containers/current-item";
+import CurrentSelection from "../containers/current-selection";
+import GoHome from "../containers/go-home";
 import ItemFilter from "../containers/item-filter";
 
 import styles from "./app.css";
@@ -17,12 +18,13 @@ export default function App() {
       <aside>
         <ItemFilter/>
         <AllItems/>
-        <div>
-          <AddItem/>
-        </div>
       </aside>
       <article>
-        <CurrentItem/>
+        <menu>
+          <AddItem/>
+          <GoHome/>
+        </menu>
+        <CurrentSelection/>
       </article>
     </section>
   );

@@ -17,8 +17,8 @@ import mountWithL10n from "../../mock-l10n";
 import App from "../../../src/webextension/manage/components/app";
 import AddItem from "../../../src/webextension/manage/containers/add-item";
 import AllItems from "../../../src/webextension/manage/containers/all-items";
-import CurrentItem from
-       "../../../src/webextension/manage/containers/current-item";
+import CurrentSelection from
+       "../../../src/webextension/manage/containers/current-selection";
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -34,6 +34,6 @@ describe("<App/>", () => {
 
     expect(wrapper).to.contain(<AddItem/>);
     expect(wrapper).to.contain(<AllItems/>);
-    expect(wrapper).to.contain(<CurrentItem/>);
+    expect(wrapper).to.contain(<CurrentSelection/>);
   });
 });

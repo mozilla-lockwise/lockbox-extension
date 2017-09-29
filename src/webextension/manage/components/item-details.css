@@ -6,21 +6,33 @@
   display: grid;
   grid-template-columns: max-content 200px;
   grid-column-gap: 1em;
+  margin: 1em;
 }
 
-.item-details > label {
+.item-details > label,
+.item-details > .field {
   display: contents;
 }
 
-.item-details > label > span:first-child {
+.item-details > .buttons {
+  grid-column: 2;
+}
+
+.item-details.editing > label > span:first-child {
   /* This lines up our labels with the text in <input> elements. */
   margin-top: 3.5px;
 }
 
-.item-details > p > button + button {
-  margin-inline-start: 1ch;
+.item-details:not(.editing) > .field > span {
+  margin-top: 3.5px;
+  margin-bottom: 6px;
 }
 
 .item-details textarea {
   resize: none;
 }
+
+.buttons > button + button {
+  margin-inline-start: 1ch;
+}
+

@@ -12,10 +12,12 @@ import thunk from "redux-thunk";
 
 import { initialState, filledState } from "../mock-redux-state";
 import mountWithL10n from "../../mock-l10n";
+
 import ItemSummary from
        "../../../src/webextension/manage/components/item-summary";
 import AllItems from "../../../src/webextension/manage/containers/all-items";
 import { SELECT_ITEM_STARTING } from "../../../src/webextension/manage/actions";
+import { NEW_ITEM_ID } from "../../../src/webextension/manage/common";
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -89,6 +91,31 @@ describe("<AllItems/>", () => {
 
     it("render items", () => {
       expect(wrapper.find(ItemSummary)).to.have.length(1);
+    });
+  });
+
+  describe("new item placeholder", () => {
+    let store, wrapper;
+
+    beforeEach(() => {
+      store = mockStore({
+        ...initialState,
+        ui: {
+          ...initialState.ui,
+          selectedItemId: NEW_ITEM_ID,
+        },
+      });
+      wrapper = mountWithL10n(
+        <Provider store={store}>
+          <AllItems/>
+        </Provider>
+      );
+    });
+
+    it("render items", () => {
+      const item = wrapper.find(ItemSummary);
+      expect(item).to.have.length(1);
+      expect(item.prop("title")).to.equal("item-summary-new-item");
     });
   });
 });
