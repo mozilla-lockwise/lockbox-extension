@@ -1,4 +1,28 @@
-# Lockbox Metrics Plan As of 9/29/17
+# Lockbox Metrics Plan
+
+_Last Updated: September 29, 2017_
+
+<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Analysis](#analysis)
+- [Collection](#collection)
+	- [Event Registration and Recording](#event-registration-and-recording)
+- [Metrics Overview](#metrics-overview)
+- [Non-Event Metrics](#non-event-metrics)
+- [Events](#events)
+	- [Setup Events](#setup-events)
+	- [Toolbar Button Interaction Event](#toolbar-button-interaction-event)
+	- [Item list Interaction Events](#item-list-interaction-events)
+	- [Item View Interaction Events](#item-view-interaction-events)
+	- [Events Related to Interactions in the Item Editor(s)](#events-related-to-interactions-in-the-item-editors)
+	- [Events Related to Submitting An Item Change from the Item Editor(s)](#events-related-to-submitting-an-item-change-from-the-item-editors)
+	- [Events Related to Changes in the Datastore](#events-related-to-changes-in-the-datastore)
+	- [Feedback Events](#feedback-events)
+	- [Fill Events: TBD](#fill-events-tbd)
+- [References](#references)
+
+<!-- /TOC -->
+
 **Note to Lockbox Engineers:** *The variable names used in this doc are just placeholders. Once I know what they will actually be I can update them.*
 
 This is the metrics collection plan for Lockbox's alpha release. It is more of a wishlist than a plan - only some portion of what's here might actually be implemented.
