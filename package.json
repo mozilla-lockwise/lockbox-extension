@@ -53,7 +53,7 @@
     "fluent-react": "^0.4.1",
     "intl-pluralrules": "^0.1.0",
     "lockbox-datastore": "git+https://github.com/mozilla-lockbox/lockbox-datastore.git",
-    "node-jose": "git+https://github.com/linuxwolf/node-jose.git#pbkdf2",
+    "node-jose": "git+https://github.com/cisco/node-jose.git#pbkdf2",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
