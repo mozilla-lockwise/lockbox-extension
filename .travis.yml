@@ -8,13 +8,27 @@ script:
 
 after_success:
   - npm run codecov
+
+before_deploy:
   - pip install --user mkdocs
   - npm run doc
+  - npm run package
 
+# deploy documentation to GitHub Pages
 deploy:
   provider: pages
+  on:
+    branch: master
   skip_cleanup: true
   local_dir: site
   github_token: $GITHUB_TOKEN
+
+# deploy tags to GitHub Releases
+deploy:
+  provider: releases
   on:
-    branch: master
+    tags: true
+  skip_cleanup: true
+  file_glob: true
+  file: addon.xpi
+  api_key: $GITHUB_TOKEN
