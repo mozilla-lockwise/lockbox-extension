@@ -5,6 +5,7 @@ node_js: stable
 
 script:
   - STRICT_LINT=1 npm run test
+  - npm run nsp
 
 after_success:
   - npm run codecov
