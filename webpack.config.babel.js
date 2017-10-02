@@ -91,7 +91,6 @@ export default {
 
   plugins: [
     new CopyWebpackPlugin([
-      {from: "../package.json"},
       {from: "bootstrap.js"},
       {from: "webextension/locales/**/*.ftl"},
       {from: "webextension/icons/*"},
