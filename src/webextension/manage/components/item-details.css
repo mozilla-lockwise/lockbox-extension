@@ -14,18 +14,24 @@
   display: contents;
 }
 
+.item-details > label > *:first-child,
+.item-details > .field > *:first-child {
+  grid-column: 1;
+}
+
 .item-details > .buttons {
   grid-column: 2;
 }
 
-.item-details.editing > label > span:first-child {
+.item-details .text {
   /* This lines up our labels with the text in <input> elements. */
   margin-top: 3.5px;
+  height: 20.5px;
+  margin-bottom: 6px;
 }
 
-.item-details:not(.editing) > .field > span {
-  margin-top: 3.5px;
-  margin-bottom: 6px;
+.item-details > .field > .text + * {
+  margin-inline-start: 7px;
 }
 
 .item-details textarea {
@@ -36,3 +42,10 @@
   margin-inline-start: 1ch;
 }
 
+.inline-button {
+  display: flex;
+}
+
+.inline-button > *:first-child {
+  flex: 1;
+}

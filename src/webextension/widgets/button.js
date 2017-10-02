@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 export default function Button({className, ...props}) {
-  let finalClassName = `browser-style ${className || ""}`.trimRight();
+  let finalClassName = `browser-style ${className}`.trimRight();
   return (
     <button className={finalClassName} {...props}/>
   );
@@ -14,4 +14,9 @@ export default function Button({className, ...props}) {
 
 Button.propTypes = {
   className: PropTypes.string,
+};
+
+
+Button.defaultProps = {
+  className: "",
 };

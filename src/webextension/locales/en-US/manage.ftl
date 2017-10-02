@@ -35,7 +35,11 @@ homepage-over-50-passwords =
 item-details-title = Title
 item-details-origin = Origin
 item-details-username = Username
+item-details-copy-username = Copy
+    .title = Copy the username to the clipboard
 item-details-password = Password
+item-details-copy-password = Copy
+    .title = Copy the password to the clipboard
 item-details-notes = Notes
 
 item-details-edit = Edit
@@ -49,3 +53,6 @@ item-details-cancel = Cancel
 [[widgets]]
 
 filter-input-clear = Clear
+
+password-input-show = Show
+password-input-hide = Hide

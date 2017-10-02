@@ -8,7 +8,9 @@ import React from "react";
 
 import Button from "../../widgets/button";
 import Input from "../../widgets/input";
+import PasswordInput from "../../widgets/password-input";
 import TextArea from "../../widgets/text-area";
+import { Text } from "./item-details.js";
 
 import styles from "./item-details.css";
 
@@ -66,7 +68,7 @@ export default class EditItemDetails extends React.Component {
             }}>
         <label>
           <Localized id="item-details-title">
-            <span>tITLe</span>
+            <Text>tITLe</Text>
           </Localized>
           <Input type="text" name="title" value={this.state.title}
                  ref={(element) => this._firstField = element}
@@ -74,28 +76,30 @@ export default class EditItemDetails extends React.Component {
         </label>
         <label>
           <Localized id="item-details-origin">
-            <span>oRIGIn</span>
+            <Text>oRIGIn</Text>
           </Localized>
           <Input type="text" name="origin" value={this.state.origin}
                  onChange={(e) => this.setState({origin: e.target.value})}/>
         </label>
         <label>
           <Localized id="item-details-username">
-            <span>uSERNAMe</span>
+            <Text>uSERNAMe</Text>
           </Localized>
           <Input type="text" name="username" value={this.state.username}
                  onChange={(e) => this.setState({username: e.target.value})}/>
         </label>
         <label>
           <Localized id="item-details-password">
-            <span>pASSWORd</span>
+            <Text>pASSWORd</Text>
           </Localized>
-          <Input type="text" name="password" value={this.state.password}
-                 onChange={(e) => this.setState({password: e.target.value})}/>
+          <PasswordInput name="password" value={this.state.password}
+                         onChange={(e) => this.setState({
+                           password: e.target.value,
+                         })}/>
         </label>
         <label>
           <Localized id="item-details-notes">
-            <span>nOTEs</span>
+            <Text>nOTEs</Text>
           </Localized>
           <TextArea name="notes" value={this.state.notes}
                     onChange={(e) => this.setState({notes: e.target.value})}/>
