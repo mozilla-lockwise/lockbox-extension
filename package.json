@@ -40,7 +40,7 @@
     "clean": "git clean -fX ./dist ./*.xpi && npm run :clean:doc ",
     "distclean": "git clean -dfX",
     "prepackage": "npm run-script clean && cross-env NODE_ENV=production npm run-script build",
-    "package": "cd dist && zip -r ../addon.xpi *"
+    "package": "cd dist && nodezip -c ../addon.xpi *"
   },
   "nyc": {
     "all": true,
@@ -106,6 +106,7 @@
     "json-templater": "^1.1.0",
     "mocha": "^3.5.3",
     "mocha-webpack": "^1.0.0-rc.1",
+    "node-zip": "^1.1.1",
     "nyc": "^11.2.1",
     "raw-loader": "^0.5.1",
     "react-addons-test-utils": "^15.6.0",
