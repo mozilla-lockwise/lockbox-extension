@@ -37,10 +37,10 @@
     "pretest": "npm run-script autolint",
     "test": "cross-env NODE_ENV=test nyc mocha-webpack --opts ./mocha-webpack.opts --webpack-config ./webpack.config.test.js -r test/setup.js test",
     "codecov": "nyc report --reporter=lcov && codecov",
-    "clean": "git clean -fX ./dist ./*.xpi && npm run :clean:doc ",
+    "clean": "git clean -fX ./dist ./*.xpi ./addon.env && npm run :clean:doc ",
     "distclean": "git clean -dfX",
     "prepackage": "npm run-script clean && cross-env NODE_ENV=production npm run-script build",
-    "package": "cd dist && nodezip -c ../addon.xpi *"
+    "package": "echo 'TESTPILOT_ADDON_ID='${npm_package_id}'\nTESTPILOT_ADDON_VERSION='${npm_package_version} > addon.env && cd dist && nodezip -c ../addon.xpi *"
   },
   "nyc": {
     "all": true,
