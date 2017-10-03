@@ -9,6 +9,11 @@ import { LocalizationProvider } from "fluent-react";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 
+async function fetchAvailableLocales(baseDir) {
+  const response = await fetch(`${baseDir}/locales.json`);
+  return response.json();
+}
+
 async function fetchMessages(baseDir, locale, bundle) {
   const response = await fetch(`${baseDir}/${locale}/${bundle}.ftl`);
   const messages = await response.text();
@@ -37,32 +42,39 @@ export default class AppLocalizationProvider extends Component {
   static get propTypes() {
     return {
       baseDir: PropTypes.string,
-      availableLocales: PropTypes.array.isRequired,
-      userLocales: PropTypes.array,
+      userLocales: PropTypes.arrayOf(PropTypes.string),
       bundle: PropTypes.string.isRequired,
       children: PropTypes.any,
     };
   }
 
+  static get defaultProps() {
+    return {
+      baseDir: "/locales",
+      userLocales: [],
+    };
+  }
+
   constructor(props) {
     super(props);
-
-    // XXX: Pull `availableLocales` from a config file?
-    const { baseDir = "/locales", availableLocales, userLocales, bundle } = props;
-    const currentLocales = negotiateLanguages(
-      userLocales, availableLocales,
-      { defaultLocale: availableLocales[0] }
-    );
+    const { baseDir, userLocales, bundle } = props;
 
     this.state = {
       baseDir,
-      currentLocales,
+      userLocales,
       bundle,
     };
   }
 
   async componentWillMount() {
-    const { baseDir, currentLocales, bundle } = this.state;
+    const { baseDir, userLocales, bundle } = this.state;
+
+    const availableLocales = await fetchAvailableLocales(baseDir);
+    const currentLocales = negotiateLanguages(
+      userLocales, availableLocales,
+      { defaultLocale: availableLocales[0] }
+    );
+
     const generateMessages = await createMessagesGenerator(
       baseDir, currentLocales, bundle
     );

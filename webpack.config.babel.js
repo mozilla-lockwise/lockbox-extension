@@ -11,6 +11,7 @@ import HTMLWebpackPlugin from "html-webpack-plugin";
 import XMLWebpackPlugin from "xml-webpack-plugin";
 import MinifyPlugin from "babel-minify-webpack-plugin";
 
+import DirListWebpackPlugin from "./dir-list-webpack-plugin";
 import JSONWebpackPlugin from "./json-webpack-plugin";
 import thisPackage from "./package.json";
 
@@ -118,9 +119,13 @@ export default {
       data: thisPackage,
     }]}),
     new JSONWebpackPlugin({
-      template: "src/webextension/manifest.json.tpl",
+      template: path.join(__dirname, "src/webextension/manifest.json.tpl"),
       filename: "webextension/manifest.json",
       data: thisPackage,
+    }),
+    new DirListWebpackPlugin({
+      directory: path.join(__dirname, "src/webextension/locales"),
+      filename: "webextension/locales/locales.json",
     }),
     ...extraPlugins,
   ],

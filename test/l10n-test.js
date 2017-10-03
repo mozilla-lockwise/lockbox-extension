@@ -26,6 +26,7 @@ describe("<AppLocalizationProvider/>", () => {
   before(() => {
     fetchMock.get("/locales/en-US/manage.ftl", "hello = Hello\n");
     fetchMock.get("/locales/es-ES/manage.ftl", "hello = Hola\n");
+    fetchMock.get("/locales/locales.json", JSON.stringify(locales));
   });
 
   after(() => {
@@ -42,8 +43,7 @@ describe("<AppLocalizationProvider/>", () => {
 
   it("translate to en-US", async() => {
     const wrapper = mount(
-      <AppLocalizationProvider availableLocales={locales}
-                               bundle={bundle}
+      <AppLocalizationProvider bundle={bundle}
                                userLocales={["en-US"]}>
         <Localized id="hello">
           <div>untranslated</div>
@@ -56,8 +56,7 @@ describe("<AppLocalizationProvider/>", () => {
 
   it("translate to es-ES", async() => {
     const wrapper = mount(
-      <AppLocalizationProvider availableLocales={locales}
-                               bundle={bundle}
+      <AppLocalizationProvider bundle={bundle}
                                userLocales={["es-ES"]}>
         <Localized id="hello">
           <div>untranslated</div>
@@ -70,8 +69,7 @@ describe("<AppLocalizationProvider/>", () => {
 
   it("fallback to text content", async() => {
     const wrapper = mount(
-      <AppLocalizationProvider availableLocales={locales}
-                               bundle={bundle}
+      <AppLocalizationProvider bundle={bundle}
                                userLocales={locales}>
         <Localized id="nonexistent">
           <div>untranslated</div>
