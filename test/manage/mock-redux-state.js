@@ -13,7 +13,7 @@ export const initialState = {
   ui: {
     editing: false,
     selectedItemId: null,
-    filter: [],
+    filter: "",
   },
 };
 
@@ -43,6 +43,6 @@ export const filledState = {
   ui: {
     editing: false,
     selectedItemId: "1",
-    filter: [],
+    filter: "",
   },
 };

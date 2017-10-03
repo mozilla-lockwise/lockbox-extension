@@ -357,7 +357,7 @@ describe("reducers", () => {
       expect(uiReducer(undefined, {})).to.deep.equal({
         editing: false,
         selectedItemId: null,
-        filter: [],
+        filter: "",
       });
     });
 
@@ -365,7 +365,7 @@ describe("reducers", () => {
       const state = {
         editing: true,
         selectedItemId: null,
-        filter: [],
+        filter: "",
       };
       const action = {
         type: actions.ADD_ITEM_COMPLETED,
@@ -377,7 +377,7 @@ describe("reducers", () => {
       expect(uiReducer(state, action)).to.deep.equal({
         editing: false,
         selectedItemId: "1",
-        filter: [],
+        filter: "",
       });
     });
 
@@ -385,7 +385,7 @@ describe("reducers", () => {
       const state = {
         editing: true,
         selectedItemId: "1",
-        filter: [],
+        filter: "",
       };
       const action = {
         type: actions.UPDATE_ITEM_COMPLETED,
@@ -394,7 +394,7 @@ describe("reducers", () => {
       expect(uiReducer(state, action)).to.deep.equal({
         editing: false,
         selectedItemId: "1",
-        filter: [],
+        filter: "",
       });
     });
 
@@ -402,7 +402,7 @@ describe("reducers", () => {
       const state = {
         editing: true,
         selectedItemId: null,
-        filter: [],
+        filter: "",
       };
       const action = {
         type: actions.SELECT_ITEM_STARTING,
@@ -412,7 +412,7 @@ describe("reducers", () => {
       expect(uiReducer(state, action)).to.deep.equal({
         editing: false,
         selectedItemId: "1",
-        filter: [],
+        filter: "",
       });
     });
 
@@ -424,7 +424,7 @@ describe("reducers", () => {
       expect(uiReducer(undefined, action)).to.deep.equal({
         editing: true,
         selectedItemId: NEW_ITEM_ID,
-        filter: [],
+        filter: "",
       });
     });
 
@@ -436,7 +436,7 @@ describe("reducers", () => {
       expect(uiReducer(undefined, action)).to.deep.equal({
         editing: true,
         selectedItemId: null,
-        filter: [],
+        filter: "",
       });
     });
 
@@ -444,7 +444,7 @@ describe("reducers", () => {
       const state = {
         editing: true,
         selectedItemId: NEW_ITEM_ID,
-        filter: [],
+        filter: "",
       };
       const action = {
         type: actions.CANCEL_EDITING,
@@ -453,7 +453,7 @@ describe("reducers", () => {
       expect(uiReducer(state, action)).to.deep.equal({
         editing: false,
         selectedItemId: null,
-        filter: [],
+        filter: "",
       });
     });
 
@@ -461,7 +461,7 @@ describe("reducers", () => {
       const state = {
         editing: true,
         selectedItemId: "1",
-        filter: [],
+        filter: "",
       };
       const action = {
         type: actions.CANCEL_EDITING,
@@ -470,7 +470,7 @@ describe("reducers", () => {
       expect(uiReducer(state, action)).to.deep.equal({
         editing: false,
         selectedItemId: "1",
-        filter: [],
+        filter: "",
       });
     });
 
@@ -478,17 +478,17 @@ describe("reducers", () => {
       const state = {
         editing: false,
         selectedItemId: null,
-        filter: [],
+        filter: "",
       };
       const action = {
         type: actions.FILTER_ITEMS,
-        filter: ["my filter"],
+        filter: "my filter",
       };
 
       expect(uiReducer(state, action)).to.deep.equal({
         editing: false,
         selectedItemId: null,
-        filter: ["my filter"],
+        filter: "my filter",
       });
     });
   });

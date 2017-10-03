@@ -12,7 +12,6 @@ import {
 } from "./actions";
 import { makeItemSummary } from "../common";
 import { NEW_ITEM_ID } from "./common";
-import { defaultFilter } from "./filter";
 
 function maybeAddCurrentItem(state, action) {
   if (state.pendingAdd === action.actionId) {
@@ -82,7 +81,7 @@ export function cacheReducer(state = {
 }
 
 export function uiReducer(state = {
-  editing: false, selectedItemId: null, filter: defaultFilter,
+  editing: false, selectedItemId: null, filter: "",
 }, action) {
   switch (action.type) {
   case ADD_ITEM_COMPLETED:

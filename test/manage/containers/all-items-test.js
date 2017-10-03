@@ -80,7 +80,7 @@ describe("<AllItems/>", () => {
     beforeEach(() => {
       store = mockStore({
         ...filledState,
-        ui: {...filledState.ui, filter: ["2"]},
+        ui: {...filledState.ui, filter: "2"},
       });
       wrapper = mountWithL10n(
         <Provider store={store}>
