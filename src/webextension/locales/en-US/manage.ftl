@@ -48,6 +48,19 @@ item-details-delete = Delete
 item-details-save = Save
 item-details-cancel = Cancel
 
+[[dialogs]]
+
+modal-root-title = Modal dialog
+
+modal-cancel
+    .text = This item has unsaved changes? Are you sure you want to discard them?
+    .primaryButtonLabel = Discard
+    .secondaryButtonLabel = Go back
+modal-delete
+    .text = Are you sure you want to delete this item?
+    .primaryButtonLabel = Delete
+    .secondaryButtonLabel = Cancel
+
 // These strings are for our generic widgets. They should probably go in a
 // separate file when we have a way to do that.
 [[widgets]]

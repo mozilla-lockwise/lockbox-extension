@@ -5,18 +5,29 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-export default function Button({className, ...props}) {
-  let finalClassName = `browser-style ${className}`.trimRight();
-  return (
-    <button className={finalClassName} {...props}/>
-  );
+export default class Button extends React.Component {
+  static get propTypes() {
+    return {
+      className: PropTypes.string,
+    };
+  }
+
+  static get defaultProps() {
+    return {
+      className: "",
+    };
+  }
+
+  focus() {
+    this.buttonElement.focus();
+  }
+
+  render() {
+    const {className, ...props} = this.props;
+    const finalClassName = `browser-style ${className}`.trimRight();
+    return (
+      <button className={finalClassName} {...props}
+              ref={(element) => this.buttonElement = element}/>
+    );
+  }
 }
-
-Button.propTypes = {
-  className: PropTypes.string,
-};
-
-
-Button.defaultProps = {
-  className: "",
-};

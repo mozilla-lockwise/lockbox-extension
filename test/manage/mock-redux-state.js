@@ -15,6 +15,10 @@ export const initialState = {
     selectedItemId: null,
     filter: "",
   },
+  modal: {
+    id: null,
+    props: null,
+  },
 };
 
 export const filledState = {
@@ -44,5 +48,9 @@ export const filledState = {
     editing: false,
     selectedItemId: "1",
     filter: "",
+  },
+  modal: {
+    id: null,
+    props: null,
   },
 };

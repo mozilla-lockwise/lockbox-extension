@@ -54,10 +54,6 @@ export default class EditItemDetails extends React.Component {
     this._firstField.focus();
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({...props.fields});
-  }
-
   handleChange(event) {
     this._changed = true;
     this.setState({[event.target.name]: event.target.value});
