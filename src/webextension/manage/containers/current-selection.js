@@ -55,8 +55,12 @@ const ConnectedEditItemDetails = connect(
 
     return {
       onSave,
-      onCancel: () => {
-        dispatch(cancelEditing());
+      onCancel: (changed) => {
+        // FIXME: dispatch a different event when we have changes instead.
+        if (!changed || confirm("You have unsaved changes. Are you sure you " +
+                                "want to discard them?")) {
+          dispatch(cancelEditing());
+        }
       },
     };
   },
@@ -71,7 +75,10 @@ const ConnectedItemDetails = connect(
       dispatch(editCurrentItem());
     },
     onDelete: () => {
-      dispatch(removeItem(ownProps.item.id));
+      // FIXME: dispatch a different event.
+      if (confirm("Are you sure you want to delete this item?")) {
+        dispatch(removeItem(ownProps.item.id));
+      }
     },
   })
 )(ItemDetails);

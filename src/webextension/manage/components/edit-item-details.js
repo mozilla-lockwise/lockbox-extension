@@ -47,6 +47,7 @@ export default class EditItemDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {...props.fields};
+    this._changed = false;
   }
 
   componentDidMount() {
@@ -57,11 +58,16 @@ export default class EditItemDetails extends React.Component {
     this.setState({...props.fields});
   }
 
+  handleChange(event) {
+    this._changed = true;
+    this.setState({[event.target.name]: event.target.value});
+  }
+
   render() {
     const {onSave, onCancel} = this.props;
     const controlledProps = (name) => {
       return {name, value: this.state[name],
-              onChange: (e) => this.setState({[name]: e.target.value})};
+              onChange: (e) => this.handleChange(e)};
     };
 
     return (
@@ -106,7 +112,7 @@ export default class EditItemDetails extends React.Component {
             <Button type="submit">sAVe</Button>
           </Localized>
           <Localized id="item-details-cancel">
-            <Button type="button" onClick={(e) => onCancel()}>
+            <Button type="button" onClick={(e) => onCancel(this._changed)}>
               cANCEl
             </Button>
           </Localized>
