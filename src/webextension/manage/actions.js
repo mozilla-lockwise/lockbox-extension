@@ -23,6 +23,9 @@ export const CANCEL_EDITING = Symbol("CANCEL_EDITING");
 
 export const FILTER_ITEMS = Symbol("FILTER_ITEMS");
 
+export const SHOW_MODAL = Symbol("SHOW_MODAL");
+export const HIDE_MODAL = Symbol("HIDE_MODAL");
+
 // The action ID is used to correlate async actions with each other (i.e.
 // FOO_STARTING and FOO_COMPLETED).
 let nextActionId = 0;
@@ -205,10 +208,23 @@ export function cancelEditing() {
   };
 }
 
-
 export function filterItems(filter) {
   return {
     type: FILTER_ITEMS,
     filter,
+  };
+}
+
+export function showModal(id, props = null) {
+  return {
+    type: SHOW_MODAL,
+    id,
+    props,
+  };
+}
+
+export function hideModal() {
+  return {
+    type: HIDE_MODAL,
   };
 }

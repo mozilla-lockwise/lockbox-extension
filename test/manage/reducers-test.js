@@ -8,7 +8,7 @@ import { expect } from "chai";
 
 import * as actions from "../../src/webextension/manage/actions";
 import {
-  cacheReducer, uiReducer,
+  cacheReducer, uiReducer, modalReducer,
 } from "../../src/webextension/manage/reducers";
 import { NEW_ITEM_ID } from "../../src/webextension/manage/common";
 
@@ -489,6 +489,43 @@ describe("reducers", () => {
         editing: false,
         selectedItemId: null,
         filter: "my filter",
+      });
+    });
+  });
+
+  describe("modal reducer", () => {
+    it("initial state", () => {
+      expect(modalReducer(undefined, {})).to.deep.equal({
+        id: null,
+        props: null,
+      });
+    });
+
+    it("handle SHOW_MODAL", () => {
+      const action = {
+        type: actions.SHOW_MODAL,
+        id: "my_modal",
+        props: {prop: "value"},
+      };
+
+      expect(modalReducer(undefined, action)).to.deep.equal({
+        id: "my_modal",
+        props: {prop: "value"},
+      });
+    });
+
+    it("handle HIDE_MODAL", () => {
+      const state = {
+        id: "my_modal",
+        props: {prop: "value"},
+      };
+      const action = {
+        type: actions.HIDE_MODAL,
+      };
+
+      expect(modalReducer(state, action)).to.deep.equal({
+        id: null,
+        props: null,
       });
     });
   });

@@ -9,23 +9,27 @@ import AllItems from "../containers/all-items";
 import CurrentSelection from "../containers/current-selection";
 import GoHome from "../containers/go-home";
 import ItemFilter from "../containers/item-filter";
+import ModalRoot from "../containers/modal-root";
 
 import styles from "./app.css";
 
 export default function App() {
   return (
-    <section className={styles.app}>
-      <aside>
-        <ItemFilter/>
-        <AllItems/>
-      </aside>
-      <article>
-        <menu>
-          <AddItem/>
-          <GoHome/>
-        </menu>
-        <CurrentSelection/>
-      </article>
-    </section>
+    <div>
+      <section className={styles.app}>
+        <aside>
+          <ItemFilter/>
+          <AllItems/>
+        </aside>
+        <article>
+          <menu>
+            <AddItem/>
+            <GoHome/>
+          </menu>
+          <CurrentSelection/>
+        </article>
+      </section>
+      <ModalRoot/>
+    </div>
   );
 }

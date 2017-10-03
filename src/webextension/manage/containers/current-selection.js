@@ -7,7 +7,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import {
-  addItem, updateItem, removeItem, editCurrentItem, cancelEditing,
+  addItem, updateItem, editCurrentItem, cancelEditing, showModal,
 } from "../actions";
 import EditItemDetails from "../components/edit-item-details";
 import ItemDetails from "../components/item-details";
@@ -56,11 +56,7 @@ const ConnectedEditItemDetails = connect(
     return {
       onSave,
       onCancel: (changed) => {
-        // FIXME: dispatch a different event when we have changes instead.
-        if (!changed || confirm("You have unsaved changes. Are you sure you " +
-                                "want to discard them?")) {
-          dispatch(cancelEditing());
-        }
+        dispatch(changed ? showModal("cancel") : cancelEditing());
       },
     };
   },
@@ -75,10 +71,7 @@ const ConnectedItemDetails = connect(
       dispatch(editCurrentItem());
     },
     onDelete: () => {
-      // FIXME: dispatch a different event.
-      if (confirm("Are you sure you want to delete this item?")) {
-        dispatch(removeItem(ownProps.item.id));
-      }
+      dispatch(showModal("delete", {id: ownProps.item.id}));
     },
   })
 )(ItemDetails);

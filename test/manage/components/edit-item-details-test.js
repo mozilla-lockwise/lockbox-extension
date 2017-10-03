@@ -122,27 +122,4 @@ describe("<EditItemDetails/>", () => {
       expect(onCancel).to.have.been.calledWith();
     });
   });
-
-  describe("change selected item", () => {
-    beforeEach(() => {
-      wrapper = mountWithL10n(
-        <EditItemDetails fields={originalFields}
-                         onSave={onSave} onCancel={onCancel}/>
-      );
-    });
-
-    it("form fields updated", () => {
-      for (let i in originalFields) {
-        expect(wrapper.find(`[name="${i}"]`).prop("value"))
-              .to.equal(originalFields[i]);
-      }
-
-      wrapper.setProps({fields: updatedFields});
-
-      for (let i in updatedFields) {
-        expect(wrapper.find(`[name="${i}"]`).prop("value"))
-              .to.equal(updatedFields[i]);
-      }
-    });
-  });
 });

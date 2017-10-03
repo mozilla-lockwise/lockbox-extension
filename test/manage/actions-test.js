@@ -245,4 +245,20 @@ describe("actions", () => {
         filter: "my filter" },
     ]);
   });
+
+  it("showModal() dispatched", () => {
+    store.dispatch(actions.showModal("my_modal", {prop: "value"}));
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.SHOW_MODAL,
+        id: "my_modal",
+        props: {prop: "value"} },
+    ]);
+  });
+
+  it("hideModal() dispatched", () => {
+    store.dispatch(actions.hideModal())
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.HIDE_MODAL },
+    ]);
+  });
 });

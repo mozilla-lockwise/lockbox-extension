@@ -5,17 +5,20 @@
 require("babel-polyfill");
 
 import chai, { expect } from "chai";
+import chaiEnzyme from "chai-enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
+chai.use(chaiEnzyme);
 chai.use(sinonChai);
 
 import { simulateTyping } from "./common";
 import mountWithL10n from "./mock-l10n";
 
 import Button from "../src/webextension/widgets/button";
+import DialogBox from "../src/webextension/widgets/dialog-box";
 import FilterInput from "../src/webextension/widgets/filter-input";
 import Input from "../src/webextension/widgets/input";
 import PasswordInput from "../src/webextension/widgets/password-input";
@@ -36,22 +39,56 @@ describe("widgets", () => {
       const realButton = wrapper.find("button");
       expect(realButton.prop("className")).to.equal("browser-style foo");
     });
+
+    it("focus() focuses button", () => {
+      const wrapper = mount(<Button>click me</Button>);
+      wrapper.instance().focus();
+      const realButton = wrapper.find("button");
+      expect(realButton.matchesElement(document.activeElement)).to.equal(
+        true, "the element was not focused"
+      );
+    });
+  });
+
+  describe("<DialogBox/>", () => {
+    let wrapper, onClickPrimary, onClickSecondary;
+    beforeEach(() => {
+      onClickPrimary = sinon.spy();
+      onClickSecondary = sinon.spy();
+      wrapper = mount(
+        <DialogBox text="message" primaryButtonLabel="ok"
+                   secondaryButtonLabel="cancel"
+                   {...{onClickPrimary, onClickSecondary}}/>
+      );
+    });
+
+    it("render dialog box", () => {
+      expect(wrapper.find("div")).to.have.text("message");
+    });
+
+    it("onClickPrimary called", () => {
+      wrapper.find("button").first().simulate("click");
+      expect(onClickPrimary).to.have.callCount(1);
+    });
+
+    it("onClickSecondary called", () => {
+      wrapper.find("button").last().simulate("click");
+      expect(onClickSecondary).to.have.callCount(1);
+    });
   });
 
   describe("<FilterInput/>", () => {
     it("render input", () => {
-      const wrapper = mountWithL10n(<FilterInput value="text"/>);
-      const realInput = wrapper.find("input");
-      expect(realInput.prop("value")).to.equal("text");
+      const wrapper = mountWithL10n(<FilterInput value="some text"/>);
+      expect(wrapper.find("input")).to.have.prop("value", "some text");
     });
 
     it("reset button clears filter", () => {
       const wrapper = mountWithL10n(<FilterInput/>);
-      simulateTyping(wrapper.find("input"), "text");
+      simulateTyping(wrapper.find("input"), "some text");
       wrapper.find("button").simulate("click");
 
-      const realInput = wrapper.find("input");
-      expect(realInput.prop("value")).to.equal("");
+      expect(wrapper.find("input")).to.have.prop("value", "");
     });
 
     it("onChange fired on input", () => {
@@ -83,8 +120,7 @@ describe("widgets", () => {
   describe("<Input/>", () => {
     it("render input", () => {
       const wrapper = mount(<Input value="some text" onChange={() => {}}/>);
-      const realInput = wrapper.find("input");
-      expect(realInput.prop("value")).to.equal("some text");
+      expect(wrapper.find("input")).to.have.prop("value", "some text");
     });
 
     it("merge classNames", () => {
@@ -94,6 +130,17 @@ describe("widgets", () => {
       const realInput = wrapper.find("input");
       expect(realInput.prop("className")).to.match(/ foo$/);
     });
+
+    it("focus() focuses input", () => {
+      const wrapper = mount(
+        <Input className="foo" value="some text" onChange={() => {}}/>
+      );
+      wrapper.instance().focus();
+      const realInput = wrapper.find("input");
+      expect(realInput.matchesElement(document.activeElement)).to.equal(
+        true, "the element was not focused"
+      );
+    });
   });
 
   describe("<PasswordInput/>", () => {
@@ -101,8 +148,7 @@ describe("widgets", () => {
       const wrapper = mountWithL10n(
         <PasswordInput value="my password" onChange={() => {}}/>
       );
-      const realInput = wrapper.find("input");
-      expect(realInput.prop("value")).to.equal("my password");
+      expect(wrapper.find("input")).to.have.prop("value", "my password");
     });
 
     it("show/hide button toggles password visibility", () => {
@@ -112,11 +158,11 @@ describe("widgets", () => {
       const realInput = wrapper.find("input");
       const button = wrapper.find("button");
 
-      expect(realInput.prop("type")).to.equal("password");
+      expect(realInput).to.have.prop("type", "password");
       button.simulate("click");
-      expect(realInput.prop("type")).to.equal("text");
+      expect(realInput).to.have.prop("type", "text");
       button.simulate("click");
-      expect(realInput.prop("type")).to.equal("password");
+      expect(realInput).to.have.prop("type", "password");
     });
   });
 
@@ -268,16 +314,16 @@ describe("widgets", () => {
   describe("<TextArea/>", () => {
     it("render textarea", () => {
       const wrapper = mount(<TextArea value="text" onChange={() => {}}/>);
-      const realTextArea = wrapper.find("textarea");
-      expect(realTextArea.prop("value")).to.equal("text");
+      expect(wrapper.find("textarea")).to.have.prop("value", "text");
     });
 
     it("merge classNames", () => {
       const wrapper = mount(
         <TextArea className="foo" value="text" onChange={() => {}}/>
       );
-      const realTextArea = wrapper.find("textarea");
-      expect(realTextArea.prop("className")).to.equal("browser-style foo");
+      expect(wrapper.find("textarea")).to.have.prop(
+        "className", "browser-style foo"
+      );
     });
   });
 });
