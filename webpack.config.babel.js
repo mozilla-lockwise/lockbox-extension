@@ -30,6 +30,7 @@ const cssLoader = {
 
 let extraPlugins = [];
 let extraLoaders = [];
+let extraCopy = [];
 let htmlMinifyOptions = false;
 if (NODE_ENV === "production") {
 
@@ -46,12 +47,22 @@ if (NODE_ENV === "production") {
     }),
   });
 
+  extraCopy.push({from: "webextension/locales/locales.json"});
+
   htmlMinifyOptions = {
     removeComments: true,
     collapseWhitespace: true,
   };
 
 } else {
+
+  extraPlugins.push(
+    new DirListWebpackPlugin({
+      directory: path.join(__dirname, "src/webextension/locales"),
+      filename: "webextension/locales/locales.json",
+      filter: (file, stats) => file.charAt(0) !== "." && stats.isDirectory(),
+    }),
+  );
 
   extraLoaders.push({
     test: /\.css$/,
@@ -96,6 +107,7 @@ export default {
       {from: "webextension/locales/**/*.ftl"},
       {from: "webextension/icons/*"},
       {from: "webextension/icons/lock.png", to: "icon.png"},
+      ...extraCopy,
     ], {
       copyUnmodified: true,
     }),
@@ -122,10 +134,6 @@ export default {
       template: path.join(__dirname, "src/webextension/manifest.json.tpl"),
       filename: "webextension/manifest.json",
       data: thisPackage,
-    }),
-    new DirListWebpackPlugin({
-      directory: path.join(__dirname, "src/webextension/locales"),
-      filename: "webextension/locales/locales.json",
     }),
     ...extraPlugins,
   ],

@@ -3,13 +3,22 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import fs from "fs";
+import path from "path";
+
+function statPromise(path) {
+  return new Promise((resolve, reject) => {
+    fs.stat(path, (err, stat) => {
+      err ? reject(err) : resolve(stat);
+    });
+  });
+}
 
 export default class DirListWebpackPlugin {
   constructor(options) {
     this.options = {
       directory: undefined,
       filename: undefined,
-      includeDotfiles: false,
+      filter: undefined,
       ...options,
     };
   }
@@ -30,25 +39,42 @@ export default class DirListWebpackPlugin {
       fs.readdir(this.options.directory, (err, files) => {
         if (err) {
           compilation.errors.push(`DirListWebpackPlugin couldn't read ` +
-                                  `directory $(this.options.directory)`);
+                                  `directory ${this.options.directory}`);
           callback();
           return;
         }
 
-        if (!this.options.includeDotfiles) {
-          files = files.filter((x) => x.charAt(0) !== ".");
+        let filesPromise;
+        if (this.options.filter) {
+          filesPromise = Promise.all(files.map((f) => {
+            const filename = path.join(this.options.directory, f);
+            return statPromise(filename).then(
+              (stats) => this.options.filter(f, stats),
+              () => {
+                compilation.errors.push(`DirListWebpackPlugin couldn't stat ` +
+                                        `directory ${filename}`);
+                callback();
+              }
+            );
+          })).then((filtered) => {
+            return files.filter((_, i) => filtered[i]);
+          });
+        } else {
+          filesPromise = Promise.resolve(files);
         }
 
-        const output = JSON.stringify(files);
-        compilation.assets[this.options.filename] = {
-          source() {
-            return output;
-          },
-          size() {
-            return output.length;
-          },
-        };
-        callback();
+        filesPromise.then((files) => {
+          const output = JSON.stringify(files);
+          compilation.assets[this.options.filename] = {
+            source() {
+              return output;
+            },
+            size() {
+              return output.length;
+            },
+          };
+          callback();
+        });
       });
     });
   }
