@@ -6,3 +6,5 @@
 /site/
 /*.xpi
 addon.env
+.DS_Store
+*.log
