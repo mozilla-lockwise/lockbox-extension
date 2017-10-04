@@ -118,7 +118,6 @@
     "source-map-support": "^0.4.18",
     "webpack": "^3.6.0",
     "webpack-combine-loaders": "^2.0.3",
-    "webpack-node-externals": "^1.6.0",
-    "xml-webpack-plugin": "0.0.2"
+    "webpack-node-externals": "^1.6.0"
   }
 }
