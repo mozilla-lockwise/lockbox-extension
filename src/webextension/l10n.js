@@ -10,15 +10,23 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 
 async function fetchAvailableLocales(baseDir) {
-  const response = await fetch(`${baseDir}/locales.json`);
-  return response.json();
+  try {
+    const response = await fetch(`${baseDir}/locales.json`);
+    return response.json();
+  } catch (e) {
+    throw new Error("unable to fetch available locales");
+  }
 }
 
 async function fetchMessages(baseDir, locale, bundle) {
-  const response = await fetch(`${baseDir}/${locale}/${bundle}.ftl`);
-  const messages = await response.text();
+  try {
+    const response = await fetch(`${baseDir}/${locale}/${bundle}.ftl`);
+    const messages = await response.text();
 
-  return { [locale]: messages };
+    return { [locale]: messages };
+  } catch (e) {
+    throw new Error(`unable to fetch localization for ${locale}`);
+  }
 }
 
 async function createMessagesGenerator(baseDir, currentLocales, bundle) {
