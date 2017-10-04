@@ -8,7 +8,6 @@ import combineLoaders from "webpack-combine-loaders";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import ExtractTextPlugin from "extract-text-webpack-plugin";
 import HTMLWebpackPlugin from "html-webpack-plugin";
-import XMLWebpackPlugin from "xml-webpack-plugin";
 import MinifyPlugin from "babel-minify-webpack-plugin";
 
 import DirListWebpackPlugin from "./dir-list-webpack-plugin";
@@ -152,11 +151,12 @@ export default {
       title: "Unlock",
       icon: "../icons/lock.png",
     }),
-    new XMLWebpackPlugin({files: [{
-      template: path.join(__dirname, "src/install.rdf.ejs"),
+    new HTMLWebpackPlugin({
+      template: "install.rdf.ejs",
       filename: "install.rdf",
-      data: thisPackage,
-    }]}),
+      inject: false,
+      package: thisPackage,
+    }),
     new JSONWebpackPlugin({
       template: "webextension/manifest.json.tpl",
       filename: "webextension/manifest.json",
