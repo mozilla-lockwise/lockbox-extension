@@ -30,7 +30,6 @@
     ":clean:doc": "git clean -fdX ./site ./docs",
     "autolint": "eslint .",
     "lint": "cross-env STRICT_LINT=1 npm run autolint --",
-    "nsp": "npx nsp check",
     "prebuild": "npm run-script autolint",
     "build": "webpack",
     "prerun": "npm run-script build",
