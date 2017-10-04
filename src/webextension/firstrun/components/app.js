@@ -3,11 +3,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import React from "react";
-import ReactDOM from "react-dom";
 
-import App from "./components/app";
+import Wizard from "./wizard";
 
-ReactDOM.render(
-  <App/>,
-  document.getElementById("content")
-);
+export default function App() {
+  // Eventually, we'll have a feedback button up top here, and maybe some other
+  // stuff.
+  return <Wizard/>;
+}
