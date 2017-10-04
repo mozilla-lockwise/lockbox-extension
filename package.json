@@ -40,7 +40,7 @@
     "clean": "git clean -fX ./dist ./*.xpi ./addon.env && npm run :clean:doc ",
     "distclean": "git clean -dfX",
     "prepackage": "npm run-script clean && cross-env NODE_ENV=production npm run-script build",
-    "package": "echo TESTPILOT_ADDON_ID=${npm_package_id} > addon.env && echo TESTPILOT_ADDON_VERSION=${npm_package_version} >> addon.env && cd dist && nodezip -c ../addon.xpi *"
+    "package": "echo TESTPILOT_ADDON_ID=${npm_package_id} > addon.env && echo TESTPILOT_ADDON_VERSION=${npm_package_version} >> addon.env && cd dist && jpm xpi --dest-dir ../ && mv ../null.xpi ../addon.xpi"
   },
   "nyc": {
     "all": true,
@@ -106,7 +106,6 @@
     "json-templater": "^1.1.0",
     "mocha": "^3.5.3",
     "mocha-webpack": "^1.0.0-rc.1",
-    "node-zip": "^1.1.1",
     "nyc": "^11.2.1",
     "raw-loader": "^0.5.1",
     "react-addons-test-utils": "^15.6.0",
