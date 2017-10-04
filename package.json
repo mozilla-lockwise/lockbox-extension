@@ -49,7 +49,6 @@
     ]
   },
   "dependencies": {
-    "css-loader": "^0.28.7",
     "fluent": "^0.4.1",
     "fluent-intl-polyfill": "^0.1.0",
     "fluent-langneg": "^0.1.0",
@@ -64,8 +63,7 @@
     "react-modal": "^2.3.2",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0",
-    "style-loader": "^0.18.2"
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "async-wait-until": "^1.1.5",
@@ -84,6 +82,7 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-enzyme": "^0.8.0",
+    "css-loader": "^0.28.7",
     "codecov": "^2.3.0",
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^5.0.5",
@@ -116,6 +115,7 @@
     "sinon": "^3.3.0",
     "sinon-chai": "^2.13.0",
     "source-map-support": "^0.4.18",
+    "style-loader": "^0.18.2",
     "webpack": "^3.6.0",
     "webpack-combine-loaders": "^2.0.3",
     "webpack-node-externals": "^1.6.0"
