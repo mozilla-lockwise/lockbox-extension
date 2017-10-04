@@ -47,7 +47,8 @@ if (NODE_ENV === "production") {
     }),
   });
 
-  extraCopy.push({from: "webextension/locales/locales.json"});
+  extraCopy.push({from: "webextension/locales/locales.json",
+                  to: "webextension/locales/"});
 
   htmlMinifyOptions = {
     removeComments: true,
