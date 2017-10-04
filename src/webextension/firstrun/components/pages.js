@@ -5,8 +5,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Input from "../widgets/input";
-import Button from "../widgets/button";
+import Input from "../../widgets/input";
+import Button from "../../widgets/button";
 
 const PagePropTypes = {
   page: PropTypes.number,
