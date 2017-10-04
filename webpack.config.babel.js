@@ -65,7 +65,7 @@ if (NODE_ENV === "production") {
 
   extraPlugins.push(
     new DirListWebpackPlugin({
-      directory: path.join(__dirname, "src/webextension/locales"),
+      directory: "webextension/locales",
       filename: "webextension/locales/locales.json",
       filter: (file, stats) => file.charAt(0) !== "." && stats.isDirectory(),
     }),
@@ -158,7 +158,7 @@ export default {
       data: thisPackage,
     }]}),
     new JSONWebpackPlugin({
-      template: path.join(__dirname, "src/webextension/manifest.json.tpl"),
+      template: "webextension/manifest.json.tpl",
       filename: "webextension/manifest.json",
       data: thisPackage,
     }),
