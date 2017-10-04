@@ -4,8 +4,21 @@
 
 /* eslint-disable no-unused-vars */
 
+Components.utils.import("resource://gre/modules/Services.jsm");
+
 function startup({webExtension}, reason) {
+  Services.telemetry.registerEvents("lockbox", {
+    "startup": {
+      methods: ["startup"],
+      objects: ["addon", "webextension"],
+    },
+    "click": {
+      methods: ["click"],
+      objects: ["browser_action"],
+    },
+  });
   webExtension.startup().then(() => {
+    Services.telemetry.recordEvent("lockbox", "startup", "webextension", null, null);
     console.log("embedded webextension has started");
   });
 }
