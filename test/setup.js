@@ -147,11 +147,40 @@ global.browser = {
   },
 
   tabs: {
-    create() {
-      return {id: "1"};
+    _openedTabs: [],
+    _nextId: 1,
+
+    create({url}) {
+      const tabInfo = {id: this._nextId++, windowId: 1, url};
+      this._openedTabs.push(tabInfo);
+      return tabInfo;
     },
-    remove() {},
+
+    remove(id) {
+      const tabIndex = this._openedTabs.findIndex((i) => i.id === id);
+      if (tabIndex === -1) {
+        throw new Error("no such tab");
+      }
+      this._openedTabs.splice(tabIndex, 1);
+    },
+
+    get(id) {
+      const tab = this._openedTabs.find((i) => i.id === id);
+      if (!tab) {
+        throw new Error("no such tab");
+      }
+      return tab;
+    },
+
     update() {},
+
+    get mockAllTabs() {
+      return this._openedTabs;
+    },
+
+    mockClearTabs() {
+      this._openedTabs = [];
+    },
   },
 
   windows: {
