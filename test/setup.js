@@ -9,7 +9,7 @@ const { JSDOM } = jsdom;
 const { document } = (new JSDOM("")).window;
 
 var exposedProperties = ["window", "navigator", "document", "browser",
-                         "HTMLElement"];
+                         "Headers", "HTMLElement"];
 
 global.document = document;
 global.window = document.defaultView;
@@ -27,6 +27,10 @@ Object.keys(document.defaultView).forEach((property) => {
 
 global.navigator = {
   userAgent: "node.js",
+};
+
+global.Headers = class Headers {
+  append() {}
 };
 
 // Mock the WebExtension message ports so that our tests can pretend to talk
@@ -101,6 +105,20 @@ function makePairedPorts(contextId) {
 }
 
 global.browser = {
+  browserAction: {
+    onClicked: {
+      addListener() {},
+      removeListener() {},
+    },
+    setPopup() {},
+  },
+
+  extension: {
+    getURL(path) {
+      return path;
+    },
+  },
+
   runtime: {
     onMessage: new MockListener(),
     onConnect: new MockListener(),
@@ -119,5 +137,24 @@ global.browser = {
       this.onConnect.mockFireListener(right);
       return left;
     },
+  },
+
+  storage: {
+    local: {
+      get() {},
+      set() {},
+    },
+  },
+
+  tabs: {
+    create() {
+      return {id: "1"};
+    },
+    remove() {},
+    update() {},
+  },
+
+  windows: {
+    update() {},
   },
 };

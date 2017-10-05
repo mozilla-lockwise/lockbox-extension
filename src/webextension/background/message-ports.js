@@ -27,9 +27,9 @@ export default function initializeMessagePorts() {
   browser.runtime.onMessage.addListener(async function(message, sender) {
     switch (message.type) {
     case "open_view":
-      return openView(message.name);
+      return openView(message.name).then(() => ({}));
     case "close_view":
-      return closeView(message.name);
+      return closeView(message.name).then(() => ({}));
 
     case "signin":
       try {
@@ -39,25 +39,27 @@ export default function initializeMessagePorts() {
         throw err;
       }
     case "initialize":
-      return getAuthorization().verify(message.password).
-        then(() => openDataStore()).
-        then(async(ds) => {
-          await ds.initialize({
-            password: message.password,
-          });
-          await saveAuthorization(browser.storage.local);
-          await updateBrowserAction(ds);
+      return getAuthorization().verify(message.password).then(async() => {
+        const ds = await openDataStore();
+        await ds.initialize({
+          password: message.password,
         });
+        await saveAuthorization(browser.storage.local);
+        await updateBrowserAction(ds);
+        return {};
+      });
 
     case "unlock":
       return openDataStore().then(async(ds) => {
-          await ds.unlock(message.password);
-          await updateBrowserAction(ds);
-        });
+        await ds.unlock(message.password);
+        await updateBrowserAction(ds);
+        return {};
+      });
     case "lock":
       return openDataStore().then(async(ds) => {
         await ds.lock();
         await updateBrowserAction(ds);
+        return {};
       });
 
     case "list_items":
