@@ -3,26 +3,31 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
+import PropTypes from "prop-types";
 import React from "react";
 
-import Pages from "./pages";
-
 export default class Wizard extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      page: 0,
+  static get propTypes() {
+    return {
+      pages: PropTypes.array.isRequired,
     };
-
-    this.next = this.next.bind(this);
-    console.log("Created the wizard!");
   }
 
-  async next(nextState = {}) {
-    let { page } = this.state;
-    page++;
+  constructor(props) {
+    super(props);
 
-    if (page >= Pages.length) {
+    this.state = {
+      pageIndex: 0,
+    };
+    this.next = this.next.bind(this);
+  }
+
+  next(nextState = {}) {
+    const { pages } = this.props;
+    let { pageIndex } = this.state;
+    pageIndex++;
+
+    if (pageIndex >= pages.length) {
       browser.runtime.sendMessage({
         type: "close_view",
         name: "firstrun",
@@ -32,13 +37,18 @@ export default class Wizard extends React.Component {
     this.setState({
       ...this.state,
       ...nextState,
-      page,
+      pageIndex,
     });
   }
 
   render() {
-    const { page, ...state } = this.state;
-    const CurrentPage = Pages[page];
+    const { pages } = this.props;
+    const { pageIndex, ...state } = this.state;
+    const CurrentPage = pages[pageIndex];
+    if (CurrentPage === undefined) {
+      return null;
+    }
+
     return (
       <section>
         <CurrentPage {...state} next={this.next}/>

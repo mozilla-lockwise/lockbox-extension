@@ -8,7 +8,7 @@ let datastore;
 
 export default async function openDataStore() {
   if (!datastore) {
-    datastore = (typeof DataStore.open === "function") ? await DataStore.open() : DataStore.create();
+    datastore = await DataStore.open();
   }
   return datastore;
 }

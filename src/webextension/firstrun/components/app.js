@@ -4,10 +4,11 @@
 
 import React from "react";
 
+import Pages from "./pages";
 import Wizard from "./wizard";
 
 export default function App() {
   // Eventually, we'll have a feedback button up top here, and maybe some other
   // stuff.
-  return <Wizard/>;
+  return <Wizard pages={Pages}/>;
 }
