@@ -6,12 +6,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Input from "../../widgets/input";
-import Button from "../../widgets/button";
-
-const PagePropTypes = {
-  page: PropTypes.number,
-  next: PropTypes.func,
-};
+import WizardPage from "./wizard-page";
 
 class WelcomePage1 extends React.Component {
   constructor(props) {
@@ -21,7 +16,9 @@ class WelcomePage1 extends React.Component {
   }
 
   static get propTypes() {
-    return PagePropTypes;
+    return {
+      next: PropTypes.func.isRequired,
+    };
   }
 
   async signIn() {
@@ -34,7 +31,6 @@ class WelcomePage1 extends React.Component {
     } catch (err) {
       // TODO: something with the error
       this.setState({
-        ...this.state,
         error: "Firefox Accounts login failed",
       });
     }
@@ -43,18 +39,12 @@ class WelcomePage1 extends React.Component {
   render() {
     const { error } = this.state;
 
-    const onSignIn = (evt) => {
-      evt.preventDefault();
-      this.signIn();
-    };
-
     return (
-      <article>
-        <h1>Welcome to Lockbox</h1>
+      <WizardPage title="Welcome to Lockbox" submitLabel="sIGNIn"
+                  onSubmit={() => this.signIn()}>
         <p>To get started, sign up (or sign in) to Firefox Accounts</p>
         <div className="error">{error}</div>
-        <Button onClick={onSignIn}>sIGNIn</Button>
-      </article>
+      </WizardPage>
     );
   }
 }
@@ -68,13 +58,14 @@ class VerifyPage2 extends React.Component {
 
   static get propTypes() {
     return {
-      ...PagePropTypes,
-      email: PropTypes.string,
+      next: PropTypes.func.isRequired,
+      email: PropTypes.string.isRequired,
     };
   }
 
-  async initialize(password) {
-    let email = this.props.email || "";
+  async initialize() {
+    const email = this.props.email;
+    const password = this.state.password;
     try {
       await browser.runtime.sendMessage({
         type: "initialize",
@@ -91,24 +82,19 @@ class VerifyPage2 extends React.Component {
   }
 
   render() {
+    // eslint-disable-next-line no-unused-vars
+    const { email, ...props } = this.props;
     const { error } = this.state;
 
-    const onSubmit = (evt) => {
-      evt.preventDefault();
-      let password = evt.target.elements.password.value || "";
-      this.initialize(password);
-    };
-
     return (
-      <article>
-        <h1>Confirm your Lockbox Password</h1>
-        <p>Re-enter your Firefox Accounts password to finish setting up your Lockbox!</p>
+      <WizardPage title="Confirm your Lockbox Password" submitLabel="vERIFy"
+                  onSubmit={() => this.initialize()}>
+        <p>Re-enter your Firefox Accounts password to finish setting up your
+           Lockbox!</p>
         <div className="error">{error}</div>
-        <form onSubmit={onSubmit}>
-          <Input type="password" name="password" />
-          <Button type="submit">vERIFy</Button>
-        </form>
-      </article>
+        <Input type="password" name="password" value={this.state.password}
+               onChange={(e) => this.setState({password: e.target.value})}/>
+      </WizardPage>
     );
   }
 }
@@ -116,12 +102,12 @@ class VerifyPage2 extends React.Component {
 class FinishedPage3 extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {};
   }
 
   static get propTypes() {
-    return PagePropTypes;
+    return {
+      next: PropTypes.func.isRequired,
+    };
   }
 
   async finalize() {
@@ -133,17 +119,11 @@ class FinishedPage3 extends React.Component {
   }
 
   render() {
-    const onClick = (evt) => {
-      evt.preventDefault();
-      this.finalize();
-    };
-
     return (
-      <article>
-        <h1>DONE!</h1>
+      <WizardPage title="DONE!" submitLabel="fINISh"
+                  onSubmit={() => this.finalize()}>
         <p>Your Lockbox is ready to use!</p>
-        <Button onClick={onClick}>fINISh</Button>
-      </article>
+      </WizardPage>
     );
   }
 }
