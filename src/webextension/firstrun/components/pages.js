@@ -3,23 +3,23 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { Localized } from "fluent-react";
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 
 import PasswordInput from "../../widgets/password-input";
 import WizardPage from "./wizard-page";
 
-class WelcomePage1 extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
+export class WelcomePage1 extends React.Component {
   static get propTypes() {
     return {
       next: PropTypes.func.isRequired,
     };
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {};
   }
 
   async signIn() {
@@ -30,7 +30,7 @@ class WelcomePage1 extends React.Component {
       });
       this.props.next(response);
     } catch (err) {
-      // TODO: something with the error
+      // TODO: something with the error, and localize!
       this.setState({
         error: "Firefox Accounts login failed",
       });
@@ -54,17 +54,19 @@ class WelcomePage1 extends React.Component {
   }
 }
 
-class VerifyPage2 extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
+export class VerifyPage2 extends React.Component {
   static get propTypes() {
     return {
       next: PropTypes.func.isRequired,
       email: PropTypes.string.isRequired,
+    };
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      password: "",
     };
   }
 
@@ -80,6 +82,7 @@ class VerifyPage2 extends React.Component {
       this.props.next({ password });
     } catch (err) {
       console.log(`verify failed: ${err.message}`);
+      // TODO: Localize this!
       this.setState({
         error: "wrong password",
       });
@@ -113,15 +116,15 @@ class VerifyPage2 extends React.Component {
   }
 }
 
-class FinishedPage3 extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+export class FinishedPage3 extends React.Component {
   static get propTypes() {
     return {
       next: PropTypes.func.isRequired,
     };
+  }
+
+  constructor(props) {
+    super(props);
   }
 
   async finalize() {
@@ -146,9 +149,8 @@ class FinishedPage3 extends React.Component {
   }
 }
 
-const pages = [
+export default [
   WelcomePage1,
   VerifyPage2,
   FinishedPage3,
 ];
-export default pages;

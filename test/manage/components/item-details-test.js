@@ -49,7 +49,7 @@ describe("<ItemDetails/>", () => {
     expect(onEdit).to.have.been.calledWith();
   });
 
-   it("onDelete called", () => {
+  it("onDelete called", () => {
     wrapper.findWhere((x) => x.prop("id") === "item-details-delete")
            .find("button").simulate("click");
     expect(onDelete).to.have.been.calledWith();
