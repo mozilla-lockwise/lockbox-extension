@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import openDataStore from "./datastore";
-import * as authz from "./authorization";
+import getAuthorization, { saveAuthorization } from "./authorization/index";
 import updateBrowserAction from "./browser-action";
 import { openView, closeView } from "./views";
 import { makeItemSummary } from "../common";
@@ -32,14 +32,20 @@ export default function initializeMessagePorts() {
       return closeView(message.name);
 
     case "signin":
-      return authz.signIn(message.interactive);
+      try {
+        return getAuthorization().signIn(message.interactive);
+      } catch (err) {
+        console.log(`failure: ${err.message}`);
+        throw err;
+      }
     case "initialize":
-      return authz.verify(message.email, message.password).
+      return getAuthorization().verify(message.password).
         then(() => openDataStore()).
         then(async(ds) => {
           await ds.initialize({
             password: message.password,
           });
+          await saveAuthorization(browser.storage.local);
           await updateBrowserAction(ds);
         });
 
