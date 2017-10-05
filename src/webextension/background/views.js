@@ -2,8 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-
-class SingletonView {
+export class SingletonView {
   constructor(path) {
     this.path = path;
     this.id = undefined;
@@ -52,7 +51,7 @@ class SingletonView {
   }
 }
 
-class MultipleView {
+export class MultipleView {
   constructor(path) {
     this.path = path;
     this.views = new Set();
@@ -75,7 +74,7 @@ class MultipleView {
         console.log(`could not close manage[${tabId}] view: ${err.message}`);
       }
     });
-    await Promise.this.views(pending);
+    await Promise.all(pending);
     this.views.clear();
   }
 }
@@ -87,17 +86,12 @@ const views = {
 
 export async function openView(name) {
   console.log(`opening view for ${name} ...`);
-  let v = views[name];
-  if (!v) {
-    return undefined;
-  }
+  const v = views[name];
   return v.open();
 }
+
 export async function closeView(name) {
   console.log(`closing view(s) for ${name} ...`);
-  let v = views[name];
-  if (!v) {
-    return undefined;
-  }
+  const v = views[name];
   return v.close();
 }
