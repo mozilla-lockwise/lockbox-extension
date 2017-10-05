@@ -18,15 +18,9 @@ export default class Wizard extends React.Component {
     console.log("Created the wizard!");
   }
 
-  async next(state = {}) {
+  async next(nextState = {}) {
     let { page } = this.state;
     page++;
-
-    state = {
-      ...this.state,
-      ...state,
-      page,
-    };
 
     if (page >= Pages.length) {
       browser.runtime.sendMessage({
@@ -34,14 +28,20 @@ export default class Wizard extends React.Component {
         name: "firstrun",
       });
     }
-    this.setState(state);
+
+    this.setState({
+      ...this.state,
+      ...nextState,
+      page,
+    });
   }
 
   render() {
-    const CurrentPage = Pages[this.state.page];
+    const { page, ...state } = this.state;
+    const CurrentPage = Pages[page];
     return (
       <section>
-        <CurrentPage {...this.state} next={this.next} />
+        <CurrentPage {...state} next={this.next}/>
       </section>
     );
   }
