@@ -41,7 +41,7 @@ export async function fetchFromFxA(reason, url, config) {
 
 // OAUTH Routines
 async function makeAuthzURL(config, {challenge, ...params}) {
-  if (code) {
+  if (challenge) {
     let code;
     code = (new TextEncoder()).encode(challenge);
     code = await jose.JWA.digest("SHA-256", code);
@@ -156,11 +156,24 @@ async function calculateCredentials(email, password) {
 const DEFAULT_CONFIG = "dev-stable";
 
 export class Authorization {
-  constructor(config = DEFAULT_CONFIG) {
+  constructor({config = DEFAULT_CONFIG, info}) {
     if (!CONFIGS[config]) {
       throw new Error(`unknown configuration: ${config}`);
     }
     this.config = config;
+    this.info = info || undefined;
+  }
+
+  toJSON() {
+    let { config, info } = this;
+    if (info) {
+      info = { ...info };
+      delete info.email;
+    }
+    return {
+      config,
+      info,
+    };
   }
 
   get signedIn() { return this.info !== undefined; }
@@ -203,12 +216,8 @@ export class Authorization {
     this.info = {
       ...profile,
       access: {
-        token: oauth.access_token,
-        validFrom: new Date(oauth.auth_at * 1000),
-        validUntil: new Date((oauth.auth_at + oauth.expires_in) * 1000),
-      },
-      refresh: {
-        token: oauth.refresh_token || "",
+        validFrom: new Date(oauth.auth_at * 1000).toISOString(),
+        validUntil: new Date((oauth.auth_at + oauth.expires_in) * 1000).toISOString(),
       },
     };
     return this.info;
@@ -247,11 +256,24 @@ export class Authorization {
 let authorization;
 export default function getAuthorization() {
   if (!authorization) {
-    authorization = new Authorization();
+    authorization = new Authorization({});
   }
   return authorization;
 }
 
-export function setAuthorization(config) {
-  authorization = config ? new Authorization(config) : undefined;
+export async function loadAuthorization(storage) {
+  let stored = await storage.get("authz");
+  if (stored && stored.authz) {
+    authorization = new Authorization(stored.authz);
+  }
+  return getAuthorization();
+}
+
+export async function saveAuthorization(storage) {
+  let authz = getAuthorization().toJSON();
+  await storage.set({ authz });
+}
+
+export function setAuthorization(config, info) {
+  authorization = config ? new Authorization({config, info}) : undefined;
 }

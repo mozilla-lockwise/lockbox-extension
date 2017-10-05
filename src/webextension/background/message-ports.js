@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import openDataStore from "./datastore";
-import getAuthorization from "./authorization/index";
+import getAuthorization, { saveAuthorization } from "./authorization/index";
 import updateBrowserAction from "./browser-action";
 import { openView, closeView } from "./views";
 import { makeItemSummary } from "../common";
@@ -45,6 +45,7 @@ export default function initializeMessagePorts() {
           await ds.initialize({
             password: message.password,
           });
+          await saveAuthorization(browser.storage.local);
           await updateBrowserAction(ds);
         });
 
