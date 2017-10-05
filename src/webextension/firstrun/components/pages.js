@@ -2,10 +2,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import { Localized } from "fluent-react";
 import React from "react";
 import PropTypes from "prop-types";
 
-import Input from "../../widgets/input";
+import PasswordInput from "../../widgets/password-input";
 import WizardPage from "./wizard-page";
 
 class WelcomePage1 extends React.Component {
@@ -40,11 +41,15 @@ class WelcomePage1 extends React.Component {
     const { error } = this.state;
 
     return (
-      <WizardPage title="Welcome to Lockbox" submitLabel="sIGNIn"
-                  onSubmit={() => this.signIn()}>
-        <p>To get started, sign up (or sign in) to Firefox Accounts</p>
-        <div className="error">{error}</div>
-      </WizardPage>
+      <Localized id="welcome-page">
+        <WizardPage title="wELCOMe to lOCKBOx" submitLabel="sIGNIn"
+                    onSubmit={() => this.signIn()}>
+          <Localized id="welcome-page-description">
+            <p>to gEt sTARTEd, sIGn up (or sIGn in) to fIREFOx aCCOUNTs</p>
+          </Localized>
+          <div className="error">{error}</div>
+        </WizardPage>
+      </Localized>
     );
   }
 }
@@ -87,14 +92,23 @@ class VerifyPage2 extends React.Component {
     const { error } = this.state;
 
     return (
-      <WizardPage title="Confirm your Lockbox Password" submitLabel="vERIFy"
-                  onSubmit={() => this.initialize()}>
-        <p>Re-enter your Firefox Accounts password to finish setting up your
-           Lockbox!</p>
-        <div className="error">{error}</div>
-        <Input type="password" name="password" value={this.state.password}
-               onChange={(e) => this.setState({password: e.target.value})}/>
-      </WizardPage>
+      <Localized id="verify-page">
+        <WizardPage title="cONFIRm yOUr lOCKBOx pASSWORd" submitLabel="vERIFy"
+                    onSubmit={() => this.initialize()}>
+          <Localized id="verify-page-description">
+            <p>re-eNTEr yOUr fIREFOx aCCOUNTs pASSWORd to fINISh sETTINg up yOUr
+               lOCKBOx!</p>
+          </Localized>
+          <div className="error">{error}</div>
+          <Localized id="verify-page-password">
+            <PasswordInput name="password" placeholder="pASSWORd"
+                           value={this.state.password}
+                           onChange={(e) => {
+                             this.setState({password: e.target.value});
+                           }}/>
+          </Localized>
+        </WizardPage>
+      </Localized>
     );
   }
 }
@@ -120,10 +134,14 @@ class FinishedPage3 extends React.Component {
 
   render() {
     return (
-      <WizardPage title="DONE!" submitLabel="fINISh"
-                  onSubmit={() => this.finalize()}>
-        <p>Your Lockbox is ready to use!</p>
-      </WizardPage>
+      <Localized id="finished-page">
+        <WizardPage title="dONe!" submitLabel="fINISh"
+                    onSubmit={() => this.finalize()}>
+          <Localized id="finished-page-description">
+            <p>yOUr lOCKBOx is rEADy to uSe!</p>
+          </Localized>
+        </WizardPage>
+      </Localized>
     );
   }
 }
