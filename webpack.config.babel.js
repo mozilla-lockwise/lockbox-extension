@@ -125,7 +125,7 @@ export default {
       chunks: ["webextension/manage/index"],
       inject: false,
       minify: htmlMinifyOptions,
-      title: "Lockox Entries",
+      title: "Lockbox Entries",
       icon: "../icons/lock.png",
     }),
     new HTMLWebpackPlugin({
