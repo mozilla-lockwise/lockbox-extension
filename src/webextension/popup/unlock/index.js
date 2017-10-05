@@ -67,7 +67,8 @@ class UnlockPrompt extends React.Component {
 }
 
 ReactDOM.render(
-  <AppLocalizationProvider bundle="popup" userLocales={navigator.languages}>
+  <AppLocalizationProvider bundles={["popup", "widgets"]}
+                           userLocales={navigator.languages}>
     <UnlockPrompt />
   </AppLocalizationProvider>,
   document.getElementById("content")
