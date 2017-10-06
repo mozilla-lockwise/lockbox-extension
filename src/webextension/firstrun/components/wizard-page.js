@@ -13,7 +13,7 @@ export default class WizardPage extends React.Component {
       title: PropTypes.string.isRequired,
       submitLabel: PropTypes.string.isRequired,
       onSubmit: PropTypes.func.isRequired,
-      children: PropTypes.any,
+      children: PropTypes.node,
     };
   }
 
