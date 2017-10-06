@@ -1,6 +1,6 @@
 # Lockbox Metrics Plan
 
-_Last Updated: September 29, 2017_
+_Last Updated: October 6, 2017_
 
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
@@ -14,8 +14,8 @@ _Last Updated: September 29, 2017_
 	- [Toolbar Button Interaction Event](#toolbar-button-interaction-event)
 	- [Item list Interaction Events](#item-list-interaction-events)
 	- [Item View Interaction Events](#item-view-interaction-events)
-	- [Events Related to Interactions in the Item Editor(s)](#events-related-to-interactions-in-the-item-editors)
-	- [Events Related to Submitting An Item Change from the Item Editor(s)](#events-related-to-submitting-an-item-change-from-the-item-editors)
+	- [Events Related to Interactions in the Item Editors](#events-related-to-interactions-in-the-item-editors)
+	- [Events Related to Submitting An Item Change from the Item Editors](#events-related-to-submitting-an-item-change-from-the-item-editors)
 	- [Events Related to Changes in the Datastore](#events-related-to-changes-in-the-datastore)
 	- [Feedback Events](#feedback-events)
 	- [Fill Events: TBD](#fill-events-tbd)
@@ -135,23 +135,20 @@ These are the metrics we plan to collect regarding the state of user datastores.
 
 ### Setup Events
 
-From a metrics point of view, the FxA sign-in / account creation process is a black box to us. Thus the best we can do at this point is track when a user interacts with the Lockbox-specific views that are included in the first run flow. We have two **categories** of events here: rendering events and interaction events:  `setup.render` and `setup.interaction`. For rendering events, the **object** field is populated by the name of the view being rendered; for interaction events the **object** is the name of the button. Below is a brief description of the view names and their corresponding buttons.
+From a metrics point of view, the FxA sign-in / account creation process is a black box to us. Thus the best we can do at this point is track when a user interacts with the Lockbox-specific views that are included in the first run flow.
+
+We have two **categories** of events here: rendering events and interaction events:  `setup.render` and `setup.interaction`. For rendering events, the **object** field is populated by the name of the view being rendered; for interaction events the **object** is the name of the button. Below is a brief description of the view names and their corresponding buttons.
 
 -   `lockbox_toolbar_firstrun`
-    -   Pop-over shown when the user first clicks on the Lockbox toolbar icon after install. Contains the `signin_button`. Note that the click on the toolbar icon itself is logged in a separate event (see "Toolbar Button Interaction Event" section below).
--   `welcome`
-    -   Shown after sign-in button is clicked. Contains the `fxa_login_button`
--   `confirm_master_password`
-    -   Shown after FxA process is completed. Prompts user to re-use their FxA pw as their lockbox master pw. Contains the `confirm_master_pw_button`
--   `done`
-    -   Final view in setup flow. Contains `open_button` that opens the item editor.
-
+    -   Pop-over shown when the user first clicks on the Lockbox toolbar icon after install. Contains the `get_started_button`. Note that the click on the toolbar icon itself is logged in a separate event (see "Toolbar Button Interaction Event" section below).
+-   `reenter_password`
+    -   Shown after FxA process is completed. Prompts user to re-enter their FxA pw to start using lockbox. Contains the `lockbox_signin_button`
 
 
 The **methods** for these events are `render` and `click` for rendering and interaction events, respectively.
 
 
-The **extra** field contains the user's FxA anonymous/random user id. For `lockbox_toolbar_firstrun` and `welcome` views this will be `null`.
+The **extra** field contains the user's FxA anonymous/random user id. For `lockbox_toolbar_firstrun` view this will be `null`.
 
 
 To register the rendering events:
@@ -160,9 +157,7 @@ Services.telemetry.registerEvents("setup.render", {
   "setup.render": {
     methods: ["render"],
     objects: ["lockbox_toolbar_firstrun", // startup flow views
-            "welcome",
-            "confirm_master_password",
-            "done"],
+            "reenter_password"],
     extra: {"fxa_uid": uid} // value is null in some cases, see above
   }
 });
@@ -172,30 +167,28 @@ To register the interaction events:
 Services.telemetry.registerEvents("setup.interaction", {
   "setup.click": {
     methods: ["click"],
-    objects: ["signin_button", // start-up flow buttons
-              "fxa_login_button",
-              "confirm_master_pw_button",
-              "open_button"],
+    objects: ["get_started_button", // start-up flow buttons
+              "lockbox_signin_button"],
     extra: {"fxa_uid": uid} // value is null in some cases, see above
   }
 });
 ```
-An example of how to record a rendering of the `done` view:
+An example of how to record a rendering of the `reenter_password` view:
 ```javascript
 Services.telemetry.recordEvent("setup.render",
                     "render",
-                    "done",
+                    "reenter_password",
                     null,
                     {"fxa_uid": uid} ) // user has signed in by now);
 ```                    
 
 
-To record (for example) a click on one of the buttons:
+To record (for example) a click on one of the `lockboxSignin_button` button:
 
 ```javascript
 Services.telemetry.recordEvent("lockbox_toolbar_firstrun.interaction",
                     "click",
-                    "signin_button",
+                    "lockbox_signin_button",
                     null,
                     {"fxa_uid": null} ) // user hasn't signed in yet);
 ```                    
@@ -225,42 +218,46 @@ Services.telemetry.recordEvent("toolbar.interaction",
 ### Item list Interaction Events
 These events relate to interactions with the item list rendered after a click of the Lockbox toolbar button. These events assume that the user has already logged in with FxA. For events related to the setup flow, see the section above.
 
-Immediately after setup there will be no items in the datastore. As long as this is the case, the item list will only provide a single button to add a new entry:
+Immediately after setup there will be no items in the datastore. As long as this is the case, the item list will be empty and the user will have to click the `add_new_button` to add their first entry. As long as there is at least one entry in the datastore, the item list will be displayed in the left pane.
+
+We will have two categories of events related to the item list: `item_list.render` and `item_list.interaction`. They will be recorded as `item_list.render` and `item_list.click`.
+
+For the rendering events, there are two possible objects, `item_list_empty` and `item_list_populated` corresponding to a rendering of an empty item list and an item list with at least one entry, respectively.
+
+The possible **methods** are `click` and `render`.
+
+The **objects** are `item_button` (the clickable area of an entry in the item list), `feedback_button`, `add_new_button` (available so long as there at least one item in the datastore), and `search_box`.
 
 
-
-As long as there is at least one entry in the datastore, the item list will be displayed:
-
-
-
-Importantly, the UI elements above can be displayed in one of two containers: the pop over (above) and a “full blown” editor that is contained within its own tab. As of now, the two containers contain the same functionality and layout. However, because we would like to know which container people prefer to use, we will log events within each of them separately. Thus we will have two categories of events related to the item list: `pop_list.interaction` and `tab_list.interaction`. They will be recorded as `pop_list.click` and `tab_list.click`.
-
-The only possible **method** is `click`.
-
-The **objects** are `item_button` (the clickable area of an entry in the item list), `feedback_button`, `add_first_button` (only displayed if there are no items in the datastore), `add_new_button` (available so long as there at least one item in the datastore), `search_box` and `sign_out_button`.
-
-
-To register these events we would use code like the following. Substitute `pop_list` for `tab_list` to register the events for the full tab container instead of the pop-over container.
-
-
+To register the interaction events:
 ```javascript
-Services.telemetry.registerEvents("pop_list.interaction", {
-  "pop_list.click": {
+Services.telemetry.registerEvents("item_list.interaction", {
+  "item_list.click": {
     methods: ["click"],
     objects: ["item_button",
         "feedback_button",
-        "add_first_button",
         "add_new_button",
-        "search_box",
-        "sign_out_button"],
+        "search_box"],
+    extra: {"fxa_uid": uid}
+  }
+});
+```
+To register the render events:
+```javascript
+Services.telemetry.registerEvents("item_list.render", {
+  "item_list.render": {
+    methods: ["render"],
+    objects: ["item_list_empty",
+        "item_list_populated"],
     extra: {"fxa_uid": uid}
   }
 });
 ```
 
+
 To record (for example) a click on the add new entry button:
 ```javascript
-Services.telemetry.recordEvent("pop_list.interaction",
+Services.telemetry.recordEvent("item_list.interaction",
                     "click",
                     "add_new_button",
                     null,
@@ -268,8 +265,7 @@ Services.telemetry.recordEvent("pop_list.interaction",
 ```
 
 ### Item View Interaction Events
-When a user clicks on an item from the item list, they will be directed to the item view. We will log clicks on each of the five buttons in this view (also the **objects** used in the event): `edit_entry_button`, `show_password_button`, `copy_password_button`, `copy_username_button` and `back_button`.
-
+When a user clicks on an item from the item list, they will be directed to the item view. We will log clicks on each of the five buttons in this view (also the **objects** used in the event): `edit_entry_button`, `delete_entry_button`, `show_password_button`, `copy_password_button`, and `copy_username_button`.
 
 
 The event **category** is `item_view.interaction` and the event is recorded as `item_view.click`.
@@ -283,10 +279,10 @@ Services.telemetry.registerEvents("item_view.interaction", {
   "item_view.click": {
     methods: ["click"],
     objects: ["edit_entry_button",
+		"delete_entry_button",
         "show_password_button",
         "copy_password_button",
-        "copy_username_button",
-    "back_button"],
+        "copy_username_button"],
     extra: {"fxa_uid": uid}
   }
 });
@@ -301,19 +297,18 @@ Services.telemetry.recordEvent("item_view.interaction",
                     {"fxa_uid": uid});
 ```
 
-### Events Related to Interactions in the Item Editor(s)
-These events record actions users take in the item editors. For events related to the submission of actual item information, see the next section. The item editor has 5 fields: `title_field`, `origin_field` (URL for the credential), `username_field`, `password_field`, and `notes_field`. There are also three buttons: `save_entry_button`, `cancel_button`, and `toggle_password_button`. The latter toggles the visibility of characters in the password field.  
+### Events Related to Interactions in the Item Editors
+These events record actions users take in the item editors. There are separate views for editing existing items and for adding new entries, though the fields that exist in each are similar. Thus we have two **categories** of events: `new_item.interaction` and `edit_item.interaction`.
 
+For events related to the submission of actual item information, see the next section. The item editors have 5 fields: `title_field`, `origin_field` (URL for the credential), `username_field`, `password_field`, and `notes_field`. There are also three buttons: `save_entry_button`, `cancel_button`, and `toggle_password_button`. The latter toggles the visibility of characters in the password field.  
 
-
-The event **category** is `item_editor.interaction` and the event is recorded as `item_editor.click`.
 
 The **methods** are `click` and `focus`.
 
-Example event registration:
+Example event registration (Substitute `new_item` with `edit_item` to register events for the existing item editor):
 
 ```javascript
-Services.telemetry.registerEvents("item_editor.interaction", {
+Services.telemetry.registerEvents("new_item.interaction", {
   "item_editor.click": {
     methods: ["click", "focus"],
     objects: ["title_field",
@@ -339,7 +334,7 @@ Services.telemetry.recordEvent("item_editor.interaction",
                     {"fxa_uid": uid});
 ```
 
-### Events Related to Submitting An Item Change from the Item Editor(s)
+### Events Related to Submitting An Item Change from the Item Editors
 Events of **category** `item_change_submitted` record the actual submission of new item information to the datastore (either completely new entries or updates to existing items).
 
 
@@ -347,7 +342,7 @@ In theory, these should be tied to equivalent events in the datastore, so that (
 
 **Methods** for this event are `adding`, `updating` and `deleting`.
 
-The **object** can be `add_form` or `update_form`.
+The **object** can be `new_item` or `edit_item`.
 
 The **extra** field contains the item's UUID *for updating and deleting events only*. For adding events, it always contains the string "new".
 
@@ -356,7 +351,7 @@ To register these events, we would do something like:
 Services.telemetry.registerEvents("item_change_submitted", {
   "item_change_submitted": {
     methods: ["adding","updating","deleting"],
-    objects: ["add_form","edit_form"],
+    objects: ["new_item","edit_item"],
     extra: {"fxa_uid": uid,
             "item_id": UUID}
   }
@@ -367,7 +362,7 @@ To record a new item submission (note the `item_id` is "new"):
 ```javascript
 Services.telemetry.recordEvent("item_change_submitted",
                     "added",
-                    "add_form",
+                    "new_item",
                     null,
                     {"fxa_uid": uid,
                     "item_id": "new"});
@@ -407,7 +402,7 @@ Services.telemetry.recordEvent("database.changed",
 
 ### Feedback Events
 
-When the user enters the feedback form through the toolbar pop-over, we will record an event when a user submits feedback. Note that this will *not* contain the feedback itself: that is logged elsewhere (not thru telemetry).
+When the user enters the feedback form through the button on the item list, we will record an event when a user submits feedback. Note that this will *not* contain the feedback itself: that is logged elsewhere (not thru telemetry).
 
 
 ```javascript
