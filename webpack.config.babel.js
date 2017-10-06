@@ -97,6 +97,7 @@ export default {
     "webextension/manage/index": "./webextension/manage/index.js",
     "webextension/firstrun/index": "./webextension/firstrun/index.js",
     "webextension/popup/unlock/index": "./webextension/popup/unlock/index.js",
+    "webextension/settings/index": "./webextension/settings/index.js",
   },
 
   output: {
@@ -153,7 +154,16 @@ export default {
       minify: htmlMinifyOptions,
     }),
     new HTMLWebpackPlugin({
-      template: "install.rdf.ejs",
+      template: "template.ejs",
+      filename: "webextension/settings/index.html",
+      chunks: ["webextension/settings/index"],
+      inject: false,
+      minify: htmlMinifyOptions,
+      title: "Lockbox Settings",
+      icon: "../icons/lock.png",
+    }),
+    new XMLWebpackPlugin({files: [{
+      template: path.join(__dirname, "src/install.rdf.ejs"),
       filename: "install.rdf",
       inject: false,
       package: thisPackage,

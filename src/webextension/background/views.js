@@ -63,6 +63,15 @@ export async function openView(name) {
 }
 
 export async function closeView(name) {
+  if (!name) {
+    console.log("closing all views");
+    Object.keys(views).forEach((v) => {
+      v = views[v];
+      v.close();
+    });
+    return {};
+  }
+
   console.log(`closing view(s) for ${name} ...`);
   const v = views[name];
   return v.close();

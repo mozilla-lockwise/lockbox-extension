@@ -34,5 +34,10 @@
   "permissions": [
     "identity",
     "storage"
-  ]
+  ],
+
+  "options_ui": {
+    "page": "settings/index.html",
+    "browser_style": true
+  }
 }
