@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { openView } from "./views";
+import * as telemetry from "./telemetry";
 
 let listener;
 let popup;
@@ -13,6 +14,7 @@ function installPopup(path) {
     popup,
   });
 }
+
 function uninstallPopup() {
   if (popup) {
     browser.browserAction.setPopup({ popup: "" });
@@ -21,9 +23,13 @@ function uninstallPopup() {
 }
 
 function installListener(name) {
-  listener = () => { openView(name); };
+  listener = () => {
+    telemetry.recordEvent("lockbox", "click", "browser_action");
+    openView(name);
+  };
   browser.browserAction.onClicked.addListener(listener);
 }
+
 function uninstallListener() {
   if (listener) {
     browser.browserAction.onClicked.removeListener(listener);
