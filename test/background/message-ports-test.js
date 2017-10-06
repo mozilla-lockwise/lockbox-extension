@@ -199,9 +199,10 @@ describe("message ports (background side)", () => {
   });
 
   it("handle unknown message type", async() => {
-    await expect(browser.runtime.sendMessage({
+    const result = await browser.runtime.sendMessage({
       type: "nonexist",
-    })).to.be.rejectedWith(Error);
+    });
+    expect(result).to.equal(null);
   });
 
   it("handle message port disconnect", async() => {
