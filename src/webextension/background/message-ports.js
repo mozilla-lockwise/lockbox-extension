@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import openDataStore from "./datastore";
-import * as authz from "./authorization";
+import getAuthorization, { saveAuthorization } from "./authorization/index";
 import updateBrowserAction from "./browser-action";
 import { openView, closeView } from "./views";
 import { makeItemSummary } from "../common";
@@ -27,31 +27,39 @@ export default function initializeMessagePorts() {
   browser.runtime.onMessage.addListener(async function(message, sender) {
     switch (message.type) {
     case "open_view":
-      return openView(message.name);
+      return openView(message.name).then(() => ({}));
     case "close_view":
-      return closeView(message.name);
+      return closeView(message.name).then(() => ({}));
 
     case "signin":
-      return authz.signIn(message.interactive);
+      try {
+        return getAuthorization().signIn(message.interactive);
+      } catch (err) {
+        console.log(`failure: ${err.message}`);
+        throw err;
+      }
     case "initialize":
-      return authz.verify(message.email, message.password).
-        then(() => openDataStore()).
-        then(async(ds) => {
-          await ds.initialize({
-            password: message.password,
-          });
-          await updateBrowserAction(ds);
+      return getAuthorization().verify(message.password).then(async() => {
+        const ds = await openDataStore();
+        await ds.initialize({
+          password: message.password,
         });
+        await saveAuthorization(browser.storage.local);
+        await updateBrowserAction(ds);
+        return {};
+      });
 
     case "unlock":
       return openDataStore().then(async(ds) => {
-          await ds.unlock(message.password);
-          await updateBrowserAction(ds);
-        });
+        await ds.unlock(message.password);
+        await updateBrowserAction(ds);
+        return {};
+      });
     case "lock":
       return openDataStore().then(async(ds) => {
         await ds.lock();
         await updateBrowserAction(ds);
+        return {};
       });
 
     case "list_items":

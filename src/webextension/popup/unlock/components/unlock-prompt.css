@@ -2,15 +2,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-body {
-  margin: 0;
-}
-
 .unlock-prompt {
   margin: 1em;
 }
 
-.unlock-prompt form {
+.unlock-prompt > form {
   width: 100%;
   height: 100%;
 
@@ -32,6 +28,7 @@ body {
 .unlock-prompt > form > input {
   flex: 0;
 }
+
 .unlock-prompt > form > button {
   flex: 0;
 }

@@ -23,24 +23,33 @@ async function fetchMessages(baseDir, locale, bundle) {
     const response = await fetch(`${baseDir}/${locale}/${bundle}.ftl`);
     const messages = await response.text();
 
-    return { [locale]: messages };
+    return messages;
   } catch (e) {
-    throw new Error(`unable to fetch localization for ${locale}`);
+    // We couldn't fetch any strings; just return nothing and fluent will fall
+    // back to the default locale if needed.
+    return "";
   }
 }
 
-async function createMessagesGenerator(baseDir, currentLocales, bundle) {
-  const fetched = await Promise.all(
-    currentLocales.map((x) => fetchMessages(baseDir, x, bundle))
-  );
-  const bundles = fetched.reduce(
+function fetchAllMessages(baseDir, locale, bundles) {
+  return Promise.all(bundles.map((i) => fetchMessages(baseDir, locale, i)));
+}
+
+async function createMessagesGenerator(baseDir, currentLocales, bundles) {
+  const fetched = await Promise.all(currentLocales.map(async(locale) => {
+    return {[locale]: await fetchAllMessages(baseDir, locale, bundles)};
+  }));
+
+  const mergedBundle = fetched.reduce(
     (obj, cur) => Object.assign(obj, cur)
   );
 
   return function* generateMessages() {
     for (const locale of currentLocales) {
       const cx = new MessageContext(locale);
-      cx.addMessages(bundles[locale]);
+      for (let i of mergedBundle[locale]) {
+        cx.addMessages(i);
+      }
       yield cx;
     }
   }
@@ -51,7 +60,7 @@ export default class AppLocalizationProvider extends Component {
     return {
       baseDir: PropTypes.string,
       userLocales: PropTypes.arrayOf(PropTypes.string),
-      bundle: PropTypes.string.isRequired,
+      bundles: PropTypes.arrayOf(PropTypes.string).isRequired,
       children: PropTypes.any,
     };
   }
@@ -65,17 +74,17 @@ export default class AppLocalizationProvider extends Component {
 
   constructor(props) {
     super(props);
-    const { baseDir, userLocales, bundle } = props;
+    const { baseDir, userLocales, bundles } = props;
 
     this.state = {
       baseDir,
       userLocales,
-      bundle,
+      bundles,
     };
   }
 
   async componentWillMount() {
-    const { baseDir, userLocales, bundle } = this.state;
+    const { baseDir, userLocales, bundles } = this.state;
 
     const availableLocales = await fetchAvailableLocales(baseDir);
     const currentLocales = negotiateLanguages(
@@ -84,7 +93,7 @@ export default class AppLocalizationProvider extends Component {
     );
 
     const generateMessages = await createMessagesGenerator(
-      baseDir, currentLocales, bundle
+      baseDir, currentLocales, bundles
     );
     this.setState({ messages: generateMessages() });
   }

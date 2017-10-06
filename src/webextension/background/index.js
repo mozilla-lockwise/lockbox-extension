@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import openDataStore from "./datastore";
+import { loadAuthorization } from "./authorization";
 import initializeMessagePorts from "./message-ports";
 import updateBrowserAction from "./browser-action";
 
@@ -10,6 +11,14 @@ import updateBrowserAction from "./browser-action";
 // button. Eventually, we'll have UX to create new datastores (and persist
 // existing ones).\
 openDataStore().then(async(ds) => {
+  try {
+    // attempt to load authorization (FxA) data
+    let authz = await loadAuthorization(browser.storage.local);
+    console.log(`loaded authorization for ${authz.uid}`);
+  } catch (err) {
+    console.log(`loading failed: ${err.message}`);
+  }
+
   initializeMessagePorts();
   await updateBrowserAction(ds);
 });
