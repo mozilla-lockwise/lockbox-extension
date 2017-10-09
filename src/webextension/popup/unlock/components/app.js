@@ -2,13 +2,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import * as DataStore from "lockbox-datastore";
+import React from "react";
 
-let datastore;
+import UnlockPrompt from "./unlock-prompt";
 
-export default async function openDataStore() {
-  if (!datastore) {
-    datastore = await DataStore.open();
-  }
-  return datastore;
+import "./app.css";
+
+export default function App() {
+  return <UnlockPrompt/>;
 }

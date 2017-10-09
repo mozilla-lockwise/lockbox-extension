@@ -60,12 +60,3 @@ modal-delete
     .text = Are you sure you want to delete this item?
     .primaryButtonLabel = Delete
     .secondaryButtonLabel = Cancel
-
-// These strings are for our generic widgets. They should probably go in a
-// separate file when we have a way to do that.
-[[widgets]]
-
-filter-input-clear = Clear
-
-password-input-show = Show
-password-input-hide = Hide

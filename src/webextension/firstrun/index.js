@@ -5,9 +5,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import App from "./app";
+import AppLocalizationProvider from "../l10n";
+import App from "./components/app";
 
 ReactDOM.render(
-  <App/>,
+  <AppLocalizationProvider bundles={["firstrun", "widgets"]}
+                           userLocales={navigator.languages}>
+    <App/>
+  </AppLocalizationProvider>,
   document.getElementById("content")
 );
