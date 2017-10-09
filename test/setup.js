@@ -111,6 +111,7 @@ global.browser = {
       removeListener() {},
     },
     setPopup() {},
+    setIcon() {},
   },
 
   extension: {
