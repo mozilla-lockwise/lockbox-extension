@@ -14,7 +14,7 @@
     <% } for (let js of htmlWebpackPlugin.files.js) { %>
     <script src="<%= path.relative(dir, js) %>" defer></script>
     <% } %>
-    <link href="<%= htmlWebpackPlugin.options.icon %>" rel="shortcut icon" type="image/png"/>
+    <link href="<%= htmlWebpackPlugin.options.icon %>" rel="shortcut icon" type="image/svg"/>
     <link href="chrome://browser/content/extension.css" rel="stylesheet">
     <link href="chrome://browser/content/extension-mac.css" rel="stylesheet">
   </head>
