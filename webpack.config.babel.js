@@ -109,11 +109,9 @@ export default {
       {from: "bootstrap.js"},
       {from: "webextension/locales/**/*.ftl"},
       {from: "webextension/icons/*"},
-      {from: "webextension/icons/lock.png", to: "icon.png"},
+      {from: "icon.png"},
       ...extraCopy,
-    ], {
-      copyUnmodified: true,
-    }),
+    ]),
     new webpack.DefinePlugin({
       "process.env": {
         "NODE_ENV": JSON.stringify(NODE_ENV),
