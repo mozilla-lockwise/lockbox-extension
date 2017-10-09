@@ -137,7 +137,7 @@ These are the metrics we plan to collect regarding the state of user datastores.
 
 From a metrics point of view, the FxA sign-in / account creation process is a black box to us. Thus the best we can do at this point is track when a user interacts with the Lockbox-specific views that are included in the first run flow.
 
-We have two **categories** of events here: rendering events and interaction events:  `setup.render` and `setup.interaction`. For rendering events, the **object** field is populated by the name of the view being rendered; for interaction events the **object** is the name of the button. Below is a brief description of the view names and their corresponding buttons.
+We have two **categories** of events here: rendering events and interaction events:  `lockbox_setup.render` and `lockbox_setup.interaction`. For rendering events, the **object** field is populated by the name of the view being rendered; for interaction events the **object** is the name of the button. Below is a brief description of the view names and their corresponding buttons.
 
 -   `lockbox_toolbar_firstrun`
     -   Pop-over shown when the user first clicks on the Lockbox toolbar icon after install. Contains the `get_started_button`. Note that the click on the toolbar icon itself is logged in a separate event (see "Toolbar Button Interaction Event" section below).
@@ -153,8 +153,8 @@ The **extra** field contains the user's FxA anonymous/random user id. For `lockb
 
 To register the rendering events:
 ```javascript
-Services.telemetry.registerEvents("setup.render", {
-  "setup.render": {
+Services.telemetry.registerEvents("lockbox_setup.render", {
+  "lockbox_setup.render": {
     methods: ["render"],
     objects: ["lockbox_toolbar_firstrun", // startup flow views
             "reenter_password"],
@@ -164,8 +164,8 @@ Services.telemetry.registerEvents("setup.render", {
 ```
 To register the interaction events:
 ```javascript
-Services.telemetry.registerEvents("setup.interaction", {
-  "setup.click": {
+Services.telemetry.registerEvents("lockbox_setup.interaction", {
+  "lockbox_setup.click": {
     methods: ["click"],
     objects: ["get_started_button", // start-up flow buttons
               "lockbox_signin_button"],
@@ -175,7 +175,7 @@ Services.telemetry.registerEvents("setup.interaction", {
 ```
 An example of how to record a rendering of the `reenter_password` view:
 ```javascript
-Services.telemetry.recordEvent("setup.render",
+Services.telemetry.recordEvent("lockbox_setup.render",
                     "render",
                     "reenter_password",
                     null,
@@ -186,7 +186,7 @@ Services.telemetry.recordEvent("setup.render",
 To record (for example) a click on one of the `lockboxSignin_button` button:
 
 ```javascript
-Services.telemetry.recordEvent("lockbox_toolbar_firstrun.interaction",
+Services.telemetry.recordEvent("lockbox_setup.interaction",
                     "click",
                     "lockbox_signin_button",
                     null,
