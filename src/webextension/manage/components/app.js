@@ -8,6 +8,7 @@ import AddItem from "../containers/add-item";
 import AllItems from "../containers/all-items";
 import CurrentSelection from "../containers/current-selection";
 import GoHome from "../containers/go-home";
+import LockIt from "../containers/lock-it";
 import ItemFilter from "../containers/item-filter";
 import ModalRoot from "../containers/modal-root";
 
@@ -25,6 +26,7 @@ export default function App() {
           <menu>
             <AddItem/>
             <GoHome/>
+            <LockIt/>
           </menu>
           <CurrentSelection/>
         </article>
