@@ -124,7 +124,7 @@ export default {
       inject: false,
       minify: htmlMinifyOptions,
       title: "Lockbox Entries",
-      icon: "../icons/lb_locked.svg",
+      icon: "../icons/lb_unlocked.svg",
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",
@@ -133,7 +133,6 @@ export default {
       inject: false,
       minify: htmlMinifyOptions,
       title: "Welcome to Lockbox",
-      icon: "../icons/lb_locked.svg",
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",
@@ -142,7 +141,6 @@ export default {
       inject: false,
       minify: htmlMinifyOptions,
       title: "Unlock",
-      icon: "../icons/lb_locked.svg",
     }),
     new XMLWebpackPlugin({files: [{
       template: path.join(__dirname, "src/install.rdf.ejs"),
