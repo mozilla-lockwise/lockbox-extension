@@ -8,13 +8,14 @@ import React from "react";
 import { connect } from "react-redux";
 
 import Button from "../../widgets/button";
-import { selectItem } from "../actions";
 
 function LockIt({dispatch}) {
   return (
     <Localized id="lock-it">
-      <Button onClick={() => { browser.runtime.sendMessage({type: "lock"});
-                               browser.tabs.reload(); }}>
+      <Button onClick={() => {
+                                browser.runtime.sendMessage({ type: "lock" });
+                                browser.tabs.reload();
+                              }}>
         siGn oUT
       </Button>
     </Localized>
