@@ -9,7 +9,7 @@ const { JSDOM } = jsdom;
 const { document } = (new JSDOM("")).window;
 
 var exposedProperties = ["window", "navigator", "document", "browser",
-                         "HTMLElement"];
+                         "Headers", "HTMLElement"];
 
 global.document = document;
 global.window = document.defaultView;
@@ -27,6 +27,10 @@ Object.keys(document.defaultView).forEach((property) => {
 
 global.navigator = {
   userAgent: "node.js",
+};
+
+global.Headers = class Headers {
+  append() {}
 };
 
 // Mock the WebExtension message ports so that our tests can pretend to talk
@@ -101,6 +105,20 @@ function makePairedPorts(contextId) {
 }
 
 global.browser = {
+  browserAction: {
+    onClicked: {
+      addListener() {},
+      removeListener() {},
+    },
+    setPopup() {},
+  },
+
+  extension: {
+    getURL(path) {
+      return path;
+    },
+  },
+
   runtime: {
     onMessage: new MockListener(),
     onConnect: new MockListener(),
@@ -119,5 +137,53 @@ global.browser = {
       this.onConnect.mockFireListener(right);
       return left;
     },
+  },
+
+  storage: {
+    local: {
+      get() {},
+      set() {},
+    },
+  },
+
+  tabs: {
+    _openedTabs: [],
+    _nextId: 1,
+
+    create({url}) {
+      const tabInfo = {id: this._nextId++, windowId: 1, url};
+      this._openedTabs.push(tabInfo);
+      return tabInfo;
+    },
+
+    remove(id) {
+      const tabIndex = this._openedTabs.findIndex((i) => i.id === id);
+      if (tabIndex === -1) {
+        throw new Error("no such tab");
+      }
+      this._openedTabs.splice(tabIndex, 1);
+    },
+
+    get(id) {
+      const tab = this._openedTabs.find((i) => i.id === id);
+      if (!tab) {
+        throw new Error("no such tab");
+      }
+      return tab;
+    },
+
+    update() {},
+
+    get mockAllTabs() {
+      return this._openedTabs;
+    },
+
+    mockClearTabs() {
+      this._openedTabs = [];
+    },
+  },
+
+  windows: {
+    update() {},
   },
 };

@@ -8,7 +8,9 @@ import React from "react";
 
 import Button from "../../widgets/button";
 import Input from "../../widgets/input";
+import PasswordInput from "../../widgets/password-input";
 import TextArea from "../../widgets/text-area";
+import { Text } from "./item-details.js";
 
 import styles from "./item-details.css";
 
@@ -45,18 +47,24 @@ export default class EditItemDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {...props.fields};
+    this._changed = false;
   }
 
   componentDidMount() {
     this._firstField.focus();
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({...props.fields});
+  handleChange(event) {
+    this._changed = true;
+    this.setState({[event.target.name]: event.target.value});
   }
 
   render() {
     const {onSave, onCancel} = this.props;
+    const controlledProps = (name) => {
+      return {name, value: this.state[name],
+              onChange: (e) => this.handleChange(e)};
+    };
 
     return (
       <form className={`${styles.itemDetails} ${styles.editing}`}
@@ -66,46 +74,41 @@ export default class EditItemDetails extends React.Component {
             }}>
         <label>
           <Localized id="item-details-title">
-            <span>tITLe</span>
+            <Text>tITLe</Text>
           </Localized>
-          <Input type="text" name="title" value={this.state.title}
-                 ref={(element) => this._firstField = element}
-                 onChange={(e) => this.setState({title: e.target.value})}/>
+        <Input type="text" {...controlledProps("title")}
+               ref={(element) => this._firstField = element}/>
         </label>
         <label>
           <Localized id="item-details-origin">
-            <span>oRIGIn</span>
+            <Text>oRIGIn</Text>
           </Localized>
-          <Input type="text" name="origin" value={this.state.origin}
-                 onChange={(e) => this.setState({origin: e.target.value})}/>
+          <Input type="text" {...controlledProps("origin")}/>
         </label>
         <label>
           <Localized id="item-details-username">
-            <span>uSERNAMe</span>
+            <Text>uSERNAMe</Text>
           </Localized>
-          <Input type="text" name="username" value={this.state.username}
-                 onChange={(e) => this.setState({username: e.target.value})}/>
+          <Input type="text" {...controlledProps("username")}/>
         </label>
         <label>
           <Localized id="item-details-password">
-            <span>pASSWORd</span>
+            <Text>pASSWORd</Text>
           </Localized>
-          <Input type="text" name="password" value={this.state.password}
-                 onChange={(e) => this.setState({password: e.target.value})}/>
+          <PasswordInput {...controlledProps("password")}/>
         </label>
         <label>
           <Localized id="item-details-notes">
-            <span>nOTEs</span>
+            <Text>nOTEs</Text>
           </Localized>
-          <TextArea name="notes" value={this.state.notes}
-                    onChange={(e) => this.setState({notes: e.target.value})}/>
+          <TextArea {...controlledProps("notes")}/>
         </label>
         <div className={styles.buttons}>
           <Localized id="item-details-save">
             <Button type="submit">sAVe</Button>
           </Localized>
           <Localized id="item-details-cancel">
-            <Button type="button" onClick={(e) => onCancel()}>
+            <Button type="button" onClick={(e) => onCancel(this._changed)}>
               cANCEl
             </Button>
           </Localized>

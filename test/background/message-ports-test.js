@@ -6,25 +6,41 @@ require("babel-polyfill");
 
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
+import fetchMock from "fetch-mock";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
 chai.use(chaiAsPromised);
 chai.use(sinonChai);
 
+import getAuthorization from "../../src/webextension/background/authorization";
 import openDataStore from "../../src/webextension/background/datastore";
 import initializeMessagePorts from
        "../../src/webextension/background/message-ports";
 
 describe("message ports (background side)", () => {
+  const email = "eripley@wyutani.com";
+  const password = "n0str0m0";
+
   let itemId, selfMessagePort, otherMessagePort, selfListener, otherListener;
 
   before(async() => {
-    await openDataStore().then(async(ds) => ds.initialize());
+    await openDataStore();
     initializeMessagePorts();
 
     selfMessagePort = browser.runtime.connect();
     otherMessagePort = browser.runtime.connect(undefined, {mockPrimary: false});
+
+    fetchMock.post("https://stable.dev.lcip.org/auth/v1/account/login",
+                   JSON.stringify({}));
+  });
+
+  after(() => {
+    // Clear the listeners set in <src/webextension/background/messagePorts.js>.
+    browser.runtime.onConnect.mockClearListener();
+    browser.runtime.onMessage.mockClearListener();
+
+    fetchMock.restore();
   });
 
   beforeEach(() => {
@@ -37,10 +53,55 @@ describe("message ports (background side)", () => {
     otherMessagePort.onMessage.mockClearListener();
   });
 
-  after(() => {
-    // Clear the listeners set in <src/webextension/background/messagePorts.js>.
-    browser.runtime.onConnect.mockClearListener();
-    browser.runtime.onMessage.mockClearListener();
+  // Note: these tests are in a specific order since we modify the datastore as
+  // we test. Each test assumes the previous has passed.
+
+  it('handle "open_view"', async() => {
+    const result = await browser.runtime.sendMessage({
+      type: "open_view",
+      name: "firstrun",
+    });
+
+    expect(result).to.deep.equal({});
+  });
+
+  it('handle "close_view"', async() => {
+    const result = await browser.runtime.sendMessage({
+      type: "close_view",
+      name: "firstrun",
+    });
+
+    expect(result).to.deep.equal({});
+  });
+
+  // TODO: Handle "signin". This is pretty hard at the moment though, since it
+  // assumes the existence of a lot of Web APIs that jsdom doesn't have. Maybe
+  // karma will save us here...
+
+  it('handle "initialize"', async() => {
+    // Pretend we're signed in.
+    getAuthorization().info = {};
+    const result = await browser.runtime.sendMessage({
+      type: "initialize", email, password,
+    });
+
+    expect(result).to.deep.equal({});
+  });
+
+  it('handle "lock"', async() => {
+    const result = await browser.runtime.sendMessage({
+      type: "lock",
+    });
+
+    expect(result).to.deep.equal({});
+  });
+
+  it('handle "unlock"', async() => {
+    const result = await browser.runtime.sendMessage({
+      type: "unlock", password,
+    });
+
+    expect(result).to.deep.equal({});
   });
 
   it('handle "add_item"', async() => {

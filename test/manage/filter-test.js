@@ -37,8 +37,9 @@ describe("filters", () => {
 
     describe("empty filter", () => {
       it("match anything", () => {
+        const emptyFilter = filter.parseFilterString(" ");
         for (let i of items) {
-          expect(filter.filterItem(filter.defaultFilter, i)).to.equal(true);
+          expect(filter.filterItem(emptyFilter, i)).to.equal(true);
         }
       });
     });

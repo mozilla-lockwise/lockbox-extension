@@ -3,6 +3,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import openDataStore from "./datastore";
+import getAuthorization, { saveAuthorization } from "./authorization/index";
+import updateBrowserAction from "./browser-action";
+import { openView, closeView } from "./views";
 import { makeItemSummary } from "../common";
 
 const ports = new Set();
@@ -23,6 +26,42 @@ export default function initializeMessagePorts() {
 
   browser.runtime.onMessage.addListener(async function(message, sender) {
     switch (message.type) {
+    case "open_view":
+      return openView(message.name).then(() => ({}));
+    case "close_view":
+      return closeView(message.name).then(() => ({}));
+
+    case "signin":
+      try {
+        return getAuthorization().signIn(message.interactive);
+      } catch (err) {
+        console.log(`failure: ${err.message}`);
+        throw err;
+      }
+    case "initialize":
+      return getAuthorization().verify(message.password).then(async() => {
+        const ds = await openDataStore();
+        await ds.initialize({
+          password: message.password,
+        });
+        await saveAuthorization(browser.storage.local);
+        await updateBrowserAction(ds);
+        return {};
+      });
+
+    case "unlock":
+      return openDataStore().then(async(ds) => {
+        await ds.unlock(message.password);
+        await updateBrowserAction(ds);
+        return {};
+      });
+    case "lock":
+      return openDataStore().then(async(ds) => {
+        await ds.lock();
+        await updateBrowserAction(ds);
+        return {};
+      });
+
     case "list_items":
       return openDataStore().then(async(ds) => {
         return {items: Array.from((await ds.list()).values(),
@@ -31,14 +70,12 @@ export default function initializeMessagePorts() {
 
     case "add_item":
       return openDataStore().then(async(ds) => {
-        await ds.unlock();
         const item = await ds.add(message.item);
         broadcast({type: "added_item", item}, sender);
         return {item};
       });
     case "update_item":
       return openDataStore().then(async(ds) => {
-        await ds.unlock();
         const item = await ds.update(message.item);
         broadcast({type: "updated_item", item}, sender);
         return {item};

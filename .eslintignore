@@ -1,4 +1,6 @@
 !.eslintrc.js
+coverage
 dist
-site
 node_modules
+site
+temp

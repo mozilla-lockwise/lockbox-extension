@@ -8,11 +8,10 @@ import {
   LIST_ITEMS_COMPLETED, ADD_ITEM_STARTING, ADD_ITEM_COMPLETED,
   UPDATE_ITEM_COMPLETED, REMOVE_ITEM_COMPLETED, SELECT_ITEM_STARTING,
   SELECT_ITEM_COMPLETED, START_NEW_ITEM, EDIT_CURRENT_ITEM, CANCEL_EDITING,
-  FILTER_ITEMS,
+  FILTER_ITEMS, SHOW_MODAL, HIDE_MODAL,
 } from "./actions";
 import { makeItemSummary } from "../common";
 import { NEW_ITEM_ID } from "./common";
-import { defaultFilter } from "./filter";
 
 function maybeAddCurrentItem(state, action) {
   if (state.pendingAdd === action.actionId) {
@@ -82,7 +81,7 @@ export function cacheReducer(state = {
 }
 
 export function uiReducer(state = {
-  editing: false, selectedItemId: null, filter: defaultFilter,
+  editing: false, selectedItemId: null, filter: "",
 }, action) {
   switch (action.type) {
   case ADD_ITEM_COMPLETED:
@@ -107,9 +106,21 @@ export function uiReducer(state = {
   }
 }
 
+export function modalReducer(state = {id: null, props: null}, action) {
+  switch (action.type) {
+  case SHOW_MODAL:
+    return {id: action.id, props: action.props};
+  case HIDE_MODAL:
+    return {id: null, props: null};
+  default:
+    return state;
+  }
+}
+
 const reducer = combineReducers({
   cache: cacheReducer,
   ui: uiReducer,
+  modal: modalReducer,
 });
 
 export default reducer;

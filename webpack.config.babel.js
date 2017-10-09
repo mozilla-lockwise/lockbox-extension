@@ -11,6 +11,7 @@ import HTMLWebpackPlugin from "html-webpack-plugin";
 import XMLWebpackPlugin from "xml-webpack-plugin";
 import MinifyPlugin from "babel-minify-webpack-plugin";
 
+import DirListWebpackPlugin from "./dir-list-webpack-plugin";
 import JSONWebpackPlugin from "./json-webpack-plugin";
 import thisPackage from "./package.json";
 
@@ -29,6 +30,7 @@ const cssLoader = {
 
 let extraPlugins = [];
 let extraLoaders = [];
+let extraCopy = [];
 let htmlMinifyOptions = false;
 if (NODE_ENV === "production") {
 
@@ -45,12 +47,23 @@ if (NODE_ENV === "production") {
     }),
   });
 
+  extraCopy.push({from: "webextension/locales/locales.json",
+                  to: "webextension/locales/"});
+
   htmlMinifyOptions = {
     removeComments: true,
     collapseWhitespace: true,
   };
 
 } else {
+
+  extraPlugins.push(
+    new DirListWebpackPlugin({
+      directory: path.join(__dirname, "src/webextension/locales"),
+      filename: "webextension/locales/locales.json",
+      filter: (file, stats) => file.charAt(0) !== "." && stats.isDirectory(),
+    }),
+  );
 
   extraLoaders.push({
     test: /\.css$/,
@@ -70,6 +83,8 @@ export default {
   entry: {
     "webextension/background": "./webextension/background/index.js",
     "webextension/manage/index": "./webextension/manage/index.js",
+    "webextension/firstrun/index": "./webextension/firstrun/index.js",
+    "webextension/popup/unlock/index": "./webextension/popup/unlock/index.js",
   },
 
   output: {
@@ -95,6 +110,7 @@ export default {
       {from: "webextension/locales/**/*.ftl"},
       {from: "webextension/icons/*"},
       {from: "webextension/icons/lock.png", to: "icon.png"},
+      ...extraCopy,
     ], {
       copyUnmodified: true,
     }),
@@ -109,7 +125,25 @@ export default {
       chunks: ["webextension/manage/index"],
       inject: false,
       minify: htmlMinifyOptions,
-      title: "Lockbox",
+      title: "Lockbox Entries",
+      icon: "../icons/lock.png",
+    }),
+    new HTMLWebpackPlugin({
+      template: "template.ejs",
+      filename: "webextension/firstrun/index.html",
+      chunks: ["webextension/firstrun/index"],
+      inject: false,
+      minify: htmlMinifyOptions,
+      title: "Welcome to Lockbox",
+      icon: "../icons/lock.png",
+    }),
+    new HTMLWebpackPlugin({
+      template: "template.ejs",
+      filename: "webextension/popup/unlock/index.html",
+      chunks: ["webextension/popup/unlock/index"],
+      inject: false,
+      minify: htmlMinifyOptions,
+      title: "Unlock",
       icon: "../icons/lock.png",
     }),
     new XMLWebpackPlugin({files: [{
@@ -118,7 +152,7 @@ export default {
       data: thisPackage,
     }]}),
     new JSONWebpackPlugin({
-      template: "src/webextension/manifest.json.tpl",
+      template: path.join(__dirname, "src/webextension/manifest.json.tpl"),
       filename: "webextension/manifest.json",
       data: thisPackage,
     }),

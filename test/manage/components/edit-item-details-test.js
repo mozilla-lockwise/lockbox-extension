@@ -11,14 +11,10 @@ import sinonChai from "sinon-chai";
 
 chai.use(sinonChai);
 
+import { simulateTyping } from "../../common";
 import mountWithL10n from "../../mock-l10n";
 import EditItemDetails from
        "../../../src/webextension/manage/components/edit-item-details";
-
-function simulateTyping(wrapper, value) {
-  wrapper.get(0).value = value;
-  wrapper.at(0).simulate("change");
-}
 
 describe("<EditItemDetails/>", () => {
   const blankFields = {
@@ -67,7 +63,8 @@ describe("<EditItemDetails/>", () => {
     });
 
     it("onSave called", () => {
-      wrapper.find('button[type="submit"]').simulate("submit");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-save")
+             .find("button").simulate("submit");
       expect(onSave).to.have.been.calledWith(blankFields);
     });
 
@@ -75,13 +72,15 @@ describe("<EditItemDetails/>", () => {
       for (let i in updatedFields) {
         simulateTyping(wrapper.find(`[name="${i}"]`), updatedFields[i]);
       }
-      wrapper.find('button[type="submit"]').simulate("submit");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-save")
+             .find("button").simulate("submit");
 
       expect(onSave).to.have.been.calledWith(updatedFields);
     });
 
     it("onCancel called", () => {
-      wrapper.find("button").not('[type="submit"]').simulate("click");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-cancel")
+             .find("button").simulate("click");
       expect(onCancel).to.have.been.calledWith();
     });
   });
@@ -102,7 +101,8 @@ describe("<EditItemDetails/>", () => {
     });
 
     it("onSave called", () => {
-      wrapper.find('button[type="submit"]').simulate("submit");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-save")
+             .find("button").simulate("submit");
       expect(onSave).to.have.been.calledWith(originalFields);
     });
 
@@ -110,37 +110,16 @@ describe("<EditItemDetails/>", () => {
       for (let i in updatedFields) {
         simulateTyping(wrapper.find(`[name="${i}"]`), updatedFields[i]);
       }
-      wrapper.find('button[type="submit"]').simulate("submit");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-save")
+             .find("button").simulate("submit");
 
       expect(onSave).to.have.been.calledWith(updatedFields);
     });
 
     it("onCancel called", () => {
-      wrapper.find("button").not('[type="submit"]').simulate("click");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-cancel")
+             .find("button").simulate("click");
       expect(onCancel).to.have.been.calledWith();
-    });
-  });
-
-  describe("change selected item", () => {
-    beforeEach(() => {
-      wrapper = mountWithL10n(
-        <EditItemDetails fields={originalFields}
-                         onSave={onSave} onCancel={onCancel}/>
-      );
-    });
-
-    it("form fields updated", () => {
-      for (let i in originalFields) {
-        expect(wrapper.find(`[name="${i}"]`).prop("value"))
-              .to.equal(originalFields[i]);
-      }
-
-      wrapper.setProps({fields: updatedFields});
-
-      for (let i in updatedFields) {
-        expect(wrapper.find(`[name="${i}"]`).prop("value"))
-              .to.equal(updatedFields[i]);
-      }
     });
   });
 });

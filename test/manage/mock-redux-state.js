@@ -13,7 +13,11 @@ export const initialState = {
   ui: {
     editing: false,
     selectedItemId: null,
-    filter: [],
+    filter: "",
+  },
+  modal: {
+    id: null,
+    props: null,
   },
 };
 
@@ -43,6 +47,10 @@ export const filledState = {
   ui: {
     editing: false,
     selectedItemId: "1",
-    filter: [],
+    filter: "",
+  },
+  modal: {
+    id: null,
+    props: null,
   },
 };

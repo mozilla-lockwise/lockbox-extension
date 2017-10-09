@@ -5,3 +5,7 @@
 /node_modules/
 /site/
 /*.xpi
+addon.env
+.DS_Store
+*.log
+/temp/

@@ -38,7 +38,7 @@ describe("<ItemFilter/>", () => {
 
     expect(store.getActions()[0]).to.deep.equal({
       type: FILTER_ITEMS,
-      filter: ["my", "filter"],
+      filter: "my filter",
     });
   });
 
@@ -48,7 +48,7 @@ describe("<ItemFilter/>", () => {
 
     expect(store.getActions()[1]).to.deep.equal({
       type: FILTER_ITEMS,
-      filter: [],
+      filter: "",
     });
   });
 });

@@ -5,18 +5,23 @@
 require("babel-polyfill");
 
 import waitUntil from "async-wait-until";
-import { expect } from "chai";
+import chai, { expect } from "chai";
+import chaiAsPromised from "chai-as-promised";
+import chaiEnzyme from "chai-enzyme";
 import { mount } from "enzyme";
 import fetchMock from "fetch-mock";
 import { Localized } from "fluent-react";
 import React from "react";
 import sinon from "sinon";
 
+chai.use(chaiAsPromised);
+chai.use(chaiEnzyme);
+
 import AppLocalizationProvider from "../src/webextension/l10n";
 
 describe("<AppLocalizationProvider/>", () => {
   const locales = ["en-US", "es-ES"];
-  const bundle = "manage";
+  const bundles = ["greetings", "farewells"];
   function waitUntilTranslated() {
     return waitUntil(() => {
       return AppLocalizationProvider.prototype.render.callCount === 2;
@@ -24,8 +29,12 @@ describe("<AppLocalizationProvider/>", () => {
   }
 
   before(() => {
-    fetchMock.get("/locales/en-US/manage.ftl", "hello = Hello\n");
-    fetchMock.get("/locales/es-ES/manage.ftl", "hello = Hola\n");
+    fetchMock.get("/locales/en-US/greetings.ftl", "hello = Hello\n");
+    fetchMock.get("/locales/en-US/farewells.ftl", "goodbye = Goodbye\n");
+    fetchMock.get("/locales/es-ES/greetings.ftl", "hello = Hola\n");
+    fetchMock.get("/locales/locales.json", JSON.stringify(locales));
+    fetchMock.get("/bad-locales/locales.json", JSON.stringify(locales));
+    fetchMock.get("*", {throws: new Error()});
   });
 
   after(() => {
@@ -42,36 +51,70 @@ describe("<AppLocalizationProvider/>", () => {
 
   it("translate to en-US", async() => {
     const wrapper = mount(
-      <AppLocalizationProvider availableLocales={locales}
-                               bundle={bundle}
+      <AppLocalizationProvider bundles={bundles}
                                userLocales={["en-US"]}>
-        <Localized id="hello">
-          <div>untranslated</div>
-        </Localized>
+        <main>
+          <Localized id="hello">
+            <div>untranslated</div>
+          </Localized>
+          <Localized id="goodbye">
+            <div>untranslated</div>
+          </Localized>
+        </main>
       </AppLocalizationProvider>
     );
     await waitUntilTranslated();
-    expect(wrapper.text()).to.equal("Hello");
+
+    expect(wrapper.find("div").first()).to.have.text("Hello");
+    expect(wrapper.find("div").last()).to.have.text("Goodbye");
   });
 
   it("translate to es-ES", async() => {
     const wrapper = mount(
-      <AppLocalizationProvider availableLocales={locales}
-                               bundle={bundle}
+      <AppLocalizationProvider bundles={bundles}
                                userLocales={["es-ES"]}>
-        <Localized id="hello">
-          <div>untranslated</div>
-        </Localized>
+        <main>
+          <Localized id="hello">
+            <div>untranslated</div>
+          </Localized>
+          <Localized id="goodbye">
+            <div>untranslated</div>
+          </Localized>
+        </main>
       </AppLocalizationProvider>
     );
     await waitUntilTranslated();
-    expect(wrapper.text()).to.equal("Hola");
+
+    expect(wrapper.find("div").first()).to.have.text("Hola");
+    // Ensure we fall back to en-US if our locale is missing that string.
+    expect(wrapper.find("div").last()).to.have.text("Goodbye");
+  });
+
+  it("translate to de", async() => {
+    const wrapper = mount(
+      <AppLocalizationProvider bundles={bundles}
+                               userLocales={["de"]}>
+        <main>
+          <Localized id="hello">
+            <div>untranslated</div>
+          </Localized>
+          <Localized id="goodbye">
+            <div>untranslated</div>
+          </Localized>
+        </main>
+      </AppLocalizationProvider>
+    );
+    await waitUntilTranslated();
+
+    // Ensure we fall back to en-US strings if we don't have translations for
+    // any of the userLocales.
+    expect(wrapper.find("div").first()).to.have.text("Hello");
+    expect(wrapper.find("div").last()).to.have.text("Goodbye");
   });
 
   it("fallback to text content", async() => {
     const wrapper = mount(
-      <AppLocalizationProvider availableLocales={locales}
-                               bundle={bundle}
+      <AppLocalizationProvider bundles={bundles}
                                userLocales={locales}>
         <Localized id="nonexistent">
           <div>untranslated</div>
@@ -80,5 +123,14 @@ describe("<AppLocalizationProvider/>", () => {
     );
     await waitUntilTranslated();
     expect(wrapper.text()).to.equal("untranslated");
+  });
+
+  it("throws when locales.json is not found", () => {
+    const provider = new AppLocalizationProvider({
+      bundles, baseDir: "/nonexist",
+    });
+    return expect(provider.componentWillMount()).to.be.rejectedWith(
+      Error, "unable to fetch available locales"
+    );
   });
 });

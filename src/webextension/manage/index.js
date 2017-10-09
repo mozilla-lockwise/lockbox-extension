@@ -20,7 +20,7 @@ initializeMessagePorts(store);
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppLocalizationProvider bundle="manage" availableLocales={["en-US"]}
+    <AppLocalizationProvider bundles={["manage", "widgets"]}
                              userLocales={navigator.languages}>
       <App/>
     </AppLocalizationProvider>

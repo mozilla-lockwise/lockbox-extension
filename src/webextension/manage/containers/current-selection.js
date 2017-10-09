@@ -7,7 +7,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import {
-  addItem, updateItem, removeItem, editCurrentItem, cancelEditing,
+  addItem, updateItem, editCurrentItem, cancelEditing, showModal,
 } from "../actions";
 import EditItemDetails from "../components/edit-item-details";
 import ItemDetails from "../components/item-details";
@@ -55,8 +55,8 @@ const ConnectedEditItemDetails = connect(
 
     return {
       onSave,
-      onCancel: () => {
-        dispatch(cancelEditing());
+      onCancel: (changed) => {
+        dispatch(changed ? showModal("cancel") : cancelEditing());
       },
     };
   },
@@ -71,7 +71,7 @@ const ConnectedItemDetails = connect(
       dispatch(editCurrentItem());
     },
     onDelete: () => {
-      dispatch(removeItem(ownProps.item.id));
+      dispatch(showModal("delete", {id: ownProps.item.id}));
     },
   })
 )(ItemDetails);

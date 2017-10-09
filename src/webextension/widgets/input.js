@@ -14,13 +14,19 @@ export default class Input extends React.Component {
     };
   }
 
+  static get defaultProps() {
+    return {
+      className: "",
+    };
+  }
+
   focus() {
     this.inputElement.focus();
   }
 
   render() {
     const {className, ...props} = this.props;
-    const finalClassName = `${styles.input} ${className || ""}`.trimRight();
+    const finalClassName = `${styles.input} ${className}`.trimRight();
     return (
       <span className="browser-style">
         <input className={finalClassName} {...props}

@@ -10,6 +10,7 @@ import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
+import { simulateTyping } from "../../common";
 import { initialState, filledState } from "../mock-redux-state";
 import mountWithL10n from "../../mock-l10n";
 import { NEW_ITEM_ID } from "../../../src/webextension/manage/common";
@@ -20,7 +21,6 @@ import ItemDetails from
 import CurrentSelection from
        "../../../src/webextension/manage/containers/current-selection";
 import * as actions from "../../../src/webextension/manage/actions";
-
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -69,17 +69,20 @@ describe("<CurrentSelection/>", () => {
     });
 
     it("editCurrentItem() dispatched", () => {
-      wrapper.find("button").at(0).simulate("click");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-edit")
+             .find("button").simulate("click");
       expect(store.getActions()[0]).to.deep.equal({
         type: actions.EDIT_CURRENT_ITEM,
       });
     });
 
-    it("removeItem() dispatched", () => {
-      wrapper.find("button").at(1).simulate("click");
-      expect(store.getActions()[0]).to.deep.include({
-        type: actions.REMOVE_ITEM_STARTING,
-        id: "1",
+    it('showModal("delete") dispatched', () => {
+      wrapper.findWhere((x) => x.prop("id") === "item-details-delete")
+             .find("button").simulate("click");
+      expect(store.getActions()[0]).to.deep.equal({
+        type: actions.SHOW_MODAL,
+        id: "delete",
+        props: {id: "1"},
       });
     });
   });
@@ -128,7 +131,8 @@ describe("<CurrentSelection/>", () => {
     });
 
     it("addItem() dispatched", () => {
-      wrapper.find('button[type="submit"]').simulate("submit");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-save")
+             .find("button").simulate("submit");
       expect(store.getActions()[0]).to.deep.include({
         type: actions.ADD_ITEM_STARTING,
         item: {
@@ -146,9 +150,21 @@ describe("<CurrentSelection/>", () => {
     });
 
     it("cancelEditing() dispatched", () => {
-      wrapper.find("button").not('[type="submit"]').simulate("click");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-cancel")
+             .find("button").simulate("click");
       expect(store.getActions()[0]).to.deep.equal({
         type: actions.CANCEL_EDITING,
+      });
+    });
+
+    it('showModal("cancel") dispatched', () => {
+      simulateTyping(wrapper.find('[name="title"]'), "title");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-cancel")
+             .find("button").simulate("click");
+      expect(store.getActions()[0]).to.deep.equal({
+        type: actions.SHOW_MODAL,
+        id: "cancel",
+        props: null,
       });
     });
   });
@@ -188,7 +204,8 @@ describe("<CurrentSelection/>", () => {
     });
 
     it("updateItem() dispatched", () => {
-      wrapper.find('button[type="submit"]').simulate("submit");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-save")
+             .find("button").simulate("submit");
       expect(store.getActions()[0]).to.deep.include({
         type: actions.UPDATE_ITEM_STARTING,
         item: {
@@ -206,9 +223,21 @@ describe("<CurrentSelection/>", () => {
     });
 
     it("cancelEditing() dispatched", () => {
-      wrapper.find("button").not('[type="submit"]').simulate("click");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-cancel")
+             .find("button").simulate("click");
       expect(store.getActions()[0]).to.deep.include({
         type: actions.CANCEL_EDITING,
+      });
+    });
+
+    it('showModal("cancel") dispatched', () => {
+      simulateTyping(wrapper.find('[name="title"]'), "new title");
+      wrapper.findWhere((x) => x.prop("id") === "item-details-cancel")
+             .find("button").simulate("click");
+      expect(store.getActions()[0]).to.deep.equal({
+        type: actions.SHOW_MODAL,
+        id: "cancel",
+        props: null,
       });
     });
   });

@@ -9,25 +9,47 @@ import { LocalizationProvider } from "fluent-react";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 
-async function fetchMessages(baseDir, locale, bundle) {
-  const response = await fetch(`${baseDir}/${locale}/${bundle}.ftl`);
-  const messages = await response.text();
-
-  return { [locale]: messages };
+async function fetchAvailableLocales(baseDir) {
+  try {
+    const response = await fetch(`${baseDir}/locales.json`);
+    return response.json();
+  } catch (e) {
+    throw new Error("unable to fetch available locales");
+  }
 }
 
-async function createMessagesGenerator(baseDir, currentLocales, bundle) {
-  const fetched = await Promise.all(
-    currentLocales.map((x) => fetchMessages(baseDir, x, bundle))
-  );
-  const bundles = fetched.reduce(
+async function fetchMessages(baseDir, locale, bundle) {
+  try {
+    const response = await fetch(`${baseDir}/${locale}/${bundle}.ftl`);
+    const messages = await response.text();
+
+    return messages;
+  } catch (e) {
+    // We couldn't fetch any strings; just return nothing and fluent will fall
+    // back to the default locale if needed.
+    return "";
+  }
+}
+
+function fetchAllMessages(baseDir, locale, bundles) {
+  return Promise.all(bundles.map((i) => fetchMessages(baseDir, locale, i)));
+}
+
+async function createMessagesGenerator(baseDir, currentLocales, bundles) {
+  const fetched = await Promise.all(currentLocales.map(async(locale) => {
+    return {[locale]: await fetchAllMessages(baseDir, locale, bundles)};
+  }));
+
+  const mergedBundle = fetched.reduce(
     (obj, cur) => Object.assign(obj, cur)
   );
 
   return function* generateMessages() {
     for (const locale of currentLocales) {
       const cx = new MessageContext(locale);
-      cx.addMessages(bundles[locale]);
+      for (let i of mergedBundle[locale]) {
+        cx.addMessages(i);
+      }
       yield cx;
     }
   }
@@ -37,34 +59,41 @@ export default class AppLocalizationProvider extends Component {
   static get propTypes() {
     return {
       baseDir: PropTypes.string,
-      availableLocales: PropTypes.array.isRequired,
-      userLocales: PropTypes.array,
-      bundle: PropTypes.string.isRequired,
+      userLocales: PropTypes.arrayOf(PropTypes.string),
+      bundles: PropTypes.arrayOf(PropTypes.string).isRequired,
       children: PropTypes.any,
+    };
+  }
+
+  static get defaultProps() {
+    return {
+      baseDir: "/locales",
+      userLocales: [],
     };
   }
 
   constructor(props) {
     super(props);
+    const { baseDir, userLocales, bundles } = props;
 
-    // XXX: Pull `availableLocales` from a config file?
-    const { baseDir = "/locales", availableLocales, userLocales, bundle } = props;
+    this.state = {
+      baseDir,
+      userLocales,
+      bundles,
+    };
+  }
+
+  async componentWillMount() {
+    const { baseDir, userLocales, bundles } = this.state;
+
+    const availableLocales = await fetchAvailableLocales(baseDir);
     const currentLocales = negotiateLanguages(
       userLocales, availableLocales,
       { defaultLocale: availableLocales[0] }
     );
 
-    this.state = {
-      baseDir,
-      currentLocales,
-      bundle,
-    };
-  }
-
-  async componentWillMount() {
-    const { baseDir, currentLocales, bundle } = this.state;
     const generateMessages = await createMessagesGenerator(
-      baseDir, currentLocales, bundle
+      baseDir, currentLocales, bundles
     );
     this.setState({ messages: generateMessages() });
   }

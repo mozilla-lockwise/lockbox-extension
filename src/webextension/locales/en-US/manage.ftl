@@ -35,7 +35,11 @@ homepage-over-50-passwords =
 item-details-title = Title
 item-details-origin = Origin
 item-details-username = Username
+item-details-copy-username = Copy
+    .title = Copy the username to the clipboard
 item-details-password = Password
+item-details-copy-password = Copy
+    .title = Copy the password to the clipboard
 item-details-notes = Notes
 
 item-details-edit = Edit
@@ -44,8 +48,15 @@ item-details-delete = Delete
 item-details-save = Save
 item-details-cancel = Cancel
 
-// These strings are for our generic widgets. They should probably go in a
-// separate file when we have a way to do that.
-[[widgets]]
+[[dialogs]]
 
-filter-input-clear = Clear
+modal-root-title = Modal dialog
+
+modal-cancel
+    .text = This item has unsaved changes? Are you sure you want to discard them?
+    .primaryButtonLabel = Discard
+    .secondaryButtonLabel = Go back
+modal-delete
+    .text = Are you sure you want to delete this item?
+    .primaryButtonLabel = Delete
+    .secondaryButtonLabel = Cancel

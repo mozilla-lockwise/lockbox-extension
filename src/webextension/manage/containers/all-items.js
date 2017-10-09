@@ -7,7 +7,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { selectItem } from "../actions";
-import { filterItem } from "../filter";
+import { parseFilterString, filterItem } from "../filter";
 import { NEW_ITEM_ID } from "../common";
 import ItemList from "../components/item-list";
 
@@ -32,9 +32,10 @@ AllItems.propTypes = {
 
 export default connect(
   (state, ownProps) => {
+    const filter = parseFilterString(state.ui.filter);
     return {
       items: state.cache.items
-                  .filter((i) => filterItem(state.ui.filter, i))
+                  .filter((i) => filterItem(filter, i))
                   .sort((a, b) => collator.compare(a.title, b.title)),
       selected: state.ui.selectedItemId,
     };
