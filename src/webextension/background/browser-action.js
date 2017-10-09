@@ -12,12 +12,10 @@ function installPopup(path) {
   browser.browserAction.setPopup({
     popup,
   });
-  browser.browserAction.setIcon({path: "icons/lb_locked.svg"});
 }
 function uninstallPopup() {
   if (popup) {
     browser.browserAction.setPopup({ popup: "" });
-    browser.browserAction.setIcon({path: "icons/lb_unlocked.svg"});
   }
   popup = null;
 }
@@ -38,6 +36,9 @@ export default async function updateBrowserAction(ds) {
   // XXXX: be more efficient with this?
   uninstallListener();
   uninstallPopup();
+
+  let iconpath = ds.locked ? "icons/lb_locked.svg" : "icons/lb_unlocked.svg";
+  browser.browserAction.setIcon({ path: iconpath });
 
   if (!ds.initialized) {
     // setup first-run popup
