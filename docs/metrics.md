@@ -1,9 +1,9 @@
 # Lockbox Metrics Plan
 
-_Last Updated: October 6, 2017_
+_Last Updated: October 9, 2017_
 
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
+- [TL;DR](#tl;dr-metrics-priorities-for-alpha)
 - [Analysis](#analysis)
 - [Collection](#collection)
 	- [Event Registration and Recording](#event-registration-and-recording)
@@ -11,7 +11,6 @@ _Last Updated: October 6, 2017_
 - [Non-Event Metrics](#non-event-metrics)
 - [Events](#events)
 	- [Setup Events](#setup-events)
-	- [Toolbar Button Interaction Event](#toolbar-button-interaction-event)
 	- [Item list Interaction Events](#item-list-interaction-events)
 	- [Item View Interaction Events](#item-view-interaction-events)
 	- [Events Related to Interactions in the Item Editors](#events-related-to-interactions-in-the-item-editors)
@@ -28,6 +27,21 @@ _Last Updated: October 6, 2017_
 This is the metrics collection plan for Lockbox's alpha release. It is more of a wishlist than a plan - only some portion of what's here might actually be implemented.
 
 Best viewed in something that can render Markdown.
+
+## TL;DR Metrics Priorities for Alpha
+
+These are the metrics that we have identified that best balance time to implement and importance-to-have
+
+1. Some event that reflects the initialization of the first run flow, e.g. the `lockbox_setup.render` event described below
+
+2. Some event that reflects the rendering of the item list after confirmation of master password, or an event that fires at the end of the process that is triggered by a successful re-entering of the user's FxA password. This event would be used to track the completion of the setup flow.
+
+3. Changes to the datastore, along with the type of change that occurred (CRUD) see the event category e.g. `lockbox_datastore.changed`
+
+4. Interaction events that reflect the user's intention to modify the datastore. This could include `lockbox_item_list.interaction` (clicks on items in the list) or `lockbox_new_item.render` and `lockbox_edit_item.render` that track the rendering of the item editor interfaces.
+
+5. A click event on the button used to leave feedback. We need this to make sure people are reliably redirected to the feedback form. See `lockbox_feedback.interaction` 
+
 
 ## Analysis
 
@@ -62,7 +76,7 @@ We will aim to collect data that will help us understand the following (please a
 
 **Note:** *This is the collection plan for our internal alpha release. For our beta release will be taking advantage of test pilot's telemetry API. The metrics plan for beta will be described in a separate document.*
 
-At this point, all measurements related to Lockbox will be made client-side.
+At this point, all measurements related to Lockbox will be made client-side. All users will have to authenticate through FxA, and thus additional measurements related to that will be logged on the FxA auth server. We have no control over what is already collected via that mechanism.
 
 For our internal alpha release, we will be making use of the public JavaScript API that allows recording and sending of event data through an add-on. **This means that for our alpha release we will only be collecting event-based data**. The API is documented here:
 
@@ -98,11 +112,11 @@ For our purposes, we will use the `extra` field for a few purposes:
 
 -   To log the FxA user id of the client logging the event (e.g. `"fxa_uid": uid`)
 -   To log the UUID of the item that has been added or changed (e.g. `"item_id": UUID`)
--   To log the fields that are modified when an item is updated in the datastore (e.g. `"fields":"password,notes"`  (because the value has to be a string we will have to concat the fields that were updated somehow)
+-   To log the fields that are modified when an item is updated in the datastore (e.g. `"fields": "password,notes"`  (because the value has to be a string we will have to concat the fields that were updated somehow)
 
 Once an event is registered, we can record it with:
 
-`Services.telemetry.recordEvent(category, method, object, value, extra)`
+`Services.telemetry.recordEvent(category, method, object, null, extra)`
 
 When recording, we can use `null` for `value`.
 
@@ -192,35 +206,14 @@ Services.telemetry.recordEvent("lockbox_setup.interaction",
                     null,
                     {"fxa_uid": null} ) // user hasn't signed in yet);
 ```                    
-### Toolbar Button Interaction Event
-At this stage of development, the Lockbox toolbar icon is the main entrypoint for using the Lockbox UI. There is only one event of concern here, a click on the icon. This event has its own **category** of `toolbar.interaction`. The **method** is click, and the object is **toolbar_button**.
 
-The event can be registered as follows:
-
-```javascript
-Services.telemetry.registerEvents("toolbar.interaction", {
-  "toolbar.click": {
-    methods: ["click"],
-    objects: ["toolbar_button"],
-    extra: {"fxa_uid": uid}
-  }
-});
-```
-To record the event:
-```javascript
-Services.telemetry.recordEvent("toolbar.interaction",
-                    "click",
-                    "toolbar_button",
-                    null,
-                    {"fxa_uid": uid});
-```
 
 ### Item list Interaction Events
 These events relate to interactions with the item list rendered after a click of the Lockbox toolbar button. These events assume that the user has already logged in with FxA. For events related to the setup flow, see the section above.
 
 Immediately after setup there will be no items in the datastore. As long as this is the case, the item list will be empty and the user will have to click the `add_new_button` to add their first entry. As long as there is at least one entry in the datastore, the item list will be displayed in the left pane.
 
-We will have two categories of events related to the item list: `item_list.render` and `item_list.interaction`. They will be recorded as `item_list.render` and `item_list.click`.
+We will have two categories of events related to the item list: `lockbox_item_list.render` and `lockbox_item_list.interaction`. They will be recorded as `lockbox_item_list.render` and `lockbox_item_list.click`.
 
 For the rendering events, there are two possible objects, `item_list_empty` and `item_list_populated` corresponding to a rendering of an empty item list and an item list with at least one entry, respectively.
 
@@ -231,8 +224,8 @@ The **objects** are `item_button` (the clickable area of an entry in the item li
 
 To register the interaction events:
 ```javascript
-Services.telemetry.registerEvents("item_list.interaction", {
-  "item_list.click": {
+Services.telemetry.registerEvents("lockbox_item_list.interaction", {
+  "lockbox_item_list.click": {
     methods: ["click"],
     objects: ["item_button",
         "feedback_button",
@@ -244,8 +237,8 @@ Services.telemetry.registerEvents("item_list.interaction", {
 ```
 To register the render events:
 ```javascript
-Services.telemetry.registerEvents("item_list.render", {
-  "item_list.render": {
+Services.telemetry.registerEvents("lockbox_item_list.render", {
+  "lockbox_item_list.render": {
     methods: ["render"],
     objects: ["item_list_empty",
         "item_list_populated"],
@@ -257,7 +250,7 @@ Services.telemetry.registerEvents("item_list.render", {
 
 To record (for example) a click on the add new entry button:
 ```javascript
-Services.telemetry.recordEvent("item_list.interaction",
+Services.telemetry.recordEvent("lockbox_item_list.interaction",
                     "click",
                     "add_new_button",
                     null,
@@ -275,8 +268,8 @@ The **method** is `click`.
 Example event registration:
 
 ```javascript
-Services.telemetry.registerEvents("item_view.interaction", {
-  "item_view.click": {
+Services.telemetry.registerEvents("lockbox_item_view.interaction", {
+  "lockbox_item_view.click": {
     methods: ["click"],
     objects: ["edit_entry_button",
 		"delete_entry_button",
@@ -290,7 +283,7 @@ Services.telemetry.registerEvents("item_view.interaction", {
 Example of recording a click to show password event:
 
 ```javascript
-Services.telemetry.recordEvent("item_view.interaction",
+Services.telemetry.recordEvent("lockbox_item_view.interaction",
                     "click",
                     "show_password_button",
                     null,
@@ -298,19 +291,19 @@ Services.telemetry.recordEvent("item_view.interaction",
 ```
 
 ### Events Related to Interactions in the Item Editors
-These events record actions users take in the item editors. There are separate views for editing existing items and for adding new entries, though the fields that exist in each are similar. Thus we have two **categories** of events: `new_item.interaction` and `edit_item.interaction`.
+These events record actions users take in the item editors. There are separate views for editing existing items and for adding new entries, though the fields that exist in each are similar. Thus we have four **categories** of events: `lockbox_new_item.interaction`, `lockbox_edit_item.interaction` and the rendering events `lockbox_new_item.render` and `lockbox_edit_item.render`.
 
 For events related to the submission of actual item information, see the next section. The item editors have 5 fields: `title_field`, `origin_field` (URL for the credential), `username_field`, `password_field`, and `notes_field`. There are also three buttons: `save_entry_button`, `cancel_button`, and `toggle_password_button`. The latter toggles the visibility of characters in the password field.  
 
 
-The **methods** are `click` and `focus`.
+The **methods** are `click` and `render`.
 
-Example event registration (Substitute `new_item` with `edit_item` to register events for the existing item editor):
+Example event registration (Substitute `lockbox_new_item` with `lockbox_edit_item` to register events for the existing item editor):
 
 ```javascript
-Services.telemetry.registerEvents("new_item.interaction", {
-  "item_editor.click": {
-    methods: ["click", "focus"],
+Services.telemetry.registerEvents("lockbox_new_item.interaction", {
+  "lockbox_item_editor.click": {
+    methods: ["click"],
     objects: ["title_field",
         "origin_field",
         "username_field",
@@ -323,11 +316,24 @@ Services.telemetry.registerEvents("new_item.interaction", {
   }
 });
 ```
+For the rendering events:
+
+```javascript
+Services.telemetry.registerEvents("lockbox_new_item.render", {
+  "lockbox_item_editor.render": {
+    methods: ["render"],
+    objects: ["lockbox_new_item_view"],
+    extra: {"fxa_uid": uid}
+  }
+});
+```
+
+
 
 Example of recording a click on the `save_entry_button`:
 
 ```javascript
-Services.telemetry.recordEvent("item_editor.interaction",
+Services.telemetry.recordEvent("lockbox_item_editor.interaction",
                     "click",
                     "save_entry_button",
                     null,
@@ -335,10 +341,10 @@ Services.telemetry.recordEvent("item_editor.interaction",
 ```
 
 ### Events Related to Submitting An Item Change from the Item Editors
-Events of **category** `item_change_submitted` record the actual submission of new item information to the datastore (either completely new entries or updates to existing items).
+Events of **category** `lockbox_item_change_submitted` record the actual submission of new item information to the datastore (either completely new entries or updates to existing items).
 
 
-In theory, these should be tied to equivalent events in the datastore, so that (for example) an `adding` event which is logged when a user submits a new item has a corresponding `added` event that gets logged when the item is successfully added to the datastore. This may need to change, but for simplicity's sake I've made it as close to the datastore events as possible (see next section). These events will be recorded as `item_change_submitted`.
+In theory, these should be tied to equivalent events in the datastore, so that (for example) an `adding` event which is logged when a user submits a new item has a corresponding `added` event that gets logged when the item is successfully added to the datastore. This may need to change, but for simplicity's sake I've made it as close to the datastore events as possible (see next section). These events will be recorded as `lockbox_item_change_submitted`.
 
 **Methods** for this event are `adding`, `updating` and `deleting`.
 
@@ -348,8 +354,8 @@ The **extra** field contains the item's UUID *for updating and deleting events o
 
 To register these events, we would do something like:
 ```javascript
-Services.telemetry.registerEvents("item_change_submitted", {
-  "item_change_submitted": {
+Services.telemetry.registerEvents("lockbox_item_change_submitted", {
+  "lockbox_item_change_submitted": {
     methods: ["adding","updating","deleting"],
     objects: ["new_item","edit_item"],
     extra: {"fxa_uid": uid,
@@ -360,7 +366,7 @@ Services.telemetry.registerEvents("item_change_submitted", {
 
 To record a new item submission (note the `item_id` is "new"):
 ```javascript
-Services.telemetry.recordEvent("item_change_submitted",
+Services.telemetry.recordEvent("lockbox_item_change_submitted",
                     "added",
                     "new_item",
                     null,
@@ -369,7 +375,7 @@ Services.telemetry.recordEvent("item_change_submitted",
 ```
 
 ### Events Related to Changes in the Datastore
-We will record an event of **category** `datastore.changed` when there is a change to the datastore. These events will be recorded as `entry_changed`.
+We will record an event of **category** `lockbox_datastore.changed` when there is a change to the datastore. These events will be recorded as `lockbox_entry_changed`.
 
 **Methods** for this event are `added`, `updated` and `deleted`.
 
@@ -379,8 +385,8 @@ The **extra** field contains the item's (hashed) UUID. This will allow us to tra
 
 To register these events, we would do something like:
 ```javascript
-Services.telemetry.registerEvents("datastore.changed", {
-  "entry_changed": {
+Services.telemetry.registerEvents("lockbox_datastore.changed", {
+  "lockbox_entry_changed": {
     methods: ["added","updated","deleted"],
     objects: ["datastore"],
     extra: { "fxa_uid": uid,
@@ -391,7 +397,7 @@ Services.telemetry.registerEvents("datastore.changed", {
 
 An example of logging an item update in the datastore:
 ```javascript
-Services.telemetry.recordEvent("database.changed",
+Services.telemetry.recordEvent("lockbox_database.changed",
                     "updated",
                     "datastore",
                     null,
@@ -406,8 +412,8 @@ When the user enters the feedback form through the button on the item list, we w
 
 
 ```javascript
-Services.telemetry.registerEvents("feedback.interaction", {
-  "feedback_submit.click": {
+Services.telemetry.registerEvents("lockbox_feedback.interaction", {
+  "lockbox_feedback_submit.click": {
     methods: ["click"],
     objects: ["submit_button"],
     extra: {"fxa_uid": uid}
@@ -416,9 +422,9 @@ Services.telemetry.registerEvents("feedback.interaction", {
 ```
 To record (for example) a click of the toolbar:
 ```javascript
-Services.telemetry.recordEvent("top_level.interaction",
+Services.telemetry.recordEvent("lockbox_feedback.interaction",
                     "click",
-                    "toolbar",
+                    "submit_button",
                     null,
                     {"fxa_uid": uid});
 ```                    
