@@ -3,7 +3,7 @@
 _Last Updated: October 9, 2017_
 
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-- [TL;DR](#tl;dr-metrics-priorities-for-alpha)
+- [TL;DR](#TL;DR-Metrics-Priorities-for-Alpha)
 - [Analysis](#analysis)
 - [Collection](#collection)
 	- [Event Registration and Recording](#event-registration-and-recording)
