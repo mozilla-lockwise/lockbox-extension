@@ -12,10 +12,12 @@ function installPopup(path) {
   browser.browserAction.setPopup({
     popup,
   });
+  browser.browserAction.setIcon({path: "icons/lb_locked.svg"});
 }
 function uninstallPopup() {
   if (popup) {
     browser.browserAction.setPopup({ popup: "" });
+    browser.browserAction.setIcon({path: "icons/lb_unlocked.svg"});
   }
   popup = null;
 }
