@@ -31,7 +31,7 @@ describe("message ports (background side)", () => {
     selfMessagePort = browser.runtime.connect();
     otherMessagePort = browser.runtime.connect(undefined, {mockPrimary: false});
 
-    fetchMock.post("https://stable.dev.lcip.org/auth/v1/account/login",
+    fetchMock.post("https://latest.dev.lcip.org/auth/v1/account/login",
                    JSON.stringify({}));
   });
 

@@ -2,10 +2,10 @@
   "title": "Lockbox",
   "name": "lockbox",
   "id": "lockbox@mozilla.com",
-  "version": "0.1.0-pre2",
+  "version": "0.1.0-pre3",
   "main": "dist/bootstrap.js",
   "description": "A Lockbox extension for Firefox",
-  "author": "Lockbox Team <lockbox@mozilla.com>",
+  "author": "Lockbox Team <lockbox-dev@mozilla.com>",
   "engines": {
     "firefox": ">=54"
   },

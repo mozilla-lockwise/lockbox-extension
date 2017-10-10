@@ -35,7 +35,7 @@ export default function initializeMessagePorts() {
       try {
         return getAuthorization().signIn(message.interactive);
       } catch (err) {
-        console.log(`failure: ${err.message}`);
+        console.log(`signin failure: ${err.message}`);
         throw err;
       }
     case "initialize":

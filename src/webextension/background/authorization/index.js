@@ -153,7 +153,7 @@ async function calculateCredentials(email, password) {
   };
 }
 
-const DEFAULT_CONFIG = "dev-stable";
+const DEFAULT_CONFIG = "dev-latest";
 
 export class Authorization {
   constructor({config = DEFAULT_CONFIG, info}) {
