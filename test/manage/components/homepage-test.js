@@ -13,7 +13,7 @@ chai.use(chaiEnzyme());
 import mountWithL10n from "../../mock-l10n";
 import Homepage from "../../../src/webextension/manage/components/homepage";
 
-describe("<Homepage/>", () => {
+describe("manage > components > <Homepage/>", () => {
   it("render with no items", () => {
     const wrapper = mountWithL10n(
       <Homepage count={0}/>

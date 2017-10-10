@@ -17,7 +17,7 @@ import { startNewItem } from "../../../src/webextension/manage/actions";
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
-describe("<AddItem/>", () => {
+describe("manage > containers > <AddItem/>", () => {
   it("startNewItem() dispatched", () => {
     const store = mockStore(initialState);
     const wrapper = mountWithL10n(

@@ -17,7 +17,7 @@ import mountWithL10n from "../../../mock-l10n";
 import UnlockPrompt from
        "../../../../src/webextension/popup/unlock/components/unlock-prompt";
 
-describe("<UnlockPrompt/>", () => {
+describe("popup > unlock > components > <UnlockPrompt/>", () => {
   let wrapper;
 
   beforeEach(() => {

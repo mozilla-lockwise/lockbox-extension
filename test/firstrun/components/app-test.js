@@ -15,7 +15,7 @@ import App from "../../../src/webextension/firstrun/components/app";
 import Wizard from "../../../src/webextension/firstrun/components/wizard";
 import Pages from "../../../src/webextension/firstrun/components/pages";
 
-describe("firstrun <App/>", () => {
+describe("firstrun > components > <App/>", () => {
   it("render app", () => {
     const wrapper = mountWithL10n(
       <App/>

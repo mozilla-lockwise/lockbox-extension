@@ -25,7 +25,7 @@ import * as actions from "../../../src/webextension/manage/actions";
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe("modals", () => {
+describe("manage > containers > modals", () => {
   describe("<ModalRoot/>", () => {
     it("no modal", () => {
       const store = mockStore(initialState);

@@ -12,7 +12,7 @@ import {
 } from "../../src/webextension/manage/reducers";
 import { NEW_ITEM_ID } from "../../src/webextension/manage/common";
 
-describe("reducers", () => {
+describe("manage > reducers", () => {
   describe("cache reducer", () => {
     it("initial state", () => {
       const action = {};

@@ -14,7 +14,7 @@ import * as actions from "../../src/webextension/manage/actions";
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe("actions", () => {
+describe("manage > actions", () => {
   let store;
 
   beforeEach(() => {

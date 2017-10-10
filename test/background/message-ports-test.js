@@ -18,7 +18,7 @@ import openDataStore from "../../src/webextension/background/datastore";
 import initializeMessagePorts from
        "../../src/webextension/background/message-ports";
 
-describe("message ports (background side)", () => {
+describe("background > message ports", () => {
   const email = "eripley@wyutani.com";
   const password = "n0str0m0";
 

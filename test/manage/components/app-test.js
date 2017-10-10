@@ -23,7 +23,7 @@ import CurrentSelection from
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
-describe("manage <App/>", () => {
+describe("manage > components > <App/>", () => {
   it("render app", () => {
     const store = mockStore(initialState);
     const wrapper = mountWithL10n(

@@ -17,7 +17,7 @@ chai.use(sinonChai);
 import WizardPage from
        "../../../src/webextension/firstrun/components/wizard-page";
 
-describe("<WizardPage/>", () => {
+describe("firstrun > components > <WizardPage/>", () => {
   let onSubmit, wrapper;
 
   beforeEach(() => {

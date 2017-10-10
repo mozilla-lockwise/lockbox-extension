@@ -16,7 +16,7 @@ import mountWithL10n from "../../mock-l10n";
 import EditItemDetails from
        "../../../src/webextension/manage/components/edit-item-details";
 
-describe("<EditItemDetails/>", () => {
+describe("manage > components > <EditItemDetails/>", () => {
   const blankFields = {
     title: "",
     origin: "",
