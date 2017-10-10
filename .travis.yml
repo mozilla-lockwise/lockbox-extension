@@ -12,7 +12,7 @@ after_success:
 before_deploy:
   - pip install --user mkdocs
   - npm run doc
-  - npm run package
+  - NODE_ENV=production npm run package
 
 # deploy documentation to GitHub Pages
 deploy:
