@@ -110,7 +110,7 @@ Services.telemetry.registerEvents("event_category", {
 
 For our purposes, we will use the `extra` field for a few purposes:
 
--   To log the FxA user id of the client logging the event (e.g. `"fxa_uid": uid`)
+-   To log the FxA user id of the client logging the event (e.g. `"fxauid": uid`)
 -   To log the UUID of the item that has been added or changed (e.g. `"item_id": UUID`)
 -   To log the fields that are modified when an item is updated in the datastore (e.g. `"fields": "password,notes"`  (because the value has to be a string we will have to concat the fields that were updated somehow)
 
@@ -172,7 +172,7 @@ Services.telemetry.registerEvents("lockbox_setup.render", {
     methods: ["render"],
     objects: ["lockbox_toolbar_firstrun", // startup flow views
             "reenter_password"],
-    extra: {"fxa_uid": uid} // value is null in some cases, see above
+    extra: {"fxauid": uid} // value is null in some cases, see above
   }
 });
 ```
@@ -183,7 +183,7 @@ Services.telemetry.registerEvents("lockbox_setup.interaction", {
     methods: ["click"],
     objects: ["get_started_button", // start-up flow buttons
               "lockbox_signin_button"],
-    extra: {"fxa_uid": uid} // value is null in some cases, see above
+    extra: {"fxauid": uid} // value is null in some cases, see above
   }
 });
 ```
@@ -193,7 +193,7 @@ Services.telemetry.recordEvent("lockbox_setup.render",
                     "render",
                     "reenter_password",
                     null,
-                    {"fxa_uid": uid} ) // user has signed in by now);
+                    {"fxauid": uid} ) // user has signed in by now);
 ```                    
 
 
@@ -204,7 +204,7 @@ Services.telemetry.recordEvent("lockbox_setup.interaction",
                     "click",
                     "lockbox_signin_button",
                     null,
-                    {"fxa_uid": null} ) // user hasn't signed in yet);
+                    {"fxauid": null} ) // user hasn't signed in yet);
 ```                    
 
 
@@ -231,7 +231,7 @@ Services.telemetry.registerEvents("lockbox_item_list.interaction", {
         "feedback_button",
         "add_new_button",
         "search_box"],
-    extra: {"fxa_uid": uid}
+    extra: {"fxauid": uid}
   }
 });
 ```
@@ -242,7 +242,7 @@ Services.telemetry.registerEvents("lockbox_item_list.render", {
     methods: ["render"],
     objects: ["item_list_empty",
         "item_list_populated"],
-    extra: {"fxa_uid": uid}
+    extra: {"fxauid": uid}
   }
 });
 ```
@@ -254,7 +254,7 @@ Services.telemetry.recordEvent("lockbox_item_list.interaction",
                     "click",
                     "add_new_button",
                     null,
-                    {"fxa_uid": uid});
+                    {"fxauid": uid});
 ```
 
 ### Item View Interaction Events
@@ -276,7 +276,7 @@ Services.telemetry.registerEvents("lockbox_item_view.interaction", {
         "show_password_button",
         "copy_password_button",
         "copy_username_button"],
-    extra: {"fxa_uid": uid}
+    extra: {"fxauid": uid}
   }
 });
 ```
@@ -287,7 +287,7 @@ Services.telemetry.recordEvent("lockbox_item_view.interaction",
                     "click",
                     "show_password_button",
                     null,
-                    {"fxa_uid": uid});
+                    {"fxauid": uid});
 ```
 
 ### Events Related to Interactions in the Item Editors
@@ -312,7 +312,7 @@ Services.telemetry.registerEvents("lockbox_new_item.interaction", {
         "save_entry_button",
         "cancel_button",
         "toggle_password_button"],
-    extra: {"fxa_uid": uid}
+    extra: {"fxauid": uid}
   }
 });
 ```
@@ -323,7 +323,7 @@ Services.telemetry.registerEvents("lockbox_new_item.render", {
   "lockbox_item_editor.render": {
     methods: ["render"],
     objects: ["lockbox_new_item_view"],
-    extra: {"fxa_uid": uid}
+    extra: {"fxauid": uid}
   }
 });
 ```
@@ -337,7 +337,7 @@ Services.telemetry.recordEvent("lockbox_item_editor.interaction",
                     "click",
                     "save_entry_button",
                     null,
-                    {"fxa_uid": uid});
+                    {"fxauid": uid});
 ```
 
 ### Events Related to Submitting An Item Change from the Item Editors
@@ -358,7 +358,7 @@ Services.telemetry.registerEvents("lockbox_item_change_submitted", {
   "lockbox_item_change_submitted": {
     methods: ["adding","updating","deleting"],
     objects: ["new_item","edit_item"],
-    extra: {"fxa_uid": uid,
+    extra: {"fxauid": uid,
             "item_id": UUID}
   }
 });
@@ -370,7 +370,7 @@ Services.telemetry.recordEvent("lockbox_item_change_submitted",
                     "added",
                     "new_item",
                     null,
-                    {"fxa_uid": uid,
+                    {"fxauid": uid,
                     "item_id": "new"});
 ```
 
@@ -389,7 +389,7 @@ Services.telemetry.registerEvents("lockbox_datastore.changed", {
   "lockbox_entry_changed": {
     methods: ["added","updated","deleted"],
     objects: ["datastore"],
-    extra: { "fxa_uid": uid,
+    extra: { "fxauid": uid,
     "item_id": UUID,
     "fields": "title,origins,login.password,login.notes" }  }
 });
@@ -401,7 +401,7 @@ Services.telemetry.recordEvent("lockbox_database.changed",
                     "updated",
                     "datastore",
                     null,
-                    {"fxa_uid": uid,
+                    {"fxauid": uid,
                     "item_id": UUID,
                     "fields": "username,password"});
 ```
@@ -416,7 +416,7 @@ Services.telemetry.registerEvents("lockbox_feedback.interaction", {
   "lockbox_feedback_submit.click": {
     methods: ["click"],
     objects: ["submit_button"],
-    extra: {"fxa_uid": uid}
+    extra: {"fxauid": uid}
   }
 });
 ```
@@ -426,7 +426,7 @@ Services.telemetry.recordEvent("lockbox_feedback.interaction",
                     "click",
                     "submit_button",
                     null,
-                    {"fxa_uid": uid});
+                    {"fxauid": uid});
 ```                    
 
 ### Fill Events: TBD
