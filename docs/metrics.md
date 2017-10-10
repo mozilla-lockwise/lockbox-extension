@@ -3,7 +3,7 @@
 _Last Updated: October 9, 2017_
 
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-- [TL;DR](#TL;DR-Metrics-Priorities-for-Alpha)
+- [TL;DR](#tl;dr-metrics-priorities-for-alpha)
 - [Analysis](#analysis)
 - [Collection](#collection)
 	- [Event Registration and Recording](#event-registration-and-recording)
@@ -40,7 +40,7 @@ These are the metrics that we have identified that best balance time to implemen
 
 4. Interaction events that reflect the user's intention to modify the datastore. This could include `lockbox_item_list.interaction` (clicks on items in the list) or `lockbox_new_item.render` and `lockbox_edit_item.render` that track the rendering of the item editor interfaces.
 
-5. A click event on the button used to leave feedback. We need this to make sure people are reliably redirected to the feedback form. See `lockbox_feedback.interaction` 
+5. A click event on the button used to leave feedback. We need this to make sure people are reliably redirected to the feedback form. See `lockbox_feedback.interaction`
 
 
 ## Analysis
@@ -391,7 +391,7 @@ Services.telemetry.registerEvents("lockbox_datastore.changed", {
     objects: ["datastore"],
     extra: { "fxa_uid": uid,
     "item_id": UUID,
-    "fields": "title,origin,username,password,notes" }  }
+    "fields": "title,origins,login.password,login.notes" }  }
 });
 ```
 
