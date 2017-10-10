@@ -50,6 +50,12 @@ class MockListener {
     this._listener = fn;
   }
 
+  removeListener(fn) {
+    if (fn === this._listener) {
+      this._listener = null;
+    }
+  }
+
   mockClearListener() {
     this._listener = null;
   }
@@ -120,11 +126,16 @@ function makePairedPorts(contextId) {
 
 global.browser = {
   browserAction: {
-    onClicked: {
-      addListener() {},
-      removeListener() {},
+    _popupPage: "",
+    onClicked: new MockListener(),
+
+    setPopup({popup}) {
+      this._popupPage = popup;
     },
-    setPopup() {},
+
+    async getPopup() {
+      return this._popupPage;
+    },
   },
 
   extension: {
