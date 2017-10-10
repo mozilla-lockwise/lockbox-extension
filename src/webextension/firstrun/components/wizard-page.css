@@ -1,0 +1,17 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+.wizard-page {
+  border: 1px solid #b1b1b1;
+  padding: 1em;
+  width: 250px;
+}
+
+.wizard-page > h1 {
+  margin-top: 0;
+}
+
+.wizard-page > form > button:last-child {
+  margin-bottom: 0;
+}
