@@ -19,7 +19,7 @@ import mountWithL10n from "../../mock-l10n";
 import { WelcomePage1, VerifyPage2, FinishedPage3 } from
        "../../../src/webextension/firstrun/components/pages";
 
-describe("wizard pages", () => {
+describe("firstrun > components > wizard pages", () => {
   const email = "eripley@wyutani.com";
   const password = "n0str0m0";
   let wrapper, next;

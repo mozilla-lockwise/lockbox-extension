@@ -19,7 +19,7 @@ import { SELECT_ITEM_STARTING }
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe("<GoHome/>", () => {
+describe("manage > containers > <GoHome/>", () => {
   it("selectItem() dispatched", () => {
     const store = mockStore(initialState);
     const wrapper = mountWithL10n(

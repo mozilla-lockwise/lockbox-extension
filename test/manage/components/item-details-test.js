@@ -15,7 +15,7 @@ import mountWithL10n from "../../mock-l10n";
 import ItemDetails from
        "../../../src/webextension/manage/components/item-details";
 
-describe("<ItemDetails/>", () => {
+describe("manage > components > <ItemDetails/>", () => {
   const fields = {
     title: "title",
     origin: "origin",

@@ -21,7 +21,7 @@ import { FILTER_ITEMS } from "../../../src/webextension/manage/actions";
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe("<ItemFilter/>", () => {
+describe("manage > containers > <ItemFilter/>", () => {
   let store, wrapper;
 
   beforeEach(() => {

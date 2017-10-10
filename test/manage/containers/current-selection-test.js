@@ -25,7 +25,7 @@ import * as actions from "../../../src/webextension/manage/actions";
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe("<CurrentSelection/>", () => {
+describe("manage > containers > <CurrentSelection/>", () => {
   beforeEach(() => {
     browser.runtime.onMessage.addListener(() => ({}));
   });

@@ -8,7 +8,7 @@ import { expect } from "chai";
 
 import * as filter from "../../src/webextension/manage/filter";
 
-describe("filters", () => {
+describe("manage > filters", () => {
   describe("parseFilterString()", () => {
     it("split on whitespace", () => {
       expect(filter.parseFilterString("foo bar")).to.deep.equal(["foo", "bar"]);

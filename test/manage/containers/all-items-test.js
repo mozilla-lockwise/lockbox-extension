@@ -22,7 +22,7 @@ import { NEW_ITEM_ID } from "../../../src/webextension/manage/common";
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe("<AllItems/>", () => {
+describe("manage > containers > <AllItems/>", () => {
   beforeEach(() => {
     browser.runtime.onMessage.addListener(() => ({}));
   });

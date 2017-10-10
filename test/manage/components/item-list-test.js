@@ -16,7 +16,7 @@ import ItemList from "../../../src/webextension/manage/components/item-list";
 import ItemSummary from
        "../../../src/webextension/manage/components/item-summary";
 
-describe("<ItemList/>", () => {
+describe("manage > components > <ItemList/>", () => {
   let onItemSelected, wrapper;
   const items = [
     {id: "0", title: "title 0", username: "username 0"},

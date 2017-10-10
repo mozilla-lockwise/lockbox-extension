@@ -35,7 +35,7 @@ Page2.propTypes = {
   prop: PropTypes.any,
 };
 
-describe("<Wizard/>", () => {
+describe("firstrun > components > <Wizard/>", () => {
   let wrapper;
   beforeEach(() => {
     sinon.spy(browser.runtime, "sendMessage");

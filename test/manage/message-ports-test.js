@@ -16,7 +16,7 @@ import initializeMessagePorts from
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe("message ports (manage side)", () => {
+describe("manage > message ports", () => {
   let messagePort, store;
 
   beforeEach(() => {
