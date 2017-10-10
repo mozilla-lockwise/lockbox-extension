@@ -35,4 +35,15 @@ describe("widgets > <PasswordInput/>", () => {
     button.simulate("click");
     expect(realInput).to.have.prop("type", "password");
   });
+
+  it("focus() focuses input", () => {
+    const wrapper = mountWithL10n(
+      <PasswordInput value="password" onChange={() => {}}/>
+    );
+    wrapper.instance().focus();
+    const realInput = wrapper.find("input");
+    expect(realInput.matchesElement(document.activeElement)).to.equal(
+      true, "the element was not focused"
+    );
+  });
 });

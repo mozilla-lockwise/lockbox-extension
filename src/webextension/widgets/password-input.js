@@ -28,12 +28,17 @@ export default class PasswordInput extends React.Component {
     this.setState({showPassword: !this.state.showPassword});
   }
 
+  focus() {
+    this.inputElement.focus();
+  }
+
   render() {
     return (
       <div className={styles.passwordInput}>
         <span className="browser-style">
           <input type={this.state.showPassword ? "text" : "password"}
-                 {...this.props}/>
+                 {...this.props}
+                 ref={(element) => this.inputElement = element}/>
         </span>
         <Localized id={this.state.showPassword ? "password-input-hide" :
                        "password-input-show"}>
