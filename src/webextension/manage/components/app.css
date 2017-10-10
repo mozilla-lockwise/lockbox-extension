@@ -8,9 +8,19 @@ body {
 
 .app {
   display: grid;
+  height: 100vh;
   grid-template-columns: 1fr 5fr;
-  grid-template-rows: 100vh;
-  grid-gap: 1em;
+  grid-template-rows: auto 1fr;
+  grid-column-gap: 1em;
+}
+
+.side-toolbar {
+  background-color: #f9f9fa;
+  padding-inline-end: 0;
+}
+
+.main-toolbar {
+  padding-inline-start: 0;
 }
 
 .app > aside {
@@ -23,13 +33,4 @@ body {
 
 .app > article {
   grid-column: 2;
-}
-
-.app > article > menu {
-  margin: 0;
-  padding: 0;
-}
-
-.app > article > menu > button + button {
-  margin-inline-start: 1ch;
 }

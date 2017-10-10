@@ -5,6 +5,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import styles from "./button.css";
+
 export default class Button extends React.Component {
   static get propTypes() {
     return {
@@ -24,7 +26,8 @@ export default class Button extends React.Component {
 
   render() {
     const {className, ...props} = this.props;
-    const finalClassName = `browser-style ${className}`.trimRight();
+    const finalClassName = `browser-style ${styles.button} ${className}`
+                           .trimRight();
     return (
       <button className={finalClassName} {...props}
               ref={(element) => this.buttonElement = element}/>
