@@ -40,3 +40,10 @@ function startup({webExtension}, reason) {
 function shutdown(data, reason) {}
 function install(data, reason) {}
 function uninstall(data, reason) {}
+
+// We need to reference these functions so that babel-plugin-rewire can see
+// them for our tests.
+startup;
+shutdown;
+install;
+uninstall;
