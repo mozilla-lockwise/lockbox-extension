@@ -7,7 +7,7 @@ import React from "react";
 
 import Button from "../../widgets/button";
 
-export default function ResetDataStore() {
+export default function FactoryReset() {
   const onReset = async() => {
     await browser.runtime.sendMessage({
       type: "reset",
@@ -16,17 +16,17 @@ export default function ResetDataStore() {
 
   return (
     <section>
-      <Localized id="settings-reset-title">
-        <h3>Reset Lockbox</h3>
+      <Localized id="settings-factoryreset-title">
+        <h3>rESEt lOCKBOx</h3>
       </Localized>
-      <Localized id="settings-reset-description">
-        <p>Reset the local database, deleting all of your existing entries.  <strong>THIS CANNOT BE UNDONE</strong></p>
+      <Localized id="settings-factoryreset-description">
+        <p>dO tHe fACTORy rESEt</p>
       </Localized>
-      <Localized id="settings-reset-button">
+      <Localized id="settings-factoryreset-button">
         <Button onClick={onReset}>💣💣💣 rESEt aLL! 💣💣💣</Button>
       </Localized>
     </section>
   );
 }
 
-ResetDataStore.propTypes = {};
+FactoryReset.propTypes = {};

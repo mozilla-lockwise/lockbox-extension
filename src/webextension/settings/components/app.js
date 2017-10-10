@@ -4,12 +4,12 @@
 
 import React from "react";
 
-import ResetDataStore from "./reset-datastore";
+import FactoryReset from "./factory-reset";
 
 export default function App() {
   return (
     <div>
-      <ResetDataStore />
+      <FactoryReset />
     </div>
   );
 }
