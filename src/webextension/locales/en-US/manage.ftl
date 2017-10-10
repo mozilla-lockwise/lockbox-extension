@@ -1,5 +1,6 @@
 add-item = Add Item
 go-home = Home
+lock-it = Sign Out
 
 item-filter.placeholder = Filter…
 
