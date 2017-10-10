@@ -198,6 +198,23 @@ describe("message ports (background side)", () => {
     });
   });
 
+  it('handle "proxy_telemetry_event"', async() => {
+    const recordEvent = sinon.stub().resolves({});
+    initializeMessagePorts.__Rewire__("telemetry", {recordEvent});
+    const result = await browser.runtime.sendMessage({
+      type: "proxy_telemetry_event",
+      category: "category",
+      method: "method",
+      object: "object",
+      extra: {extra: "value"},
+    });
+    initializeMessagePorts.__ResetDependency__("telemetry");
+
+    expect(result).to.deep.equal({});
+    expect(recordEvent).to.have.been.calledWith("category", "method", "object",
+                                                {extra: "value"});
+  });
+
   it("handle unknown message type", async() => {
     const result = await browser.runtime.sendMessage({
       type: "nonexist",

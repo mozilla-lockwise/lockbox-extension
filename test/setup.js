@@ -9,7 +9,7 @@ const { JSDOM } = jsdom;
 const { document } = (new JSDOM("")).window;
 
 var exposedProperties = ["window", "navigator", "document", "browser",
-                         "Headers", "HTMLElement"];
+                         "Headers", "HTMLElement", "Components", "Services"];
 
 global.document = document;
 global.window = document.defaultView;
@@ -62,6 +62,20 @@ class MockListener {
   }
 }
 
+class MockOnMessageListener extends MockListener {
+  mockFireListener(msg, sender) {
+    if (this._listener) {
+      if (this._listener.length >= 3) {
+        return new Promise((resolve, reject) => {
+          this._listener(msg, sender, resolve);
+        });
+      }
+      return this._listener(msg, sender);
+    }
+    return null;
+  }
+}
+
 let nextContextId = 1;
 class MockMessageSender {
   constructor(contextId) {
@@ -80,7 +94,7 @@ const primaryMessageSender = new MockMessageSender(primaryContextId);
 class MockPort {
   constructor(sender) {
     this._otherPort = null;
-    this.onMessage = new MockListener();
+    this.onMessage = new MockOnMessageListener();
     this.onDisconnect = new MockListener();
     if (sender) {
       this.sender = sender;
@@ -120,14 +134,11 @@ global.browser = {
   },
 
   runtime: {
-    onMessage: new MockListener(),
+    onMessage: new MockOnMessageListener(),
     onConnect: new MockListener(),
 
     async sendMessage(msg) {
-      if (this.onMessage._listener) {
-        return this.onMessage._listener(msg, primaryMessageSender);
-      }
-      return null;
+      return this.onMessage.mockFireListener(msg, primaryMessageSender);
     },
 
     connect(extensionId, {mockPrimary = true} = {}) {
@@ -185,5 +196,21 @@ global.browser = {
 
   windows: {
     update() {},
+  },
+};
+
+// These globals are only useful for XPCOM, but for simplicity, we just inject
+// them everywhere.
+
+global.Components = {
+  utils: {
+    "import": function() {},
+  },
+};
+
+global.Services = {
+  telemetry: {
+    registerEvents() {},
+    recordEvent() {},
   },
 };
