@@ -16,9 +16,17 @@ function startup({webExtension}, reason) {
     },
     "click": {
       methods: ["click"],
-      objects: ["browser_action"],
+      objects: ["firstrun","manage"],
       extra_keys: ["fxauid"],
     },
+    "signIn": {
+      methods: ["render"],
+      objects: ["signIn_page"]
+    },
+    "confirmPW": {
+      methods: ["render"],
+      objects: ["confirmPW_page"]
+    }
   });
 
   webExtension.startup().then(({browser}) => {

@@ -1,6 +1,7 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+import * as telemetry from "../background/telemetry";
 
 export const LIST_ITEMS_STARTING = Symbol("LIST_ITEMS_STARTING");
 export const LIST_ITEMS_COMPLETED = Symbol("LIST_ITEMS_COMPLETED");
@@ -29,6 +30,7 @@ export const HIDE_MODAL = Symbol("HIDE_MODAL");
 // The action ID is used to correlate async actions with each other (i.e.
 // FOO_STARTING and FOO_COMPLETED).
 let nextActionId = 0;
+
 
 export function listItems() {
   return async function(dispatch) {

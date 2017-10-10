@@ -8,6 +8,8 @@ import React from "react";
 
 import PasswordInput from "../../widgets/password-input";
 import WizardPage from "./wizard-page";
+import * as telemetry from "../../telemetry.js";
+
 
 export class WelcomePage1 extends React.Component {
   static get propTypes() {
@@ -36,6 +38,7 @@ export class WelcomePage1 extends React.Component {
         error: "Firefox Accounts login failed",
       });
     }
+    telemetry.recordEvent("lockbox", "render", "signIn_page");
   }
 
   render() {
@@ -53,6 +56,7 @@ export class WelcomePage1 extends React.Component {
       </Localized>
     );
   }
+
 }
 
 export class VerifyPage2 extends React.Component {
