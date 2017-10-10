@@ -21,13 +21,13 @@ describe("widgets > <Button/>", () => {
     const wrapper = mount(<Button>click me</Button>);
     const realButton = wrapper.find("button");
     expect(realButton).to.have.text("click me");
-    expect(realButton.prop("className")).to.equal("browser-style");
+    expect(realButton.prop("className")).to.match(/^browser-style \S+$/);
   });
 
   it("merge classNames", () => {
     const wrapper = mount(<Button className="foo">click me</Button>);
     const realButton = wrapper.find("button");
-    expect(realButton.prop("className")).to.equal("browser-style foo");
+    expect(realButton.prop("className")).to.match(/^browser-style \S+ foo$/);
   });
 
   it("onClick fired", () => {

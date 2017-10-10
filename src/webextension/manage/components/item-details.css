@@ -4,8 +4,9 @@
 
 .item-details {
   display: grid;
-  grid-template-columns: max-content 200px;
+  grid-template-columns: max-content minmax(225px, max-content);
   grid-column-gap: 1em;
+  grid-row-gap: 6px;
   margin: 1em;
 }
 
@@ -27,7 +28,6 @@
   /* This lines up our labels with the text in <input> elements. */
   margin-top: 3.5px;
   height: 20.5px;
-  margin-bottom: 6px;
 }
 
 .item-details > .field > .text + * {
