@@ -124,8 +124,8 @@ describe("manage > containers > <CurrentSelection/>", () => {
 
     it("first field focused", () => {
       const firstField = wrapper.find("input").at(0);
-      expect(firstField.matchesElement(document.activeElement)).to.equal(
-        true, "the element was not focused"
+      expect(firstField.instance()).to.equal(
+        document.activeElement, "the element was not focused"
       );
     });
 
@@ -157,7 +157,7 @@ describe("manage > containers > <CurrentSelection/>", () => {
     });
 
     it('showModal("cancel") dispatched', () => {
-      simulateTyping(wrapper.find('[name="title"]'), "title");
+      simulateTyping(wrapper.find('input[name="title"]'), "title");
       wrapper.findWhere((x) => x.prop("id") === "item-details-cancel")
              .find("button").simulate("click");
       expect(store.getActions()[0]).to.deep.equal({
@@ -197,8 +197,8 @@ describe("manage > containers > <CurrentSelection/>", () => {
 
     it("first field focused", () => {
       const firstField = wrapper.find("input").at(0);
-      expect(firstField.matchesElement(document.activeElement)).to.equal(
-        true, "the element was not focused"
+      expect(firstField.instance()).to.equal(
+        document.activeElement, "the element was not focused"
       );
     });
 
@@ -230,7 +230,7 @@ describe("manage > containers > <CurrentSelection/>", () => {
     });
 
     it('showModal("cancel") dispatched', () => {
-      simulateTyping(wrapper.find('[name="title"]'), "new title");
+      simulateTyping(wrapper.find('input[name="title"]'), "new title");
       wrapper.findWhere((x) => x.prop("id") === "item-details-cancel")
              .find("button").simulate("click");
       expect(store.getActions()[0]).to.deep.equal({

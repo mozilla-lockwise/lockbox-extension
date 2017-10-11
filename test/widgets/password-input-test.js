@@ -21,18 +21,17 @@ describe("widgets > <PasswordInput/>", () => {
     expect(wrapper.find("input")).to.have.prop("value", "my password");
   });
 
-  it("show/hide button toggles password visibility", () => {
+  it("show/hide button toggles password visibility", async() => {
     const wrapper = mountWithL10n(
       <PasswordInput value="password" onChange={() => {}}/>
     );
-    const realInput = wrapper.find("input");
-    const button = wrapper.find("button");
+    expect(wrapper.find("input")).to.have.prop("type", "password");
 
-    expect(realInput).to.have.prop("type", "password");
-    button.simulate("click");
-    expect(realInput).to.have.prop("type", "text");
-    button.simulate("click");
-    expect(realInput).to.have.prop("type", "password");
+    wrapper.find("button").simulate("click");
+    expect(wrapper.find("input")).to.have.prop("type", "text");
+
+    wrapper.find("button").simulate("click");
+    expect(wrapper.find("input")).to.have.prop("type", "password");
   });
 
   it("focus() focuses input", () => {
@@ -40,9 +39,8 @@ describe("widgets > <PasswordInput/>", () => {
       <PasswordInput value="password" onChange={() => {}}/>
     );
     wrapper.instance().focus();
-    const realInput = wrapper.find("input");
-    expect(realInput.matchesElement(document.activeElement)).to.equal(
-      true, "the element was not focused"
+    expect(wrapper.find("input").instance()).to.equal(
+      document.activeElement, "the element was not focused"
     );
   });
 });
