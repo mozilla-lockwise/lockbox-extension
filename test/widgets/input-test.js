@@ -31,9 +31,8 @@ describe("widgets > <Input/>", () => {
       <Input className="foo" value="some text" onChange={() => {}}/>
     );
     wrapper.instance().focus();
-    const realInput = wrapper.find("input");
-    expect(realInput.matchesElement(document.activeElement)).to.equal(
-      true, "the element was not focused"
+    expect(wrapper.find("input").instance()).to.equal(
+      document.activeElement, "the element was not focused"
     );
   });
 });

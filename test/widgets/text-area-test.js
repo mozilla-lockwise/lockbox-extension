@@ -23,8 +23,9 @@ describe("widgets > <TextArea/>", () => {
     const wrapper = mount(
       <TextArea className="foo" value="text" onChange={() => {}}/>
     );
-    const realTextArea = wrapper.find("textarea");
-    expect(realTextArea.prop("className")).to.match(/^browser-style \S+ foo$/);
+    expect(wrapper.find("textarea").prop("className")).to.match(
+      /^browser-style \S+ foo$/
+    );
   });
 
   it("focus() focuses textarea", () => {
@@ -32,9 +33,8 @@ describe("widgets > <TextArea/>", () => {
       <TextArea value="text" onChange={() => {}}/>
     );
     wrapper.instance().focus();
-    const realTextArea = wrapper.find("textarea");
-    expect(realTextArea.matchesElement(document.activeElement)).to.equal(
-      true, "the element was not focused"
+    expect(wrapper.find("textarea").instance()).to.equal(
+      document.activeElement, "the element was not focused"
     );
   });
 });

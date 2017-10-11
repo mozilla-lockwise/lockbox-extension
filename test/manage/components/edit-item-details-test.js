@@ -5,10 +5,12 @@
 require("babel-polyfill");
 
 import chai, { expect } from "chai";
+import chaiEnzyme from "chai-enzyme";
 import React from "react";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
+chai.use(chaiEnzyme);
 chai.use(sinonChai);
 
 import { simulateTyping } from "test/common";
@@ -57,8 +59,9 @@ describe("manage > components > <EditItemDetails/>", () => {
 
     it("form fields unfilled", () => {
       for (let i in blankFields) {
-        expect(wrapper.find(`[name="${i}"]`).prop("value"))
-              .to.equal(blankFields[i]);
+        expect(wrapper.find(`[name="${i}"]`).filterWhere((x) => {
+          return typeof x.type() !== "string";
+        })).to.have.prop("value", blankFields[i]);
       }
     });
 
@@ -70,7 +73,9 @@ describe("manage > components > <EditItemDetails/>", () => {
 
     it("onSave called after editing", () => {
       for (let i in updatedFields) {
-        simulateTyping(wrapper.find(`[name="${i}"]`), updatedFields[i]);
+        simulateTyping(wrapper.find(`[name="${i}"]`).filterWhere((x) => {
+          return typeof x.type() === "string";
+        }), updatedFields[i]);
       }
       wrapper.findWhere((x) => x.prop("id") === "item-details-save")
              .find("button").simulate("submit");
@@ -95,8 +100,9 @@ describe("manage > components > <EditItemDetails/>", () => {
 
     it("form fields filled", () => {
       for (let i in originalFields) {
-        expect(wrapper.find(`[name="${i}"]`).prop("value"))
-              .to.equal(originalFields[i]);
+        expect(wrapper.find(`[name="${i}"]`).filterWhere((x) => {
+          return typeof x.type() !== "string";
+        })).to.have.prop("value", originalFields[i]);
       }
     });
 
@@ -108,7 +114,9 @@ describe("manage > components > <EditItemDetails/>", () => {
 
     it("onSave called after editing", () => {
       for (let i in updatedFields) {
-        simulateTyping(wrapper.find(`[name="${i}"]`), updatedFields[i]);
+        simulateTyping(wrapper.find(`[name="${i}"]`).filterWhere((x) => {
+          return typeof x.type() === "string";
+        }), updatedFields[i]);
       }
       wrapper.findWhere((x) => x.prop("id") === "item-details-save")
              .find("button").simulate("submit");
