@@ -4,11 +4,12 @@
 
 html,
 body,
-#content {
+body > main,
+.app {
   height: 100%;
 }
 
-.app {
+.app-main {
   display: grid;
   height: 100%;
   grid-template-columns: 1fr 5fr;
@@ -25,7 +26,7 @@ body,
   padding-inline-start: 0;
 }
 
-.app > aside {
+.app-main > aside {
   grid-column: 1;
   min-width: 0;
   background-color: #f9f9fa;
@@ -33,6 +34,6 @@ body,
   grid-template-rows: auto 1fr auto;
 }
 
-.app > article {
+.app-main > article {
   grid-column: 2;
 }
