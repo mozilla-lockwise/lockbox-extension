@@ -14,11 +14,15 @@ body > main,
   height: 100%;
   grid-template-columns: 1fr 5fr;
   grid-template-rows: auto 1fr;
-  grid-column-gap: 1em;
+}
+
+.side-toolbar,
+.main-toolbar {
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #d6d6d6;
 }
 
 .side-toolbar {
-  background-color: #f9f9fa;
   padding-inline-end: 0;
 }
 
@@ -30,11 +34,13 @@ body > main,
   grid-column: 1;
   min-width: 0;
   min-height: 0;
-  background-color: #f9f9fa;
+  background-color: #e6e6e6;
+  border-right: 1px solid #e1e1e1;
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
 
 .app-main > article {
   grid-column: 2;
+  background-color: #f9f9f9;
 }
