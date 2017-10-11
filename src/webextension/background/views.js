@@ -81,7 +81,7 @@ export class MultipleView {
 
 const views = {
   firstrun: new SingletonView("/firstrun/index.html"),
-  manage: new MultipleView("/manage/index.html"),
+  manage: new SingletonView("/manage/index.html"),
 };
 
 export async function openView(name) {
