@@ -7,10 +7,12 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
+import styles from "./item-count.css";
+
 function ItemCount({count}) {
   return (
     <Localized id="toolbar-item-count" $count={count}>
-      <span>## iTEMs</span>
+      <span className={styles.itemCount}>## iTEMs</span>
     </Localized>
   );
 }

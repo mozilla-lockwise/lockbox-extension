@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 button.button {
+  white-space: nowrap;
   /* Override the margin-bottom from browser-style. */
   margin-bottom: 0;
 }
