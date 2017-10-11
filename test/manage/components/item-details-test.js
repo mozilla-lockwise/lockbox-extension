@@ -11,9 +11,8 @@ import sinonChai from "sinon-chai";
 
 chai.use(sinonChai);
 
-import mountWithL10n from "../../mock-l10n";
-import ItemDetails from
-       "../../../src/webextension/manage/components/item-details";
+import mountWithL10n from "test/mock-l10n";
+import ItemDetails from "src/webextension/manage/components/item-details";
 
 describe("manage > components > <ItemDetails/>", () => {
   const fields = {

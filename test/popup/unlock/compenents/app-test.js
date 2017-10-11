@@ -7,10 +7,10 @@ require("babel-polyfill");
 import { expect } from "chai";
 import React from "react";
 
-import mountWithL10n from "../../../mock-l10n";
-import App from "../../../../src/webextension/popup/unlock/components/app";
+import mountWithL10n from "test/mock-l10n";
+import App from "src/webextension/popup/unlock/components/app";
 import UnlockPrompt from
-       "../../../../src/webextension/popup/unlock/components/unlock-prompt";
+       "src/webextension/popup/unlock/components/unlock-prompt";
 
 describe("popup > unlock > components > <App/>", () => {
   it("render app", () => {

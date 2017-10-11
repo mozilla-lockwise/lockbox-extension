@@ -14,7 +14,7 @@ import sinonChai from "sinon-chai";
 chai.use(chaiEnzyme);
 chai.use(sinonChai);
 
-import Button from "../../src/webextension/widgets/button";
+import Button from "src/webextension/widgets/button";
 
 describe("widgets > <Button/>", () => {
   it("render button", () => {

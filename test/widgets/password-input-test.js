@@ -10,9 +10,8 @@ import React from "react";
 
 chai.use(chaiEnzyme);
 
-import mountWithL10n from "../mock-l10n";
-
-import PasswordInput from "../../src/webextension/widgets/password-input";
+import mountWithL10n from "test/mock-l10n";
+import PasswordInput from "src/webextension/widgets/password-input";
 
 describe("widgets > <PasswordInput/>", () => {
   it("render input", () => {

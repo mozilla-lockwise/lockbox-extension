@@ -15,8 +15,7 @@ import sinonChai from "sinon-chai";
 chai.use(chaiEnzyme);
 chai.use(sinonChai);
 
-import Wizard from
-       "../../../src/webextension/firstrun/components/wizard";
+import Wizard from "src/webextension/firstrun/components/wizard";
 
 function Page1({next}) {
   return (<button onClick={() => next({prop: "value"})}>click me</button>);

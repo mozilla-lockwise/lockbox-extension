@@ -14,10 +14,10 @@ import sinonChai from "sinon-chai";
 chai.use(chaiEnzyme);
 chai.use(sinonChai);
 
-import { simulateTyping } from "../../common";
-import mountWithL10n from "../../mock-l10n";
+import { simulateTyping } from "test/common";
+import mountWithL10n from "test/mock-l10n";
 import { WelcomePage1, VerifyPage2, FinishedPage3 } from
-       "../../../src/webextension/firstrun/components/pages";
+       "src/webextension/firstrun/components/pages";
 
 describe("firstrun > components > wizard pages", () => {
   const email = "eripley@wyutani.com";

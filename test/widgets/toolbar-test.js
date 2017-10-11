@@ -11,7 +11,7 @@ import React from "react";
 
 chai.use(chaiEnzyme);
 
-import Toolbar, { ToolbarSpace } from "../../src/webextension/widgets/toolbar";
+import Toolbar, { ToolbarSpace } from "src/webextension/widgets/toolbar";
 
 describe("widgets > toolbar", () => {
   describe("<Toolbar/>", () => {

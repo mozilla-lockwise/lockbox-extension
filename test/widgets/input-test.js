@@ -11,7 +11,7 @@ import React from "react";
 
 chai.use(chaiEnzyme);
 
-import Input from "../../src/webextension/widgets/input";
+import Input from "src/webextension/widgets/input";
 
 describe("widgets > <Input/>", () => {
   it("render input", () => {

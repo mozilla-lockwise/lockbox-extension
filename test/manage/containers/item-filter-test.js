@@ -10,13 +10,11 @@ import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
-import { simulateTyping } from "../../common";
-import mountWithL10n from "../../mock-l10n";
+import { simulateTyping } from "test/common";
+import mountWithL10n from "test/mock-l10n";
 import { initialState } from "../mock-redux-state";
-
-import ItemFilter from
-       "../../../src/webextension/manage/containers/item-filter";
-import { FILTER_ITEMS } from "../../../src/webextension/manage/actions";
+import ItemFilter from "src/webextension/manage/containers/item-filter";
+import { FILTER_ITEMS } from "src/webextension/manage/actions";
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
