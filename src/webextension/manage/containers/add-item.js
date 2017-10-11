@@ -12,10 +12,14 @@ import { startNewItem } from "../actions";
 import * as telemetry from "../../telemetry";
 
 function AddItem({dispatch}) {
-telemetry.recordEvent("lockbox", "addClick", "addButton");
+  const doClick = () => {
+    telemetry.recordEvent("lockbox", "addClick", "addButton");
+    dispatch(startNewItem());
+  };
+
   return (
-    <Localized id="toolbar-add-item">
-      <Button onClick={() => { dispatch(startNewItem()); }}>
+    <Localized id="add-item">
+      <Button onClick={doClick}>
         aDd iTEm
       </Button>
     </Localized>
