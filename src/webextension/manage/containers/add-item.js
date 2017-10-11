@@ -18,7 +18,7 @@ function AddItem({dispatch}) {
   };
 
   return (
-    <Localized id="add-item">
+    <Localized id="toolbar-add-item">
       <Button onClick={doClick}>
         aDd iTEm
       </Button>
