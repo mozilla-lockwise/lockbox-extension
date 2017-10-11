@@ -3,13 +3,14 @@
 _Last Updated: October 9, 2017_
 
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-- [TL;DR](#tl;dr-metrics-priorities-for-alpha)
+
+- [TL;DR Metrics Implemented for Alpha Thus Far](#tldr-metrics-implemented-for-alpha-thus-far)
 - [Analysis](#analysis)
 - [Collection](#collection)
 	- [Event Registration and Recording](#event-registration-and-recording)
 - [Metrics Overview](#metrics-overview)
 - [Non-Event Metrics](#non-event-metrics)
-- [Events](#events)
+- [!!!!!!! EVERYTHING BELOW HERE IS OLD AND OUT OF DATE NOT IMPLEMENTED KEPT HERE FOR FUTURE REFERENCE ONLY !!!!!!!](#-everything-below-here-is-old-and-out-of-date-not-implemented-kept-here-for-future-reference-only-)
 	- [Setup Events](#setup-events)
 	- [Item list Interaction Events](#item-list-interaction-events)
 	- [Item View Interaction Events](#item-view-interaction-events)
@@ -36,25 +37,29 @@ All events are under the **category: lockbox**. The `extra` field always contain
 
 1. `startup` fires when the webextension is loaded. **method**:click **objects**: addon, webextension.
 
-2. `iconClick` fires when someone clicks the toolbar icon. **method**:startup **objects**: firstrun, manage (depends on user context).
+2. `iconClick` fires when someone clicks the toolbar icon. **method**:startup **objects**: toolbar.
 
-3. `signIn` fires when someone clicks the signin button during firstrun. **method**: render **objects**: signInPage.
+3. `render` fires when one of the views are rengered. **method**:render **objects**: firstrun, manage, popupUnlock
 
-4. `confirmPW` fires when the screen asking for password confirm renders. **method**: render **objects**: confirmPWPage.
+4. `signIn` fires when someone clicks the signin button during firstrun. **method**: render **objects**: signInPage.
 
-5. `setupDone` fires after the user authenticates wtih fxa successfully and the message informing them of that renders. **method**: render **objects**: setupDonePage.
+5. `confirmPW` fires when the screen asking for password confirm renders. **method**: render **objects**: confirmPWPage.
 
-6. `itemAdding` fires when a user submits a new item from the editor. **method**: itemAdding **objects**: addItemForm.
+6. `setupDone` fires after the user authenticates wtih fxa successfully and the message informing them of that renders. **method**: render **objects**: setupDonePage.
 
-7. `itemUpdating` fires when a user submits an edit to an existing item. **method**: itemUpdating **objects**: updatingItemForm.
+7. `itemAdding` fires when a user submits a new item from the editor. **method**: itemAdding **objects**: addItemForm.
 
-8. `itemDeleting` fires when user submits a request to delete an item. **method**: itemDeleting **objects**: updatingItemForm.
+8. `itemUpdating` fires when a user submits an edit to an existing item. **method**: itemUpdating **objects**: updatingItemForm.
 
-9. `itemSelected` fires when a user clicks on an item in the item list. **method**: itemSelected **objects**: itemList.
+9. `itemDeleting` fires when user submits a request to delete an item. **method**: itemDeleting **objects**: updatingItemForm.
 
-10. `addClick` fires when a user clicks the add new item button from the item list . **method**: addClick **objects**: addButton.
+10. `itemSelected` fires when a user clicks on an item in the item list. **method**: itemSelected **objects**: itemList.
 
-11. `itemAdded` fires when the `addItemCompleted` function is called on the front end. Needs to have itemid added as extra (Leif couldn't figure that out) **method**: itemAdded **objects**: addItemForm.
+11. `addClick` fires when a user clicks the add new item button from the item list . **method**: addClick **objects**: addButton.
+
+12. `itemAdded` fires when the `addItemCompleted` function is called on the front end. Has itemid added as extra. **method**: itemAdded **objects**: addItemForm.
+
+13. `datatore` fires when an item is added/updated/deleted from the backend.  Has itemid (and sometimes fields) added as extra. **methods**:added, updated, deleted **objects**: datastore.
 
 ## Analysis
 
