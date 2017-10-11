@@ -15,8 +15,13 @@ function startup({webExtension}, reason) {
       objects: ["addon", "webextension"],
     },
     "iconClick": {
-      methods: ["click"],
-      objects: ["firstrun", "manage"],
+      methods: ["iconClick"],
+      objects: ["toolbar"],
+      extra_keys: ["fxauid"],
+    },
+    "displayView": {
+      methods: ["render"],
+      objects: ["firstrun", "manage", "popupUnlock"],
       extra_keys: ["fxauid"],
     },
     "signIn": {
@@ -61,6 +66,11 @@ function startup({webExtension}, reason) {
       methods: ["itemAdded"],
       objects: ["addItemForm"],
       extra_keys: ["itemid", "fxauid"],
+    },
+    "datastore": {
+      methods: ["added", "updated", "deleted"],
+      objects: ["datastore"],
+      extra_keys: ["itemid", "fxauid", "fields"],
     },
   });
 

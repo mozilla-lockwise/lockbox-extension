@@ -13,10 +13,13 @@ import App from "./components/app";
 import { listItems } from "./actions";
 import reducer from "./reducers";
 import initializeMessagePorts from "./message-ports";
+import * as telemetry from "../telemetry";
 
 const store = createStore(reducer, undefined, applyMiddleware(thunk));
 store.dispatch(listItems());
 initializeMessagePorts(store);
+
+telemetry.recordEvent("lockbox", "render", "manage");
 
 ReactDOM.render(
   <Provider store={store}>

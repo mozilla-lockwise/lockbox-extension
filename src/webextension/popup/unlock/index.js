@@ -7,6 +7,11 @@ import ReactDOM from "react-dom";
 
 import AppLocalizationProvider from "../../l10n";
 import App from "./components/app";
+import * as telemetry from "../../telemetry";
+
+// this is the closest approximation we can get to a toolbar click when
+// the popup is registered
+telemetry.recordEvent("lockbox", "render", "popupUnlock");
 
 ReactDOM.render(
   <AppLocalizationProvider bundles={["popup", "widgets"]}

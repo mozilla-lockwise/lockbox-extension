@@ -25,6 +25,7 @@ export class WelcomePage1 extends React.Component {
   }
 
   async signIn() {
+    telemetry.recordEvent("lockbox", "render", "signInPage");
     try {
       const response = await browser.runtime.sendMessage({
         type: "signin",
@@ -38,7 +39,6 @@ export class WelcomePage1 extends React.Component {
         error: "Firefox Accounts login failed",
       });
     }
-    telemetry.recordEvent("lockbox", "render", "signInPage");
   }
 
   render() {

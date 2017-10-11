@@ -24,7 +24,7 @@ function uninstallPopup() {
 
 function installListener(name) {
   listener = () => {
-    telemetry.recordEvent("lockbox", "click", `${name}`);
+    telemetry.recordEvent("lockbox", "iconClick", "toolbar");
     openView(name);
   };
   browser.browserAction.onClicked.addListener(listener);
