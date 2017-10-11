@@ -26,8 +26,8 @@ export default function App() {
           <AddItem/>
         </Toolbar>
         <Toolbar className={styles.mainToolbar}>
-          <GoHome/>
           <ToolbarSpace/>
+          <GoHome/>
           <SendFeedback/>
         </Toolbar>
         <aside>
