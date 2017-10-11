@@ -16,7 +16,7 @@ function startup({webExtension}, reason) {
     },
     "iconClick": {
       methods: ["click"],
-      objects: ["firstrun","manage"],
+      objects: ["firstrun", "manage"],
       extra_keys: ["fxauid"],
     },
     "signIn": {
@@ -60,8 +60,8 @@ function startup({webExtension}, reason) {
     "itemAdded": {
       methods: ["itemAdded"],
       objects: ["addItemForm"],
-      extra_keys: ["itemid","fxauid"],
-    }
+      extra_keys: ["itemid", "fxauid"],
+    },
   });
 
   webExtension.startup().then(({browser}) => {
