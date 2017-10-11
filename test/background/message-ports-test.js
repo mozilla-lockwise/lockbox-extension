@@ -13,10 +13,9 @@ import sinonChai from "sinon-chai";
 chai.use(chaiAsPromised);
 chai.use(sinonChai);
 
-import configs from "../../src/webextension/background/authorization/configs";
-import openDataStore from "../../src/webextension/background/datastore";
-import initializeMessagePorts from
-       "../../src/webextension/background/message-ports";
+import configs from "src/webextension/background/authorization/configs";
+import openDataStore from "src/webextension/background/datastore";
+import initializeMessagePorts from "src/webextension/background/message-ports";
 
 describe("background > message ports", () => {
   const email = "eripley@wyutani.com";

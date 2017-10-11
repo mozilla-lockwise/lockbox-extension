@@ -17,7 +17,7 @@ import sinon from "sinon";
 chai.use(chaiAsPromised);
 chai.use(chaiEnzyme);
 
-import AppLocalizationProvider from "../src/webextension/l10n";
+import AppLocalizationProvider from "src/webextension/l10n";
 
 describe("<AppLocalizationProvider/>", () => {
   const locales = ["en-US", "es-ES"];

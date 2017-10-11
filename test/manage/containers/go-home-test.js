@@ -11,10 +11,9 @@ import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 
 import { initialState } from "../mock-redux-state";
-import mountWithL10n from "../../mock-l10n";
-import GoHome from "../../../src/webextension/manage/containers/go-home";
-import { SELECT_ITEM_STARTING }
-       from "../../../src/webextension/manage/actions";
+import mountWithL10n from "test/mock-l10n";
+import GoHome from "src/webextension/manage/containers/go-home";
+import { SELECT_ITEM_STARTING } from "src/webextension/manage/actions";
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);

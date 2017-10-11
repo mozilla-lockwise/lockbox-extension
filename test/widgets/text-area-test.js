@@ -11,7 +11,7 @@ import React from "react";
 
 chai.use(chaiEnzyme);
 
-import TextArea from "../../src/webextension/widgets/text-area";
+import TextArea from "src/webextension/widgets/text-area";
 
 describe("widgets > <TextArea/>", () => {
   it("render textarea", () => {

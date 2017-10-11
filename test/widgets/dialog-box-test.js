@@ -14,7 +14,7 @@ import sinonChai from "sinon-chai";
 chai.use(chaiEnzyme);
 chai.use(sinonChai);
 
-import DialogBox from "../../src/webextension/widgets/dialog-box";
+import DialogBox from "src/webextension/widgets/dialog-box";
 
 describe("widgets > <DialogBox/>", () => {
   let wrapper, onClickPrimary, onClickSecondary;

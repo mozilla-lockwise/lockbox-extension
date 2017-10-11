@@ -12,8 +12,7 @@ import sinonChai from "sinon-chai";
 chai.use(chaiAsPromised);
 chai.use(sinonChai);
 
-import updateBrowserAction from
-       "../../src/webextension/background/browser-action";
+import updateBrowserAction from "src/webextension/background/browser-action";
 
 describe("background > browser action", () => {
   let openView;

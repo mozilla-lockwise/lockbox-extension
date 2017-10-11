@@ -10,9 +10,9 @@ import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 
 import { initialState } from "../mock-redux-state";
-import mountWithL10n from "../../mock-l10n";
-import AddItem from "../../../src/webextension/manage/containers/add-item";
-import { startNewItem } from "../../../src/webextension/manage/actions";
+import mountWithL10n from "test/mock-l10n";
+import AddItem from "src/webextension/manage/containers/add-item";
+import { startNewItem } from "src/webextension/manage/actions";
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);

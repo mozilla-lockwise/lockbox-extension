@@ -6,7 +6,7 @@ require("babel-polyfill");
 
 import { expect } from "chai";
 
-import * as views from "../../src/webextension/background/views";
+import * as views from "src/webextension/background/views";
 
 describe("background > views", () => {
   beforeEach(() => {

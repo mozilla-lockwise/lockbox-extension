@@ -12,7 +12,7 @@ import sinonChai from "sinon-chai";
 
 chai.use(sinonChai);
 
-import ScrollingList from "../../src/webextension/widgets/scrolling-list";
+import ScrollingList from "src/webextension/widgets/scrolling-list";
 
 describe("widgets > <ScrollingList/>", () => {
   let wrapper, onItemSelected;

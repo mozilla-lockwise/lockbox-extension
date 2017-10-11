@@ -11,7 +11,7 @@ import sinonChai from "sinon-chai";
 
 chai.use(sinonChai);
 
-import bootstrap from "../src/bootstrap";
+import bootstrap from "src/bootstrap";
 
 describe("bootstrap", () => {
   it("startup()", async() => {

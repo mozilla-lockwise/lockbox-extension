@@ -11,10 +11,9 @@ import sinonChai from "sinon-chai";
 
 chai.use(sinonChai);
 
-import mountWithL10n from "../../mock-l10n";
-import ItemList from "../../../src/webextension/manage/components/item-list";
-import ItemSummary from
-       "../../../src/webextension/manage/components/item-summary";
+import mountWithL10n from "test/mock-l10n";
+import ItemList from "src/webextension/manage/components/item-list";
+import ItemSummary from "src/webextension/manage/components/item-summary";
 
 describe("manage > components > <ItemList/>", () => {
   let onItemSelected, wrapper;

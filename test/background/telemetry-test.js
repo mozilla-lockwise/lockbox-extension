@@ -10,10 +10,10 @@ import sinonChai from "sinon-chai";
 
 chai.use(sinonChai);
 
-import getAuthorization from "../../src/webextension/background/authorization";
-import * as telemetry from "../../src/webextension/background/telemetry";
+import getAuthorization from "src/webextension/background/authorization";
+import * as telemetry from "src/webextension/background/telemetry";
 
-describe("background - telemetry", () => {
+describe("background > telemetry", () => {
   let onMessage;
 
   beforeEach(() => {

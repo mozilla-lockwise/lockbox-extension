@@ -11,10 +11,10 @@ import sinonChai from "sinon-chai";
 
 chai.use(sinonChai);
 
-import { simulateTyping } from "../../common";
-import mountWithL10n from "../../mock-l10n";
+import { simulateTyping } from "test/common";
+import mountWithL10n from "test/mock-l10n";
 import EditItemDetails from
-       "../../../src/webextension/manage/components/edit-item-details";
+       "src/webextension/manage/components/edit-item-details";
 
 describe("manage > components > <EditItemDetails/>", () => {
   const blankFields = {

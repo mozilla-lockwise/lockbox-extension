@@ -6,11 +6,11 @@ require("babel-polyfill");
 
 import { expect } from "chai";
 
-import * as actions from "../../src/webextension/manage/actions";
+import * as actions from "src/webextension/manage/actions";
 import {
   cacheReducer, uiReducer, modalReducer,
-} from "../../src/webextension/manage/reducers";
-import { NEW_ITEM_ID } from "../../src/webextension/manage/common";
+} from "src/webextension/manage/reducers";
+import { NEW_ITEM_ID } from "src/webextension/manage/common";
 
 describe("manage > reducers", () => {
   describe("cache reducer", () => {

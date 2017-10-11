@@ -6,7 +6,7 @@ require("babel-polyfill");
 
 import { expect } from "chai";
 
-import * as filter from "../../src/webextension/manage/filter";
+import * as filter from "src/webextension/manage/filter";
 
 describe("manage > filters", () => {
   describe("parseFilterString()", () => {

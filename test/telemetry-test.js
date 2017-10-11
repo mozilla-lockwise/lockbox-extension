@@ -10,7 +10,7 @@ import sinonChai from "sinon-chai";
 
 chai.use(sinonChai);
 
-import * as telemetry from "../src/webextension/telemetry";
+import * as telemetry from "src/webextension/telemetry";
 
 describe("telemetry", () => {
   let onMessage;

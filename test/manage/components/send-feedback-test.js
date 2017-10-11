@@ -11,9 +11,8 @@ import sinonChai from "sinon-chai";
 
 chai.use(sinonChai);
 
-import mountWithL10n from "../../mock-l10n";
-import SendFeedback from
-       "../../../src/webextension/manage/components/send-feedback";
+import mountWithL10n from "test/mock-l10n";
+import SendFeedback from "src/webextension/manage/components/send-feedback";
 
 describe("manage > components > <SendFeedback/>", () => {
   it("feedback link opened", () => {

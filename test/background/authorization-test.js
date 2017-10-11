@@ -13,9 +13,9 @@ import sinonChai from "sinon-chai";
 chai.use(chaiAsPromised);
 chai.use(sinonChai);
 
-import configs from "../../src/webextension/background/authorization/configs";
+import configs from "src/webextension/background/authorization/configs";
 import getAuthorization, * as authz from
-       "../../src/webextension/background/authorization";
+       "src/webextension/background/authorization";
 
 const config = configs["dev-latest"];
 

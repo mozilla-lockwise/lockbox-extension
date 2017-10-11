@@ -13,10 +13,9 @@ import sinonChai from "sinon-chai";
 chai.use(chaiEnzyme);
 chai.use(sinonChai);
 
-import { simulateTyping } from "../common";
-import mountWithL10n from "../mock-l10n";
-
-import FilterInput from "../../src/webextension/widgets/filter-input";
+import { simulateTyping } from "test/common";
+import mountWithL10n from "test/mock-l10n";
+import FilterInput from "src/webextension/widgets/filter-input";
 
 describe("widgets > <FilterInput/>", () => {
   it("render input", () => {
