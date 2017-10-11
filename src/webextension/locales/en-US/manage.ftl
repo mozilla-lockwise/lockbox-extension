@@ -51,15 +51,15 @@ item-details-notes = Notes
 item-details-edit = Edit Entry
 item-details-delete = Delete Entry
 
-item-details-save = Save Changes
-item-details-cancel = Cancel Changes
+item-details-save = Save Entry
+item-details-cancel = Cancel
 
 [[dialogs]]
 
 modal-root-title = Modal dialog
 
 modal-cancel
-  .text = This item has unsaved changes. Are you sure you want to discard them?
+  .text = This entry has unsaved changes. Are you sure you want to discard them?
   .primaryButtonLabel = Discard Changes
   .secondaryButtonLabel = Go Back
 modal-delete
