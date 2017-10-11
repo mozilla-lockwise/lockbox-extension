@@ -7,10 +7,12 @@ import React from "react";
 
 import Button from "../../widgets/button";
 
+const FEEDBACK_URL = "https://qsurvey.mozilla.com/s3/Lockbox-Input";
+
 export default function SendFeedback() {
   return (
     <Localized id="toolbar-send-feedback">
-      <Button onClick={() => { alert("Sorry, no feedback yet"); }}>
+      <Button onClick={() => { window.open(FEEDBACK_URL, "_blank"); }}>
         fEEDBACk
       </Button>
     </Localized>
