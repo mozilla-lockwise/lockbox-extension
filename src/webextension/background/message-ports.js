@@ -33,12 +33,7 @@ export default function initializeMessagePorts() {
       return closeView(message.name).then(() => ({}));
 
     case "signin":
-      try {
-        return getAuthorization().signIn(message.interactive);
-      } catch (err) {
-        console.log(`signin failure: ${err.message}`);
-        throw err;
-      }
+      return getAuthorization().signIn(message.interactive);
     case "initialize":
       return getAuthorization().verify(message.password).then(async() => {
         const ds = await openDataStore();

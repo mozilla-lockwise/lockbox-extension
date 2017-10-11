@@ -13,7 +13,7 @@ import sinonChai from "sinon-chai";
 chai.use(chaiAsPromised);
 chai.use(sinonChai);
 
-import getAuthorization from "../../src/webextension/background/authorization";
+import configs from "../../src/webextension/background/authorization/configs";
 import openDataStore from "../../src/webextension/background/datastore";
 import initializeMessagePorts from
        "../../src/webextension/background/message-ports";
@@ -31,8 +31,13 @@ describe("background > message ports", () => {
     selfMessagePort = browser.runtime.connect();
     otherMessagePort = browser.runtime.connect(undefined, {mockPrimary: false});
 
-    fetchMock.post("https://latest.dev.lcip.org/auth/v1/account/login",
-                   JSON.stringify({}));
+    const config = configs["dev-latest"];
+    fetchMock.post(`${config.oauth_uri}/token`, JSON.stringify({
+      auth_at: 0,
+      expires_in: 0,
+    }));
+    fetchMock.get(`${config.profile_uri}/profile`, "{}");
+    fetchMock.post(`${config.fxa_auth_uri}/account/login`, "{}");
   });
 
   after(() => {
@@ -74,13 +79,20 @@ describe("background > message ports", () => {
     expect(result).to.deep.equal({});
   });
 
-  // TODO: Handle "signin". This is pretty hard at the moment though, since it
-  // assumes the existence of a lot of Web APIs that jsdom doesn't have. Maybe
-  // karma will save us here...
+  it('handle "signin"', async() => {
+    const result = await browser.runtime.sendMessage({
+      type: "signin", interactive: true,
+    });
+
+    expect(result).to.deep.equal({
+      access: {
+        validFrom: new Date(0).toISOString(),
+        validUntil: new Date(0).toISOString(),
+      },
+    });
+  });
 
   it('handle "initialize"', async() => {
-    // Pretend we're signed in.
-    getAuthorization().info = {};
     const result = await browser.runtime.sendMessage({
       type: "initialize", email, password,
     });

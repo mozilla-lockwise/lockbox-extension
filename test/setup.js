@@ -14,11 +14,7 @@ var exposedProperties = ["window", "navigator", "document", "browser",
 global.document = document;
 global.window = document.defaultView;
 
-// This is necessary for chai's .include() to work due to its dependency on
-// `type-detect`. See <https://github.com/chaijs/type-detect/issues/98>.
-global.HTMLElement = global.window.HTMLElement;
-
-Object.keys(document.defaultView).forEach((property) => {
+Object.getOwnPropertyNames(document.defaultView).forEach((property) => {
   if (typeof global[property] === "undefined") {
     exposedProperties.push(property);
     global[property] = document.defaultView[property];
@@ -29,8 +25,8 @@ global.navigator = {
   userAgent: "node.js",
 };
 
-global.Headers = class Headers {
-  append() {}
+global.TextEncoder = class TextEncoder {
+  encode(s) { return s; }
 };
 
 // Mock the WebExtension message ports so that our tests can pretend to talk
@@ -141,6 +137,12 @@ global.browser = {
   extension: {
     getURL(path) {
       return path;
+    },
+  },
+
+  identity: {
+    async launchWebAuthFlow({url}) {
+      return url;
     },
   },
 
