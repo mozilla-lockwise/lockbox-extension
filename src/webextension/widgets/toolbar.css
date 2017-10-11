@@ -9,7 +9,7 @@
   align-items: baseline;
 }
 
-.toolbar > button + button {
+.toolbar > * + * {
   margin-inline-start: 1ch;
 }
 
