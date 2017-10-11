@@ -61,6 +61,8 @@ All events are under the **category: lockbox**. The `extra` field always contain
 
 13. `datatore` fires when an item is added/updated/deleted from the backend.  Has itemid (and sometimes fields) added as extra. **methods**:added, updated, deleted **objects**: datastore.
 
+14. `feedback` fires when the user clicks the "Send Feedback" button. **methods**:feedbackClick **objects**:manage
+
 ## Analysis
 
 We will aim to collect data that will help us understand the following (please add anything that you think is important, these are just the basics; note that not all these things will be answerable give the data we will have to work with during alpha):

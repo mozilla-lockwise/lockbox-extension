@@ -72,6 +72,11 @@ function startup({webExtension}, reason) {
       objects: ["datastore"],
       extra_keys: ["itemid", "fxauid", "fields"],
     },
+    "feedback": {
+      methods: ["feedbackClick"],
+      objects: ["manage"],
+      extra_keys: ["fxauid"],
+    },
   });
 
   webExtension.startup().then(({browser}) => {
