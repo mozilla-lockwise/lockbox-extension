@@ -15,8 +15,14 @@ import DirListWebpackPlugin from "./dir-list-webpack-plugin";
 import JSONWebpackPlugin from "./json-webpack-plugin";
 import thisPackage from "./package.json";
 
-const NODE_ENV = (process.env.NODE_ENV) ? process.env.NODE_ENV.toLowerCase() :
-                 "development";
+const NODE_ENV = (() => {
+  if (process.env.NODE_ENV) {
+    return process.env.NODE_ENV.toLowerCase();
+  } else if (process.env.NODE_SUGGESTED_ENV) {
+    return process.env.NODE_SUGGESTED_ENV.toLowerCase();
+  }
+  return "development";
+})();
 
 const cssLoader = {
   loader: "css-loader",
