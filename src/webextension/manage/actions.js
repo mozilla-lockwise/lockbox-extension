@@ -86,7 +86,7 @@ function addItemStarting(actionId, item) {
 }
 
 function addItemCompleted(actionId, item) {
-  telemetry.recordEvent("lockbox", "itemAdded", "addItemForm", {"itemid": `${item}`});
+  telemetry.recordEvent("lockbox", "itemAdded", "addItemForm", {"itemid": item.id});
   return {
     type: ADD_ITEM_COMPLETED,
     actionId,
