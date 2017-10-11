@@ -8,7 +8,7 @@ import React from "react";
 
 import PasswordInput from "../../widgets/password-input";
 import WizardPage from "./wizard-page";
-import * as telemetry from "../../telemetry.js";
+import * as telemetry from "../../telemetry";
 
 
 export class WelcomePage1 extends React.Component {
@@ -38,7 +38,7 @@ export class WelcomePage1 extends React.Component {
         error: "Firefox Accounts login failed",
       });
     }
-    telemetry.recordEvent("lockbox", "render", "signIn_page");
+    telemetry.recordEvent("lockbox", "render", "signInPage");
   }
 
   render() {
@@ -92,6 +92,8 @@ export class VerifyPage2 extends React.Component {
         error: "wrong password",
       });
     }
+    telemetry.recordEvent("lockbox", "render", "confirmPWPage");
+
   }
 
   render() {
@@ -138,7 +140,10 @@ export class FinishedPage3 extends React.Component {
       name: "manage",
     });
     this.props.next();
+    telemetry.recordEvent("lockbox", "render", "setupDonePage");
+
   }
+
 
   render() {
     return (

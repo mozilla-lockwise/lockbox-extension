@@ -9,8 +9,10 @@ import { connect } from "react-redux";
 
 import Button from "../../widgets/button";
 import { startNewItem } from "../actions";
+import * as telemetry from "../../telemetry";
 
 function AddItem({dispatch}) {
+telemetry.recordEvent("lockbox", "addClick", "addButton");
   return (
     <Localized id="toolbar-add-item">
       <Button onClick={() => { dispatch(startNewItem()); }}>

@@ -28,20 +28,33 @@ This is the metrics collection plan for Lockbox's alpha release. It is more of a
 
 Best viewed in something that can render Markdown.
 
-## TL;DR Metrics Priorities for Alpha
+## TL;DR Metrics Implemented for Alpha Thus Far
 
-These are the metrics that we have identified that best balance time to implement and importance-to-have
+These are the metrics that have been implemented in the pull request that included the edits to this doc.
 
-1. Some event that reflects the initialization of the first run flow, e.g. the `lockbox_setup.render` event described below
+All events are under the **category: lockbox**. The `extra` field always contains `fxaid` where possible (i.e. after FxA auth). In the future also the `itemid` where relevant.
 
-2. Some event that reflects the rendering of the item list after confirmation of master password, or an event that fires at the end of the process that is triggered by a successful re-entering of the user's FxA password. This event would be used to track the completion of the setup flow.
+1. `startup` fires when the webextension is loaded. **method**:click **objects**: addon, webextension.
 
-3. Changes to the datastore, along with the type of change that occurred (CRUD) see the event category e.g. `lockbox_datastore.changed`
+2. `iconClick` fires when someone clicks the toolbar icon. **method**:startup **objects**: firstrun, manage (depends on user context).
 
-4. Interaction events that reflect the user's intention to modify the datastore. This could include `lockbox_item_list.interaction` (clicks on items in the list) or `lockbox_new_item.render` and `lockbox_edit_item.render` that track the rendering of the item editor interfaces.
+3. `signIn` fires when someone clicks the signin button during firstrun. **method**: render **objects**: signInPage.
 
-5. A click event on the button used to leave feedback. We need this to make sure people are reliably redirected to the feedback form. See `lockbox_feedback.interaction`
+4. `confirmPW` fires when the screen asking for password confirm renders. **method**: render **objects**: confirmPWPage.
 
+5. `setupDone` fires after the user authenticates wtih fxa successfully and the message informing them of that renders. **method**: render **objects**: setupDonePage.
+
+6. `itemAdding` fires when a user submits a new item from the editor. **method**: itemAdding **objects**: addItemForm.
+
+7. `itemUpdating` fires when a user submits an edit to an existing item. **method**: itemUpdating **objects**: updatingItemForm.
+
+8. `itemDeleting` fires when user submits a request to delete an item. **method**: itemDeleting **objects**: updatingItemForm.
+
+9. `itemSelected` fires when a user clicks on an item in the item list. **method**: itemSelected **objects**: itemList.
+
+10. `addClick` fires when a user clicks the add new item button from the item list . **method**: addClick **objects**: addButton.
+
+11. `itemAdded` fires when the `addItemCompleted` function is called on the front end. Needs to have itemid added as extra (Leif couldn't figure that out) **method**: itemAdded **objects**: addItemForm.
 
 ## Analysis
 
@@ -145,7 +158,7 @@ These are the metrics we plan to collect regarding the state of user datastores.
 -   `n_notes` The number of items for which the user has manually entered custom notes for. Integer
 -   `timestamp_last` The timestamp of the last edit the user made to the datastore. Does not necessarily correspond to the last time they opened the CRUD editor.
 
-## Events
+## !!!!!!! EVERYTHING BELOW HERE IS OLD AND OUT OF DATE NOT IMPLEMENTED KEPT HERE FOR FUTURE REFERENCE ONLY !!!!!!!
 
 ### Setup Events
 

@@ -1,7 +1,7 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-import * as telemetry from "../background/telemetry";
+import * as telemetry from "../telemetry";
 
 export const LIST_ITEMS_STARTING = Symbol("LIST_ITEMS_STARTING");
 export const LIST_ITEMS_COMPLETED = Symbol("LIST_ITEMS_COMPLETED");
@@ -63,12 +63,13 @@ export function addItem(details) {
   return async function(dispatch) {
     const actionId = nextActionId++;
     dispatch(addItemStarting(actionId, details));
-
+    telemetry.recordEvent("lockbox", "itemAdding", "addItemForm");
     const response = await browser.runtime.sendMessage({
       type: "add_item",
       item: details,
     });
     dispatch(addItemCompleted(actionId, response.item));
+
   };
 }
 
@@ -85,6 +86,7 @@ function addItemStarting(actionId, item) {
 }
 
 function addItemCompleted(actionId, item) {
+  telemetry.recordEvent("lockbox", "itemAdded", "addItemForm", {"itemid": `${item}`});
   return {
     type: ADD_ITEM_COMPLETED,
     actionId,
@@ -96,7 +98,7 @@ export function updateItem(item) {
   return async function(dispatch) {
     const actionId = nextActionId++;
     dispatch(updateItemStarting(actionId, item));
-
+    telemetry.recordEvent("lockbox", "itemUpdating", "updatingItemForm");
     const response = await browser.runtime.sendMessage({
       type: "update_item",
       item,
@@ -135,6 +137,7 @@ export function removeItem(id) {
       id,
     });
     dispatch(removeItemCompleted(actionId, id));
+    telemetry.recordEvent("lockbox", "itemDeleting", "updatingItemForm");
   };
 }
 
@@ -173,6 +176,7 @@ export function selectItem(id) {
       id,
     });
     dispatch(selectItemCompleted(actionId, response.item));
+    telemetry.recordEvent("lockbox", "itemSelected", "itemList");
   };
 }
 
