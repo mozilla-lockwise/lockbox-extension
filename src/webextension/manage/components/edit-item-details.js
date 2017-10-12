@@ -10,7 +10,8 @@ import Button from "../../widgets/button";
 import Input from "../../widgets/input";
 import PasswordInput from "../../widgets/password-input";
 import TextArea from "../../widgets/text-area";
-import { Text } from "./item-details.js";
+import Toolbar from "../../widgets/toolbar";
+import { LabelText } from "./item-details.js";
 
 import styles from "./item-details.css";
 
@@ -74,45 +75,45 @@ export default class EditItemDetails extends React.Component {
             }}>
         <label>
           <Localized id="item-details-title">
-            <Text>tITLe</Text>
+            <LabelText>tITLe</LabelText>
           </Localized>
           <Input type="text" {...controlledProps("title")}
                  ref={(element) => this._firstField = element}/>
         </label>
         <label>
           <Localized id="item-details-origin">
-            <Text>oRIGIn</Text>
+            <LabelText>oRIGIn</LabelText>
           </Localized>
           <Input type="text" {...controlledProps("origin")}/>
         </label>
         <label>
           <Localized id="item-details-username">
-            <Text>uSERNAMe</Text>
+            <LabelText>uSERNAMe</LabelText>
           </Localized>
           <Input type="text" {...controlledProps("username")}/>
         </label>
         <label>
           <Localized id="item-details-password">
-            <Text>pASSWORd</Text>
+            <LabelText>pASSWORd</LabelText>
           </Localized>
           <PasswordInput {...controlledProps("password")}/>
         </label>
         <label>
           <Localized id="item-details-notes">
-            <Text>nOTEs</Text>
+            <LabelText>nOTEs</LabelText>
           </Localized>
           <TextArea {...controlledProps("notes")}/>
         </label>
-        <div className={styles.buttons}>
+        <Toolbar className={styles.buttons}>
           <Localized id="item-details-save">
-            <Button type="submit">sAVe</Button>
+            <Button className="default" type="submit">sAVe</Button>
           </Localized>
           <Localized id="item-details-cancel">
             <Button type="button" onClick={(e) => onCancel(this._changed)}>
               cANCEl
             </Button>
           </Localized>
-        </div>
+        </Toolbar>
       </form>
     );
   }

@@ -4,10 +4,10 @@
 
 .item-details {
   display: grid;
-  grid-template-columns: max-content minmax(225px, max-content);
+  grid-template-columns: minmax(225px, max-content);
   grid-column-gap: 1em;
-  grid-row-gap: 6px;
-  margin: 1em;
+  grid-row-gap: 3px;
+  margin: 2em;
 }
 
 .item-details > label,
@@ -15,31 +15,20 @@
   display: contents;
 }
 
-.item-details > label > *:first-child,
-.item-details > .field > *:first-child {
-  grid-column: 1;
-}
-
-.item-details > .buttons {
-  grid-column: 2;
-}
-
-.item-details .text {
-  /* This lines up our labels with the text in <input> elements. */
-  margin-top: 3.5px;
-  height: 20.5px;
-}
-
-.item-details > .field > .text + * {
-  margin-inline-start: 7px;
-}
-
 .item-details textarea {
   resize: none;
 }
 
-.buttons > button + button {
-  margin-inline-start: 1ch;
+.label-text {
+  margin-inline-start: 7px;
+  margin-top: 0.5em;
+}
+
+.field-text {
+  /* This lines up our labels with the text in <input> elements. */
+  margin-top: 3.5px;
+  height: 20.5px;
+  margin-inline-start: 7px;
 }
 
 .inline-button {
@@ -48,4 +37,10 @@
 
 .inline-button > *:first-child {
   flex: 1;
+}
+
+.buttons {
+  border-top: 1px solid #d6d6d6;
+  margin-top: 1em;
+  padding: 1em 0;
 }

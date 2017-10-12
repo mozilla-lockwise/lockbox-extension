@@ -19,7 +19,7 @@ function AddItem({dispatch}) {
 
   return (
     <Localized id="toolbar-add-item">
-      <Button onClick={doClick}>
+      <Button className="default" onClick={doClick}>
         aDd iTEm
       </Button>
     </Localized>
