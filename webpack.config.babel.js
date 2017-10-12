@@ -8,7 +8,6 @@ import combineLoaders from "webpack-combine-loaders";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import ExtractTextPlugin from "extract-text-webpack-plugin";
 import HTMLWebpackPlugin from "html-webpack-plugin";
-import XMLWebpackPlugin from "xml-webpack-plugin";
 import MinifyPlugin from "babel-minify-webpack-plugin";
 
 import DirListWebpackPlugin from "./dir-list-webpack-plugin";
@@ -65,7 +64,7 @@ if (NODE_ENV === "production") {
 
   extraPlugins.push(
     new DirListWebpackPlugin({
-      directory: path.join(__dirname, "src/webextension/locales"),
+      directory: "webextension/locales",
       filename: "webextension/locales/locales.json",
       filter: (file, stats) => file.charAt(0) !== "." && stats.isDirectory(),
     }),
@@ -115,11 +114,9 @@ export default {
       {from: "bootstrap.js"},
       {from: "webextension/locales/**/*.ftl"},
       {from: "webextension/icons/*"},
-      {from: "webextension/icons/lock.png", to: "icon.png"},
+      {from: "icon.png"},
       ...extraCopy,
-    ], {
-      copyUnmodified: true,
-    }),
+    ]),
     new webpack.DefinePlugin({
       "process.env": {
         "NODE_ENV": JSON.stringify(NODE_ENV),
@@ -132,7 +129,7 @@ export default {
       inject: false,
       minify: htmlMinifyOptions,
       title: "Lockbox Entries",
-      icon: "../icons/lock.png",
+      icon: "../icons/lb_unlocked.svg",
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",
@@ -141,7 +138,6 @@ export default {
       inject: false,
       minify: htmlMinifyOptions,
       title: "Welcome to Lockbox",
-      icon: "../icons/lock.png",
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",
@@ -150,15 +146,15 @@ export default {
       inject: false,
       minify: htmlMinifyOptions,
       title: "Unlock",
-      icon: "../icons/lock.png",
     }),
-    new XMLWebpackPlugin({files: [{
-      template: path.join(__dirname, "src/install.rdf.ejs"),
+    new HTMLWebpackPlugin({
+      template: "install.rdf.ejs",
       filename: "install.rdf",
-      data: thisPackage,
-    }]}),
+      inject: false,
+      package: thisPackage,
+    }),
     new JSONWebpackPlugin({
-      template: path.join(__dirname, "src/webextension/manifest.json.tpl"),
+      template: "webextension/manifest.json.tpl",
       filename: "webextension/manifest.json",
       data: thisPackage,
     }),

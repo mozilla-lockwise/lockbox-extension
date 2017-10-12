@@ -19,15 +19,17 @@ import Button from "src/webextension/widgets/button";
 describe("widgets > <Button/>", () => {
   it("render button", () => {
     const wrapper = mount(<Button>click me</Button>);
-    const realButton = wrapper.find("button");
-    expect(realButton).to.have.text("click me");
-    expect(realButton.prop("className")).to.match(/^browser-style \S+$/);
+    expect(wrapper.find("button")).to.have.text("click me");
+    expect(wrapper.find("button").prop("className")).to.match(
+      /^browser-style \S+$/
+    );
   });
 
   it("merge classNames", () => {
     const wrapper = mount(<Button className="foo">click me</Button>);
-    const realButton = wrapper.find("button");
-    expect(realButton.prop("className")).to.match(/^browser-style \S+ foo$/);
+    expect(wrapper.find("button").prop("className")).to.match(
+      /^browser-style \S+ foo$/
+    );
   });
 
   it("onClick fired", () => {
@@ -40,9 +42,8 @@ describe("widgets > <Button/>", () => {
   it("focus() focuses button", () => {
     const wrapper = mount(<Button>click me</Button>);
     wrapper.instance().focus();
-    const realButton = wrapper.find("button");
-    expect(realButton.matchesElement(document.activeElement)).to.equal(
-      true, "the element was not focused"
+    expect(wrapper.find("button").instance()).to.equal(
+      document.activeElement, "the element was not focused"
     );
   });
 });

@@ -43,6 +43,9 @@ export default async function updateBrowserAction(ds) {
   uninstallListener();
   uninstallPopup();
 
+  const iconpath = ds.locked ? "icons/lb_locked.svg" : "icons/lb_unlocked.svg";
+  browser.browserAction.setIcon({ path: iconpath });
+
   if (!ds.initialized) {
     // setup first-run popup
     console.log("setup first run click handler");

@@ -76,8 +76,8 @@ export default class EditItemDetails extends React.Component {
           <Localized id="item-details-title">
             <Text>tITLe</Text>
           </Localized>
-        <Input type="text" {...controlledProps("title")}
-               ref={(element) => this._firstField = element}/>
+          <Input type="text" {...controlledProps("title")}
+                 ref={(element) => this._firstField = element}/>
         </label>
         <label>
           <Localized id="item-details-origin">

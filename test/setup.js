@@ -4,6 +4,11 @@
 
 require("babel-register")();
 
+const Enzyme = require("enzyme");
+const Adapter = require("enzyme-adapter-react-16");
+
+Enzyme.configure({adapter: new Adapter()});
+
 var jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const { document } = (new JSDOM("")).window;
@@ -132,6 +137,7 @@ global.browser = {
     async getPopup() {
       return this._popupPage;
     },
+    setIcon() {},
   },
 
   extension: {

@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import fs from "fs";
+import path from "path";
 import renderObject from "json-templater/object";
 
 export default class JSONWebpackPlugin {
@@ -28,7 +29,8 @@ export default class JSONWebpackPlugin {
         return;
       }
 
-      fs.readFile(this.options.template, {encoding: "utf8"}, (err, data) => {
+      const template = path.resolve(compiler.context, this.options.template);
+      fs.readFile(template, {encoding: "utf8"}, (err, data) => {
         if (err) {
           compilation.errors.push("JSONWebpackPlugin couldn't read template");
           callback();

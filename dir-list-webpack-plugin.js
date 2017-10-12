@@ -36,7 +36,8 @@ export default class DirListWebpackPlugin {
         return;
       }
 
-      fs.readdir(this.options.directory, (err, files) => {
+      const directory = path.resolve(compiler.context, this.options.directory);
+      fs.readdir(directory, (err, files) => {
         if (err) {
           compilation.errors.push(`DirListWebpackPlugin couldn't read ` +
                                   `directory ${this.options.directory}`);
@@ -47,7 +48,7 @@ export default class DirListWebpackPlugin {
         let filesPromise;
         if (this.options.filter) {
           filesPromise = Promise.all(files.map((f) => {
-            const filename = path.join(this.options.directory, f);
+            const filename = path.join(directory, f);
             return statPromise(filename).then(
               (stats) => this.options.filter(f, stats),
               () => {
