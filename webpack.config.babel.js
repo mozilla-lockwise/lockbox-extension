@@ -114,11 +114,9 @@ export default {
       {from: "bootstrap.js"},
       {from: "webextension/locales/**/*.ftl"},
       {from: "webextension/icons/*"},
-      {from: "webextension/icons/lock.png", to: "icon.png"},
+      {from: "icon.png"},
       ...extraCopy,
-    ], {
-      copyUnmodified: true,
-    }),
+    ]),
     new webpack.DefinePlugin({
       "process.env": {
         "NODE_ENV": JSON.stringify(NODE_ENV),
@@ -131,7 +129,7 @@ export default {
       inject: false,
       minify: htmlMinifyOptions,
       title: "Lockbox Entries",
-      icon: "../icons/lock.png",
+      icon: "../icons/lb_unlocked.svg",
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",
@@ -140,7 +138,6 @@ export default {
       inject: false,
       minify: htmlMinifyOptions,
       title: "Welcome to Lockbox",
-      icon: "../icons/lock.png",
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",
@@ -149,7 +146,6 @@ export default {
       inject: false,
       minify: htmlMinifyOptions,
       title: "Unlock",
-      icon: "../icons/lock.png",
     }),
     new HTMLWebpackPlugin({
       template: "install.rdf.ejs",

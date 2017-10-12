@@ -18,7 +18,7 @@
   "browser_action": {
     "browser_style": true,
     "default_icon": {
-      "512": "icons/lock.png"
+      "32": "icons/lb_locked.svg"
     },
     "default_title": "Lockbox"
   },

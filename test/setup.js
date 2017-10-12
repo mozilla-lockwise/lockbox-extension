@@ -137,6 +137,7 @@ global.browser = {
     async getPopup() {
       return this._popupPage;
     },
+    setIcon() {},
   },
 
   extension: {
