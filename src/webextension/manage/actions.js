@@ -69,7 +69,7 @@ export function addItem(details) {
       item: details,
     });
     dispatch(addItemCompleted(actionId, response.item));
-    telemetry.recordEvent("lockbox", "itemAdded", "addItemForm", {"itemid": item.id});
+    telemetry.recordEvent("lockbox", "itemAdded", "addItemForm");
   };
 }
 
