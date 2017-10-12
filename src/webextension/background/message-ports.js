@@ -88,9 +88,8 @@ export default function initializeMessagePorts() {
       });
 
     case "proxy_telemetry_event":
-      return telemetry.recordEvent(
-        message.category, message.method, message.object, message.extra
-      );
+      return telemetry.recordEvent(message.method, message.object,
+                                   message.extra);
     default:
       return null;
     }

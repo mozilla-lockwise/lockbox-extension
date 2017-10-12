@@ -2,8 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-export async function recordEvent(category, method, object, extra) {
+export async function recordEvent(method, object, extra) {
   return browser.runtime.sendMessage({
-    type: "proxy_telemetry_event", category, method, object, extra,
+    type: "proxy_telemetry_event", method, object, extra,
   });
 }

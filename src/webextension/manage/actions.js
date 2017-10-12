@@ -62,14 +62,14 @@ export function addItem(details) {
   return async function(dispatch) {
     const actionId = nextActionId++;
     dispatch(addItemStarting(actionId, details));
-    telemetry.recordEvent("lockbox", "itemAdding", "addItemForm");
+    telemetry.recordEvent("itemAdding", "addItemForm");
 
     const response = await browser.runtime.sendMessage({
       type: "add_item",
       item: details,
     });
     dispatch(addItemCompleted(actionId, response.item));
-    telemetry.recordEvent("lockbox", "itemAdded", "addItemForm");
+    telemetry.recordEvent("itemAdded", "addItemForm");
   };
 }
 
@@ -97,7 +97,7 @@ export function updateItem(item) {
   return async function(dispatch) {
     const actionId = nextActionId++;
     dispatch(updateItemStarting(actionId, item));
-    telemetry.recordEvent("lockbox", "itemUpdating", "updatingItemForm");
+    telemetry.recordEvent("itemUpdating", "updatingItemForm");
 
     const response = await browser.runtime.sendMessage({
       type: "update_item",
@@ -131,7 +131,7 @@ export function removeItem(id) {
   return async function(dispatch) {
     const actionId = nextActionId++;
     dispatch(removeItemStarting(actionId, id));
-    telemetry.recordEvent("lockbox", "itemDeleting", "updatingItemForm");
+    telemetry.recordEvent("itemDeleting", "updatingItemForm");
 
     await browser.runtime.sendMessage({
       type: "remove_item",
@@ -176,7 +176,7 @@ export function selectItem(id) {
       id,
     });
     dispatch(selectItemCompleted(actionId, response.item));
-    telemetry.recordEvent("lockbox", "itemSelected", "itemList");
+    telemetry.recordEvent("itemSelected", "itemList");
   };
 }
 

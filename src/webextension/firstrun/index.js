@@ -9,7 +9,7 @@ import AppLocalizationProvider from "../l10n";
 import App from "./components/app";
 import * as telemetry from "../telemetry";
 
-telemetry.recordEvent("lockbox", "render", "firstrun");
+telemetry.recordEvent("render", "firstrun");
 
 ReactDOM.render(
   <AppLocalizationProvider bundles={["firstrun", "widgets"]}

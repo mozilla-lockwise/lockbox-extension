@@ -24,7 +24,7 @@ export class WelcomePage1 extends React.Component {
   }
 
   async signIn() {
-    telemetry.recordEvent("lockbox", "render", "fxaSignInPage");
+    telemetry.recordEvent("render", "fxaSignInPage");
     try {
       const response = await browser.runtime.sendMessage({
         type: "signin",
@@ -90,7 +90,7 @@ export class VerifyPage2 extends React.Component {
         error: "wrong password",
       });
     }
-    telemetry.recordEvent("lockbox", "click", "confirmPWButton");
+    telemetry.recordEvent("click", "confirmPWButton");
   }
 
   render() {
@@ -137,7 +137,7 @@ export class FinishedPage3 extends React.Component {
       name: "manage",
     });
     this.props.next();
-    telemetry.recordEvent("lockbox", "click", "setupDoneButton");
+    telemetry.recordEvent("click", "setupDoneButton");
   }
 
   render() {
