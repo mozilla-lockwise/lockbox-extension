@@ -2,18 +2,31 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-body {
-  margin: 0;
-}
-
+html,
+body,
+body > main,
 .app {
-  display: grid;
-  grid-template-columns: 1fr 5fr;
-  grid-template-rows: 100vh;
-  grid-gap: 1em;
+  height: 100%;
 }
 
-.app > aside {
+.app-main {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: auto 1fr;
+  grid-column-gap: 1em;
+}
+
+.side-toolbar {
+  background-color: #f9f9fa;
+  padding-inline-end: 0;
+}
+
+.main-toolbar {
+  padding-inline-start: 0;
+}
+
+.app-main > aside {
   grid-column: 1;
   min-width: 0;
   background-color: #f9f9fa;
@@ -21,15 +34,6 @@ body {
   grid-template-rows: auto 1fr auto;
 }
 
-.app > article {
+.app-main > article {
   grid-column: 2;
-}
-
-.app > article > menu {
-  margin: 0;
-  padding: 0;
-}
-
-.app > article > menu > button + button {
-  margin-inline-start: 1ch;
 }

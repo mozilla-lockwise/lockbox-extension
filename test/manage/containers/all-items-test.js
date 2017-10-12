@@ -11,18 +11,16 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
 import { initialState, filledState } from "../mock-redux-state";
-import mountWithL10n from "../../mock-l10n";
-
-import ItemSummary from
-       "../../../src/webextension/manage/components/item-summary";
-import AllItems from "../../../src/webextension/manage/containers/all-items";
-import { SELECT_ITEM_STARTING } from "../../../src/webextension/manage/actions";
-import { NEW_ITEM_ID } from "../../../src/webextension/manage/common";
+import mountWithL10n from "test/mock-l10n";
+import ItemSummary from "src/webextension/manage/components/item-summary";
+import AllItems from "src/webextension/manage/containers/all-items";
+import { SELECT_ITEM_STARTING } from "src/webextension/manage/actions";
+import { NEW_ITEM_ID } from "src/webextension/manage/common";
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe("<AllItems/>", () => {
+describe("manage > containers > <AllItems/>", () => {
   beforeEach(() => {
     browser.runtime.onMessage.addListener(() => ({}));
   });

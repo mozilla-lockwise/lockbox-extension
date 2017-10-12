@@ -5,27 +5,26 @@
 require("babel-polyfill");
 
 import { expect } from "chai";
+import PropTypes from "prop-types";
 import React from "react";
 import Modal from "react-modal";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 
+import mountWithL10n from "test/mock-l10n";
 import { initialState } from "../mock-redux-state";
-import mountWithL10n from "../../mock-l10n";
-
-import ModalRoot from
-       "../../../src/webextension/manage/containers/modal-root";
+import ModalRoot from "src/webextension/manage/containers/modal-root";
 import CancelEditingModal from
-       "../../../src/webextension/manage/containers/modals/cancel-editing";
+       "src/webextension/manage/containers/modals/cancel-editing";
 import DeleteItemModal from
-       "../../../src/webextension/manage/containers/modals/delete-item";
-import * as actions from "../../../src/webextension/manage/actions";
+       "src/webextension/manage/containers/modals/delete-item";
+import * as actions from "src/webextension/manage/actions";
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe("modals", () => {
+describe("manage > containers > modals", () => {
   describe("<ModalRoot/>", () => {
     it("no modal", () => {
       const store = mockStore(initialState);
@@ -34,10 +33,24 @@ describe("modals", () => {
           <ModalRoot/>
         </Provider>
       );
-      expect(wrapper.children()).to.have.length(0);
+      expect(wrapper.find(Modal)).to.have.length(0);
     });
 
     it("with modal", () => {
+      // Enzyme doesn't support React Portals yet; see
+      // <https://github.com/airbnb/enzyme/issues/1150>.
+      ModalRoot.__Rewire__("Modal", class FakeModal extends React.Component {
+        static get propTypes() {
+          return {
+            children: PropTypes.node,
+          };
+        }
+
+        render() {
+          return <div>{this.props.children}</div>;
+        }
+      });
+
       const store = mockStore({
         ...initialState,
         modal: { id: "cancel", props: null },
@@ -47,7 +60,9 @@ describe("modals", () => {
           <ModalRoot/>
         </Provider>
       );
-      expect(wrapper.find(Modal)).to.have.length(1);
+
+      ModalRoot.__ResetDependency__("Modal");
+      expect(wrapper.find(CancelEditingModal)).to.have.length(1);
     });
   });
 

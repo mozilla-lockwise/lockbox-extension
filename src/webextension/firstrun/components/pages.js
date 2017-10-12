@@ -30,7 +30,8 @@ export class WelcomePage1 extends React.Component {
       });
       this.props.next(response);
     } catch (err) {
-      // TODO: something with the error, and localize!
+      console.log(`signin failure: ${err.message}`);
+      // TODO: Localize this!
       this.setState({
         error: "Firefox Accounts login failed",
       });

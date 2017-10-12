@@ -13,17 +13,17 @@ import { Provider } from "react-redux";
 chai.use(chaiEnzyme());
 
 import { initialState } from "../mock-redux-state";
-import mountWithL10n from "../../mock-l10n";
-import App from "../../../src/webextension/manage/components/app";
-import AddItem from "../../../src/webextension/manage/containers/add-item";
-import AllItems from "../../../src/webextension/manage/containers/all-items";
+import mountWithL10n from "test/mock-l10n";
+import App from "src/webextension/manage/components/app";
+import AddItem from "src/webextension/manage/containers/add-item";
+import AllItems from "src/webextension/manage/containers/all-items";
 import CurrentSelection from
-       "../../../src/webextension/manage/containers/current-selection";
+       "src/webextension/manage/containers/current-selection";
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
-describe("manage <App/>", () => {
+describe("manage > components > <App/>", () => {
   it("render app", () => {
     const store = mockStore(initialState);
     const wrapper = mountWithL10n(

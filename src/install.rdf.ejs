@@ -2,17 +2,18 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
-    <em:id><%= id %></em:id>
+    <% const package = htmlWebpackPlugin.options.package; %>
+    <em:id><%- package.id %></em:id>
     <em:type>2</em:type>
     <em:bootstrap>true</em:bootstrap>
-    <em:name><%= title %></em:name>
-    <em:version><%= version %></em:version>
+    <em:name><%- package.title %></em:name>
+    <em:version><%- package.version %></em:version>
     <em:creator>Mozilla</em:creator>
-    <em:contributor><%= author %></em:contributor>
-    <em:description><%= description %></em:description>
+    <em:contributor><%- package.author %></em:contributor>
+    <em:description><%- package.description %></em:description>
     <em:multiprocessCompatible>true</em:multiprocessCompatible>
     <em:hasEmbeddedWebExtension>true</em:hasEmbeddedWebExtension>
-    <em:updateURL>https://testpilot.firefox.com/files/<%= id %>/updates.json</em:updateURL>
+    <em:updateURL>https://testpilot.firefox.com/files/<%= package.id %>/updates.json</em:updateURL>
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id> <!--Firefox-->

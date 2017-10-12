@@ -8,15 +8,20 @@ import combineLoaders from "webpack-combine-loaders";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import ExtractTextPlugin from "extract-text-webpack-plugin";
 import HTMLWebpackPlugin from "html-webpack-plugin";
-import XMLWebpackPlugin from "xml-webpack-plugin";
 import MinifyPlugin from "babel-minify-webpack-plugin";
 
 import DirListWebpackPlugin from "./dir-list-webpack-plugin";
 import JSONWebpackPlugin from "./json-webpack-plugin";
 import thisPackage from "./package.json";
 
-const NODE_ENV = (process.env.NODE_ENV) ? process.env.NODE_ENV.toLowerCase() :
-                 "development";
+const NODE_ENV = (() => {
+  if (process.env.NODE_ENV) {
+    return process.env.NODE_ENV.toLowerCase();
+  } else if (process.env.NODE_SUGGESTED_ENV) {
+    return process.env.NODE_SUGGESTED_ENV.toLowerCase();
+  }
+  return "development";
+})();
 
 const cssLoader = {
   loader: "css-loader",
@@ -59,7 +64,7 @@ if (NODE_ENV === "production") {
 
   extraPlugins.push(
     new DirListWebpackPlugin({
-      directory: path.join(__dirname, "src/webextension/locales"),
+      directory: "webextension/locales",
       filename: "webextension/locales/locales.json",
       filter: (file, stats) => file.charAt(0) !== "." && stats.isDirectory(),
     }),
@@ -142,13 +147,14 @@ export default {
       minify: htmlMinifyOptions,
       title: "Unlock",
     }),
-    new XMLWebpackPlugin({files: [{
-      template: path.join(__dirname, "src/install.rdf.ejs"),
+    new HTMLWebpackPlugin({
+      template: "install.rdf.ejs",
       filename: "install.rdf",
-      data: thisPackage,
-    }]}),
+      inject: false,
+      package: thisPackage,
+    }),
     new JSONWebpackPlugin({
-      template: path.join(__dirname, "src/webextension/manifest.json.tpl"),
+      template: "webextension/manifest.json.tpl",
       filename: "webextension/manifest.json",
       data: thisPackage,
     }),

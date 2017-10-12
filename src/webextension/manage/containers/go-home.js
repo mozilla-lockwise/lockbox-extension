@@ -12,7 +12,7 @@ import { selectItem } from "../actions";
 
 function GoHome({dispatch}) {
   return (
-    <Localized id="go-home">
+    <Localized id="toolbar-go-home">
       <Button onClick={() => { dispatch(selectItem(null)); }}>
         hOMe
       </Button>

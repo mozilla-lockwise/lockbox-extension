@@ -10,22 +10,21 @@ import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
-import { simulateTyping } from "../../common";
+import { simulateTyping } from "test/common";
+import mountWithL10n from "test/mock-l10n";
 import { initialState, filledState } from "../mock-redux-state";
-import mountWithL10n from "../../mock-l10n";
-import { NEW_ITEM_ID } from "../../../src/webextension/manage/common";
+import { NEW_ITEM_ID } from "src/webextension/manage/common";
 import EditItemDetails from
-       "../../../src/webextension/manage/components/edit-item-details";
-import ItemDetails from
-       "../../../src/webextension/manage/components/item-details";
+       "src/webextension/manage/components/edit-item-details";
+import ItemDetails from "src/webextension/manage/components/item-details";
 import CurrentSelection from
-       "../../../src/webextension/manage/containers/current-selection";
-import * as actions from "../../../src/webextension/manage/actions";
+       "src/webextension/manage/containers/current-selection";
+import * as actions from "src/webextension/manage/actions";
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe("<CurrentSelection/>", () => {
+describe("manage > containers > <CurrentSelection/>", () => {
   beforeEach(() => {
     browser.runtime.onMessage.addListener(() => ({}));
   });
@@ -125,8 +124,8 @@ describe("<CurrentSelection/>", () => {
 
     it("first field focused", () => {
       const firstField = wrapper.find("input").at(0);
-      expect(firstField.matchesElement(document.activeElement)).to.equal(
-        true, "the element was not focused"
+      expect(firstField.instance()).to.equal(
+        document.activeElement, "the element was not focused"
       );
     });
 
@@ -158,7 +157,7 @@ describe("<CurrentSelection/>", () => {
     });
 
     it('showModal("cancel") dispatched', () => {
-      simulateTyping(wrapper.find('[name="title"]'), "title");
+      simulateTyping(wrapper.find('input[name="title"]'), "title");
       wrapper.findWhere((x) => x.prop("id") === "item-details-cancel")
              .find("button").simulate("click");
       expect(store.getActions()[0]).to.deep.equal({
@@ -198,8 +197,8 @@ describe("<CurrentSelection/>", () => {
 
     it("first field focused", () => {
       const firstField = wrapper.find("input").at(0);
-      expect(firstField.matchesElement(document.activeElement)).to.equal(
-        true, "the element was not focused"
+      expect(firstField.instance()).to.equal(
+        document.activeElement, "the element was not focused"
       );
     });
 
@@ -231,7 +230,7 @@ describe("<CurrentSelection/>", () => {
     });
 
     it('showModal("cancel") dispatched', () => {
-      simulateTyping(wrapper.find('[name="title"]'), "new title");
+      simulateTyping(wrapper.find('input[name="title"]'), "new title");
       wrapper.findWhere((x) => x.prop("id") === "item-details-cancel")
              .find("button").simulate("click");
       expect(store.getActions()[0]).to.deep.equal({

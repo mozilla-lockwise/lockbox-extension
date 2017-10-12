@@ -18,17 +18,10 @@
   align-items: center;
 }
 
-.unlock-prompt > form > h1 {
-  flex: 0;
-}
 .unlock-prompt > form > p {
   flex: 1;
 }
 
-.unlock-prompt > form > input {
-  flex: 0;
-}
-
-.unlock-prompt > form > button {
-  flex: 0;
+.unlock-prompt > form input {
+  margin-bottom: 1em;
 }

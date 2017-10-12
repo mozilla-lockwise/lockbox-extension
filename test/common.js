@@ -3,7 +3,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 export function simulateTyping(wrapper, value) {
-  wrapper.get(0).value = value;
-  wrapper.at(0).simulate("change");
+  wrapper.instance().value = value;
+  wrapper.simulate("change");
 }
-
