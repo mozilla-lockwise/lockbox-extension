@@ -51,34 +51,6 @@ export class SingletonView {
   }
 }
 
-export class MultipleView {
-  constructor(path) {
-    this.path = path;
-    this.views = new Set();
-  }
-
-  async open() {
-    // assume we always want to open a new one
-    let tabInfo = await browser.tabs.create({
-      url: browser.extension.getURL(this.path),
-    });
-    this.views.add(tabInfo.id);
-    return this;
-  }
-
-  async close() {
-    let pending = [...this.views.values()].map(async(tabId) => {
-      try {
-        tabId && browser.tabs.remove(tabId);
-      } catch (err) {
-        console.log(`could not close manage[${tabId}] view: ${err.message}`);
-      }
-    });
-    await Promise.all(pending);
-    this.views.clear();
-  }
-}
-
 const views = {
   firstrun: new SingletonView("/firstrun/index.html"),
   manage: new SingletonView("/manage/index.html"),

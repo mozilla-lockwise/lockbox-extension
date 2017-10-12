@@ -63,48 +63,6 @@ describe("background > views", () => {
     });
   });
 
-  describe("MultipleView", () => {
-    let view;
-
-    beforeEach(() => {
-      view = new views.MultipleView("multiple.html");
-    });
-
-    it("open new tab", async() => {
-      await view.open();
-      expect(browser.tabs.mockAllTabs.map((i) => i.url)).to.deep.equal([
-        "multiple.html",
-      ]);
-    });
-
-    it("open second tab", async() => {
-      await view.open();
-      await view.open();
-      expect(browser.tabs.mockAllTabs.map((i) => i.url)).to.deep.equal([
-        "multiple.html", "multiple.html",
-      ]);
-    });
-
-    it("close nonexistent tab", async() => {
-      await view.close();
-      expect(browser.tabs.mockAllTabs).to.deep.equal([]);
-    });
-
-    it("close existing tabs", async() => {
-      await view.open();
-      await view.open();
-      await view.close();
-      expect(browser.tabs.mockAllTabs).to.deep.equal([]);
-    });
-
-    it("close already-closed tab", async() => {
-      await view.open();
-      browser.tabs.remove([...view.views][0]);
-      await view.close();
-      expect(browser.tabs.mockAllTabs).to.deep.equal([]);
-    });
-  });
-
   describe("openView", () => {
     it("firstrun", async() => {
       await views.openView("firstrun");
