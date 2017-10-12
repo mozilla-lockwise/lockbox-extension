@@ -26,12 +26,10 @@ describe("background > telemetry", () => {
 
   describe("no fxa uid", () => {
     it("recordEvent()", async() => {
-      const result = await telemetry.recordEvent("category", "method",
-                                                 "object");
+      const result = await telemetry.recordEvent("method", "object");
       expect(result).to.deep.equal({});
       expect(onMessage).to.have.been.calledWith({
         type: "telemetry_event",
-        category: "category",
         method: "method",
         object: "object",
         extra: undefined,
@@ -39,12 +37,11 @@ describe("background > telemetry", () => {
     });
 
     it("recordEvent() with extra", async() => {
-      const result = await telemetry.recordEvent("category", "method", "object",
+      const result = await telemetry.recordEvent("method", "object",
                                                  {extra: "value"});
       expect(result).to.deep.equal({});
       expect(onMessage).to.have.been.calledWith({
         type: "telemetry_event",
-        category: "category",
         method: "method",
         object: "object",
         extra: {extra: "value"},
@@ -65,12 +62,10 @@ describe("background > telemetry", () => {
     });
 
     it("recordEvent() (with fxa uid)", async() => {
-      const result = await telemetry.recordEvent("category", "method",
-                                                 "object");
+      const result = await telemetry.recordEvent("method", "object");
       expect(result).to.deep.equal({});
       expect(onMessage).to.have.been.calledWith({
         type: "telemetry_event",
-        category: "category",
         method: "method",
         object: "object",
         extra: {fxauid: "1234"},
@@ -78,12 +73,11 @@ describe("background > telemetry", () => {
     });
 
     it("recordEvent() (with fxa uid and extras)", async() => {
-      const result = await telemetry.recordEvent("category", "method", "object",
+      const result = await telemetry.recordEvent("method", "object",
                                                  {extra: "value"});
       expect(result).to.deep.equal({});
       expect(onMessage).to.have.been.calledWith({
         type: "telemetry_event",
-        category: "category",
         method: "method",
         object: "object",
         extra: {extra: "value", fxauid: "1234"},

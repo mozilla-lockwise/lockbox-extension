@@ -12,7 +12,7 @@ const FEEDBACK_URL = "https://qsurvey.mozilla.com/s3/Lockbox-Input";
 
 export default function SendFeedback() {
   const doClick = () => {
-    telemetry.recordEvent("lockbox", "feedbackClick", "manage");
+    telemetry.recordEvent("feedbackClick", "manage");
     window.open(FEEDBACK_URL, "_blank");
   };
 

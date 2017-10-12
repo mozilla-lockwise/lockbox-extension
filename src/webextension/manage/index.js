@@ -19,7 +19,7 @@ const store = createStore(reducer, undefined, applyMiddleware(thunk));
 store.dispatch(listItems());
 initializeMessagePorts(store);
 
-telemetry.recordEvent("lockbox", "render", "manage");
+telemetry.recordEvent("render", "manage");
 
 ReactDOM.render(
   <Provider store={store}>

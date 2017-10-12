@@ -24,12 +24,11 @@ describe("telemetry", () => {
   });
 
   it("recordEvent()", async() => {
-    const result = await telemetry.recordEvent("category", "method", "object",
+    const result = await telemetry.recordEvent("method", "object",
                                                {extra: "value"});
     expect(result).to.deep.equal({});
     expect(onMessage).to.have.been.calledWith({
       type: "proxy_telemetry_event",
-      category: "category",
       method: "method",
       object: "object",
       extra: {extra: "value"},

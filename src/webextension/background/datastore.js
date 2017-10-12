@@ -17,7 +17,7 @@ async function recordMetric(method, itemid, fields) {
       fields,
     };
   }
-  telemetry.recordEvent("lockbox", method, "datastore", extra);
+  telemetry.recordEvent(method, "datastore", extra);
 }
 
 export default async function openDataStore() {

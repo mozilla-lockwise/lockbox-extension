@@ -214,7 +214,6 @@ describe("background > message ports", () => {
     initializeMessagePorts.__Rewire__("telemetry", {recordEvent});
     const result = await browser.runtime.sendMessage({
       type: "proxy_telemetry_event",
-      category: "category",
       method: "method",
       object: "object",
       extra: {extra: "value"},
@@ -222,7 +221,7 @@ describe("background > message ports", () => {
     initializeMessagePorts.__ResetDependency__("telemetry");
 
     expect(result).to.deep.equal({});
-    expect(recordEvent).to.have.been.calledWith("category", "method", "object",
+    expect(recordEvent).to.have.been.calledWith("method", "object",
                                                 {extra: "value"});
   });
 

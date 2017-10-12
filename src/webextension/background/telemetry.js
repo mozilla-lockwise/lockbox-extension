@@ -4,13 +4,13 @@
 
 import getAuthorization from "./authorization/index";
 
-export async function recordEvent(category, method, object, extra) {
+export async function recordEvent(method, object, extra) {
   const fxauid = getAuthorization().uid;
   if (fxauid) {
     extra = {...(extra || {}), fxauid};
   }
 
   return browser.runtime.sendMessage({
-    type: "telemetry_event", category, method, object, extra,
+    type: "telemetry_event", method, object, extra,
   });
 }

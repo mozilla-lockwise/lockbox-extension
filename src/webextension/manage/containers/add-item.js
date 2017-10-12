@@ -13,7 +13,7 @@ import * as telemetry from "../../telemetry";
 
 function AddItem({dispatch}) {
   const doClick = () => {
-    telemetry.recordEvent("lockbox", "addClick", "addButton");
+    telemetry.recordEvent("addClick", "addButton");
     dispatch(startNewItem());
   };
 
