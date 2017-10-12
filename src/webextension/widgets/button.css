@@ -6,4 +6,5 @@ button.button {
   white-space: nowrap;
   /* Override the margin-bottom from browser-style. */
   margin-bottom: 0;
+  text-align: center;
 }
