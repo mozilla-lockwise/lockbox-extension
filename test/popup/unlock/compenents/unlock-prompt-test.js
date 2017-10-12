@@ -12,12 +12,12 @@ import sinon from "sinon";
 
 chai.use(chaiEnzyme);
 
-import { simulateTyping } from "../../../common";
-import mountWithL10n from "../../../mock-l10n";
+import { simulateTyping } from "test/common";
+import mountWithL10n from "test/mock-l10n";
 import UnlockPrompt from
-       "../../../../src/webextension/popup/unlock/components/unlock-prompt";
+       "src/webextension/popup/unlock/components/unlock-prompt";
 
-describe("<UnlockPrompt/>", () => {
+describe("popup > unlock > components > <UnlockPrompt/>", () => {
   let wrapper;
 
   beforeEach(() => {

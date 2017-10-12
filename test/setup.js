@@ -4,21 +4,22 @@
 
 require("babel-register")();
 
+const Enzyme = require("enzyme");
+const Adapter = require("enzyme-adapter-react-16");
+
+Enzyme.configure({adapter: new Adapter()});
+
 var jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const { document } = (new JSDOM("")).window;
 
 var exposedProperties = ["window", "navigator", "document", "browser",
-                         "Headers", "HTMLElement"];
+                         "Headers", "HTMLElement", "Components", "Services"];
 
 global.document = document;
 global.window = document.defaultView;
 
-// This is necessary for chai's .include() to work due to its dependency on
-// `type-detect`. See <https://github.com/chaijs/type-detect/issues/98>.
-global.HTMLElement = global.window.HTMLElement;
-
-Object.keys(document.defaultView).forEach((property) => {
+Object.getOwnPropertyNames(document.defaultView).forEach((property) => {
   if (typeof global[property] === "undefined") {
     exposedProperties.push(property);
     global[property] = document.defaultView[property];
@@ -29,8 +30,8 @@ global.navigator = {
   userAgent: "node.js",
 };
 
-global.Headers = class Headers {
-  append() {}
+global.TextEncoder = class TextEncoder {
+  encode(s) { return s; }
 };
 
 // Mock the WebExtension message ports so that our tests can pretend to talk
@@ -50,6 +51,12 @@ class MockListener {
     this._listener = fn;
   }
 
+  removeListener(fn) {
+    if (fn === this._listener) {
+      this._listener = null;
+    }
+  }
+
   mockClearListener() {
     this._listener = null;
   }
@@ -57,6 +64,20 @@ class MockListener {
   mockFireListener(...args) {
     if (this._listener) {
       return this._listener(...args);
+    }
+    return null;
+  }
+}
+
+class MockOnMessageListener extends MockListener {
+  mockFireListener(msg, sender) {
+    if (this._listener) {
+      if (this._listener.length >= 3) {
+        return new Promise((resolve, reject) => {
+          this._listener(msg, sender, resolve);
+        });
+      }
+      return this._listener(msg, sender);
     }
     return null;
   }
@@ -80,7 +101,7 @@ const primaryMessageSender = new MockMessageSender(primaryContextId);
 class MockPort {
   constructor(sender) {
     this._otherPort = null;
-    this.onMessage = new MockListener();
+    this.onMessage = new MockOnMessageListener();
     this.onDisconnect = new MockListener();
     if (sender) {
       this.sender = sender;
@@ -106,11 +127,16 @@ function makePairedPorts(contextId) {
 
 global.browser = {
   browserAction: {
-    onClicked: {
-      addListener() {},
-      removeListener() {},
+    _popupPage: "",
+    onClicked: new MockListener(),
+
+    setPopup({popup}) {
+      this._popupPage = popup;
     },
-    setPopup() {},
+
+    async getPopup() {
+      return this._popupPage;
+    },
   },
 
   extension: {
@@ -119,15 +145,18 @@ global.browser = {
     },
   },
 
+  identity: {
+    async launchWebAuthFlow({url}) {
+      return url;
+    },
+  },
+
   runtime: {
-    onMessage: new MockListener(),
+    onMessage: new MockOnMessageListener(),
     onConnect: new MockListener(),
 
     async sendMessage(msg) {
-      if (this.onMessage._listener) {
-        return this.onMessage._listener(msg, primaryMessageSender);
-      }
-      return null;
+      return this.onMessage.mockFireListener(msg, primaryMessageSender);
     },
 
     connect(extensionId, {mockPrimary = true} = {}) {
@@ -185,5 +214,21 @@ global.browser = {
 
   windows: {
     update() {},
+  },
+};
+
+// These globals are only useful for XPCOM, but for simplicity, we just inject
+// them everywhere.
+
+global.Components = {
+  utils: {
+    "import": function() {},
+  },
+};
+
+global.Services = {
+  telemetry: {
+    registerEvents() {},
+    recordEvent() {},
   },
 };

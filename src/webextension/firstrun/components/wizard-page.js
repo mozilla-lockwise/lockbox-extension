@@ -7,6 +7,8 @@ import PropTypes from "prop-types";
 
 import Button from "../../widgets/button";
 
+import styles from "./wizard-page.css";
+
 export default class WizardPage extends React.Component {
   static get propTypes() {
     return {
@@ -20,7 +22,7 @@ export default class WizardPage extends React.Component {
   render() {
     const {title, children, submitLabel, onSubmit} = this.props;
     return (
-      <article>
+      <article className={styles.wizardPage}>
         <h1>{title}</h1>
         <form onSubmit={(e) => {
           e.preventDefault();

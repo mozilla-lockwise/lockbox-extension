@@ -1,5 +1,11 @@
-add-item = Add Item
-go-home = Home
+toolbar-item-count = { $count ->
+   [one]   1 item
+  *[other] { $count } items
+}
+
+toolbar-add-item = Add Item
+toolbar-go-home = Home
+toolbar-send-feedback = Feedback
 
 item-filter.placeholder = Filter…
 
@@ -36,10 +42,10 @@ item-details-title = Title
 item-details-origin = Origin
 item-details-username = Username
 item-details-copy-username = Copy
-    .title = Copy the username to the clipboard
+  .title = Copy the username to the clipboard
 item-details-password = Password
 item-details-copy-password = Copy
-    .title = Copy the password to the clipboard
+  .title = Copy the password to the clipboard
 item-details-notes = Notes
 
 item-details-edit = Edit
@@ -53,10 +59,10 @@ item-details-cancel = Cancel
 modal-root-title = Modal dialog
 
 modal-cancel
-    .text = This item has unsaved changes? Are you sure you want to discard them?
-    .primaryButtonLabel = Discard
-    .secondaryButtonLabel = Go back
+  .text = This item has unsaved changes? Are you sure you want to discard them?
+  .primaryButtonLabel = Discard
+  .secondaryButtonLabel = Go back
 modal-delete
-    .text = Are you sure you want to delete this item?
-    .primaryButtonLabel = Delete
-    .secondaryButtonLabel = Cancel
+  .text = Are you sure you want to delete this item?
+  .primaryButtonLabel = Delete
+  .secondaryButtonLabel = Cancel

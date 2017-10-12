@@ -12,7 +12,7 @@ import { startNewItem } from "../actions";
 
 function AddItem({dispatch}) {
   return (
-    <Localized id="add-item">
+    <Localized id="toolbar-add-item">
       <Button onClick={() => { dispatch(startNewItem()); }}>
         aDd iTEm
       </Button>

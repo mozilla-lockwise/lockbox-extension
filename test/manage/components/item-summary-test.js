@@ -11,7 +11,7 @@ import mountWithL10n from "../../mock-l10n";
 import ItemSummary from
        "../../../src/webextension/manage/components/item-summary";
 
-describe("<ItemSummary/>", () => {
+describe("manage > components > <ItemSummary/>", () => {
   it("render title and username", () => {
     const wrapper = mountWithL10n(
       <ItemSummary title="title" username="username"/>

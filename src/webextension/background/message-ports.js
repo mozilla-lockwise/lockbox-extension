@@ -5,6 +5,7 @@
 import openDataStore from "./datastore";
 import getAuthorization, { saveAuthorization } from "./authorization/index";
 import updateBrowserAction from "./browser-action";
+import * as telemetry from "./telemetry";
 import { openView, closeView } from "./views";
 import { makeItemSummary } from "../common";
 
@@ -24,7 +25,7 @@ export default function initializeMessagePorts() {
     port.onDisconnect.addListener(() => ports.delete(port));
   });
 
-  browser.runtime.onMessage.addListener(async function(message, sender) {
+  browser.runtime.onMessage.addListener(async(message, sender) => {
     switch (message.type) {
     case "open_view":
       return openView(message.name).then(() => ({}));
@@ -32,12 +33,7 @@ export default function initializeMessagePorts() {
       return closeView(message.name).then(() => ({}));
 
     case "signin":
-      try {
-        return getAuthorization().signIn(message.interactive);
-      } catch (err) {
-        console.log(`failure: ${err.message}`);
-        throw err;
-      }
+      return getAuthorization().signIn(message.interactive);
     case "initialize":
       return getAuthorization().verify(message.password).then(async() => {
         const ds = await openDataStore();
@@ -90,8 +86,13 @@ export default function initializeMessagePorts() {
       return openDataStore().then(async(ds) => {
         return {item: await ds.get(message.id)};
       });
+
+    case "proxy_telemetry_event":
+      return telemetry.recordEvent(
+        message.category, message.method, message.object, message.extra
+      );
     default:
-      throw new Error(`unknown message type "${message.type}`);
+      return null;
     }
   });
 }

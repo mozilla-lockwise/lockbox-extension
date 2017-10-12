@@ -9,12 +9,12 @@ import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 
 import { initialState } from "./mock-redux-state";
-import * as actions from "../../src/webextension/manage/actions";
+import * as actions from "src/webextension/manage/actions";
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe("actions", () => {
+describe("manage > actions", () => {
   let store;
 
   beforeEach(() => {

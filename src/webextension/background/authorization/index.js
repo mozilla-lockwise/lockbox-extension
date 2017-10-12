@@ -6,23 +6,6 @@ import jose from "node-jose";
 
 import CONFIGS from "./configs";
 
-// Common Stuff
-export function toQuery(params) {
-  let query = Object.keys(params).map((k) => {
-    let v = params[k];
-    return `${encodeURIComponent(k)}=${encodeURIComponent(v)}`;
-  });
-  return query.join("&");
-}
-export function fromQuery(query) {
-  let params = {};
-  query.substring(1).split("&").forEach((p) => {
-    let [k, v] = p.split("=");
-    params[decodeURIComponent(k)] = decodeURIComponent(v || "");
-  });
-  return params;
-}
-
 export async function fetchFromFxA(reason, url, config) {
   let response = await fetch(url, config);
   let body = await response.json();
@@ -53,24 +36,23 @@ async function makeAuthzURL(config, {challenge, ...params}) {
       "code_challenge_method": "S256",
     };
   }
-  let query = toQuery(params);
+  let query = new URLSearchParams(params).toString();
 
   return `${config.oauth_uri}/authorization?${query}`;
 }
+
 function parseAuthzResponse(url, state) {
   url = new URL(url);
 
-  let search = url.search;
-  if (!search) {
+  if (!url.search) {
     throw new Error("OAUTH response parameters missing");
   }
 
-  let params = fromQuery(search);
-  if (params.state !== state) {
+  if (url.searchParams.get("state") !== state) {
     throw new Error("OAUTH state does not match");
   }
 
-  return params;
+  return url.searchParams;
 }
 
 // FxA Routines
@@ -153,7 +135,7 @@ async function calculateCredentials(email, password) {
   };
 }
 
-const DEFAULT_CONFIG = "dev-stable";
+const DEFAULT_CONFIG = "dev-latest";
 
 export class Authorization {
   constructor({config = DEFAULT_CONFIG, info}) {
@@ -207,7 +189,7 @@ export class Authorization {
     response = parseAuthzResponse(response, state);
 
     // token request/response
-    response = await fetchToken(config, response.code, challenge);
+    response = await fetchToken(config, response.get("code"), challenge);
     let oauth = response;
 
     response = await fetchProfile(config, oauth.access_token);
@@ -222,6 +204,7 @@ export class Authorization {
     };
     return this.info;
   }
+
   async signOut() {
     // TODO: something server side?
     this.info = undefined;

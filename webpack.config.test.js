@@ -2,6 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import path from "path";
 import combineLoaders from "webpack-combine-loaders";
 import nodeExternals from "webpack-node-externals";
 
@@ -33,5 +34,12 @@ export default {
         },
       }]),
     }],
+  },
+
+  resolve: {
+    alias: {
+      src: path.resolve(__dirname, "src"),
+      test: path.resolve(__dirname, "test"),
+    },
   },
 };

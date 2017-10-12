@@ -40,6 +40,10 @@ export default class UnlockPrompt extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this._passwordField.focus();
+  }
+
   handlePasswordChange(value) {
     this.setState({
       error: "",
@@ -70,7 +74,8 @@ export default class UnlockPrompt extends React.Component {
           <PasswordInput name="password" value={this.state.password}
                          onChange={(e) => {
                            this.handlePasswordChange(e.target.value);
-                         }}/>
+                         }}
+                         ref={(element) => this._passwordField = element}/>
           <Localized id="unlock-prompt-submit">
             <Button type="submit">uNLOCk</Button>
           </Localized>

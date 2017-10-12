@@ -5,13 +5,32 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-export default function TextArea({className, ...props}) {
-  let finalClassName = `browser-style ${className || ""}`.trimRight();
-  return (
-    <textarea className={finalClassName} {...props}/>
-  );
-}
+import styles from "./text-area.css";
 
-TextArea.propTypes = {
-  className: PropTypes.string,
-};
+export default class TextArea extends React.Component {
+  static get propTypes() {
+    return {
+      className: PropTypes.string,
+    };
+  }
+
+  static get defaultProps() {
+    return {
+      className: "",
+    };
+  }
+
+  focus() {
+    this.textAreaElement.focus();
+  }
+
+  render() {
+    const {className, ...props} = this.props;
+    const finalClassName = `browser-style ${styles.textArea} ${className || ""}`
+                           .trimRight();
+    return (
+      <textarea className={finalClassName} {...props}
+                ref={(element) => this.textAreaElement = element}/>
+    );
+  }
+}
