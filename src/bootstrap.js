@@ -24,17 +24,17 @@ function startup({webExtension}, reason) {
       objects: ["firstrun", "manage", "popupUnlock"],
       extra_keys: ["fxauid"],
     },
-    "signIn": {
+    "fxaSignIn": {
       methods: ["render"],
       objects: ["signInPage"],
     },
     "confirmPW": {
-      methods: ["render"],
+      methods: ["click"],
       objects: ["confirmPWPage"],
     },
     "setupDone": {
-      methods: ["render"],
-      objects: ["setupDonePage"],
+      methods: ["click"],
+      objects: ["setupDoneButton"],
       extra_keys: ["fxauid"],
     },
     "itemAdding": {

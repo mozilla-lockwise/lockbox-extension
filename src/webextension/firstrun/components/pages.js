@@ -10,7 +10,6 @@ import PasswordInput from "../../widgets/password-input";
 import WizardPage from "./wizard-page";
 import * as telemetry from "../../telemetry";
 
-
 export class WelcomePage1 extends React.Component {
   static get propTypes() {
     return {
@@ -25,7 +24,7 @@ export class WelcomePage1 extends React.Component {
   }
 
   async signIn() {
-    telemetry.recordEvent("lockbox", "render", "signInPage");
+    telemetry.recordEvent("lockbox", "render", "fxaSignInPage");
     try {
       const response = await browser.runtime.sendMessage({
         type: "signin",
@@ -56,7 +55,6 @@ export class WelcomePage1 extends React.Component {
       </Localized>
     );
   }
-
 }
 
 export class VerifyPage2 extends React.Component {
@@ -92,8 +90,7 @@ export class VerifyPage2 extends React.Component {
         error: "wrong password",
       });
     }
-    telemetry.recordEvent("lockbox", "render", "confirmPWPage");
-
+    telemetry.recordEvent("lockbox", "click", "confirmPWButton");
   }
 
   render() {
@@ -140,10 +137,8 @@ export class FinishedPage3 extends React.Component {
       name: "manage",
     });
     this.props.next();
-    telemetry.recordEvent("lockbox", "render", "setupDonePage");
-
+    telemetry.recordEvent("lockbox", "click", "setupDoneButton");
   }
-
 
   render() {
     return (

@@ -39,13 +39,13 @@ All events are under the **category: lockbox**. The `extra` field always contain
 
 2. `iconClick` fires when someone clicks the toolbar icon. **method**:startup **objects**: toolbar.
 
-3. `render` fires when one of the views are rengered. **method**:render **objects**: firstrun, manage, popupUnlock
+3. `render` fires when one of the views are rendered. **method**:render **objects**: firstrun, manage, popupUnlock
 
-4. `signIn` fires when someone clicks the signin button during firstrun. **method**: render **objects**: signInPage.
+4. `fxaSignIn` fires when someone clicks the signin button during firstrun. **method**: render **objects**: fxaSignInPage.
 
-5. `confirmPW` fires when the screen asking for password confirm renders. **method**: render **objects**: confirmPWPage.
+5. `confirmPW` fires when the user clicks the button to confirm their FxA pw. **method**: click **objects**: confirmPWButton.
 
-6. `setupDone` fires after the user authenticates wtih fxa successfully and the message informing them of that renders. **method**: render **objects**: setupDonePage.
+6. `setupDone` fires after the user clicks the done button to close the wizard after fxa pw has been checked. **method**: click **objects**: setupDoneButton.
 
 7. `itemAdding` fires when a user submits a new item from the editor. **method**: itemAdding **objects**: addItemForm.
 

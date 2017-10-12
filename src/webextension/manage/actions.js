@@ -31,7 +31,6 @@ export const HIDE_MODAL = Symbol("HIDE_MODAL");
 // FOO_STARTING and FOO_COMPLETED).
 let nextActionId = 0;
 
-
 export function listItems() {
   return async function(dispatch) {
     const actionId = nextActionId++;
@@ -64,12 +63,13 @@ export function addItem(details) {
     const actionId = nextActionId++;
     dispatch(addItemStarting(actionId, details));
     telemetry.recordEvent("lockbox", "itemAdding", "addItemForm");
+
     const response = await browser.runtime.sendMessage({
       type: "add_item",
       item: details,
     });
     dispatch(addItemCompleted(actionId, response.item));
-
+    telemetry.recordEvent("lockbox", "itemAdded", "addItemForm", {"itemid": item.id});
   };
 }
 
@@ -86,7 +86,6 @@ function addItemStarting(actionId, item) {
 }
 
 function addItemCompleted(actionId, item) {
-  telemetry.recordEvent("lockbox", "itemAdded", "addItemForm", {"itemid": item.id});
   return {
     type: ADD_ITEM_COMPLETED,
     actionId,
@@ -99,6 +98,7 @@ export function updateItem(item) {
     const actionId = nextActionId++;
     dispatch(updateItemStarting(actionId, item));
     telemetry.recordEvent("lockbox", "itemUpdating", "updatingItemForm");
+
     const response = await browser.runtime.sendMessage({
       type: "update_item",
       item,
@@ -131,13 +131,13 @@ export function removeItem(id) {
   return async function(dispatch) {
     const actionId = nextActionId++;
     dispatch(removeItemStarting(actionId, id));
+    telemetry.recordEvent("lockbox", "itemDeleting", "updatingItemForm");
 
     await browser.runtime.sendMessage({
       type: "remove_item",
       id,
     });
     dispatch(removeItemCompleted(actionId, id));
-    telemetry.recordEvent("lockbox", "itemDeleting", "updatingItemForm");
   };
 }
 
