@@ -3,6 +3,10 @@
 ### Instructions
 
 1. Update "version" in package.json (and package-lock.json)
+  - we follow the [semver](http://semver.org/) convention
+  - versions "0.1.0" to "1.0.0" is reserved for the internal Alpha
+  - version "1.0.0" is reserved for a public Beta
+  - major, minor, and patch releases will follow semver from there
 2. Update "CHANGELOG.md" using `conventional-changelog`
 2. Commit and ultimately merge to "master" branch
 3. Merge and push "master" branch to "production" branch
