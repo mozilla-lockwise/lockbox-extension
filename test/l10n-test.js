@@ -65,8 +65,7 @@ describe("<AppLocalizationProvider/>", () => {
     );
     await waitUntilTranslated();
 
-    expect(wrapper.find("div").first()).to.have.text("Hello");
-    expect(wrapper.find("div").last()).to.have.text("Goodbye");
+    expect(wrapper).to.have.text("HelloGoodbye");
   });
 
   it("translate to es-ES", async() => {
@@ -85,9 +84,8 @@ describe("<AppLocalizationProvider/>", () => {
     );
     await waitUntilTranslated();
 
-    expect(wrapper.find("div").first()).to.have.text("Hola");
     // Ensure we fall back to en-US if our locale is missing that string.
-    expect(wrapper.find("div").last()).to.have.text("Goodbye");
+    expect(wrapper).to.have.text("HolaGoodbye");
   });
 
   it("translate to de", async() => {
@@ -108,8 +106,7 @@ describe("<AppLocalizationProvider/>", () => {
 
     // Ensure we fall back to en-US strings if we don't have translations for
     // any of the userLocales.
-    expect(wrapper.find("div").first()).to.have.text("Hello");
-    expect(wrapper.find("div").last()).to.have.text("Goodbye");
+    expect(wrapper).to.have.text("HelloGoodbye");
   });
 
   it("fallback to text content", async() => {
@@ -122,7 +119,7 @@ describe("<AppLocalizationProvider/>", () => {
       </AppLocalizationProvider>
     );
     await waitUntilTranslated();
-    expect(wrapper.text()).to.equal("untranslated");
+    expect(wrapper).to.have.text("untranslated");
   });
 
   it("throws when locales.json is not found", () => {

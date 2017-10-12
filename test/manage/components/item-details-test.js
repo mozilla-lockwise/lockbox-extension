@@ -5,10 +5,12 @@
 require("babel-polyfill");
 
 import chai, { expect } from "chai";
+import chaiEnzyme from "chai-enzyme";
 import React from "react";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
+chai.use(chaiEnzyme);
 chai.use(sinonChai);
 
 import mountWithL10n from "test/mock-l10n";
@@ -36,8 +38,9 @@ describe("manage > components > <ItemDetails/>", () => {
   it("render fields", () => {
     for (let i in fields) {
       if (i !== "password") {
-        expect(wrapper.find(`[data-name="${i}"]`).text())
-              .to.equal(fields[i]);
+        expect(wrapper.find(`[data-name="${i}"]`).filterWhere((x) => {
+          return typeof x.type() !== "string";
+        })).to.have.text(fields[i]);
       }
     }
   });

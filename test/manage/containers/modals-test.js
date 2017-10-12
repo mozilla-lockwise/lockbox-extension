@@ -5,6 +5,7 @@
 require("babel-polyfill");
 
 import { expect } from "chai";
+import PropTypes from "prop-types";
 import React from "react";
 import Modal from "react-modal";
 import { Provider } from "react-redux";
@@ -32,10 +33,24 @@ describe("manage > containers > modals", () => {
           <ModalRoot/>
         </Provider>
       );
-      expect(wrapper.children()).to.have.length(0);
+      expect(wrapper.find(Modal)).to.have.length(0);
     });
 
     it("with modal", () => {
+      // Enzyme doesn't support React Portals yet; see
+      // <https://github.com/airbnb/enzyme/issues/1150>.
+      ModalRoot.__Rewire__("Modal", class FakeModal extends React.Component {
+        static get propTypes() {
+          return {
+            children: PropTypes.node,
+          };
+        }
+
+        render() {
+          return <div>{this.props.children}</div>;
+        }
+      });
+
       const store = mockStore({
         ...initialState,
         modal: { id: "cancel", props: null },
@@ -45,7 +60,9 @@ describe("manage > containers > modals", () => {
           <ModalRoot/>
         </Provider>
       );
-      expect(wrapper.find(Modal)).to.have.length(1);
+
+      ModalRoot.__ResetDependency__("Modal");
+      expect(wrapper.find(CancelEditingModal)).to.have.length(1);
     });
   });
 

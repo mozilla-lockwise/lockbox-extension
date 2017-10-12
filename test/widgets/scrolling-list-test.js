@@ -125,8 +125,8 @@ describe("widgets > <ScrollingList/>", () => {
     describe("scrolling", () => {
       it("scroll up into view", () => {
         const scrollIntoView = sinon.spy();
-        wrapper.find("ul").get(0).scrollTop = 42;
-        wrapper.find("li").get(0).scrollIntoView = scrollIntoView;
+        wrapper.find("ul").instance().scrollTop = 42;
+        wrapper.find("li").at(0).instance().scrollIntoView = scrollIntoView;
         wrapper.setProps({selected: "1"});
 
         expect(scrollIntoView).to.have.been.calledWith({
@@ -136,8 +136,8 @@ describe("widgets > <ScrollingList/>", () => {
 
       it("scroll down into view", () => {
         const scrollIntoView = sinon.spy();
-        wrapper.find("ul").get(0).scrollTop = -42;
-        wrapper.find("li").get(2).scrollIntoView = scrollIntoView;
+        wrapper.find("ul").instance().scrollTop = -42;
+        wrapper.find("li").at(2).instance().scrollIntoView = scrollIntoView;
         wrapper.setProps({selected: "3"});
 
         expect(scrollIntoView).to.have.been.calledWith({
@@ -147,8 +147,8 @@ describe("widgets > <ScrollingList/>", () => {
 
       it("does not scroll if selection is unchanged", () => {
         const scrollIntoView = sinon.spy();
-        wrapper.find("ul").get(0).scrollTop = -42;
-        wrapper.find("li").get(2).scrollIntoView = scrollIntoView;
+        wrapper.find("ul").instance().scrollTop = -42;
+        wrapper.find("li").at(2).instance().scrollIntoView = scrollIntoView;
         wrapper.setProps({selected: "3"});
         scrollIntoView.reset();
         wrapper.setProps({selected: "3"});

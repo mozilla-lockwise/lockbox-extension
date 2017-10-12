@@ -18,8 +18,8 @@ import styles from "./app.css";
 
 export default function App() {
   return (
-    <div>
-      <section className={styles.app}>
+    <div className={styles.app}>
+      <section className={styles.appMain}>
         <Toolbar className={styles.sideToolbar}>
           <ItemCount/>
           <ToolbarSpace/>
