@@ -8,9 +8,11 @@ import React from "react";
 import ItemSummary from "./item-summary";
 import ScrollingList from "../../widgets/scrolling-list";
 
+import styles from "./item-list.css";
+
 export default function ItemList({items, selected, onItemSelected}) {
   return (
-    <ScrollingList data={items} selected={selected}
+    <ScrollingList itemClassName={styles.item} data={items} selected={selected}
                    onItemSelected={onItemSelected}>
       {({title, username}) => {
         return (

@@ -25,6 +25,21 @@ describe("widgets > <ScrollingList/>", () => {
     onItemSelected = sinon.spy();
   });
 
+  it("merge classNames", () => {
+    wrapper = mount(
+      <ScrollingList className="foo" data={[]} onItemSelected={onItemSelected}>
+        {({item, ...props}) => {
+          return (
+            <li {...props}>{item.name}</li>
+          );
+        }}
+      </ScrollingList>
+    );
+    expect(wrapper.find("ul").prop("className")).to.match(
+      /^\S+ foo$/
+    );
+  });
+
   describe("empty list", () => {
     beforeEach(() => {
       wrapper = mount(
