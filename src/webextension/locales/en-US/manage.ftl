@@ -21,21 +21,21 @@ homepage-no-passwords =
 
 homepage-under-10-passwords = { $count ->
    [1]     Hi there! It's your friend, Lockie!
-
+           
            You've added { $count } password. That's a great start!
   *[other] Hi there! It's your friend, Lockie!
-
+           
            You've added { $count } passwords. That's a great start!
 }
 
 homepage-under-50-passwords =
   Hey again! Just your pal Lockie checking in!
-
+  
   You've added { $count } passwords. Great job, keep it up!
 
 homepage-over-50-passwords =
   Welcome back! I hope you're having a great day!
-
+  
   You've added { $count } passwords. Wow, I'm really impressed!
 
 item-details-title = Entry Name
