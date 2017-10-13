@@ -13,12 +13,10 @@ import sinonChai from "sinon-chai";
 chai.use(chaiAsPromised);
 chai.use(sinonChai);
 
-import configs from "src/webextension/background/authorization/configs";
 import openDataStore from "src/webextension/background/datastore";
 import initializeMessagePorts from "src/webextension/background/message-ports";
 
 describe("background > message ports", () => {
-  const email = "eripley@wyutani.com";
   const password = "n0str0m0";
 
   let itemId, selfMessagePort, otherMessagePort, selfListener, otherListener;
@@ -29,14 +27,6 @@ describe("background > message ports", () => {
 
     selfMessagePort = browser.runtime.connect();
     otherMessagePort = browser.runtime.connect(undefined, {mockPrimary: false});
-
-    const config = configs["dev-latest"];
-    fetchMock.post(`${config.oauth_uri}/token`, JSON.stringify({
-      auth_at: 0,
-      expires_in: 0,
-    }));
-    fetchMock.get(`${config.profile_uri}/profile`, "{}");
-    fetchMock.post(`${config.fxa_auth_uri}/account/login`, "{}");
   });
 
   after(() => {
@@ -83,17 +73,12 @@ describe("background > message ports", () => {
       type: "signin", interactive: true,
     });
 
-    expect(result).to.deep.equal({
-      access: {
-        validFrom: new Date(0).toISOString(),
-        validUntil: new Date(0).toISOString(),
-      },
-    });
+    expect(result).to.have.property("uid").that.is.a("string");
   });
 
   it('handle "initialize"', async() => {
     const result = await browser.runtime.sendMessage({
-      type: "initialize", email, password,
+      type: "initialize", password,
     });
 
     expect(result).to.deep.equal({});

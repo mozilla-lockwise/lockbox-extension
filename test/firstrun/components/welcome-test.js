@@ -11,17 +11,14 @@ import React from "react";
 chai.use(chaiEnzyme());
 
 import mountWithL10n from "test/mock-l10n";
-import App from "src/webextension/firstrun/components/app";
 import Welcome from "src/webextension/firstrun/components/welcome";
-import MasterPasswordSetup from "src/webextension/firstrun/components/master-password-setup";
 
-describe("firstrun > components > <App/>", () => {
-  it("render app", () => {
+describe("firstrun > components > <Welcome/>", () => {
+  it("render <Welcome/>", () => {
     const wrapper = mountWithL10n(
-      <App/>
+      <Welcome/>
     );
 
-    expect(wrapper).to.contain(Welcome);
-    expect(wrapper).to.contain(MasterPasswordSetup);
+    expect(wrapper.find("h1")).to.have.text("wELCOMe");
   });
 });

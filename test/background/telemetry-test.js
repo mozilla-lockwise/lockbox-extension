@@ -25,6 +25,10 @@ describe("background > telemetry", () => {
   });
 
   describe("no fxa uid", () => {
+    before(() => {
+      getAuthorization().info = undefined;
+    });
+
     it("recordEvent()", async() => {
       const result = await telemetry.recordEvent("method", "object");
       expect(result).to.deep.equal({});
