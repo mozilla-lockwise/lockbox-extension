@@ -14,9 +14,67 @@ function startup({webExtension}, reason) {
       methods: ["startup"],
       objects: ["addon", "webextension"],
     },
-    "click": {
+    "iconClick": {
+      methods: ["iconClick"],
+      objects: ["toolbar"],
+      extra_keys: ["fxauid"],
+    },
+    "displayView": {
+      methods: ["render"],
+      objects: ["firstrun", "manage", "popupUnlock"],
+      extra_keys: ["fxauid"],
+    },
+    "fxaSignIn": {
+      methods: ["render"],
+      objects: ["signInPage"],
+    },
+    "confirmPW": {
       methods: ["click"],
-      objects: ["browser_action"],
+      objects: ["confirmPWPage"],
+    },
+    "setupDone": {
+      methods: ["click"],
+      objects: ["setupDoneButton"],
+      extra_keys: ["fxauid"],
+    },
+    "itemAdding": {
+      methods: ["itemAdding"],
+      objects: ["addItemForm"],
+      extra_keys: ["fxauid"],
+    },
+    "itemUpdating": {
+      methods: ["itemUpdating"],
+      objects: ["updatingItemForm"],
+      extra_keys: ["fxauid"],
+    },
+    "itemDeleting": {
+      methods: ["itemDeleting"],
+      objects: ["updatingItemForm"],
+      extra_keys: ["fxauid"],
+    },
+    "itemSelected": {
+      methods: ["itemSelected"],
+      objects: ["itemList"],
+      extra_keys: ["fxauid"],
+    },
+    "addClick": {
+      methods: ["addClick"],
+      objects: ["addButton"],
+      extra_keys: ["fxauid"],
+    },
+    "itemAdded": {
+      methods: ["itemAdded"],
+      objects: ["addItemForm"],
+      extra_keys: ["itemid", "fxauid"],
+    },
+    "datastore": {
+      methods: ["added", "updated", "deleted"],
+      objects: ["datastore"],
+      extra_keys: ["itemid", "fxauid", "fields"],
+    },
+    "feedback": {
+      methods: ["feedbackClick"],
+      objects: ["manage"],
       extra_keys: ["fxauid"],
     },
   });
