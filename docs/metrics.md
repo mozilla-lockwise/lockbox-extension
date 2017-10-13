@@ -3,13 +3,14 @@
 _Last Updated: October 9, 2017_
 
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-- [TL;DR](#tl;dr-metrics-priorities-for-alpha)
+
+- [TL;DR Metrics Implemented for Alpha Thus Far](#tldr-metrics-implemented-for-alpha-thus-far)
 - [Analysis](#analysis)
 - [Collection](#collection)
 	- [Event Registration and Recording](#event-registration-and-recording)
 - [Metrics Overview](#metrics-overview)
 - [Non-Event Metrics](#non-event-metrics)
-- [Events](#events)
+- [!!!!!!! EVERYTHING BELOW HERE IS OLD AND OUT OF DATE NOT IMPLEMENTED KEPT HERE FOR FUTURE REFERENCE ONLY !!!!!!!](#-everything-below-here-is-old-and-out-of-date-not-implemented-kept-here-for-future-reference-only-)
 	- [Setup Events](#setup-events)
 	- [Item list Interaction Events](#item-list-interaction-events)
 	- [Item View Interaction Events](#item-view-interaction-events)
@@ -28,20 +29,39 @@ This is the metrics collection plan for Lockbox's alpha release. It is more of a
 
 Best viewed in something that can render Markdown.
 
-## TL;DR Metrics Priorities for Alpha
+## TL;DR Metrics Implemented for Alpha Thus Far
 
-These are the metrics that we have identified that best balance time to implement and importance-to-have
+These are the metrics that have been implemented in the pull request that included the edits to this doc.
 
-1. Some event that reflects the initialization of the first run flow, e.g. the `lockbox_setup.render` event described below
+All events are under the **category: lockbox**. The `extra` field always contains `fxaid` where possible (i.e. after FxA auth). In the future also the `itemid` where relevant.
 
-2. Some event that reflects the rendering of the item list after confirmation of master password, or an event that fires at the end of the process that is triggered by a successful re-entering of the user's FxA password. This event would be used to track the completion of the setup flow.
+1. `startup` fires when the webextension is loaded. **method**:click **objects**: addon, webextension.
 
-3. Changes to the datastore, along with the type of change that occurred (CRUD) see the event category e.g. `lockbox_datastore.changed`
+2. `iconClick` fires when someone clicks the toolbar icon. **method**:startup **objects**: toolbar.
 
-4. Interaction events that reflect the user's intention to modify the datastore. This could include `lockbox_item_list.interaction` (clicks on items in the list) or `lockbox_new_item.render` and `lockbox_edit_item.render` that track the rendering of the item editor interfaces.
+3. `render` fires when one of the views are rendered. **method**:render **objects**: firstrun, manage, popupUnlock
 
-5. A click event on the button used to leave feedback. We need this to make sure people are reliably redirected to the feedback form. See `lockbox_feedback.interaction`
+4. `fxaSignIn` fires when someone clicks the signin button during firstrun. **method**: render **objects**: fxaSignInPage.
 
+5. `confirmPW` fires when the user clicks the button to confirm their FxA pw. **method**: click **objects**: confirmPWButton.
+
+6. `setupDone` fires after the user clicks the done button to close the wizard after fxa pw has been checked. **method**: click **objects**: setupDoneButton.
+
+7. `itemAdding` fires when a user submits a new item from the editor. **method**: itemAdding **objects**: addItemForm.
+
+8. `itemUpdating` fires when a user submits an edit to an existing item. **method**: itemUpdating **objects**: updatingItemForm.
+
+9. `itemDeleting` fires when user submits a request to delete an item. **method**: itemDeleting **objects**: updatingItemForm.
+
+10. `itemSelected` fires when a user clicks on an item in the item list. **method**: itemSelected **objects**: itemList.
+
+11. `addClick` fires when a user clicks the add new item button from the item list . **method**: addClick **objects**: addButton.
+
+12. `itemAdded` fires when the `addItemCompleted` function is called on the front end. Has itemid added as extra. **method**: itemAdded **objects**: addItemForm.
+
+13. `datatore` fires when an item is added/updated/deleted from the backend.  Has itemid (and sometimes fields) added as extra. **methods**:added, updated, deleted **objects**: datastore.
+
+14. `feedback` fires when the user clicks the "Send Feedback" button. **methods**:feedbackClick **objects**:manage
 
 ## Analysis
 
@@ -145,7 +165,7 @@ These are the metrics we plan to collect regarding the state of user datastores.
 -   `n_notes` The number of items for which the user has manually entered custom notes for. Integer
 -   `timestamp_last` The timestamp of the last edit the user made to the datastore. Does not necessarily correspond to the last time they opened the CRUD editor.
 
-## Events
+## !!!!!!! EVERYTHING BELOW HERE IS OLD AND OUT OF DATE NOT IMPLEMENTED KEPT HERE FOR FUTURE REFERENCE ONLY !!!!!!!
 
 ### Setup Events
 

@@ -6,13 +6,19 @@ import { Localized } from "fluent-react";
 import React from "react";
 
 import Button from "../../widgets/button";
+import * as telemetry from "../../telemetry";
 
 const FEEDBACK_URL = "https://qsurvey.mozilla.com/s3/Lockbox-Input";
 
 export default function SendFeedback() {
+  const doClick = () => {
+    telemetry.recordEvent("lockbox", "feedbackClick", "manage");
+    window.open(FEEDBACK_URL, "_blank");
+  };
+
   return (
     <Localized id="toolbar-send-feedback">
-      <Button onClick={() => { window.open(FEEDBACK_URL, "_blank"); }}>
+      <Button onClick={doClick}>
         fEEDBACk
       </Button>
     </Localized>
