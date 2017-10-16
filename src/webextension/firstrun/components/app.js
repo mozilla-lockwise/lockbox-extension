@@ -4,11 +4,21 @@
 
 import React from "react";
 
-import Pages from "./pages";
-import Wizard from "./wizard";
+import Welcome from "./welcome";
+import MasterPasswordSetup from "./master-password-setup";
+
+import styles from "./app.css";
 
 export default function App() {
   // Eventually, we'll have a feedback button up top here, and maybe some other
   // stuff.
-  return <Wizard pages={Pages}/>;
+  const imgSrc = browser.extension.getURL("/images/lockie_v1.png");
+
+  return (
+    <article className={styles.firstrun}>
+      <img src={imgSrc}/>
+      <Welcome />
+      <MasterPasswordSetup />
+    </article>
+  );
 }

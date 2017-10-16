@@ -35,8 +35,7 @@ export default function initializeMessagePorts() {
     case "signin":
       return getAuthorization().signIn(message.interactive);
     case "initialize":
-      return getAuthorization().verify(message.password).then(async() => {
-        const ds = await openDataStore();
+      return openDataStore().then(async(ds) => {
         await ds.initialize({
           password: message.password,
         });

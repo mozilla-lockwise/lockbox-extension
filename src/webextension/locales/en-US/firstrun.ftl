@@ -1,16 +1,22 @@
-welcome-page
-    .title = Welcome to Lockbox
-    .submitLabel = Sign in
-welcome-page-description = To get started, sign up (or sign in) to Firefox Accounts.
+welcome-title = Welcome to Lockbox (Alpha)
 
-verify-page
-    .title = Confirm your Lockbox Password
-    .submitLabel = Verify
-verify-page-description = Re-enter your Firefox Accounts password to finish setting up your Lockbox!
-verify-page-password
-    .placeholder = Password
+welcome-intro =
+    You've just installed the Lockbox browser extension!
+    This Alpha prototype will give you the ability to create
+    new entries, and then later you can view, search, edit, and
+    delete those entries.
 
-finished-page
-    .title = DONE!
-    .submitLabel = Finish
-finished-page-description = Your Lockbox is ready to use!
+welcome-feedback =
+    Please be sure to let us know your thoughts using our feedback
+    button within the tool, including any issues you may find, things
+    you like, and the things you're looking forward in the future.
+
+master-password-setup-formtitle = Please create a master password below:
+
+master-password-setup-password = Password
+
+master-password-setup-confirm = Confirm Password
+
+master-password-setup-err-mismatch = Passwords to not match
+
+master-password-setup-submit = Continue to Lockbox

@@ -13,11 +13,8 @@ import sinonChai from "sinon-chai";
 chai.use(chaiAsPromised);
 chai.use(sinonChai);
 
-import configs from "src/webextension/background/authorization/configs";
 import getAuthorization, * as authz from
        "src/webextension/background/authorization";
-
-const config = configs["dev-latest"];
 
 describe("background > authorization", () => {
   beforeEach(() => {
@@ -71,49 +68,6 @@ describe("background > authorization", () => {
           .to.equal(undefined);
   });
 
-  describe("fetchFromFxa()", () => {
-    const url = `${config.profile_uri}/profile`;
-
-    it("success", async() => {
-      fetchMock.get(url, "{}");
-      expect(authz.fetchFromFxA("reason", url)).to.eventually.deep.equal({});
-      fetchMock.restore();
-    });
-
-    it("failure", async() => {
-      fetchMock.get(url, {body: "{}", status: 500});
-      expect(authz.fetchFromFxA("reason", url)).to.be.rejected;
-      fetchMock.restore();
-    });
-  });
-
-  describe("parseAuthzResponse()", () => {
-    const parseAuthzResponse = getAuthorization.__GetDependency__(
-      "parseAuthzResponse"
-    );
-
-    it("return search params", () => {
-      const url = "http://example.invalid?state=foo";
-      const result = parseAuthzResponse(url, "foo");
-      expect(result).to.be.an.instanceof(URLSearchParams);
-      expect(result.toString()).to.equal("state=foo");
-    });
-
-    it("missing response parameters", () => {
-      const url = "http://example.invalid";
-      expect(() => parseAuthzResponse(url, null)).to.throw(
-        Error, "OAUTH response parameters missing"
-      );
-    });
-
-    it("mismatched OAUTH state", () => {
-      const url = "http://example.invalid?state=foo";
-      expect(() => parseAuthzResponse(url, "bar")).to.throw(
-        Error, "OAUTH state does not match"
-      );
-    });
-  });
-
   describe("Authorization", () => {
     let authorization;
     const fakeInfo = {
@@ -124,12 +78,6 @@ describe("background > authorization", () => {
 
     beforeEach(() => {
       authorization = new authz.Authorization({});
-    });
-
-    it("invalid config", () => {
-      expect(() => new authz.Authorization({config: "nonexist"})).to.throw(
-        Error, "unknown configuration: nonexist"
-      );
     });
 
     it("toJSON()", () => {
@@ -170,21 +118,10 @@ describe("background > authorization", () => {
     });
 
     it("signIn()", async() => {
-      fetchMock.post(`${config.oauth_uri}/token`, JSON.stringify({
-        auth_at: 0,
-        expires_in: 0,
-      }));
-      fetchMock.get(`${config.profile_uri}/profile`, "{}");
-
       const result = await authorization.signIn();
       fetchMock.restore();
 
-      expect(result).to.deep.equal({
-        access: {
-          validFrom: new Date(0).toISOString(),
-          validUntil: new Date(0).toISOString(),
-        },
-      });
+      expect(result).to.have.property("uid").that.is.a("string");
     });
 
     it("signOut()", async() => {
@@ -194,11 +131,9 @@ describe("background > authorization", () => {
 
     describe("verify()", () => {
       it("verify user", async() => {
-        fetchMock.post(`${config.fxa_auth_uri}/account/login`, "{}");
         authorization.info = fakeInfo;
 
         const result = await authorization.verify("password");
-        fetchMock.restore();
 
         expect(result).to.equal("password");
         expect(authorization.verified).to.equal(true);

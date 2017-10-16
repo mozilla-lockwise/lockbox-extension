@@ -114,6 +114,7 @@ export default {
       {from: "bootstrap.js"},
       {from: "webextension/locales/**/*.ftl"},
       {from: "webextension/icons/*"},
+      {from: "webextension/images/*"},
       {from: "icon.png"},
       ...extraCopy,
     ]),
