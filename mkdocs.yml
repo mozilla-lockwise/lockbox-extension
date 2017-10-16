@@ -7,6 +7,7 @@ pages:
 - 'Introduction': 'index.md'
 - 'Installing': 'install.md'
 - 'User Guide': 'user-guide.md'
+- 'Release Notes': 'release-notes.md'
 - 'Contributing': 'contributing.md'
 - 'Code of Conduct': 'code_of_conduct.md'
 - 'API Guide': 'api.md'
