@@ -19,5 +19,6 @@ This starts as a signed Firefox extension where you can:
 
 ### Known Issues
 
+* Lockbox has only been tested on Firefox 57 and above.  Installing on Firefox 56 or lower may not function at all. 
 * There is no way to reset your Lockbox master password. If you forget your master password, you'll need to start over fresh by uninstalling and re-installing this extension.
 * This is a Lockbox account, which stays local to your Firefox installation. There is no integration with Firefox accounts to sync (yet).
