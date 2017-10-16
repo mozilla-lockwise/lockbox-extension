@@ -32,7 +32,10 @@
 7. Edit the resulting GitHub Release
     - Set the GitHub Release title to match the version
     - Set the notes to match the `docs/release-notes.md`
-    - Download the `signed-addon.xpi` and attach it to the release
+    - Download the `signed-addon.xpi`
+        - `wget -O signed-addon.xpi https://testpilot.firefox.com/files/lockbox@mozilla.com/latest`
+    - Attach it to the release
+
 
 ### Extension Signing
 
