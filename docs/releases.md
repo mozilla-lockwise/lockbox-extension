@@ -3,31 +3,31 @@
 ### Instructions
 
 1. Update "version" in package.json (and package-lock.json)
-  - we follow the [semver](http://semver.org/) syntax
-  - Alpha releases will be tagged with "-alpha" (e.g., "0.1.0-alpha")
-  - Beta releases will be tagged with "-beta" (e.g., "0.x.0-beta")
-  - Stable releases will **not** be tagged, and follow smever from the last Beta release (major, minor, and patch)
+    - we follow the [semver](http://semver.org/) syntax
+    - Alpha releases will be tagged with "-alpha" (e.g., "0.1.0-alpha")
+    - Beta releases will be tagged with "-beta" (e.g., "0.x.0-beta")
+    - Stable releases will **not** be tagged, and follow smever from the last Beta release (major, minor, and patch)
 2. Update "release-notes.md"
-  - latest release goes to the top, under a second-level header
-  - each release includes the sub headings "What's New", "What's Fixed", and "Known Issues"
-  - consult with Product Management
+    - latest release goes to the top, under a second-level header
+    - each release includes the sub headings "What's New", "What's Fixed", and "Known Issues"
+    - consult with Product Management
 2. Commit and ultimately merge to "master" branch
 3. Merge and push "master" branch to "production" branch
-  - `git checkout master`
-  - `git pull` (to make sure you have the latest)
-  - `git checkout production`
-  - `git pull` (to make sure you have the latest)
-  - `git merge master`
-  - `git push`
-  - Jenkins will now build and sign the extension (see "Extension Signing")
+    - `git checkout master`
+    - `git pull` (to make sure you have the latest)
+    - `git checkout production`
+    - `git pull` (to make sure you have the latest)
+    - `git merge master`
+    - `git push`
+    - Jenkins will now build and sign the extension (see "Extension Signing")
 4. Tag the production branch at the version
-  - `git tag 0.1.0`
-  - `git push --tags`
-  - Travis CI will build and generate a GitHub Release
+    - `git tag 0.1.0`
+    - `git push --tags`
+    - Travis CI will build and generate a GitHub Release
 7. Edit the resulting GitHub Release
-  - Set the GitHub Release title to match the version
-  - Set the notes to match the CHANGELOG
-  - Download the `signed-addon.xpi` and attach it to the release
+    - Set the GitHub Release title to match the version
+    - Set the notes to match the CHANGELOG
+    - Download the `signed-addon.xpi` and attach it to the release
 
 ### Extension Signing
 
