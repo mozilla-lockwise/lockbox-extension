@@ -19,5 +19,5 @@ This starts as a signed Firefox extension where you can:
 
 ### Known Issues
 
-* There is no way to reset your Lockbox master password. If you forget your master password, you'll need to create a new profile and start fresh.
+* There is no way to reset your Lockbox master password. If you forget your master password, you'll need to start over fresh by uninstalling and re-installing this extension.
 * This is a Lockbox account, which stays local to your Firefox installation. There is no integration with Firefox accounts to sync (yet).
