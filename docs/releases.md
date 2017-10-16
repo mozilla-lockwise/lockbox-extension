@@ -3,10 +3,10 @@
 ### Instructions
 
 1. Update "version" in package.json (and package-lock.json)
-  - we follow the [semver](http://semver.org/) convention
-  - versions "0.1.0" to "1.0.0" is reserved for the internal Alpha
-  - version "1.0.0" is reserved for a public Beta
-  - major, minor, and patch releases will follow semver from there
+  - we follow the [semver](http://semver.org/) syntax
+  - Alpha releases will be tagged with "-alpha" (e.g., "0.1.0-alpha")
+  - Beta releases will be tagged with "-beta" (e.g., "0.x.0-beta")
+  - Stable releases will **not** be tagged, and follow smever from the last Beta release (major, minor, and patch)
 2. Update "CHANGELOG.md" using `conventional-changelog`
   - we follow the "angular" convention
   - review the resulting output in case anything is missed, unexpected, etc.
