@@ -7,9 +7,10 @@
   - Alpha releases will be tagged with "-alpha" (e.g., "0.1.0-alpha")
   - Beta releases will be tagged with "-beta" (e.g., "0.x.0-beta")
   - Stable releases will **not** be tagged, and follow smever from the last Beta release (major, minor, and patch)
-2. Update "CHANGELOG.md" using `conventional-changelog`
-  - we follow the "angular" convention
-  - review the resulting output in case anything is missed, unexpected, etc.
+2. Update "release-notes.md"
+  - latest release goes to the top, under a second-level header
+  - each release includes the sub headings "What's New", "What's Fixed", and "Known Issues"
+  - consult with Product Management
 2. Commit and ultimately merge to "master" branch
 3. Merge and push "master" branch to "production" branch
   - `git checkout master`
