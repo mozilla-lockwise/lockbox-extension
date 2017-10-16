@@ -3,4 +3,4 @@ unlock-prompt-desc = Enter your password
 
 unlock-prompt-err-invalid-pwd = Wrong password
 
-unlock-prompt-submit = Sign In
+unlock-prompt-submit = Unlock
