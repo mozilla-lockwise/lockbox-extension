@@ -16,15 +16,15 @@ module.exports = function(config) {
 
     basePath: "",
     files: [
-      "test/**/*-test.js",
+      "test/index.js",
     ],
     exclude: [],
     preprocessors: {
-      "test/**/*-test.js": ["webpack", "sourcemap"],
+      "test/index.js": ["webpack", "sourcemap"],
     },
 
     frameworks: ["mocha"],
-    reporters: ["mocha", "coverage-istanbul", "coverage"],
+    reporters: ["mocha", "coverage"],
 
     webpack: require("./webpack.config.test.js").default,
     webpackMiddleware: {
@@ -32,15 +32,12 @@ module.exports = function(config) {
     },
 
     coverageReporter: {
-      type: "lcov",
       dir: "coverage/",
-    },
-
-    coverageIstanbulReporter: {
-      reports: ["html", "text"],
-      dir: "coverage/firefox",
-      fixWebpackSourcePaths: true,
-      skipFilesWithNoCoverage: false,
+      reporters: [
+        { type: "text" },
+        { type: "lcov" },
+        { type: "html", subdir: "html" },
+      ],
     },
 
     port: 9876,
