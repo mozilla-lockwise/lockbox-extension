@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { mount } from "enzyme";
+import { mount, mountIntoDOM } from "test/enzyme";
 import React from "react";
 import { MessageContext } from "fluent";
 import {
@@ -24,8 +24,8 @@ export function MockLocalizationContext() {
   return new ReactLocalization(generateMessages());
 }
 
-export default function mountWithL10n(node, options = {}) {
-  return mount(node, {
+function getMountOptions(options = {}) {
+  return {
     context: {
       l10n: MockLocalizationContext(),
     },
@@ -33,5 +33,13 @@ export default function mountWithL10n(node, options = {}) {
       l10n: isReactLocalization,
     },
     ...options,
-  });
+  };
+}
+
+export default function mountWithL10n(node, options) {
+  return mount(node, getMountOptions(options));
+}
+
+export function mountWithL10nIntoDOM(node, options) {
+  return mountIntoDOM(node, getMountOptions(options));
 }

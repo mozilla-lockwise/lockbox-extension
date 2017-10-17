@@ -2,14 +2,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-polyfill");
-
 import { expect } from "chai";
 import React from "react";
 
-import mountWithL10n from "../../mock-l10n";
-import ItemSummary from
-       "../../../src/webextension/manage/components/item-summary";
+import mountWithL10n from "test/mocks/l10n";
+import ItemSummary from "src/webextension/manage/components/item-summary";
 
 describe("manage > components > <ItemSummary/>", () => {
   it("render title and username", () => {

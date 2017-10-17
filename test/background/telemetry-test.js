@@ -2,16 +2,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-polyfill");
-
 import chai, { expect } from "chai";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
-chai.use(sinonChai);
-
 import getAuthorization from "src/webextension/background/authorization";
 import * as telemetry from "src/webextension/background/telemetry";
+
+chai.use(sinonChai);
 
 describe("background > telemetry", () => {
   let onMessage;

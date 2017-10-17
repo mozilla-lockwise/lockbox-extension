@@ -2,16 +2,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-polyfill");
-
 import chai, { expect } from "chai";
 import chaiEnzyme from "chai-enzyme";
 import React from "react";
 
-chai.use(chaiEnzyme());
-
-import mountWithL10n from "test/mock-l10n";
+import mountWithL10n from "test/mocks/l10n";
 import Homepage from "src/webextension/manage/components/homepage";
+
+chai.use(chaiEnzyme());
 
 describe("manage > components > <Homepage/>", () => {
   it("render with no items", () => {

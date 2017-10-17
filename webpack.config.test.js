@@ -3,12 +3,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import path from "path";
+import webpack from "webpack";
 import combineLoaders from "webpack-combine-loaders";
-import nodeExternals from "webpack-node-externals";
 
 export default {
-  target: "node",
-  externals: [nodeExternals()],
   devtool: "cheap-module-source-map",
 
   module: {
@@ -35,6 +33,14 @@ export default {
       }]),
     }],
   },
+
+  plugins: [
+    new webpack.DefinePlugin({
+      "process.env": {
+        "NODE_ENV": JSON.stringify("test"),
+      },
+    }),
+  ],
 
   resolve: {
     alias: {
