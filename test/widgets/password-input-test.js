@@ -27,10 +27,10 @@ describe("widgets > <PasswordInput/>", () => {
     );
     expect(wrapper.find("input")).to.have.prop("type", "password");
 
-    wrapper.find("button").simulate("click");
+    wrapper.find("button").at(0).simulate("click");
     expect(wrapper.find("input")).to.have.prop("type", "text");
 
-    wrapper.find("button").simulate("click");
+    wrapper.find("button").at(1).simulate("click");
     expect(wrapper.find("input")).to.have.prop("type", "password");
   });
 
