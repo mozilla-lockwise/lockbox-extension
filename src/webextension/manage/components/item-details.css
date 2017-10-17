@@ -4,10 +4,11 @@
 
 .item-details {
   display: grid;
-  grid-template-columns: minmax(225px, max-content);
+  grid-template-columns: minmax(200px, 1fr);
   grid-column-gap: 1em;
   grid-row-gap: 3px;
   margin: 2em;
+  max-width: 320px;
 }
 
 .item-details > label,
@@ -27,7 +28,7 @@
 .field-text {
   /* This lines up our labels with the text in <input> elements. */
   margin-top: 3.5px;
-  height: 20.5px;
+  min-height: 20.5px;
   margin-inline-start: 7px;
 }
 
@@ -37,6 +38,8 @@
 
 .inline-button > *:first-child {
   flex: 1;
+  overflow: hidden;
+  overflow-wrap: break-word;
 }
 
 .buttons {
