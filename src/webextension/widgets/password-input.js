@@ -6,6 +6,8 @@ import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
+import ButtonStack from "./button-stack.js";
+
 import styles from "./password-input.css";
 
 export default class PasswordInput extends React.Component {
@@ -24,8 +26,14 @@ export default class PasswordInput extends React.Component {
     };
   }
 
-  toggleShowPassword() {
-    this.setState({showPassword: !this.state.showPassword});
+  showPassword(show) {
+    if (show) {
+      this.stackElement.selectedIndex = 1;
+      this.setState({showPassword: true});
+    } else {
+      this.stackElement.selectedIndex = 0;
+      this.setState({showPassword: false});
+    }
   }
 
   focus() {
@@ -40,11 +48,16 @@ export default class PasswordInput extends React.Component {
                  {...this.props}
                  ref={(element) => this.inputElement = element}/>
         </span>
-        <Localized id={this.state.showPassword ? "password-input-hide" :
-                       "password-input-show"}>
-          <button type="button" className="browser-style"
-                  onClick={() => this.toggleShowPassword()}>sHOw/hIDe</button>
-        </Localized>
+        <ButtonStack ref={(element) => this.stackElement = element}>
+          <Localized id="password-input-show">
+            <button type="button" className="browser-style"
+                    onClick={() => this.showPassword(true)}>sHOw</button>
+          </Localized>
+          <Localized id="password-input-hide">
+            <button type="button" className="browser-style"
+                    onClick={() => this.showPassword(false)}>hIDe</button>
+          </Localized>
+        </ButtonStack>
       </div>
     );
   }
