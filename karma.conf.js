@@ -6,7 +6,13 @@ require("babel-register")();
 
 module.exports = function(config) {
   config.set({
-    browsers: ["Firefox"],
+    browsers: ["FirefoxHeadless"],
+    customLaunchers: {
+      FirefoxHeadless: {
+        base: "Firefox",
+        flags: ["-headless"],
+      },
+    },
 
     basePath: "",
     files: [

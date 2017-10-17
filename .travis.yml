@@ -1,6 +1,9 @@
 language: node_js
 node_js: stable
 
+addons:
+  firefox: latest-beta
+
 # DEFAULT: Travis runs `npm install`
 
 script:
