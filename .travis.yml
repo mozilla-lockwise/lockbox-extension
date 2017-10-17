@@ -12,8 +12,8 @@ after_success:
 
 before_deploy:
   - pip install --user mkdocs
-  - npm run doc
   - npm run package
+  - npm run doc
 
 # deploy documentation to GitHub Pages
 deploy:
