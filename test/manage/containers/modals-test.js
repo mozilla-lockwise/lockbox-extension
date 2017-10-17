@@ -2,8 +2,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-polyfill");
-
 import { expect } from "chai";
 import PropTypes from "prop-types";
 import React from "react";
@@ -12,7 +10,7 @@ import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 
-import mountWithL10n from "test/mock-l10n";
+import mountWithL10n from "test/mocks/l10n";
 import { initialState } from "../mock-redux-state";
 import ModalRoot from "src/webextension/manage/containers/modal-root";
 import CancelEditingModal from

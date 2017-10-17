@@ -2,19 +2,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-polyfill");
-
 import chai, { expect } from "chai";
 import chaiEnzyme from "chai-enzyme";
-import { mount } from "enzyme";
 import React from "react";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
-chai.use(chaiEnzyme);
-chai.use(sinonChai);
-
+import { mount } from "test/enzyme";
 import DialogBox from "src/webextension/widgets/dialog-box";
+
+chai.use(chaiEnzyme());
+chai.use(sinonChai);
 
 describe("widgets > <DialogBox/>", () => {
   let wrapper, onClickPrimary, onClickSecondary;

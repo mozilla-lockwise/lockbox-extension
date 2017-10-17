@@ -2,17 +2,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-polyfill");
-
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
+import "test/mocks/browser";
+import updateBrowserAction from "src/webextension/background/browser-action";
+
 chai.use(chaiAsPromised);
 chai.use(sinonChai);
-
-import updateBrowserAction from "src/webextension/background/browser-action";
 
 describe("background > browser action", () => {
   let openView;

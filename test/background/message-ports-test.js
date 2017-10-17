@@ -2,19 +2,18 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-polyfill");
-
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import fetchMock from "fetch-mock";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
-chai.use(chaiAsPromised);
-chai.use(sinonChai);
-
+import "test/mocks/browser";
 import openDataStore from "src/webextension/background/datastore";
 import initializeMessagePorts from "src/webextension/background/message-ports";
+
+chai.use(chaiAsPromised);
+chai.use(sinonChai);
 
 describe("background > message ports", () => {
   const password = "n0str0m0";

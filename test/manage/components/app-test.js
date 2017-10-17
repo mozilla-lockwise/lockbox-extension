@@ -2,23 +2,21 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-polyfill");
-
 import chai, { expect } from "chai";
 import chaiEnzyme from "chai-enzyme";
 import React from "react";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 
-chai.use(chaiEnzyme());
-
 import { initialState } from "../mock-redux-state";
-import mountWithL10n from "test/mock-l10n";
+import mountWithL10n from "test/mocks/l10n";
 import App from "src/webextension/manage/components/app";
 import AddItem from "src/webextension/manage/containers/add-item";
 import AllItems from "src/webextension/manage/containers/all-items";
 import CurrentSelection from
        "src/webextension/manage/containers/current-selection";
+
+chai.use(chaiEnzyme());
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);

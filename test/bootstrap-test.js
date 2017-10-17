@@ -4,16 +4,17 @@
 
 /* global Services */
 
-require("babel-polyfill");
-
 import waitUntil from "async-wait-until";
 import chai, { expect } from "chai";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
-chai.use(sinonChai);
-
+import "test/mocks/xpcom";
+// XXX: We don't really need to inject this into global scope.
+import "test/mocks/browser";
 import bootstrap from "src/bootstrap";
+
+chai.use(sinonChai);
 
 describe("bootstrap", () => {
   describe("startup()", () => {
