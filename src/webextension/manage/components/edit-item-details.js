@@ -21,6 +21,7 @@ import styles from "./item-details.css";
 export default class EditItemDetails extends React.Component {
   static get propTypes() {
     return {
+      newItem: PropTypes.bool,
       fields: PropTypes.shape({
         title: PropTypes.string.isRequired,
         origin: PropTypes.string.isRequired,
@@ -35,6 +36,7 @@ export default class EditItemDetails extends React.Component {
 
   static get defaultProps() {
     return {
+      newItem: false,
       fields: {
         title: "",
         origin: "",
@@ -61,7 +63,7 @@ export default class EditItemDetails extends React.Component {
   }
 
   render() {
-    const {onSave, onCancel} = this.props;
+    const {newItem, onSave, onCancel} = this.props;
     const controlledProps = (name) => {
       return {name, value: this.state[name],
               onChange: (e) => this.handleChange(e)};
@@ -73,6 +75,9 @@ export default class EditItemDetails extends React.Component {
               e.preventDefault();
               onSave(this.state);
             }}>
+        <Localized id={`item-details-heading-${newItem ? "new" : "edit"}`}>
+          <h1>eDIt iTEm</h1>
+        </Localized>
         <label>
           <Localized id="item-details-title">
             <LabelText>tITLe</LabelText>
@@ -105,7 +110,7 @@ export default class EditItemDetails extends React.Component {
           <TextArea {...controlledProps("notes")}/>
         </label>
         <Toolbar className={styles.buttons}>
-          <Localized id="item-details-save">
+          <Localized id={`item-details-save-${newItem ? "new" : "existing"}`}>
             <Button className="default" type="submit">sAVe</Button>
           </Localized>
           <Localized id="item-details-cancel">

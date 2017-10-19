@@ -44,6 +44,9 @@ CopyToClipboardButton.propTypes = {
 export default function ItemDetails({fields, onEdit, onDelete}) {
   return (
     <div className={styles.itemDetails}>
+      <Localized id={"item-details-heading-view"}>
+        <h1>eDIt iTEm</h1>
+      </Localized>
       <div className={styles.field}>
         <Localized id="item-details-title">
           <LabelText>tITLe</LabelText>

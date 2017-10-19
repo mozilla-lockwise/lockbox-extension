@@ -51,7 +51,7 @@ describe("manage > components > <EditItemDetails/>", () => {
   describe("new item", () => {
     beforeEach(() => {
       wrapper = mountWithL10n(
-        <EditItemDetails onSave={onSave} onCancel={onCancel}/>
+        <EditItemDetails newItem={true} onSave={onSave} onCancel={onCancel}/>
       );
     });
 
@@ -64,7 +64,7 @@ describe("manage > components > <EditItemDetails/>", () => {
     });
 
     it("onSave called", () => {
-      wrapper.findWhere((x) => x.prop("id") === "item-details-save")
+      wrapper.findWhere((x) => x.prop("id") === "item-details-save-new")
              .find("button").simulate("submit");
       expect(onSave).to.have.been.calledWith(blankFields);
     });
@@ -75,7 +75,7 @@ describe("manage > components > <EditItemDetails/>", () => {
           return typeof x.type() === "string";
         }), updatedFields[i]);
       }
-      wrapper.findWhere((x) => x.prop("id") === "item-details-save")
+      wrapper.findWhere((x) => x.prop("id") === "item-details-save-new")
              .find("button").simulate("submit");
 
       expect(onSave).to.have.been.calledWith(updatedFields);
@@ -105,7 +105,7 @@ describe("manage > components > <EditItemDetails/>", () => {
     });
 
     it("onSave called", () => {
-      wrapper.findWhere((x) => x.prop("id") === "item-details-save")
+      wrapper.findWhere((x) => x.prop("id") === "item-details-save-existing")
              .find("button").simulate("submit");
       expect(onSave).to.have.been.calledWith(originalFields);
     });
@@ -116,7 +116,7 @@ describe("manage > components > <EditItemDetails/>", () => {
           return typeof x.type() === "string";
         }), updatedFields[i]);
       }
-      wrapper.findWhere((x) => x.prop("id") === "item-details-save")
+      wrapper.findWhere((x) => x.prop("id") === "item-details-save-existing")
              .find("button").simulate("submit");
 
       expect(onSave).to.have.been.calledWith(updatedFields);
