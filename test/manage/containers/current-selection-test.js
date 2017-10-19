@@ -129,7 +129,7 @@ describe("manage > containers > <CurrentSelection/>", () => {
     });
 
     it("addItem() dispatched", () => {
-      wrapper.findWhere((x) => x.prop("id") === "item-details-save")
+      wrapper.findWhere((x) => x.prop("id") === "item-details-save-new")
              .find("button").simulate("submit");
       expect(store.getActions()[0]).to.deep.include({
         type: actions.ADD_ITEM_STARTING,
@@ -200,7 +200,7 @@ describe("manage > containers > <CurrentSelection/>", () => {
     });
 
     it("updateItem() dispatched", () => {
-      wrapper.findWhere((x) => x.prop("id") === "item-details-save")
+      wrapper.findWhere((x) => x.prop("id") === "item-details-save-existing")
              .find("button").simulate("submit");
       expect(store.getActions()[0]).to.deep.include({
         type: actions.UPDATE_ITEM_STARTING,

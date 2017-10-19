@@ -11,6 +11,13 @@
   max-width: 320px;
 }
 
+.item-details > h1 {
+  margin-top: 7px;
+  margin-inline-start: 7px;
+  font-weight: normal;
+  font-size: 1.5em;
+}
+
 .item-details > label,
 .item-details > .field {
   display: contents;
@@ -23,6 +30,7 @@
 .label-text {
   margin-inline-start: 7px;
   margin-top: 0.5em;
+  color: #626262;
 }
 
 .field-text {

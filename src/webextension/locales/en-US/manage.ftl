@@ -38,6 +38,10 @@ homepage-over-50-passwords =
   
   You've added { $count } entries. Wow, I'm really impressed!
 
+item-details-heading-view = Entry Details
+item-details-heading-new = Create a New Entry
+item-details-heading-edit = Edit Entry
+
 item-details-title = Entry Name
 item-details-origin = Website Address
 item-details-username = Username
@@ -51,7 +55,8 @@ item-details-notes = Notes
 item-details-edit = Edit Entry
 item-details-delete = Delete Entry
 
-item-details-save = Save Entry
+item-details-save-new = Save Entry
+item-details-save-existing = Save Changes
 item-details-cancel = Cancel
 
 [[dialogs]]
