@@ -52,7 +52,7 @@ async function createMessagesGenerator(baseDir, currentLocales, bundles) {
       }
       yield cx;
     }
-  }
+  };
 }
 
 export default class AppLocalizationProvider extends Component {
