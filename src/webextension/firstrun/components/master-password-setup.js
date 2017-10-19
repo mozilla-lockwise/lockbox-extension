@@ -51,7 +51,7 @@ export default class MasterPasswordSetup extends React.Component {
         await browser.runtime.sendMessage({
           type: "close_view",
           name: "firstrun",
-        })
+        });
       } catch (err) {
         console.log(`initialize failed: ${err.message}`);
         // TODO: Localize this!

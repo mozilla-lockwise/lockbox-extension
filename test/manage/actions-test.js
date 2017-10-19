@@ -255,7 +255,7 @@ describe("manage > actions", () => {
   });
 
   it("hideModal() dispatched", () => {
-    store.dispatch(actions.hideModal())
+    store.dispatch(actions.hideModal());
     expect(store.getActions()).to.deep.equal([
       { type: actions.HIDE_MODAL },
     ]);
