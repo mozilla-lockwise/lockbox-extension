@@ -94,7 +94,7 @@ export default class MasterPasswordSetup extends React.Component {
         </label>
         <div className={styles.error}>{error}</div>
         <Localized id="master-password-setup-submit">
-          <Button className="default" type="submit">iNIt</Button>
+          <Button theme="primary" type="submit">iNIt</Button>
         </Localized>
       </form>
     );

@@ -98,7 +98,7 @@ export default function ItemDetails({fields, onEdit, onDelete}) {
           <Button onClick={() => onEdit()}>eDIt</Button>
         </Localized>
         <Localized id="item-details-delete">
-          <Button onClick={() => onDelete()}>dELETe</Button>
+          <Button theme="minimal" onClick={() => onDelete()}>dELETe</Button>
         </Localized>
       </Toolbar>
     </div>
