@@ -35,7 +35,6 @@ describe("bootstrap", () => {
     });
 
     it("web extension loaded and telemetry recorded", async() => {
-      const webextStartup = sinon.stub().resolves({browser});
       startup({webExtension: {
         startup: webextStartup,
       }});
@@ -47,7 +46,7 @@ describe("bootstrap", () => {
       expect(result).to.deep.equal({});
     });
 
-    it("re-registering telemetry doesn't throw", () => {
+    it("re-registering telemetry doesn't throw", async() => {
       sinon.stub(Services.telemetry, "registerEvents").throws(new Error(
         "Attempt to register event that is already registered."
       ));
@@ -55,6 +54,8 @@ describe("bootstrap", () => {
         startup: webextStartup,
       }})).to.not.throw();
       Services.telemetry.registerEvents.restore();
+
+      await waitUntil(() => webextStartup.callCount === 1);
     });
 
     it("other errors do throw", () => {
