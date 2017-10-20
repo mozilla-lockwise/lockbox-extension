@@ -14,7 +14,10 @@ import styles from "./master-password-setup.css";
 export default class MasterPasswordSetup extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      password: "",
+      confirmPassword: "",
+    };
   }
 
   componentDidMount() {
