@@ -3,6 +3,12 @@ site_description: Documentation for the Firefox extension
 theme: readthedocs
 repo_url: https://github.com/mozilla-lockbox/lockbox-extension
 
+extra_css:
+- css/extra.css
+
+markdown_extensions:
+- attr_list
+
 pages:
 - 'Introduction': 'index.md'
 - 'Installing': 'install.md'
