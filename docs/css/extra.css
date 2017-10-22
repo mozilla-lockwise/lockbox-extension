@@ -2,6 +2,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+h1 {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
 a.button-link {
   display: block;
   margin: 0px auto;
