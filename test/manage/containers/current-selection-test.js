@@ -2,16 +2,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-polyfill");
-
-import { expect } from "chai";
+import chai, { expect } from "chai";
 import React from "react";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
+import chaiFocus from "test/chai-focus";
 import { simulateTyping } from "test/common";
-import mountWithL10n from "test/mock-l10n";
+import mountWithL10n, { mountWithL10nIntoDOM } from "test/mocks/l10n";
 import { initialState, filledState } from "../mock-redux-state";
 import { NEW_ITEM_ID } from "src/webextension/manage/common";
 import EditItemDetails from
@@ -20,6 +19,8 @@ import ItemDetails from "src/webextension/manage/components/item-details";
 import CurrentSelection from
        "src/webextension/manage/containers/current-selection";
 import * as actions from "src/webextension/manage/actions";
+
+chai.use(chaiFocus);
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -103,7 +104,7 @@ describe("manage > containers > <CurrentSelection/>", () => {
         },
       };
       store = mockStore(state);
-      wrapper = mountWithL10n(
+      wrapper = mountWithL10nIntoDOM(
         <Provider store={store}>
           <CurrentSelection/>
         </Provider>
@@ -124,13 +125,11 @@ describe("manage > containers > <CurrentSelection/>", () => {
 
     it("first field focused", () => {
       const firstField = wrapper.find("input").at(0);
-      expect(firstField.instance()).to.equal(
-        document.activeElement, "the element was not focused"
-      );
+      expect(firstField).to.be.focused();
     });
 
     it("addItem() dispatched", () => {
-      wrapper.findWhere((x) => x.prop("id") === "item-details-save")
+      wrapper.findWhere((x) => x.prop("id") === "item-details-save-new")
              .find("button").simulate("submit");
       expect(store.getActions()[0]).to.deep.include({
         type: actions.ADD_ITEM_STARTING,
@@ -175,7 +174,7 @@ describe("manage > containers > <CurrentSelection/>", () => {
       store = mockStore({...filledState, ui: {
         ...filledState.ui, editing: true,
       }});
-      wrapper = mountWithL10n(
+      wrapper = mountWithL10nIntoDOM(
         <Provider store={store}>
           <CurrentSelection/>
         </Provider>
@@ -197,13 +196,11 @@ describe("manage > containers > <CurrentSelection/>", () => {
 
     it("first field focused", () => {
       const firstField = wrapper.find("input").at(0);
-      expect(firstField.instance()).to.equal(
-        document.activeElement, "the element was not focused"
-      );
+      expect(firstField).to.be.focused();
     });
 
     it("updateItem() dispatched", () => {
-      wrapper.findWhere((x) => x.prop("id") === "item-details-save")
+      wrapper.findWhere((x) => x.prop("id") === "item-details-save-existing")
              .find("button").simulate("submit");
       expect(store.getActions()[0]).to.deep.include({
         type: actions.UPDATE_ITEM_STARTING,

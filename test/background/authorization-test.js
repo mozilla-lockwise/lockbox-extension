@@ -2,19 +2,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-polyfill");
-
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import fetchMock from "fetch-mock";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
-chai.use(chaiAsPromised);
-chai.use(sinonChai);
-
 import getAuthorization, * as authz from
        "src/webextension/background/authorization";
+
+chai.use(chaiAsPromised);
+chai.use(sinonChai);
 
 describe("background > authorization", () => {
   beforeEach(() => {

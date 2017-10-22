@@ -8,25 +8,23 @@ import React from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 
 import Button from "../../widgets/button";
+import Toolbar from "../../widgets/toolbar";
 
 import styles from "./item-details.css";
 
 const PASSWORD_DOT = "\u25cf";
 
-export function Text({className, ...props}) {
-  const finalClassName = `${styles.text} ${className}`.trimRight();
+export function LabelText(props) {
   return (
-    <span className={finalClassName} {...props}/>
+    <span className={styles.labelText} {...props}/>
   );
 }
 
-Text.propTypes = {
-  className: PropTypes.string,
-};
-
-Text.defaultProps = {
-  className: "",
-};
+export function FieldText(props) {
+  return (
+    <span className={styles.fieldText} {...props}/>
+  );
+}
 
 function CopyToClipboardButton({text, ...props}) {
   return (
@@ -46,24 +44,27 @@ CopyToClipboardButton.propTypes = {
 export default function ItemDetails({fields, onEdit, onDelete}) {
   return (
     <div className={styles.itemDetails}>
+      <Localized id={"item-details-heading-view"}>
+        <h1>eDIt iTEm</h1>
+      </Localized>
       <div className={styles.field}>
         <Localized id="item-details-title">
-          <Text>tITLe</Text>
+          <LabelText>tITLe</LabelText>
         </Localized>
-        <Text data-name="title">{fields.title}</Text>
+        <FieldText data-name="title">{fields.title}</FieldText>
       </div>
       <div className={styles.field}>
         <Localized id="item-details-origin">
-          <Text>oRIGIn</Text>
+          <LabelText>oRIGIn</LabelText>
         </Localized>
-        <Text data-name="origin">{fields.origin}</Text>
+        <FieldText data-name="origin">{fields.origin}</FieldText>
       </div>
       <div className={styles.field}>
         <Localized id="item-details-username">
-          <Text>uSERNAMe</Text>
+          <LabelText>uSERNAMe</LabelText>
         </Localized>
         <div className={styles.inlineButton}>
-          <Text data-name="username">{fields.username}</Text>
+          <FieldText data-name="username">{fields.username}</FieldText>
           <Localized id="item-details-copy-username">
             <CopyToClipboardButton text={fields.username}>
               cOPy
@@ -73,12 +74,12 @@ export default function ItemDetails({fields, onEdit, onDelete}) {
       </div>
       <div className={styles.field}>
         <Localized id="item-details-password">
-          <Text>pASSWORd</Text>
+          <LabelText>pASSWORd</LabelText>
         </Localized>
         <div className={styles.inlineButton}>
-        <Text data-name="password">
-          {PASSWORD_DOT.repeat(fields.password.length)}
-        </Text>
+          <FieldText data-name="password">
+            {PASSWORD_DOT.repeat(fields.password.length)}
+          </FieldText>
           <Localized id="item-details-copy-password">
             <CopyToClipboardButton text={fields.password}>
               cOPy
@@ -88,18 +89,18 @@ export default function ItemDetails({fields, onEdit, onDelete}) {
       </div>
       <div className={styles.field}>
         <Localized id="item-details-notes">
-          <Text>nOTEs</Text>
+          <LabelText>nOTEs</LabelText>
         </Localized>
-        <Text data-name="notes">{fields.notes}</Text>
+        <FieldText data-name="notes">{fields.notes}</FieldText>
       </div>
-      <div className={styles.buttons}>
+      <Toolbar className={styles.buttons}>
         <Localized id="item-details-edit">
           <Button onClick={() => onEdit()}>eDIt</Button>
         </Localized>
         <Localized id="item-details-delete">
-          <Button onClick={() => onDelete()}>dELETe</Button>
+          <Button theme="minimal" onClick={() => onDelete()}>dELETe</Button>
         </Localized>
-      </div>
+      </Toolbar>
     </div>
   );
 }

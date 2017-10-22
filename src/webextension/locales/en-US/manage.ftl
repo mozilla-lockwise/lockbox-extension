@@ -1,13 +1,15 @@
-toolbar-item-count = { $count ->
-   [one]   1 Entry
-  *[other] { $count } Entries
-}
+toolbar-item-count =
+  { $count ->
+     [one]   1 Entry
+    *[other] { $count } Entries
+  }
 
 toolbar-add-item = New Entry
 toolbar-go-home = Home
 toolbar-send-feedback = Feedback
 
-item-filter.placeholder = Search for an entry
+item-filter
+  .placeholder = Search for an entry
 
 item-summary-new-item = New Entry
 item-summary-no-title = (No Entry Name)
@@ -19,14 +21,15 @@ homepage-no-passwords =
   
   To get started, click { toolbar-add-item } above.
 
-homepage-under-10-passwords = { $count ->
-   [1]     Hi there! It's your friend, Lockie!
+homepage-under-10-passwords =
+  { $count ->
+     [1]     Hi there! It's your friend, Lockie!
            
-           You've added { $count } entry. That's a great start!
-  *[other] Hi there! It's your friend, Lockie!
+             You've added { $count } entry. That's a great start!
+    *[other] Hi there! It's your friend, Lockie!
            
-           You've added { $count } entries. That's a great start!
-}
+             You've added { $count } entries. That's a great start!
+  }
 
 homepage-under-50-passwords =
   Hey again! Just your pal Lockie checking in!
@@ -37,6 +40,10 @@ homepage-over-50-passwords =
   Welcome back! I hope you're having a great day!
   
   You've added { $count } entries. Wow, I'm really impressed!
+
+item-details-heading-view = Entry Details
+item-details-heading-new = Create a New Entry
+item-details-heading-edit = Edit Entry
 
 item-details-title = Entry Name
 item-details-origin = Website Address
@@ -51,7 +58,8 @@ item-details-notes = Notes
 item-details-edit = Edit Entry
 item-details-delete = Delete Entry
 
-item-details-save = Save Entry
+item-details-save-new = Save Entry
+item-details-save-existing = Save Changes
 item-details-cancel = Cancel
 
 [[dialogs]]

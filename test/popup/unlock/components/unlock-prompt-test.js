@@ -2,20 +2,18 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-polyfill");
-
 import waitUntil from "async-wait-until";
 import chai, { expect } from "chai";
 import chaiEnzyme from "chai-enzyme";
 import React from "react";
 import sinon from "sinon";
 
-chai.use(chaiEnzyme);
-
 import { simulateTyping } from "test/common";
-import mountWithL10n from "test/mock-l10n";
+import mountWithL10n from "test/mocks/l10n";
 import UnlockPrompt from
        "src/webextension/popup/unlock/components/unlock-prompt";
+
+chai.use(chaiEnzyme());
 
 describe("popup > unlock > components > <UnlockPrompt/>", () => {
   let wrapper;

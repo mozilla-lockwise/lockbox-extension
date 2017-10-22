@@ -7,15 +7,23 @@ import React from "react";
 
 import styles from "./button.css";
 
+const THEME_CLASS_NAME = {
+  primary: "browser-style default",
+  normal: "browser-style",
+  minimal: `browser-style ${styles.minimal}`,
+};
+
 export default class Button extends React.Component {
   static get propTypes() {
     return {
+      theme: PropTypes.oneOf(["primary", "normal", "minimal"]),
       className: PropTypes.string,
     };
   }
 
   static get defaultProps() {
     return {
+      theme: "normal",
       className: "",
     };
   }
@@ -25,9 +33,11 @@ export default class Button extends React.Component {
   }
 
   render() {
-    const {className, ...props} = this.props;
-    const finalClassName = `browser-style ${styles.button} ${className}`
-                           .trimRight();
+    const {className, theme, ...props} = this.props;
+    const finalClassName = (
+      `${THEME_CLASS_NAME[theme]} ${styles.button} ${className}`
+    ).trimRight();
+
     return (
       <button className={finalClassName} {...props}
               ref={(element) => this.buttonElement = element}/>

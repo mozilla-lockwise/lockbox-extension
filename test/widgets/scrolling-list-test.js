@@ -2,23 +2,42 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-polyfill");
-
 import chai, { expect } from "chai";
-import { mount } from "enzyme";
 import React from "react";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
-chai.use(sinonChai);
-
+import { mount, getInjectNode } from "test/enzyme";
 import ScrollingList from "src/webextension/widgets/scrolling-list";
+
+chai.use(sinonChai);
 
 describe("widgets > <ScrollingList/>", () => {
   let wrapper, onItemSelected;
 
+  const data = [
+    {id: "1", name: "item 1"},
+    {id: "2", name: "item 2"},
+    {id: "3", name: "item 3"},
+  ];
+
   beforeEach(() => {
     onItemSelected = sinon.spy();
+  });
+
+  it("merge classNames", () => {
+    wrapper = mount(
+      <ScrollingList className="foo" data={[]} onItemSelected={onItemSelected}>
+        {({item, ...props}) => {
+          return (
+            <li {...props}>{item.name}</li>
+          );
+        }}
+      </ScrollingList>
+    );
+    expect(wrapper.find("ul").prop("className")).to.match(
+      /^\S+ foo$/
+    );
   });
 
   describe("empty list", () => {
@@ -53,12 +72,6 @@ describe("widgets > <ScrollingList/>", () => {
   });
 
   describe("filled list", () => {
-    const data = [
-      {id: "1", name: "item 1"},
-      {id: "2", name: "item 2"},
-      {id: "3", name: "item 3"},
-    ];
-
     beforeEach(() => {
       wrapper = mount(
         <ScrollingList data={data} onItemSelected={onItemSelected}>
@@ -121,40 +134,55 @@ describe("widgets > <ScrollingList/>", () => {
         expect(onItemSelected).to.have.callCount(0);
       });
     });
+  });
 
-    describe("scrolling", () => {
-      it("scroll up into view", () => {
-        const scrollIntoView = sinon.spy();
-        wrapper.find("ul").instance().scrollTop = 42;
-        wrapper.find("li").at(0).instance().scrollIntoView = scrollIntoView;
-        wrapper.setProps({selected: "1"});
-
-        expect(scrollIntoView).to.have.been.calledWith({
-          behavior: "smooth", block: "start",
-        });
+  describe("scrolling", () => {
+    beforeEach(() => {
+      const inject = getInjectNode({
+        id: "scrolling-inject-node",
+        style: "display: grid; height: 5px; grid-template-rows: 1fr;",
       });
+      wrapper = mount(
+        <ScrollingList data={data} onItemSelected={onItemSelected}>
+          {({name}) => {
+            return (
+              <div>{name}</div>
+            );
+          }}
+        </ScrollingList>,
+        { attachTo: inject }
+      );
+    });
 
-      it("scroll down into view", () => {
-        const scrollIntoView = sinon.spy();
-        wrapper.find("ul").instance().scrollTop = -42;
-        wrapper.find("li").at(2).instance().scrollIntoView = scrollIntoView;
-        wrapper.setProps({selected: "3"});
+    it("scroll up into view", () => {
+      const scrollIntoView = sinon.spy();
+      wrapper.find("ul").instance().scrollTop = 42;
+      wrapper.find("li").at(0).instance().scrollIntoView = scrollIntoView;
+      wrapper.setProps({selected: "1"});
 
-        expect(scrollIntoView).to.have.been.calledWith({
-          behavior: "smooth", block: "end",
-        });
+      expect(scrollIntoView).to.have.been.calledWith({
+        behavior: "smooth", block: "start",
       });
+    });
 
-      it("does not scroll if selection is unchanged", () => {
-        const scrollIntoView = sinon.spy();
-        wrapper.find("ul").instance().scrollTop = -42;
-        wrapper.find("li").at(2).instance().scrollIntoView = scrollIntoView;
-        wrapper.setProps({selected: "3"});
-        scrollIntoView.reset();
-        wrapper.setProps({selected: "3"});
-
-        expect(scrollIntoView).to.have.callCount(0);
+    it("scroll down into view", async() => {
+      const scrollIntoView = sinon.spy();
+      wrapper.find("li").at(2).instance().scrollIntoView = scrollIntoView;
+      wrapper.setProps({selected: "3"});
+      expect(scrollIntoView).to.have.been.calledWith({
+        behavior: "smooth", block: "end",
       });
+    });
+
+    it("does not scroll if selection is unchanged", () => {
+      const scrollIntoView = sinon.spy();
+      wrapper.find("ul").instance().scrollTop = -42;
+      wrapper.find("li").at(2).instance().scrollIntoView = scrollIntoView;
+      wrapper.setProps({selected: "3"});
+      scrollIntoView.reset();
+      wrapper.setProps({selected: "3"});
+
+      expect(scrollIntoView).to.have.callCount(0);
     });
   });
 });

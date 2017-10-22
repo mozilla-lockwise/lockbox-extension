@@ -2,19 +2,19 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-polyfill");
-
 import chai, { expect } from "chai";
 import chaiEnzyme from "chai-enzyme";
-import { mount } from "enzyme";
 import React from "react";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
-chai.use(chaiEnzyme);
-chai.use(sinonChai);
-
+import chaiFocus from "test/chai-focus";
+import { mount, mountIntoDOM } from "test/enzyme";
 import Button from "src/webextension/widgets/button";
+
+chai.use(chaiEnzyme());
+chai.use(sinonChai);
+chai.use(chaiFocus);
 
 describe("widgets > <Button/>", () => {
   it("render button", () => {
@@ -39,11 +39,9 @@ describe("widgets > <Button/>", () => {
     expect(onClick).to.have.callCount(1);
   });
 
-  it("focus() focuses button", () => {
-    const wrapper = mount(<Button>click me</Button>);
+  it("focus() focuses button", async() => {
+    const wrapper = mountIntoDOM(<Button>click me</Button>);
     wrapper.instance().focus();
-    expect(wrapper.find("button").instance()).to.equal(
-      document.activeElement, "the element was not focused"
-    );
+    expect(wrapper.find("button")).to.be.focused(document);
   });
 });

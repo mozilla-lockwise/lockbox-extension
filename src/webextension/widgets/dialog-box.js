@@ -21,7 +21,7 @@ export default class DialogBox extends React.Component {
       <section className={styles.modalDialog}>
         <div>{text}</div>
         <menu>
-          <Button onClick={() => { onClickPrimary(); }}
+          <Button theme="primary" onClick={() => { onClickPrimary(); }}
                   ref={(element) => this._primaryButton = element}>
             {primaryButtonLabel}
           </Button>

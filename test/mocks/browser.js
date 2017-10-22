@@ -2,41 +2,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-register")();
-
-const Enzyme = require("enzyme");
-const Adapter = require("enzyme-adapter-react-16");
-
-Enzyme.configure({adapter: new Adapter()});
-
-var jsdom = require("jsdom");
-const { JSDOM } = jsdom;
-const { document } = (new JSDOM("")).window;
-
-var exposedProperties = ["window", "navigator", "document", "browser",
-                         "Headers", "HTMLElement", "Components", "Services"];
-
-global.document = document;
-global.window = document.defaultView;
-
-Object.getOwnPropertyNames(document.defaultView).forEach((property) => {
-  if (typeof global[property] === "undefined") {
-    exposedProperties.push(property);
-    global[property] = document.defaultView[property];
-  }
-});
-
-global.navigator = {
-  userAgent: "node.js",
-};
-
-global.TextEncoder = class TextEncoder {
-  encode(s) { return s; }
-};
-
-// Mock the WebExtension message ports so that our tests can pretend to talk
-// between the front- and back-end.
-
 class MockListener {
   constructor() {
     this.mockClearListener();
@@ -125,7 +90,7 @@ function makePairedPorts(contextId) {
   return [left, right];
 }
 
-global.browser = {
+window.browser = {
   browserAction: {
     _popupPage: "",
     onClicked: new MockListener(),
@@ -137,6 +102,7 @@ global.browser = {
     async getPopup() {
       return this._popupPage;
     },
+
     setIcon() {},
   },
 
@@ -215,21 +181,5 @@ global.browser = {
 
   windows: {
     update() {},
-  },
-};
-
-// These globals are only useful for XPCOM, but for simplicity, we just inject
-// them everywhere.
-
-global.Components = {
-  utils: {
-    "import": function() {},
-  },
-};
-
-global.Services = {
-  telemetry: {
-    registerEvents() {},
-    recordEvent() {},
   },
 };

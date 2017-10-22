@@ -2,22 +2,20 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-polyfill");
-
 import waitUntil from "async-wait-until";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import chaiEnzyme from "chai-enzyme";
-import { mount } from "enzyme";
 import fetchMock from "fetch-mock";
 import { Localized } from "fluent-react";
 import React from "react";
 import sinon from "sinon";
 
-chai.use(chaiAsPromised);
-chai.use(chaiEnzyme);
-
+import { mount } from "test/enzyme";
 import AppLocalizationProvider from "src/webextension/l10n";
+
+chai.use(chaiAsPromised);
+chai.use(chaiEnzyme());
 
 describe("<AppLocalizationProvider/>", () => {
   const locales = ["en-US", "es-ES"];

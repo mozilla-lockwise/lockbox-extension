@@ -39,6 +39,7 @@ function flattenItem(item) {
 
 const ConnectedEditItemDetails = connect(
   (state, ownProps) => ({
+    newItem: !ownProps.item,
     fields: ownProps.item ? flattenItem(ownProps.item) : undefined,
   }),
   (dispatch, ownProps) => {

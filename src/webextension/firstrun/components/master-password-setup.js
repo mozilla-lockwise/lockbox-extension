@@ -17,6 +17,10 @@ export default class MasterPasswordSetup extends React.Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    this._firstField.focus();
+  }
+
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
@@ -51,7 +55,7 @@ export default class MasterPasswordSetup extends React.Component {
         await browser.runtime.sendMessage({
           type: "close_view",
           name: "firstrun",
-        })
+        });
       } catch (err) {
         console.log(`initialize failed: ${err.message}`);
         // TODO: Localize this!
@@ -63,15 +67,11 @@ export default class MasterPasswordSetup extends React.Component {
   }
 
   render() {
-    const controlledProps = (name) => {
-      return {
-        name,
-        value: this.state[name],
-        onChange: (e) => this.handleChange(e),
-      };
-    };
-
     const { error = "\u00a0" } = this.state;
+    const controlledProps = (name) => {
+      return {name, value: this.state[name],
+              onChange: (e) => this.handleChange(e)};
+    };
 
     return (
       <form className={styles.masterPasswordSetup}
@@ -83,7 +83,8 @@ export default class MasterPasswordSetup extends React.Component {
           <Localized id="master-password-setup-password">
             <div>pASSWORd</div>
           </Localized>
-          <PasswordInput {...controlledProps("password")}/>
+          <PasswordInput {...controlledProps("password")}
+                         ref={(element) => this._firstField = element}/>
         </label>
         <label>
           <Localized id="master-password-setup-confirm">
@@ -93,7 +94,7 @@ export default class MasterPasswordSetup extends React.Component {
         </label>
         <div className={styles.error}>{error}</div>
         <Localized id="master-password-setup-submit">
-          <Button type="submit">iNIt</Button>
+          <Button theme="primary" type="submit">iNIt</Button>
         </Localized>
       </form>
     );

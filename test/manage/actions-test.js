@@ -2,12 +2,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-polyfill");
-
 import { expect } from "chai";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 
+import "test/mocks/browser";
 import { initialState } from "./mock-redux-state";
 import * as actions from "src/webextension/manage/actions";
 
@@ -256,7 +255,7 @@ describe("manage > actions", () => {
   });
 
   it("hideModal() dispatched", () => {
-    store.dispatch(actions.hideModal())
+    store.dispatch(actions.hideModal());
     expect(store.getActions()).to.deep.equal([
       { type: actions.HIDE_MODAL },
     ]);

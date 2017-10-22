@@ -2,16 +2,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-polyfill");
-
 import chai, { expect } from "chai";
 import chaiEnzyme from "chai-enzyme";
 import React from "react";
 
-chai.use(chaiEnzyme);
-
-import mountWithL10n from "test/mock-l10n";
+import chaiFocus from "test/chai-focus";
+import mountWithL10n, { mountWithL10nIntoDOM } from "test/mocks/l10n";
 import PasswordInput from "src/webextension/widgets/password-input";
+
+chai.use(chaiEnzyme());
+chai.use(chaiFocus);
 
 describe("widgets > <PasswordInput/>", () => {
   it("render input", () => {
@@ -27,20 +27,18 @@ describe("widgets > <PasswordInput/>", () => {
     );
     expect(wrapper.find("input")).to.have.prop("type", "password");
 
-    wrapper.find("button").simulate("click");
+    wrapper.find("button").at(0).simulate("click");
     expect(wrapper.find("input")).to.have.prop("type", "text");
 
-    wrapper.find("button").simulate("click");
+    wrapper.find("button").at(1).simulate("click");
     expect(wrapper.find("input")).to.have.prop("type", "password");
   });
 
   it("focus() focuses input", () => {
-    const wrapper = mountWithL10n(
+    const wrapper = mountWithL10nIntoDOM(
       <PasswordInput value="password" onChange={() => {}}/>
     );
     wrapper.instance().focus();
-    expect(wrapper.find("input").instance()).to.equal(
-      document.activeElement, "the element was not focused"
-    );
+    expect(wrapper.find("input")).to.be.focused();
   });
 });
