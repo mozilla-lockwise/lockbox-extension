@@ -1,7 +1,7 @@
-# Lockbox Extension {: .center }
+# Lockbox Extension
 
 Click below to install the Lockbox extension:
 
-[install][install-link]{: .button-link .center }
+[install][install-link]{: .button-link }
 
 [install-link]: https://testpilot.firefox.com/files/lockbox@mozilla.com/latest
