@@ -2,11 +2,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/* global ADDON_INSTALL */
 /* eslint-disable no-unused-vars */
 
 const { utils: Cu } = Components;
 
 Cu.import("resource://gre/modules/Services.jsm");
+
+const REMEMBER_SIGNONS_PREF = "signon.rememberSignons";
+const ORIGINAL_REMEMBER_SIGNONS_PREF =
+      "extensions.lockbox.originalRememberSignons";
 
 // In order to allow us to register new telemetry events in the middle of a
 // Firefox session, we currently need to ensure that our events have a unique
@@ -113,8 +118,33 @@ function startup({webExtension}, reason) {
 }
 
 function shutdown(data, reason) {}
-function install(data, reason) {}
-function uninstall(data, reason) {}
+
+function install(data, reason) {
+  if (reason === ADDON_INSTALL) {
+    console.log("INSTALLING...");
+    // Remember the original value for `signons.rememberSignons` so we can
+    // restore it during uninstall, then disable it so it doesn't conflict with
+    // us.
+    Services.prefs.setBoolPref(
+      ORIGINAL_REMEMBER_SIGNONS_PREF,
+      Services.prefs.getBoolPref(REMEMBER_SIGNONS_PREF)
+    );
+    Services.prefs.setBoolPref(REMEMBER_SIGNONS_PREF, false);
+  }
+}
+
+function uninstall(data, reason) {
+  if (reason === ADDON_INSTALL) {
+    // Restore the original value for `signons.rememberSignons`.
+    if (Services.prefs.getBoolPref(REMEMBER_SIGNONS_PREF) === false) {
+      Services.prefs.setBoolPref(
+        REMEMBER_SIGNONS_PREF,
+        Services.prefs.getBoolPref(ORIGINAL_REMEMBER_SIGNONS_PREF)
+      );
+    }
+    Services.prefs.clearUserPref(ORIGINAL_REMEMBER_SIGNONS_PREF);
+  }
+}
 
 // We need to reference these functions so that babel-plugin-rewire can see
 // them for our tests.
