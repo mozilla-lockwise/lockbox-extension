@@ -66,7 +66,14 @@ if (NODE_ENV === "production") {
     new DirListWebpackPlugin({
       directory: "webextension/locales",
       filename: "webextension/locales/locales.json",
-      filter: (file, stats) => file.charAt(0) !== "." && stats.isDirectory(),
+      filter(file, stats) {
+        return file.charAt(0) !== "." && stats.isDirectory();
+      },
+      compareFunction(a, b) {
+        // Ensure en-US goes first, since it's the default.
+        const pre = (s) => s === "en-US" ? s : "z" + s;
+        return pre(a).localeCompare(pre(b));
+      },
     }),
   );
 
