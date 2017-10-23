@@ -19,6 +19,7 @@ export default class DirListWebpackPlugin {
       directory: undefined,
       filename: undefined,
       filter: undefined,
+      compareFunction: undefined,
       ...options,
     };
   }
@@ -65,6 +66,9 @@ export default class DirListWebpackPlugin {
         }
 
         filesPromise.then((files) => {
+          if (this.options.compareFunction) {
+            files.sort(this.options.compareFunction);
+          }
           const output = JSON.stringify(files);
           compilation.assets[this.options.filename] = {
             source() {
