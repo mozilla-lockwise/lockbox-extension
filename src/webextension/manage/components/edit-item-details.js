@@ -64,9 +64,10 @@ export default class EditItemDetails extends React.Component {
 
   render() {
     const {newItem, onSave, onCancel} = this.props;
-    const controlledProps = (name) => {
+    const controlledProps = (name, maxLength = 500) => {
       return {name, value: this.state[name],
-              onChange: (e) => this.handleChange(e)};
+              onChange: (e) => this.handleChange(e),
+              maxLength: maxLength.toString()};
     };
 
     return (
@@ -107,7 +108,7 @@ export default class EditItemDetails extends React.Component {
           <Localized id="item-details-notes">
             <LabelText>nOTEs</LabelText>
           </Localized>
-          <TextArea {...controlledProps("notes")}/>
+          <TextArea {...controlledProps("notes", 10000)}/>
         </label>
         <Toolbar className={styles.buttons}>
           <Localized id={`item-details-save-${newItem ? "new" : "existing"}`}>
