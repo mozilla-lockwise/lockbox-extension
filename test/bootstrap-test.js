@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/* global Services */
+/* global Services, ADDON_INSTALL */
 
 import waitUntil from "async-wait-until";
 import chai, { expect } from "chai";
@@ -17,6 +17,10 @@ import bootstrap from "src/bootstrap";
 chai.use(sinonChai);
 
 describe("bootstrap", () => {
+  const REMEMBER_SIGNONS_PREF = "signon.rememberSignons";
+  const ORIGINAL_REMEMBER_SIGNONS_PREF =
+        "extensions.lockbox.originalRememberSignons";
+
   describe("startup()", () => {
     const startup = bootstrap.__get__("startup");
     let webextStartup;
@@ -64,21 +68,63 @@ describe("bootstrap", () => {
     });
   });
 
-  // These functions are currently no-ops, so we just need to test that they
-  // exist.
-
-  it("shutdown()", () => {
+  describe("shutdown()", () => {
     const shutdown = bootstrap.__get__("shutdown");
-    shutdown();
+
+    // This function is currently a no-op, so we just need to test that it
+    // exists.
+    it("does nothing", () => {
+      shutdown();
+    });
   });
 
-  it("install()", () => {
+  describe("install()", () => {
     const install = bootstrap.__get__("install");
-    install();
+
+    afterEach(() => {
+      Services.prefs.mockResetPrefs();
+    });
+
+    it("sets signons.rememberSingons on install", () => {
+      Services.prefs.setBoolPref(REMEMBER_SIGNONS_PREF, true);
+      install(null, ADDON_INSTALL);
+      expect(Services.prefs.getBoolPref(REMEMBER_SIGNONS_PREF)).to.equal(false);
+      expect(Services.prefs.getBoolPref(ORIGINAL_REMEMBER_SIGNONS_PREF))
+            .to.equal(true);
+    });
+
+    it("does nothing on other events", () => {
+      install();
+      expect(Services.prefs.prefHasUserValue(REMEMBER_SIGNONS_PREF))
+            .to.equal(false);
+      expect(Services.prefs.prefHasUserValue(ORIGINAL_REMEMBER_SIGNONS_PREF))
+            .to.equal(false);
+    });
   });
 
-  it("uninstall()", () => {
+  describe("uninstall()", () => {
     const uninstall = bootstrap.__get__("uninstall");
-    uninstall();
+
+    afterEach(() => {
+      Services.prefs.mockResetPrefs();
+    });
+
+    it("resets signons.rememberSignons on uninstall", () => {
+      Services.prefs.setBoolPref(ORIGINAL_REMEMBER_SIGNONS_PREF, true);
+      uninstall(null, ADDON_INSTALL);
+      expect(Services.prefs.getBoolPref(REMEMBER_SIGNONS_PREF)).to.equal(true);
+      expect(Services.prefs.prefHasUserValue(ORIGINAL_REMEMBER_SIGNONS_PREF))
+            .to.equal(false);
+    });
+
+    it("does nothing on other events", () => {
+      Services.prefs.setBoolPref(REMEMBER_SIGNONS_PREF, false);
+      Services.prefs.setBoolPref(ORIGINAL_REMEMBER_SIGNONS_PREF, true);
+      uninstall();
+      expect(Services.prefs.getBoolPref(REMEMBER_SIGNONS_PREF))
+            .to.equal(false);
+      expect(Services.prefs.getBoolPref(ORIGINAL_REMEMBER_SIGNONS_PREF))
+            .to.equal(true);
+    });
   });
 });
