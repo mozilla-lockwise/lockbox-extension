@@ -67,11 +67,10 @@ item-details-cancel = Cancel
 modal-root
   .contentLabel = Modal dialog
 
-modal-cancel
-  .text = This entry has unsaved changes. Are you sure you want to discard them?
-  .primaryButtonLabel = Discard Changes
-  .secondaryButtonLabel = Go Back
-modal-delete
-  .text = Are you sure you want to delete this entry?
-  .primaryButtonLabel = Delete Entry
-  .secondaryButtonLabel = Cancel
+modal-cancel-editing = This entry has unsaved changes. Are you sure you want to discard them?
+modal-cancel-editing-confirm = Discard Changes
+modal-cancel-editing-cancel = Go Back
+
+modal-delete = Are you sure you want to delete this entry?
+modal-delete-confirm = Delete Entry
+modal-delete-cancel = Cancel

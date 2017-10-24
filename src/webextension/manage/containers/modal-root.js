@@ -8,6 +8,7 @@ import React from "react";
 import Modal from "react-modal";
 import { connect } from "react-redux";
 
+import { hideModal } from "../actions";
 import CancelEditingModal from "./modals/cancel-editing";
 import DeleteItemModal from "./modals/delete-item";
 
@@ -18,7 +19,7 @@ const MODALS = {
   "delete": DeleteItemModal,
 };
 
-function ModalRoot({modalId}) {
+function ModalRoot({modalId, dispatch}) {
   if (!modalId) {
     return null;
   }
@@ -28,7 +29,7 @@ function ModalRoot({modalId}) {
     <Localized id="modal-root">
       <Modal isOpen={true} className={styles.modal}
              overlayClassName={styles.overlay}>
-        <CurrentModal/>
+        <CurrentModal onClose={() => { dispatch(hideModal()); }}/>
       </Modal>
     </Localized>
   );
@@ -36,7 +37,7 @@ function ModalRoot({modalId}) {
 
 ModalRoot.propTypes = {
   modalId: PropTypes.string,
-  getString: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect(
