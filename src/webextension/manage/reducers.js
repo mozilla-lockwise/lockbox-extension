@@ -81,7 +81,7 @@ export function cacheReducer(state = {
 }
 
 export function uiReducer(state = {
-  editing: false, selectedItemId: null, filter: "",
+  editing: false, selectedItemId: null,
 }, action) {
   switch (action.type) {
   case ADD_ITEM_COMPLETED:
@@ -99,8 +99,6 @@ export function uiReducer(state = {
       return {...state, editing: false, selectedItemId: null};
     }
     return {...state, editing: false};
-  case FILTER_ITEMS:
-    return {...state, filter: action.filter};
   default:
     return state;
   }
@@ -117,10 +115,20 @@ export function modalReducer(state = {id: null, props: null}, action) {
   }
 }
 
+export function filterReducer(state = "", action) {
+  switch (action.type) {
+  case FILTER_ITEMS:
+    return action.filter;
+  default:
+    return state;
+  }
+}
+
 const reducer = combineReducers({
   cache: cacheReducer,
   ui: uiReducer,
   modal: modalReducer,
+  filter: filterReducer,
 });
 
 export default reducer;

@@ -76,7 +76,7 @@ describe("manage > containers > <AllItems/>", () => {
     beforeEach(() => {
       store = mockStore({
         ...filledState,
-        ui: {...filledState.ui, filter: "2"},
+        filter: "2",
       });
       wrapper = mountWithL10n(
         <Provider store={store}>

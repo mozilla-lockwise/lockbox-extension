@@ -32,7 +32,7 @@ AllItems.propTypes = {
 
 export default connect(
   (state, ownProps) => {
-    const filter = parseFilterString(state.ui.filter);
+    const filter = parseFilterString(state.filter);
     return {
       items: state.cache.items
                   .filter((i) => filterItem(filter, i))

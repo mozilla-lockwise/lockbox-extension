@@ -19,7 +19,7 @@ function ItemFilter(props) {
 
 export default connect(
   (state) => ({
-    value: state.ui.filter,
+    value: state.filter,
   }),
   (dispatch) => ({
     onChange: (value) => { dispatch(filterItems(value)); },
