@@ -1,6 +1,20 @@
 # Lockbox Release Notes
 
-## 0.1.0 - alpha
+## 0.1.1-alpha
+
+_Date: 2017-10-30_
+
+### What's New
+
+### What's Fixed
+
+### Known Issues
+
+* There is no way to change your Lockbox master password.  If you forget your master password, you'll need to start over fresh by either:
+  - Opening the this extension's Settings page and clicking **\[INSERT ACTUAL NAME OF "FACTORY-RESET"]**; or
+  - Uninstalling and re-installing the extension
+
+## 0.1.0-alpha1
 
 _Date: 2017-10-16_
 
