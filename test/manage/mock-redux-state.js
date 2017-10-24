@@ -13,12 +13,12 @@ export const initialState = {
   ui: {
     editing: false,
     selectedItemId: null,
-    filter: "",
   },
   modal: {
     id: null,
     props: null,
   },
+  filter:  "",
 };
 
 export const filledState = {
@@ -47,10 +47,10 @@ export const filledState = {
   ui: {
     editing: false,
     selectedItemId: "1",
-    filter: "",
   },
   modal: {
     id: null,
     props: null,
   },
+  filter:  "",
 };
