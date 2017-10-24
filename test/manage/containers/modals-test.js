@@ -14,11 +14,9 @@ import sinonChai from "sinon-chai";
 
 import mountWithL10n from "test/mocks/l10n";
 import { initialState } from "../mock-redux-state";
-import ModalRoot from "src/webextension/manage/containers/modal-root";
-import CancelEditingModal from
-       "src/webextension/manage/containers/modals/cancel-editing";
-import DeleteItemModal from
-       "src/webextension/manage/containers/modals/delete-item";
+import ModalRootWidget from "src/webextension/widgets/modal-root";
+import ModalRoot, { CancelEditingModal, DeleteItemModal } from
+       "src/webextension/manage/containers/modals";
 import * as actions from "src/webextension/manage/actions";
 
 chai.use(sinonChai);
@@ -31,21 +29,23 @@ describe("manage > containers > modals", () => {
     beforeEach(() => {
       // Enzyme doesn't support React Portals yet; see
       // <https://github.com/airbnb/enzyme/issues/1150>.
-      ModalRoot.__Rewire__("Modal", class FakeModal extends React.Component {
-        static get propTypes() {
-          return {
-            children: PropTypes.node,
-          };
-        }
+      ModalRootWidget.__Rewire__(
+        "Modal", class FakeModal extends React.Component {
+          static get propTypes() {
+            return {
+              children: PropTypes.node,
+            };
+          }
 
-        render() {
-          return <div>{this.props.children}</div>;
+          render() {
+            return <div>{this.props.children}</div>;
+          }
         }
-      });
+      );
     });
 
     afterEach(() => {
-      ModalRoot.__ResetDependency__("Modal");
+      ModalRootWidget.__ResetDependency__("Modal");
     });
 
     it("no modal", () => {
@@ -123,13 +123,10 @@ describe("manage > containers > modals", () => {
 
     beforeEach(() => {
       onClose = sinon.spy();
-      store = mockStore({
-        ...initialState,
-        modal: { id: null, props: {id: "1"} },
-      });
+      store = mockStore(initialState);
       wrapper = mountWithL10n(
         <Provider store={store}>
-          <DeleteItemModal onClose={onClose}/>
+          <DeleteItemModal itemId="1" onClose={onClose}/>
         </Provider>
       );
     });

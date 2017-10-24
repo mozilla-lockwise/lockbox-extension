@@ -64,9 +64,6 @@ item-details-cancel = Cancel
 
 [[dialogs]]
 
-modal-root
-  .contentLabel = Modal dialog
-
 modal-cancel-editing = This entry has unsaved changes. Are you sure you want to discard them?
   .confirmLabel = Discard Changes
   .cancelLabel = Go Back

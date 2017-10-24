@@ -10,7 +10,7 @@ import CurrentSelection from "../containers/current-selection";
 import GoHome from "../containers/go-home";
 import ItemFilter from "../containers/item-filter";
 import ItemCount from "../containers/item-count";
-import ModalRoot from "../containers/modal-root";
+import ModalRoot from "../containers/modals";
 import SendFeedback from "../components/send-feedback";
 import Toolbar, { ToolbarSpace } from "../../widgets/toolbar";
 

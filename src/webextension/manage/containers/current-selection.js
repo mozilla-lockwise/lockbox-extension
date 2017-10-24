@@ -72,7 +72,7 @@ const ConnectedItemDetails = connect(
       dispatch(editCurrentItem());
     },
     onDelete: () => {
-      dispatch(showModal("delete", {id: ownProps.item.id}));
+      dispatch(showModal("delete", {itemId: ownProps.item.id}));
     },
   })
 )(ItemDetails);
