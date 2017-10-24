@@ -33,7 +33,7 @@ export const HIDE_MODAL = Symbol("HIDE_MODAL");
 let nextActionId = 0;
 
 export function listItems() {
-  return async function(dispatch) {
+  return async(dispatch) => {
     const actionId = nextActionId++;
     dispatch(listItemsStarting(actionId));
 
@@ -60,7 +60,7 @@ function listItemsCompleted(actionId, items) {
 }
 
 export function addItem(details) {
-  return async function(dispatch) {
+  return async(dispatch) => {
     const actionId = nextActionId++;
     dispatch(addItemStarting(actionId, details));
     telemetry.recordEvent("itemAdding", "addItemForm");
@@ -95,7 +95,7 @@ function addItemCompleted(actionId, item) {
 }
 
 export function updateItem(item) {
-  return async function(dispatch) {
+  return async(dispatch) => {
     const actionId = nextActionId++;
     dispatch(updateItemStarting(actionId, item));
     telemetry.recordEvent("itemUpdating", "updatingItemForm");
@@ -129,7 +129,7 @@ function updateItemCompleted(actionId, item) {
 }
 
 export function removeItem(id) {
-  return async function(dispatch) {
+  return async(dispatch) => {
     const actionId = nextActionId++;
     dispatch(removeItemStarting(actionId, id));
     telemetry.recordEvent("itemDeleting", "updatingItemForm");
@@ -163,7 +163,7 @@ function removeItemCompleted(actionId, id) {
 }
 
 export function selectItem(id) {
-  return async function(dispatch) {
+  return async(dispatch) => {
     const actionId = nextActionId++;
     dispatch(selectItemStarting(actionId, id));
 
