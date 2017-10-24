@@ -2,23 +2,21 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { Localized, withLocalization } from "fluent-react";
+import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
 import { cancelEditing } from "../../actions";
-import DialogBox from "../../../widgets/dialog-box";
+import { ConfirmDialog } from "../../../widgets/dialog-box";
 
-function CancelEditingModal({onConfirm, onClose, getString}) {
+function CancelEditingModal({onConfirm, onClose}) {
   return (
     <Localized id="modal-cancel-editing">
-      <DialogBox buttonLabels={[getString("modal-cancel-editing-confirm"),
-                                getString("modal-cancel-editing-cancel")]}
-                 onClick={(i) => { if (i === 0) { onConfirm(); } }}
-                 onClose={onClose}>
+      <ConfirmDialog confirmLabel="dISARCd" cancelLabel="go bACk"
+                     onConfirm={onConfirm} onClose={onClose}>
         cANCEl eDITINg?
-      </DialogBox>
+      </ConfirmDialog>
     </Localized>
   );
 }
@@ -26,7 +24,6 @@ function CancelEditingModal({onConfirm, onClose, getString}) {
 CancelEditingModal.propTypes = {
   onConfirm: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
-  getString: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -34,4 +31,4 @@ export default connect(
   (dispatch) => ({
     onConfirm: () => { dispatch(cancelEditing()); },
   })
-)(withLocalization(CancelEditingModal));
+)(CancelEditingModal);
