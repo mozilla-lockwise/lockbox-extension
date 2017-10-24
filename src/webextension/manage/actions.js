@@ -21,6 +21,7 @@ export const SELECT_ITEM_COMPLETED = Symbol("SELECT_ITEM_COMPLETED");
 
 export const START_NEW_ITEM = Symbol("START_NEW_ITEM");
 export const EDIT_CURRENT_ITEM = Symbol("EDIT_CURRENT_ITEM");
+export const EDITOR_CHANGED = Symbol("EDITOR_CHANGED");
 export const CANCEL_EDITING = Symbol("CANCEL_EDITING");
 
 export const FILTER_ITEMS = Symbol("FILTER_ITEMS");
@@ -128,6 +129,10 @@ function updateItemCompleted(actionId, item) {
   };
 }
 
+export function requestRemoveItem(id) {
+  return showModal("delete", {itemId: id});
+}
+
 export function removeItem(id) {
   return async(dispatch) => {
     const actionId = nextActionId++;
@@ -159,6 +164,17 @@ function removeItemCompleted(actionId, id) {
     type: REMOVE_ITEM_COMPLETED,
     actionId,
     id,
+  };
+}
+
+export function requestSelectItem(id) {
+  return async(dispatch, getState) => {
+    const {ui: {editorChanged}} = getState();
+    if (!editorChanged) {
+      dispatch(selectItem(id));
+      return;
+    }
+    await dispatch(showModal("cancel-editing", {nextItemId: id}));
   };
 }
 
@@ -209,6 +225,23 @@ export function editCurrentItem() {
   };
 }
 
+export function editorChanged() {
+  return {
+    type: EDITOR_CHANGED,
+  };
+}
+
+export function requestCancelEditing() {
+  return (dispatch, getState) => {
+    const {ui: {editorChanged}} = getState();
+    if (!editorChanged) {
+      dispatch(cancelEditing());
+      return;
+    }
+    dispatch(showModal("cancel-editing"));
+  };
+}
+
 export function cancelEditing() {
   return {
     type: CANCEL_EDITING,
@@ -222,7 +255,7 @@ export function filterItems(filter) {
   };
 }
 
-export function showModal(id, props = null) {
+function showModal(id, props = {}) {
   return {
     type: SHOW_MODAL,
     id,

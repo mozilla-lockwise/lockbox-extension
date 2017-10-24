@@ -6,7 +6,7 @@ import { withLocalization } from "fluent-react";
 import React from "react";
 import { connect } from "react-redux";
 
-import { selectItem } from "../actions";
+import { requestSelectItem } from "../actions";
 import { parseFilterString, filterItem } from "../filter";
 import { NEW_ITEM_ID } from "../common";
 import ItemList from "../components/item-list";
@@ -41,6 +41,6 @@ export default connect(
     };
   },
   (dispatch) => ({
-    onItemSelected: (id) => dispatch(selectItem(id)),
+    onItemSelected: (id) => dispatch(requestSelectItem(id)),
   }),
 )(withLocalization(AllItems));

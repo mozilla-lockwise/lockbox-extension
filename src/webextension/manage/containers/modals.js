@@ -6,16 +6,7 @@ import { connect } from "react-redux";
 
 import ModalRoot from "../../widgets/modal-root";
 import { LocalizedConfirmDialog } from "../../widgets/dialog-box";
-import { hideModal, cancelEditing, removeItem } from "../actions";
-
-export const CancelEditingModal = connect(
-  (state) => ({
-    l10nId: "modal-cancel-editing",
-  }),
-  (dispatch) => ({
-    onConfirm: () => { dispatch(cancelEditing()); },
-  })
-)(LocalizedConfirmDialog);
+import { hideModal, removeItem, cancelEditing, selectItem } from "../actions";
 
 export const DeleteItemModal = connect(
   (state) => ({
@@ -26,9 +17,21 @@ export const DeleteItemModal = connect(
   })
 )(LocalizedConfirmDialog);
 
+export const CancelEditingModal = connect(
+  (state) => ({
+    l10nId: "modal-cancel-editing",
+  }),
+  (dispatch, {nextItemId}) => {
+    if (nextItemId !== undefined) {
+      return {onConfirm: () => { dispatch(selectItem(nextItemId)); }};
+    }
+    return {onConfirm: () => { dispatch(cancelEditing()); }};
+  }
+)(LocalizedConfirmDialog);
+
 const MODALS = {
-  "cancel": CancelEditingModal,
   "delete": DeleteItemModal,
+  "cancel-editing": CancelEditingModal,
 };
 
 export default connect(
