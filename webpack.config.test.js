@@ -7,7 +7,7 @@ import webpack from "webpack";
 import combineLoaders from "webpack-combine-loaders";
 
 export default {
-  devtool: "cheap-module-source-map",
+  devtool: "inline-source-map",
 
   module: {
     loaders: [{
