@@ -64,7 +64,8 @@ item-details-cancel = Cancel
 
 [[dialogs]]
 
-modal-root-title = Modal dialog
+modal-root
+  .contentLabel = Modal dialog
 
 modal-cancel
   .text = This entry has unsaved changes. Are you sure you want to discard them?
