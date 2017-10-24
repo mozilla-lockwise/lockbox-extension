@@ -12,6 +12,8 @@ export const initialState = {
   },
   ui: {
     editing: false,
+    editorChanged: false,
+    hideHome: false,
     selectedItemId: null,
   },
   modal: {
@@ -46,6 +48,8 @@ export const filledState = {
   },
   ui: {
     editing: false,
+    editorChanged: false,
+    hideHome: false,
     selectedItemId: "1",
   },
   modal: {

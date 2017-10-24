@@ -104,6 +104,17 @@ describe("manage > actions", () => {
     ]);
   });
 
+  it("requestRemoveItem() dispatched", () => {
+    const id = "1";
+    store.dispatch(actions.requestRemoveItem(id));
+    const dispatched = store.getActions();
+    expect(dispatched).to.deep.equal([
+      { type: actions.SHOW_MODAL,
+        id: "delete",
+        props: {itemId: id} },
+    ]);
+  });
+
   it("removeItem() dispatched", async() => {
     const id = "1";
     browser.runtime.onMessage.addListener((msg) => {
@@ -122,6 +133,50 @@ describe("manage > actions", () => {
       { type: actions.REMOVE_ITEM_COMPLETED,
         actionId: dispatched[0].actionId,
         id },
+    ]);
+  });
+
+  it("requestSelectItem() dispatched (no editor changes)", async() => {
+    const item = {
+      id: "1",
+      title: "title",
+      entry: {
+        kind: "login",
+        username: "username",
+        password: "password",
+      },
+    };
+    browser.runtime.onMessage.addListener((msg) => {
+      if (msg.type === "get_item") {
+        return {item};
+      }
+      return null;
+    });
+
+    await store.dispatch(actions.requestSelectItem(item.id));
+    const dispatched = store.getActions();
+    expect(dispatched).to.deep.equal([
+      { type: actions.SELECT_ITEM_STARTING,
+        actionId: dispatched[0].actionId,
+        id: item.id },
+      { type: actions.SELECT_ITEM_COMPLETED,
+        actionId: dispatched[0].actionId,
+        item },
+    ]);
+  });
+
+  it("requestSelectItem() dispatched (with editor changes)", async() => {
+    const store = mockStore({
+      ...initialState,
+      ui: {...initialState.ui, editing: true, editorChanged: true},
+    });
+
+    await store.dispatch(actions.requestSelectItem("1"));
+    const dispatched = store.getActions();
+    expect(dispatched).to.deep.equal([
+      { type: actions.SHOW_MODAL,
+        id: "cancel-editing",
+        props: {nextItemId: "1"} },
     ]);
   });
 
@@ -230,6 +285,34 @@ describe("manage > actions", () => {
     ]);
   });
 
+  it("editorChanged() dispatched", () => {
+    store.dispatch(actions.editorChanged());
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.EDITOR_CHANGED },
+    ]);
+  });
+
+  it("requestCancelEditing() dispatched (no editor changes)", () => {
+    store.dispatch(actions.requestCancelEditing());
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.CANCEL_EDITING },
+    ]);
+  });
+
+  it("requestCancelEditing() dispatched (with editor changes)", () => {
+    const store = mockStore({
+      ...initialState,
+      ui: {...initialState.ui, editing: true, editorChanged: true},
+    });
+
+    store.dispatch(actions.requestCancelEditing());
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.SHOW_MODAL,
+        id: "cancel-editing",
+        props: {} },
+    ]);
+  });
+
   it("cancelEditing() dispatched", () => {
     store.dispatch(actions.cancelEditing());
     expect(store.getActions()).to.deep.equal([
@@ -242,15 +325,6 @@ describe("manage > actions", () => {
     expect(store.getActions()).to.deep.equal([
       { type: actions.FILTER_ITEMS,
         filter: "my filter" },
-    ]);
-  });
-
-  it("showModal() dispatched", () => {
-    store.dispatch(actions.showModal("my_modal", {prop: "value"}));
-    expect(store.getActions()).to.deep.equal([
-      { type: actions.SHOW_MODAL,
-        id: "my_modal",
-        props: {prop: "value"} },
     ]);
   });
 

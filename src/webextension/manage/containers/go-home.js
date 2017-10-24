@@ -8,12 +8,12 @@ import React from "react";
 import { connect } from "react-redux";
 
 import Button from "../../widgets/button";
-import { selectItem } from "../actions";
+import { requestSelectItem } from "../actions";
 
-function GoHome({dispatch}) {
+function GoHome({onClick}) {
   return (
     <Localized id="toolbar-go-home">
-      <Button theme="minimal" onClick={() => { dispatch(selectItem(null)); }}>
+      <Button theme="minimal" onClick={onClick}>
         hOMe
       </Button>
     </Localized>
@@ -21,7 +21,12 @@ function GoHome({dispatch}) {
 }
 
 GoHome.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
-export default connect()(GoHome);
+export default connect(
+  undefined,
+  (dispatch) => ({
+    onClick: () => { dispatch(requestSelectItem(null)); },
+  })
+)(GoHome);

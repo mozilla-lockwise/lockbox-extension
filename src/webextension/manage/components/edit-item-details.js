@@ -29,6 +29,7 @@ export default class EditItemDetails extends React.Component {
         password: PropTypes.string.isRequired,
         notes: PropTypes.string.isRequired,
       }),
+      onChange: PropTypes.func.isRequired,
       onSave: PropTypes.func.isRequired,
       onCancel: PropTypes.func.isRequired,
     };
@@ -50,7 +51,6 @@ export default class EditItemDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {...props.fields};
-    this._changed = false;
   }
 
   componentDidMount() {
@@ -58,8 +58,8 @@ export default class EditItemDetails extends React.Component {
   }
 
   handleChange(event) {
-    this._changed = true;
     this.setState({[event.target.name]: event.target.value});
+    this.props.onChange();
   }
 
   render() {
@@ -116,7 +116,7 @@ export default class EditItemDetails extends React.Component {
           </Localized>
           <Localized id="item-details-cancel">
             <Button type="button" theme="minimal"
-                    onClick={(e) => onCancel(this._changed)}>
+                    onClick={(e) => onCancel()}>
               cANCEl
             </Button>
           </Localized>

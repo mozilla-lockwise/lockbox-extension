@@ -61,7 +61,7 @@ describe("manage > containers > modals", () => {
     it("with modal", () => {
       const store = mockStore({
         ...initialState,
-        modal: { id: "cancel", props: null },
+        modal: { id: "cancel-editing", props: null },
       });
       const wrapper = mountWithL10n(
         <Provider store={store}>
@@ -75,7 +75,7 @@ describe("manage > containers > modals", () => {
     it("hideModal() dispatched when closing modal", () => {
       const store = mockStore({
         ...initialState,
-        modal: { id: "cancel", props: null },
+        modal: { id: "cancel-editing", props: null },
       });
       const wrapper = mountWithL10n(
         <Provider store={store}>
@@ -108,6 +108,19 @@ describe("manage > containers > modals", () => {
       expect(store.getActions()).to.deep.equal([
         { type: actions.CANCEL_EDITING },
       ]);
+      expect(onClose).to.have.been.calledWith();
+    });
+
+    it("selectItem() dispatched and onClose() called", () => {
+      wrapper = mountWithL10n(
+        <Provider store={store}>
+          <CancelEditingModal nextItemId="1" onClose={onClose}/>
+        </Provider>
+      );
+      wrapper.find("button").first().simulate("click");
+      expect(store.getActions()[0]).to.deep.include({
+        type: actions.SELECT_ITEM_STARTING,
+      });
       expect(onClose).to.have.been.calledWith();
     });
 

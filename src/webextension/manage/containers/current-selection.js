@@ -7,7 +7,8 @@ import React from "react";
 import { connect } from "react-redux";
 
 import {
-  addItem, updateItem, editCurrentItem, cancelEditing, showModal,
+  addItem, updateItem, requestRemoveItem, editCurrentItem, requestCancelEditing,
+  editorChanged,
 } from "../actions";
 import EditItemDetails from "../components/edit-item-details";
 import ItemDetails from "../components/item-details";
@@ -55,10 +56,9 @@ const ConnectedEditItemDetails = connect(
     }
 
     return {
+      onChange: () => { dispatch(editorChanged()); },
       onSave,
-      onCancel: (changed) => {
-        dispatch(changed ? showModal("cancel") : cancelEditing());
-      },
+      onCancel: () => { dispatch(requestCancelEditing()); },
     };
   },
 )(EditItemDetails);
@@ -68,21 +68,20 @@ const ConnectedItemDetails = connect(
     fields: flattenItem(ownProps.item),
   }),
   (dispatch, ownProps) => ({
-    onEdit: () => {
-      dispatch(editCurrentItem());
-    },
-    onDelete: () => {
-      dispatch(showModal("delete", {itemId: ownProps.item.id}));
-    },
+    onEdit: () => { dispatch(editCurrentItem()); },
+    onDelete: () => { dispatch(requestRemoveItem(ownProps.item.id)); },
   })
 )(ItemDetails);
 
-function CurrentSelection({editing, item, numItems}) {
+function CurrentSelection({editing, item, hideHome, numItems}) {
   let inner;
   if (editing) {
     inner = <ConnectedEditItemDetails item={item}/>;
   } else if (item) {
     inner = <ConnectedItemDetails item={item}/>;
+  } else if (hideHome) {
+    // Don't show anything since we're still loading the item details.
+    inner = null;
   } else {
     inner = <Homepage count={numItems}/>;
   }
@@ -92,6 +91,7 @@ function CurrentSelection({editing, item, numItems}) {
 CurrentSelection.propTypes = {
   editing: PropTypes.bool.isRequired,
   item: PropTypes.object,
+  hideHome: PropTypes.bool.isRequired,
   numItems: PropTypes.number.isRequired,
 };
 
@@ -99,6 +99,7 @@ export default connect(
   (state) => ({
     editing: state.ui.editing,
     item: state.cache.currentItem,
+    hideHome: state.ui.hideHome,
     numItems: state.cache.items.length,
   })
 )(CurrentSelection);
