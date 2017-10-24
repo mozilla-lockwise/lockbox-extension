@@ -1,5 +1,11 @@
 ## Releases
 
+### Checklist
+
+* Unfinished work has been triaged and assigned to the appropriate milestone
+* Finished work is verified on `master`
+* Product, Engineering, and PI have signed-off on releasing
+
 ### Instructions
 
 **NOTE:** These instructions assume:
@@ -15,7 +21,7 @@
 2. Update `docs/release-notes.md`
     - latest release goes to the top, under a second-level header
     - each release includes the sub headings "What's New", "What's Fixed", and "Known Issues"
-    - consult with Product Management
+    - consult with Product Management on wording if needed
 2. Commit and ultimately merge to "master" branch
 3. Merge and push "master" branch to "production" branch
     - `git checkout master`
@@ -35,6 +41,7 @@
     - Download the `signed-addon.xpi`
         - `wget -O signed-addon.xpi https://testpilot.firefox.com/files/lockbox@mozilla.com/latest`
     - Attach it to the release
+8. Announcement sent to the team that all steps are complete (e.g., via Slack team channel)
 
 
 ### Extension Signing
