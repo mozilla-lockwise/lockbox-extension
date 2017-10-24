@@ -6,9 +6,13 @@ _Date: 2017-10-30_
 
 ### What's New
 
+When installing this extension, Firefox will no longer prompt to save logins.  Any logins saved in Firefox are still there, and you can still use it to autofill login forms, but the browser will not prompt to save new ones.  This feature will be re-enabled if you uninstall this extension, and will can be manually changed by the user in Firefox's preferences.
+
+Note that this feature is only disabled on new installs of this extension; updating Lockbox will not change your current Firefox preferences.
+
 ### What's Fixed
 
-### Known Issues
+Ω### Known Issues
 
 * There is no way to change your Lockbox master password.  If you forget your master password, you'll need to start over fresh by either:
   - Opening the this extension's Settings page and clicking **\[INSERT ACTUAL NAME OF "FACTORY-RESET"]**; or
