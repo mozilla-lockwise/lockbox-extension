@@ -82,7 +82,7 @@ describe("manage > containers > <CurrentSelection/>", () => {
       expect(store.getActions()[0]).to.deep.equal({
         type: actions.SHOW_MODAL,
         id: "delete",
-        props: {id: "1"},
+        props: {itemId: "1"},
       });
     });
   });

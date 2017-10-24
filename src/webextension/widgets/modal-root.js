@@ -6,42 +6,28 @@ import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 import Modal from "react-modal";
-import { connect } from "react-redux";
-
-import { hideModal } from "../actions";
-import CancelEditingModal from "./modals/cancel-editing";
-import DeleteItemModal from "./modals/delete-item";
 
 import styles from "./modal-root.css";
 
-const MODALS = {
-  "cancel": CancelEditingModal,
-  "delete": DeleteItemModal,
-};
-
-function ModalRoot({modalId, dispatch}) {
+export default function ModalRoot({modals, modalId, modalProps, onClose}) {
   if (!modalId) {
     return null;
   }
-  const CurrentModal = MODALS[modalId];
+  const CurrentModal = modals[modalId];
 
   return (
     <Localized id="modal-root">
       <Modal isOpen={true} className={styles.modal}
              overlayClassName={styles.overlay}>
-        <CurrentModal onClose={() => { dispatch(hideModal()); }}/>
+        <CurrentModal {...modalProps} onClose={onClose}/>
       </Modal>
     </Localized>
   );
 }
 
 ModalRoot.propTypes = {
+  modals: PropTypes.objectOf(PropTypes.func).isRequired,
   modalId: PropTypes.string,
-  dispatch: PropTypes.func.isRequired,
+  modalProps: PropTypes.object,
+  onClose: PropTypes.func.isRequired,
 };
-
-export default connect(
-  (state) => ({
-    modalId: state.modal.id,
-  })
-)(ModalRoot);

@@ -2,6 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -66,6 +67,23 @@ ConfirmDialog.propTypes = {
   children: PropTypes.node.isRequired,
   confirmLabel: PropTypes.string.isRequired,
   cancelLabel: PropTypes.string.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
+
+export function LocalizedConfirmDialog({l10nId, onConfirm, onClose}) {
+  return (
+    <Localized id={l10nId}>
+      <ConfirmDialog confirmLabel="yEs" cancelLabel="no"
+                     onConfirm={onConfirm} onClose={onClose}>
+        aRe yOu sURe?
+      </ConfirmDialog>
+    </Localized>
+  );
+}
+
+LocalizedConfirmDialog.propTypes = {
+  l10nId: PropTypes.string.isRequired,
   onConfirm: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };
