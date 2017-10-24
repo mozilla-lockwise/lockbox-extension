@@ -15,19 +15,29 @@ export default class DialogBox extends React.Component {
   }
 
   render() {
-    const {text, primaryButtonLabel, secondaryButtonLabel, onClickPrimary,
-           onClickSecondary} = this.props;
+    const {children, buttonLabels, onClick, onClose} = this.props;
     return (
       <section className={styles.modalDialog}>
-        <div>{text}</div>
+        <div>
+          {children}
+        </div>
         <menu>
-          <Button theme="primary" onClick={() => { onClickPrimary(); }}
-                  ref={(element) => this._primaryButton = element}>
-            {primaryButtonLabel}
-          </Button>
-          <Button onClick={() => { onClickSecondary(); }}>
-            {secondaryButtonLabel}
-          </Button>
+          {buttonLabels.map((label, i) => {
+            let primaryProps = {};
+            if (i === 0) {
+              primaryProps = {
+                theme: "primary",
+                ref: (element) => this._primaryButton = element,
+              };
+            }
+
+            return (
+              <Button key={i} onClick={() => { onClick(i); onClose(); }}
+                      {...primaryProps}>
+                {label}
+              </Button>
+            );
+          })}
         </menu>
       </section>
     );
@@ -35,9 +45,8 @@ export default class DialogBox extends React.Component {
 }
 
 DialogBox.propTypes = {
-  text: PropTypes.string.isRequired,
-  primaryButtonLabel: PropTypes.string.isRequired,
-  secondaryButtonLabel: PropTypes.string.isRequired,
-  onClickPrimary: PropTypes.func.isRequired,
-  onClickSecondary: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+  buttonLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onClick: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
