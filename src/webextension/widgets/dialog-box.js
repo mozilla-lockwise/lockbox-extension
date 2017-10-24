@@ -10,6 +10,15 @@ import Button from "./button";
 import styles from "./dialog-box.css";
 
 export default class DialogBox extends React.Component {
+  static get propTypes() {
+    return {
+      children: PropTypes.node.isRequired,
+      buttonLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+      onClick: PropTypes.func.isRequired,
+      onClose: PropTypes.func.isRequired,
+    };
+  }
+
   componentDidMount() {
     this._primaryButton.focus();
   }
@@ -44,9 +53,19 @@ export default class DialogBox extends React.Component {
   }
 }
 
-DialogBox.propTypes = {
+export function ConfirmDialog({confirmLabel, cancelLabel, onConfirm,
+                               ...props}) {
+  return (
+    <DialogBox buttonLabels={[confirmLabel, cancelLabel]}
+               onClick={(i) => { if (i === 0) { onConfirm(); } }}
+               {...props}/>
+  );
+}
+
+ConfirmDialog.propTypes = {
   children: PropTypes.node.isRequired,
-  buttonLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onClick: PropTypes.func.isRequired,
+  confirmLabel: PropTypes.string.isRequired,
+  cancelLabel: PropTypes.string.isRequired,
+  onConfirm: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };

@@ -9,7 +9,7 @@ import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
 import { mount } from "test/enzyme";
-import DialogBox from "src/webextension/widgets/dialog-box";
+import DialogBox, { ConfirmDialog } from "src/webextension/widgets/dialog-box";
 
 chai.use(chaiEnzyme());
 chai.use(sinonChai);
@@ -43,3 +43,32 @@ describe("widgets > <DialogBox/>", () => {
   });
 });
 
+describe("widgets > <ConfirmDialog/>", () => {
+  let wrapper, onConfirm, onClose;
+  beforeEach(() => {
+    onConfirm = sinon.spy();
+    onClose = sinon.spy();
+    wrapper = mount(
+      <ConfirmDialog confirmLabel="ok" cancelLabel="cancel"
+                 {...{onConfirm, onClose}}>
+        message
+      </ConfirmDialog>
+    );
+  });
+
+  it("render confirm dialog", () => {
+    expect(wrapper.find("div")).to.have.text("message");
+  });
+
+  it("onConfirm + onClose fired for first button", () => {
+    wrapper.find("button").first().simulate("click");
+    expect(onConfirm).to.have.been.calledWith();
+    expect(onClose).to.have.been.calledWith();
+  });
+
+  it("onClose fired for second button", () => {
+    wrapper.find("button").last().simulate("click");
+    expect(onConfirm).to.have.callCount(0);
+    expect(onClose).to.have.been.calledWith();
+  });
+});

@@ -68,9 +68,9 @@ modal-root
   .contentLabel = Modal dialog
 
 modal-cancel-editing = This entry has unsaved changes. Are you sure you want to discard them?
-modal-cancel-editing-confirm = Discard Changes
-modal-cancel-editing-cancel = Go Back
+  .confirmLabel = Discard Changes
+  .cancelLabel = Go Back
 
 modal-delete = Are you sure you want to delete this entry?
-modal-delete-confirm = Delete Entry
-modal-delete-cancel = Cancel
+  .confirmLabel = Delete Entry
+  .cancelLabel = Cancel
