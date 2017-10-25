@@ -20,9 +20,17 @@ all-items-empty =
   Create a new entry so Lockie has something to protect.
 all-items-filtered = No results
 
-item-summary-new-item = New Entry
-item-summary-no-title = (No Entry Name)
-item-summary-no-username = (No Username)
+item-summary-new-title = New Entry
+item-summary-title =
+  { $length ->
+     [0]     (No Entry Name)
+    *[other] { $title }
+  }
+item-summary-username =
+  { $length ->
+     [0]     (No Username)
+    *[other] { username }
+  }
 
 homepage-no-passwords =
   Welcome to Lockbox! I'm Lockie, and I'm here to help you lock
