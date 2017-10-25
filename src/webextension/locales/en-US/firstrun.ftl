@@ -1,3 +1,6 @@
+document
+  .title = Welcome to Lockbox
+
 welcome-title = Welcome to Lockbox (Alpha)
 
 welcome-intro =

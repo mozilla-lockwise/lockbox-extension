@@ -1,3 +1,6 @@
+document
+  .title = Lockbox Entries
+
 toolbar-item-count =
   { $count ->
      [one]   1 Entry
