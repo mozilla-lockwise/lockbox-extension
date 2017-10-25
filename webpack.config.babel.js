@@ -136,7 +136,6 @@ export default {
       chunks: ["webextension/manage/index"],
       inject: false,
       minify: htmlMinifyOptions,
-      title: "Lockbox Entries",
       icon: "../icons/lb_unlocked.svg",
     }),
     new HTMLWebpackPlugin({
@@ -145,7 +144,6 @@ export default {
       chunks: ["webextension/firstrun/index"],
       inject: false,
       minify: htmlMinifyOptions,
-      title: "Welcome to Lockbox",
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",
@@ -153,7 +151,6 @@ export default {
       chunks: ["webextension/popup/unlock/index"],
       inject: false,
       minify: htmlMinifyOptions,
-      title: "Unlock",
     }),
     new HTMLWebpackPlugin({
       template: "install.rdf.ejs",
