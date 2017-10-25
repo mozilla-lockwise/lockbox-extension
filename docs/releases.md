@@ -4,6 +4,7 @@
 
 Before a release can be made, the following must be done:
 
+* Any user stories labeled as `epic` to be included in the release are approved by Product and PI
 * All finished work is verified to work as expected and committed to `master`
 * Any unfinished work has been triaged and assigned to the appropriate milestone
 * Product, Engineering, and PI have voiced approval to release (e.g., via Slack team channel)
