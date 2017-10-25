@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { Localized, withLocalization } from "fluent-react";
+import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
@@ -14,17 +14,8 @@ import ItemList, { ItemListPlaceholder } from "../components/item-list";
 
 const collator = new Intl.Collator();
 
-function AllItems({totalItemCount, items, selected, getString, ...props}) {
-  if (selected === NEW_ITEM_ID) {
-    items = [
-      { title: getString("item-summary-new-item"),
-        id: NEW_ITEM_ID,
-        username: "" },
-      ...items,
-    ];
-  }
-
-  if (items.length === 0) {
+function AllItems({totalItemCount, ...props}) {
+  if (props.items.length === 0) {
     return (
       <Localized id={`all-items-${totalItemCount ? "filtered" : "empty"}`}>
         <ItemListPlaceholder>
@@ -33,7 +24,7 @@ function AllItems({totalItemCount, items, selected, getString, ...props}) {
       </Localized>
     );
   }
-  return <ItemList {...{items, selected, ...props}}/>;
+  return <ItemList {...props}/>;
 }
 
 AllItems.propTypes = {
@@ -43,16 +34,19 @@ AllItems.propTypes = {
 
 export default connect(
   (state, ownProps) => {
+    const totalItemCount = state.cache.items.length;
     const filter = parseFilterString(state.filter);
-    return {
-      totalItemCount: state.cache.items.length,
-      items: state.cache.items
-                  .filter((i) => filterItem(filter, i))
-                  .sort((a, b) => collator.compare(a.title, b.title)),
-      selected: state.ui.selectedItemId,
-    };
+    const selected = state.ui.selectedItemId;
+    const items = state.cache.items
+                       .filter((i) => filterItem(filter, i))
+                       .sort((a, b) => collator.compare(a.title, b.title));
+
+    if (selected === NEW_ITEM_ID) {
+      items.unshift({id: NEW_ITEM_ID, title: "", username: ""});
+    }
+    return {totalItemCount, items, selected};
   },
   (dispatch) => ({
     onItemSelected: (id) => dispatch(requestSelectItem(id)),
   }),
-)(withLocalization(AllItems));
+)(AllItems);
