@@ -42,6 +42,7 @@
 
 .inline-button {
   display: flex;
+  overflow: hidden;
 }
 
 .inline-button > *:first-child {
