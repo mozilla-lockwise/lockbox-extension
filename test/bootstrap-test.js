@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/* global Services, ADDON_INSTALL */
+/* global Services, ADDON_INSTALL, ADDON_UNINSTALL */
 
 import waitUntil from "async-wait-until";
 import chai, { expect } from "chai";
@@ -112,7 +112,7 @@ describe("bootstrap", () => {
 
     it("resets signons.rememberSignons on uninstall", () => {
       Services.prefs.setBoolPref(ORIGINAL_REMEMBER_SIGNONS_PREF, true);
-      uninstall(null, ADDON_INSTALL);
+      uninstall(null, ADDON_UNINSTALL);
       expect(Services.prefs.getBoolPref(REMEMBER_SIGNONS_PREF)).to.equal(true);
       expect(Services.prefs.prefHasUserValue(ORIGINAL_REMEMBER_SIGNONS_PREF))
             .to.equal(false);
