@@ -55,13 +55,13 @@ To generate the next release binary:
 Learn about the Test Pilot extension deployment and hosting process here:  
 https://github.com/mozilla/testpilot/blob/master/docs/development/hosting.md
 
-This repository is in the "testpilot-mozillaextension" Jenkins pipeline.
+This repository is in the **"testpilot-mozillaextension"** Jenkins pipeline.
 The CloudOps team manages access to, and can help report on, the status of the
 builds.
 
 The resulting files deployed are:
 
-- Updates file for automatic browser extension updates: https://testpilot.firefox.com/files/lockbox@mozilla.com/updates.json
-- Latest version of the signed extension XPI: https://testpilot.firefox.com/files/lockbox@mozilla.com/latest
+- Updates file for automatic browser extension updates: [https://testpilot.firefox.com/files/lockbox@mozilla.com/updates.json](https://testpilot.firefox.com/files/lockbox@mozilla.com/updates.json)
+- Latest version of the signed extension XPI: [https://testpilot.firefox.com/files/lockbox@mozilla.com/latest](https://testpilot.firefox.com/files/lockbox@mozilla.com/latest)
 
-**IMPORTANT** Join the IRC channel **#testpilot-bots** for updates on the status of these builds prior to pushing the `production` branch to GitHub.
+**IMPORTANT:** Test Pilot reports the status of build, signing, and deployment of its artifacts on the IRC channel **#testpilot-bots**.  Be sure to join the channel prior to pushing the `production` branch to GitHub in order to receive the status updates.
