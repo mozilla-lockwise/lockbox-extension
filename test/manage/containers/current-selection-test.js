@@ -82,7 +82,7 @@ describe("manage > containers > <CurrentSelection/>", () => {
       expect(store.getActions()[0]).to.deep.equal({
         type: actions.SHOW_MODAL,
         id: "delete",
-        props: {id: "1"},
+        props: {itemId: "1"},
       });
     });
   });
@@ -128,6 +128,13 @@ describe("manage > containers > <CurrentSelection/>", () => {
       expect(firstField).to.be.focused();
     });
 
+    it("editorChanged() dispatched", () => {
+      simulateTyping(wrapper.find('input[name="title"]'), "new title");
+      expect(store.getActions()).to.deep.equal([{
+        type: actions.EDITOR_CHANGED,
+      }]);
+    });
+
     it("addItem() dispatched", () => {
       wrapper.findWhere((x) => x.prop("id") === "item-details-save-new")
              .find("button").simulate("submit");
@@ -152,17 +159,6 @@ describe("manage > containers > <CurrentSelection/>", () => {
              .find("button").simulate("click");
       expect(store.getActions()[0]).to.deep.equal({
         type: actions.CANCEL_EDITING,
-      });
-    });
-
-    it('showModal("cancel") dispatched', () => {
-      simulateTyping(wrapper.find('input[name="title"]'), "title");
-      wrapper.findWhere((x) => x.prop("id") === "item-details-cancel")
-             .find("button").simulate("click");
-      expect(store.getActions()[0]).to.deep.equal({
-        type: actions.SHOW_MODAL,
-        id: "cancel",
-        props: null,
       });
     });
   });
@@ -199,6 +195,13 @@ describe("manage > containers > <CurrentSelection/>", () => {
       expect(firstField).to.be.focused();
     });
 
+    it("editorChanged() dispatched", () => {
+      simulateTyping(wrapper.find('input[name="title"]'), "new title");
+      expect(store.getActions()).to.deep.equal([{
+        type: actions.EDITOR_CHANGED,
+      }]);
+    });
+
     it("updateItem() dispatched", () => {
       wrapper.findWhere((x) => x.prop("id") === "item-details-save-existing")
              .find("button").simulate("submit");
@@ -223,17 +226,6 @@ describe("manage > containers > <CurrentSelection/>", () => {
              .find("button").simulate("click");
       expect(store.getActions()[0]).to.deep.include({
         type: actions.CANCEL_EDITING,
-      });
-    });
-
-    it('showModal("cancel") dispatched', () => {
-      simulateTyping(wrapper.find('input[name="title"]'), "new title");
-      wrapper.findWhere((x) => x.prop("id") === "item-details-cancel")
-             .find("button").simulate("click");
-      expect(store.getActions()[0]).to.deep.equal({
-        type: actions.SHOW_MODAL,
-        id: "cancel",
-        props: null,
       });
     });
   });
@@ -275,6 +267,77 @@ describe("manage > containers > <CurrentSelection/>", () => {
         password: currentItem.entry.password,
         notes: currentItem.entry.notes,
       });
+    });
+  });
+
+  describe("hide home", () => {
+    let store, wrapper;
+
+    beforeEach(() => {
+      store = mockStore({
+        ...initialState,
+        ui: {...initialState.ui, hideHome: true},
+      });
+      wrapper = mountWithL10n(
+        <Provider store={store}>
+          <CurrentSelection/>
+        </Provider>
+      );
+    });
+
+    it("render item", () => {
+      expect(wrapper.find("div").children()).to.have.length(0);
+    });
+  });
+
+  describe("show cancel editing modal", () => {
+    it("editing new item", () => {
+      const state = {
+        ...filledState,
+        cache: {
+          ...filledState.cache,
+          currentItem: null,
+        },
+        ui: {
+          ...filledState.ui,
+          editing: true,
+          editorChanged: true,
+          selectedItemId: NEW_ITEM_ID,
+        },
+      };
+      const store = mockStore(state);
+      const wrapper = mountWithL10nIntoDOM(
+        <Provider store={store}>
+          <CurrentSelection/>
+        </Provider>
+      );
+
+      wrapper.findWhere((x) => x.prop("id") === "item-details-cancel")
+             .find("button").simulate("click");
+      expect(store.getActions()).to.deep.equal([
+        { type: actions.SHOW_MODAL,
+          id: "cancel-editing",
+          props: {} },
+      ]);
+    });
+
+    it("editing exiting item", () => {
+      const store = mockStore({...filledState, ui: {
+        ...filledState.ui, editing: true, editorChanged: true,
+      }});
+      const wrapper = mountWithL10nIntoDOM(
+        <Provider store={store}>
+          <CurrentSelection/>
+        </Provider>
+      );
+
+      wrapper.findWhere((x) => x.prop("id") === "item-details-cancel")
+             .find("button").simulate("click");
+      expect(store.getActions()).to.deep.equal([
+        { type: actions.SHOW_MODAL,
+          id: "cancel-editing",
+          props: {} },
+      ]);
     });
   });
 });

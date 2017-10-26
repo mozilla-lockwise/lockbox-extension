@@ -1,6 +1,7 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 import * as telemetry from "../telemetry";
 
 export const LIST_ITEMS_STARTING = Symbol("LIST_ITEMS_STARTING");
@@ -20,6 +21,7 @@ export const SELECT_ITEM_COMPLETED = Symbol("SELECT_ITEM_COMPLETED");
 
 export const START_NEW_ITEM = Symbol("START_NEW_ITEM");
 export const EDIT_CURRENT_ITEM = Symbol("EDIT_CURRENT_ITEM");
+export const EDITOR_CHANGED = Symbol("EDITOR_CHANGED");
 export const CANCEL_EDITING = Symbol("CANCEL_EDITING");
 
 export const FILTER_ITEMS = Symbol("FILTER_ITEMS");
@@ -32,7 +34,7 @@ export const HIDE_MODAL = Symbol("HIDE_MODAL");
 let nextActionId = 0;
 
 export function listItems() {
-  return async function(dispatch) {
+  return async(dispatch) => {
     const actionId = nextActionId++;
     dispatch(listItemsStarting(actionId));
 
@@ -59,7 +61,7 @@ function listItemsCompleted(actionId, items) {
 }
 
 export function addItem(details) {
-  return async function(dispatch) {
+  return async(dispatch) => {
     const actionId = nextActionId++;
     dispatch(addItemStarting(actionId, details));
     telemetry.recordEvent("itemAdding", "addItemForm");
@@ -94,7 +96,7 @@ function addItemCompleted(actionId, item) {
 }
 
 export function updateItem(item) {
-  return async function(dispatch) {
+  return async(dispatch) => {
     const actionId = nextActionId++;
     dispatch(updateItemStarting(actionId, item));
     telemetry.recordEvent("itemUpdating", "updatingItemForm");
@@ -127,8 +129,12 @@ function updateItemCompleted(actionId, item) {
   };
 }
 
+export function requestRemoveItem(id) {
+  return showModal("delete", {itemId: id});
+}
+
 export function removeItem(id) {
-  return async function(dispatch) {
+  return async(dispatch) => {
     const actionId = nextActionId++;
     dispatch(removeItemStarting(actionId, id));
     telemetry.recordEvent("itemDeleting", "updatingItemForm");
@@ -161,8 +167,19 @@ function removeItemCompleted(actionId, id) {
   };
 }
 
+export function requestSelectItem(id) {
+  return async(dispatch, getState) => {
+    const {ui: {editorChanged}} = getState();
+    if (!editorChanged) {
+      dispatch(selectItem(id));
+      return;
+    }
+    await dispatch(showModal("cancel-editing", {nextItemId: id}));
+  };
+}
+
 export function selectItem(id) {
-  return async function(dispatch) {
+  return async(dispatch) => {
     const actionId = nextActionId++;
     dispatch(selectItemStarting(actionId, id));
 
@@ -208,6 +225,23 @@ export function editCurrentItem() {
   };
 }
 
+export function editorChanged() {
+  return {
+    type: EDITOR_CHANGED,
+  };
+}
+
+export function requestCancelEditing() {
+  return (dispatch, getState) => {
+    const {ui: {editorChanged}} = getState();
+    if (!editorChanged) {
+      dispatch(cancelEditing());
+      return;
+    }
+    dispatch(showModal("cancel-editing"));
+  };
+}
+
 export function cancelEditing() {
   return {
     type: CANCEL_EDITING,
@@ -221,7 +255,7 @@ export function filterItems(filter) {
   };
 }
 
-export function showModal(id, props = null) {
+function showModal(id, props = {}) {
   return {
     type: SHOW_MODAL,
     id,

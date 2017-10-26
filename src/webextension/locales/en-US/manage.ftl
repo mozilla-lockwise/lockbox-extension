@@ -1,3 +1,6 @@
+document
+  .title = Lockbox Entries
+
 toolbar-item-count =
   { $count ->
      [one]   1 Entry
@@ -64,13 +67,10 @@ item-details-cancel = Cancel
 
 [[dialogs]]
 
-modal-root-title = Modal dialog
+modal-cancel-editing = This entry has unsaved changes. Are you sure you want to discard them?
+  .confirmLabel = Discard Changes
+  .cancelLabel = Go Back
 
-modal-cancel
-  .text = This entry has unsaved changes. Are you sure you want to discard them?
-  .primaryButtonLabel = Discard Changes
-  .secondaryButtonLabel = Go Back
-modal-delete
-  .text = Are you sure you want to delete this entry?
-  .primaryButtonLabel = Delete Entry
-  .secondaryButtonLabel = Cancel
+modal-delete = Are you sure you want to delete this entry?
+  .confirmLabel = Delete Entry
+  .cancelLabel = Cancel

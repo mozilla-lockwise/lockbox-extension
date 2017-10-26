@@ -7,8 +7,8 @@ import { combineReducers } from "redux";
 import {
   LIST_ITEMS_COMPLETED, ADD_ITEM_STARTING, ADD_ITEM_COMPLETED,
   UPDATE_ITEM_COMPLETED, REMOVE_ITEM_COMPLETED, SELECT_ITEM_STARTING,
-  SELECT_ITEM_COMPLETED, START_NEW_ITEM, EDIT_CURRENT_ITEM, CANCEL_EDITING,
-  FILTER_ITEMS, SHOW_MODAL, HIDE_MODAL,
+  SELECT_ITEM_COMPLETED, START_NEW_ITEM, EDIT_CURRENT_ITEM, EDITOR_CHANGED,
+  CANCEL_EDITING, FILTER_ITEMS, SHOW_MODAL, HIDE_MODAL,
 } from "./actions";
 import { makeItemSummary } from "../common";
 import { NEW_ITEM_ID } from "./common";
@@ -81,26 +81,31 @@ export function cacheReducer(state = {
 }
 
 export function uiReducer(state = {
-  editing: false, selectedItemId: null, filter: "",
+  editing: false, editorChanged: false, hideHome: false, selectedItemId: null,
 }, action) {
   switch (action.type) {
   case ADD_ITEM_COMPLETED:
-    return {...state, editing: false, selectedItemId: action.item.id};
+    return {...state, editing: false, editorChanged: false,
+            selectedItemId: action.item.id};
   case UPDATE_ITEM_COMPLETED:
-    return {...state, editing: false};
+    return {...state, editing: false, editorChanged: false};
   case SELECT_ITEM_STARTING:
-    return {...state, editing: false, selectedItemId: action.id};
+    return {...state, editing: false, editorChanged: false,
+            hideHome: state.editing, selectedItemId: action.id};
+  case SELECT_ITEM_COMPLETED:
+    return {...state, hideHome: false};
   case START_NEW_ITEM:
     return {...state, editing: true, selectedItemId: NEW_ITEM_ID};
   case EDIT_CURRENT_ITEM:
     return {...state, editing: true};
+  case EDITOR_CHANGED:
+    return {...state, editorChanged: true};
   case CANCEL_EDITING:
     if (state.selectedItemId === NEW_ITEM_ID) {
-      return {...state, editing: false, selectedItemId: null};
+      return {...state, editing: false, editorChanged: false,
+              selectedItemId: null};
     }
-    return {...state, editing: false};
-  case FILTER_ITEMS:
-    return {...state, filter: action.filter};
+    return {...state, editing: false, editorChanged: false};
   default:
     return state;
   }
@@ -109,9 +114,18 @@ export function uiReducer(state = {
 export function modalReducer(state = {id: null, props: null}, action) {
   switch (action.type) {
   case SHOW_MODAL:
-    return {id: action.id, props: action.props};
+    return {...state, id: action.id, props: action.props};
   case HIDE_MODAL:
-    return {id: null, props: null};
+    return {...state, id: null, props: null};
+  default:
+    return state;
+  }
+}
+
+export function filterReducer(state = "", action) {
+  switch (action.type) {
+  case FILTER_ITEMS:
+    return action.filter;
   default:
     return state;
   }
@@ -121,6 +135,7 @@ const reducer = combineReducers({
   cache: cacheReducer,
   ui: uiReducer,
   modal: modalReducer,
+  filter: filterReducer,
 });
 
 export default reducer;

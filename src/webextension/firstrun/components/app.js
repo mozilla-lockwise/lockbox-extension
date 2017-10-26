@@ -2,7 +2,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import { Localized } from "fluent-react";
 import React from "react";
+import DocumentTitle from "react-document-title";
 
 import Welcome from "./welcome";
 import MasterPasswordSetup from "./master-password-setup";
@@ -15,10 +17,14 @@ export default function App() {
   const imgSrc = browser.extension.getURL("/images/lockie_v1.png");
 
   return (
-    <article className={styles.firstrun}>
-      <img src={imgSrc}/>
-      <Welcome />
-      <MasterPasswordSetup />
-    </article>
+    <Localized id="document">
+      <DocumentTitle title="wELCOMe to lOCKBOx">
+        <article className={styles.firstrun}>
+          <img src={imgSrc}/>
+          <Welcome />
+          <MasterPasswordSetup />
+        </article>
+      </DocumentTitle>
+    </Localized>
   );
 }

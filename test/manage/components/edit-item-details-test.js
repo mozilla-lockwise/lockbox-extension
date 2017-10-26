@@ -41,9 +41,10 @@ describe("manage > components > <EditItemDetails/>", () => {
     notes: "new notes",
   };
 
-  let onSave, onCancel, wrapper;
+  let onChange, onSave, onCancel, wrapper;
 
   beforeEach(() => {
+    onChange = sinon.spy();
     onSave = sinon.spy();
     onCancel = sinon.spy();
   });
@@ -51,7 +52,7 @@ describe("manage > components > <EditItemDetails/>", () => {
   describe("new item", () => {
     beforeEach(() => {
       wrapper = mountWithL10n(
-        <EditItemDetails newItem={true} onSave={onSave} onCancel={onCancel}/>
+        <EditItemDetails newItem={true} {...{onChange, onSave, onCancel}}/>
       );
     });
 
@@ -92,7 +93,7 @@ describe("manage > components > <EditItemDetails/>", () => {
     beforeEach(() => {
       wrapper = mountWithL10n(
         <EditItemDetails fields={originalFields}
-                         onSave={onSave} onCancel={onCancel}/>
+                         {...{onChange, onSave, onCancel}}/>
       );
     });
 
