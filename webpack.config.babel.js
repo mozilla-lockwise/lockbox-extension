@@ -159,11 +159,9 @@ export default {
       chunks: ["webextension/settings/index"],
       inject: false,
       minify: htmlMinifyOptions,
-      title: "Lockbox Settings",
-      icon: "../icons/lock.png",
     }),
     new HTMLWebpackPlugin({
-      template: path.join(__dirname, "src/install.rdf.ejs"),
+      template: "install.rdf.ejs",
       filename: "install.rdf",
       inject: false,
       package: thisPackage,
