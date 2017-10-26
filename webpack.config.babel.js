@@ -162,7 +162,7 @@ export default {
       title: "Lockbox Settings",
       icon: "../icons/lock.png",
     }),
-    new XMLWebpackPlugin({files: [{
+    new HTMLWebpackPlugin({
       template: path.join(__dirname, "src/install.rdf.ejs"),
       filename: "install.rdf",
       inject: false,

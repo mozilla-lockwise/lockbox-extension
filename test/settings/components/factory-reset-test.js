@@ -10,8 +10,8 @@ import React from "react";
 
 chai.use(chaiEnzyme);
 
-import mountWithL10n from "../../mock-l10n";
-import FactoryReset from "../../../src/webextension/settings/components/factory-reset";
+import mountWithL10n from "test/mocks/l10n";
+import FactoryReset from "src/webextension/settings/components/factory-reset";
 
 describe("settings > <factoryReset />", () => {
   let wrapper;
