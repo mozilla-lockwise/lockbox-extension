@@ -4,14 +4,22 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
-import App from "./components/app";
 import AppLocalizationProvider from "../l10n";
+import App from "./components/app";
+import reducer from "./reducers";
+
+const store = createStore(reducer, undefined, applyMiddleware(thunk));
 
 ReactDOM.render(
-  <AppLocalizationProvider bundles={["settings", "widgets"]}
-                           userLocales={navigator.languages}>
-    <App/>
-  </AppLocalizationProvider>,
+  <Provider store={store}>
+    <AppLocalizationProvider bundles={["settings", "widgets"]}
+                             userLocales={navigator.languages}>
+      <App/>
+    </AppLocalizationProvider>
+  </Provider>,
   document.getElementById("content")
 );

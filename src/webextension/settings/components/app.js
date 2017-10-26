@@ -4,12 +4,14 @@
 
 import React from "react";
 
-import FactoryReset from "./factory-reset";
+import LocalReset from "./local-reset";
+import ModalRoot from "../containers/modals";
 
 export default function App() {
   return (
-    <div>
-      <FactoryReset />
-    </div>
+    <article>
+      <LocalReset/>
+      <ModalRoot/>
+    </article>
   );
 }

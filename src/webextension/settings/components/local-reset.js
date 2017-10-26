@@ -3,30 +3,38 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { Localized } from "fluent-react";
+import PropTypes from "prop-types";
 import React from "react";
+import { connect } from "react-redux";
 
+import {
+  requestLocalReset,
+} from "../actions";
 import Button from "../../widgets/button";
 
-export default function FactoryReset() {
-  const onReset = async() => {
-    await browser.runtime.sendMessage({
-      type: "reset",
-    });
-  };
-
+export function LocalReset({onReset}) {
   return (
     <section>
-      <Localized id="settings-factoryreset-title">
+      <Localized id="settings-local-reset-title">
         <h3>rESEt lOCKBOx</h3>
       </Localized>
-      <Localized id="settings-factoryreset-description">
+      <Localized id="settings-local-reset-description">
         <p>dO tHe fACTORy rESEt</p>
       </Localized>
-      <Localized id="settings-factoryreset-button">
+      <Localized id="settings-local-reset-button">
         <Button onClick={onReset}>💣💣💣 rESEt aLL! 💣💣💣</Button>
       </Localized>
     </section>
   );
 }
+LocalReset.propTypes = {
+  onReset: PropTypes.func.isRequired,
+};
 
-FactoryReset.propTypes = {};
+export default connect(
+  (state) => ({
+  }),
+  (dispatch) => ({
+      onReset: () => { dispatch(requestLocalReset()); },
+  })
+)(LocalReset);

@@ -7,17 +7,28 @@ require("babel-polyfill");
 import chai, { expect } from "chai";
 import chaiEnzyme from "chai-enzyme";
 import React from "react";
+import configureStore from "redux-mock-store";
+import { Provider } from "react-redux";
 
 chai.use(chaiEnzyme());
 
+import { initialState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
 import App from "src/webextension/settings/components/app";
-import FactoryReset from "src/webextension/settings/components/factory-reset";
+import LocalReset from "src/webextension/settings/components/local-reset";
 
-describe("settings > <App/>", () => {
+const middlewares = [];
+const mockStore = configureStore(middlewares);
+
+describe("settings > components > <App/>", () => {
   it("render <App/>", () => {
-    const wrapper = mountWithL10n(<App />);
+    const store = mockStore(initialState);
+    const wrapper = mountWithL10n(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
 
-    expect(wrapper).to.contain(<FactoryReset/>);
+    expect(wrapper).to.contain(<LocalReset/>);
   });
 });
