@@ -44,7 +44,8 @@ export class SingletonView {
       (this.id !== undefined) && await browser.tabs.remove(this.id);
     } catch (err) {
       // Q: loggit?
-      console.log(`could not close ${this.path} view: ${err.message}`);
+      // eslint-disable-next-line no-console
+      console.error(`could not close ${this.path} view: ${err.message}`);
     }
     this.id = undefined;
     return this;
@@ -57,13 +58,11 @@ const views = {
 };
 
 export async function openView(name) {
-  console.log(`opening view for ${name} ...`);
   const v = views[name];
   return v.open();
 }
 
 export async function closeView(name) {
-  console.log(`closing view(s) for ${name} ...`);
   const v = views[name];
   return v.close();
 }
