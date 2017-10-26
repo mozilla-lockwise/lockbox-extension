@@ -21,7 +21,7 @@ Test scope for Q3 and Q4 of the Lockbox Firefox extension. Q3 will take the proj
 ### Exit Criteria
 
 * All bugs against the features have been triaged
-* All P1 and P2 bugs have been resolved fixed and verified by Product Integrity
+* All milestone features tagged as user stories and TxP have been resolved fixed and verified by Product Integrity
 * Sign off criteria have been met
 
 ### Acceptance Criteria
@@ -33,23 +33,22 @@ This section broadly defines when the product is ready to ship
 * Engineering confirms we are feature complete
 * a11y-review sign off
 * Sec review completed and sign off
-* All info is localized at least for a pre-defined set of locales 
+* All info is localized at least for a pre-defined set of locales
 * All telemetry requirements are in place
-* All the necessary PR and blog posts have been sent out 
+* All the necessary PR and blog posts have been sent out
 
-## Overall Status
+## Timelines and Milestones
 
 Alpha - estimated Q3 timeline
 
 * July: lay the foundation for system add-on with embedded WebExtension development
 * August: begin secure storage and front-end editor design and implementation
-* September: finish editor and storage, implement lock/unlock, package for release
+* September: finish editor and storage, package for release
 
 Beta - estimated Q4 timeline
 
-* September: finish Firefox extension storage, front-end editor, and messaging
-* October: integrate/fork Firefox password save/fill mechanics
-* November: implement sync, mobile apps, and "first run" experiences
+* The team moves to 2 week sprints that include epics and user stories.
+* Tracking of these user stories and associated features to take place in Github issues
 * December: external "Beta" launch to public
 
 ## Testing Summary
@@ -98,7 +97,7 @@ This section describes which components will be the focus of the test team.
 
 ### User stories
 
-In Q3 we ideated on a focal point for the team to begin work on, the below list are these high level stories. 
+In Q3 we ideated on a focal point for the team to begin work on, the below list are these high level stories.
 
 Future work will be tracked in github through [the use of epics](https://github.com/mozilla-lockbox/lockbox-extension/issues?utf8=%E2%9C%93&q=label%3Aepic%20) and their dependendent user stories.
 
@@ -146,103 +145,20 @@ Future work will be tracked in github through [the use of epics](https://github.
 
 ### Checklist
 
-<table>
-  <tr>
-    <td>Exit Criteria</td>
-    <td>Owner</td>
-    <td>Status</td>
-    <td>Notes</td>
-  </tr>
-  <tr>
-    <td>Testing Prerequisites (specs, use cases) </td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Testing Infrastructure setup </td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Test Plan Creation </td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Test Cases Creation </td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Full Functional Tests Execution </td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Automation Coverage </td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Performance Testing </td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>All Defects Logged </td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Critical/Blockers Fixed and Verified </td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Product Team</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Engineering Team</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Metrics/Telemetry</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>a11y</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>l10n</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Security</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-</table>
-
-
+Exit Criteria | Owner | Status | Notes |
+------------- | ----- | ------ | ----- |
+Testing Prerequisites (specs, use cases) | | |
+Testing Infrastructure setup | | |
+Test Plan Creation | | |
+Test Cases Creation | ||
+Full Functional Tests Execution | | |
+Automation Coverage | | |
+Performance Testing | | |
+All Defects Logged | | |
+Critical/Blockers Fixed and Verified | | |
+Product Team | | |
+Engineering Team | | |
+Metrics/Telemetry | | |
+A11y | | |
+l10n | | |
+Security | | |
