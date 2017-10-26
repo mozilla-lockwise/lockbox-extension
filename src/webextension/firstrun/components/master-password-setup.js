@@ -60,7 +60,8 @@ export default class MasterPasswordSetup extends React.Component {
           name: "firstrun",
         });
       } catch (err) {
-        console.log(`initialize failed: ${err.message}`);
+        // eslint-disable-next-line no-console
+        console.error(`initialize failed: ${err.message}`);
         // TODO: Localize this!
         this.setState({
           error: "Could not initialize!",

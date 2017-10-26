@@ -101,7 +101,6 @@ function startup({webExtension}, reason) {
   }
 
   webExtension.startup().then(({browser}) => {
-    console.log("embedded webextension has started");
     Services.telemetry.recordEvent(TELEMETRY_CATEGORY, "startup",
                                    "webextension");
     browser.runtime.onMessage.addListener((message, sender, respond) => {
@@ -121,7 +120,6 @@ function shutdown(data, reason) {}
 
 function install(data, reason) {
   if (reason === ADDON_INSTALL) {
-    console.log("INSTALLING...");
     // Remember the original value for `signons.rememberSignons` so we can
     // restore it during uninstall, then disable it so it doesn't conflict with
     // us.

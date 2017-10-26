@@ -48,14 +48,11 @@ export default async function updateBrowserAction(ds) {
 
   if (!ds.initialized) {
     // setup first-run popup
-    console.log("setup first run click handler");
     return installListener("firstrun");
   } else if (ds.locked) {
     // setup unlock popup
-    console.log("setup unlock popup");
     return installPopup("popup/unlock/index.html");
   }
 
-  console.log("setup on click handler");
   return installListener("manage");
 }
