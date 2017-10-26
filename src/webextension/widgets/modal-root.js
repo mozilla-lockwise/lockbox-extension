@@ -10,16 +10,17 @@ import Modal from "react-modal";
 import styles from "./modal-root.css";
 
 export default function ModalRoot({modals, modalId, modalProps, onClose}) {
-  if (!modalId) {
-    return null;
+  let modal = null;
+  if (modalId) {
+    const CurrentModal = modals[modalId];
+    modal = <CurrentModal {...modalProps} onClose={onClose}/>;
   }
-  const CurrentModal = modals[modalId];
 
   return (
     <Localized id="modal-root">
-      <Modal isOpen={true} className={styles.modal}
+      <Modal isOpen={Boolean(modalId)} className={styles.modal}
              overlayClassName={styles.overlay}>
-        <CurrentModal {...modalProps} onClose={onClose}/>
+        {modal}
       </Modal>
     </Localized>
   );
