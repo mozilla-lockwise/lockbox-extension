@@ -4,6 +4,7 @@
 
 import chai, { expect } from "chai";
 import chaiEnzyme from "chai-enzyme";
+import PropTypes from "prop-types";
 import React from "react";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
@@ -15,6 +16,7 @@ import AddItem from "src/webextension/manage/containers/add-item";
 import AllItems from "src/webextension/manage/containers/all-items";
 import CurrentSelection from
        "src/webextension/manage/containers/current-selection";
+import ModalRootWidget from "src/webextension/widgets/modal-root";
 
 chai.use(chaiEnzyme());
 
@@ -22,6 +24,28 @@ const middlewares = [];
 const mockStore = configureStore(middlewares);
 
 describe("manage > components > <App/>", () => {
+  beforeEach(() => {
+    // Enzyme doesn't support React Portals yet; see
+    // <https://github.com/airbnb/enzyme/issues/1150>.
+    ModalRootWidget.__Rewire__(
+      "Modal", class FakeModal extends React.Component {
+        static get propTypes() {
+          return {
+            children: PropTypes.node,
+          };
+        }
+
+        render() {
+          return <div>{this.props.children}</div>;
+        }
+      }
+    );
+  });
+
+  afterEach(() => {
+    ModalRootWidget.__ResetDependency__("Modal");
+  });
+
   it("render app", () => {
     const store = mockStore(initialState);
     const wrapper = mountWithL10n(
