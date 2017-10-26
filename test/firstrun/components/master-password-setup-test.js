@@ -48,4 +48,16 @@ describe("firstrun > components > master-password-setup", () => {
       "error", "Passwords do not match"
     );
   });
+
+  it("catch failures to initialize", async() => {
+    browser.runtime.onMessage.mockClearListener();
+    browser.runtime.onMessage.addListener(() => {
+      throw new Error();
+    });
+    wrapper.find('button[type="submit"]').simulate("submit");
+    await waitUntil(() => MasterPasswordSetup.prototype.render.callCount === 2);
+    expect(wrapper).to.have.state(
+      "error", "Could not initialize!"
+    );
+  });
 });

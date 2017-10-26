@@ -9,14 +9,16 @@ import updateBrowserAction from "./browser-action";
 
 // XXX: For now, initialize the datastore on startup and then hook up the
 // button. Eventually, we'll have UX to create new datastores (and persist
-// existing ones).\
+// existing ones).
 openDataStore().then(async(ds) => {
   try {
     // attempt to load authorization (FxA) data
     let authz = await loadAuthorization(browser.storage.local);
+    // eslint-disable-next-line no-console
     console.log(`loaded authorization for '${authz.uid || ""}'`);
   } catch (err) {
-    console.log(`loading failed: ${err.message}`);
+    // eslint-disable-next-line no-console
+    console.error(`loading failed: ${err.message}`);
   }
 
   initializeMessagePorts();

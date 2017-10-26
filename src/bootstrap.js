@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/* global ADDON_INSTALL */
+/* global ADDON_INSTALL, ADDON_UNINSTALL */
 /* eslint-disable no-unused-vars */
 
 const { utils: Cu } = Components;
@@ -101,7 +101,6 @@ function startup({webExtension}, reason) {
   }
 
   webExtension.startup().then(({browser}) => {
-    console.log("embedded webextension has started");
     Services.telemetry.recordEvent(TELEMETRY_CATEGORY, "startup",
                                    "webextension");
     browser.runtime.onMessage.addListener((message, sender, respond) => {
@@ -121,7 +120,6 @@ function shutdown(data, reason) {}
 
 function install(data, reason) {
   if (reason === ADDON_INSTALL) {
-    console.log("INSTALLING...");
     // Remember the original value for `signons.rememberSignons` so we can
     // restore it during uninstall, then disable it so it doesn't conflict with
     // us.
@@ -134,7 +132,7 @@ function install(data, reason) {
 }
 
 function uninstall(data, reason) {
-  if (reason === ADDON_INSTALL) {
+  if (reason === ADDON_UNINSTALL) {
     // Restore the original value for `signons.rememberSignons`.
     if (Services.prefs.getBoolPref(REMEMBER_SIGNONS_PREF) === false) {
       Services.prefs.setBoolPref(
