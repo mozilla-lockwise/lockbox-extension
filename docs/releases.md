@@ -24,7 +24,7 @@ To generate the next release binary:
     - we follow the [semver](http://semver.org/) syntax
     - _Alpha_ releases will be labeled with "-alpha" (e.g., "0.1.0-alpha")
     - _Beta_ releases will be labeled with "-beta" (e.g., "1.0.0-beta")
-    - _Stable_ releases will **not** be labeled, and follow smever from the last Beta release (e.g., "1.0.0")
+    - _Stable_ releases will **not** be labeled, and follow semver from the last Beta release (e.g., "1.0.0")
 2. Update `docs/release-notes.md`:
     - latest release is at the top, under a second-level header
     - each release includes the sub headings "What's New", "What's Fixed", and "Known Issues"
