@@ -97,6 +97,7 @@ export default {
     "webextension/manage/index": "./webextension/manage/index.js",
     "webextension/firstrun/index": "./webextension/firstrun/index.js",
     "webextension/popup/unlock/index": "./webextension/popup/unlock/index.js",
+    "webextension/settings/index": "./webextension/settings/index.js",
   },
 
   output: {
@@ -149,6 +150,13 @@ export default {
       template: "template.ejs",
       filename: "webextension/popup/unlock/index.html",
       chunks: ["webextension/popup/unlock/index"],
+      inject: false,
+      minify: htmlMinifyOptions,
+    }),
+    new HTMLWebpackPlugin({
+      template: "template.ejs",
+      filename: "webextension/settings/index.html",
+      chunks: ["webextension/settings/index"],
       inject: false,
       minify: htmlMinifyOptions,
     }),

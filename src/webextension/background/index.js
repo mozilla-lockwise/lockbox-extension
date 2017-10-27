@@ -15,7 +15,7 @@ openDataStore().then(async(ds) => {
     // attempt to load authorization (FxA) data
     let authz = await loadAuthorization(browser.storage.local);
     // eslint-disable-next-line no-console
-    console.log(`loaded authorization for ${authz.uid}`);
+    console.log(`loaded authorization for '${authz.uid || ""}'`);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(`loading failed: ${err.message}`);

@@ -234,4 +234,14 @@ describe("background > message ports", () => {
     });
     expect(otherListener).to.have.callCount(0);
   });
+
+  // this test has to be last, or all the message-ports tests after it FAIL.
+  // Eventually better isolation or startup/teardown may be done
+  it('handle "reset"', async() => {
+    const result = await browser.runtime.sendMessage({
+      type: "reset",
+    });
+
+    expect(result).to.deep.equal({});
+  });
 });

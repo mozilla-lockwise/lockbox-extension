@@ -43,6 +43,19 @@ export default function initializeMessagePorts() {
         await updateBrowserAction(ds);
         return {};
       });
+    case "reset":
+      return openDataStore().then(async(ds) => {
+        await closeView();
+
+        await ds.reset();
+        // TODO: put other reset calls here
+
+        await updateBrowserAction(ds);
+        await openView("firstrun");
+
+        return {};
+      });
+
 
     case "unlock":
       return openDataStore().then(async(ds) => {
