@@ -63,6 +63,11 @@ export async function openView(name) {
 }
 
 export async function closeView(name) {
+  if (!name) {
+    let pending = Object.keys(views).map((n) => views[n].close());
+    await Promise.all(pending);
+    return {};
+  }
   const v = views[name];
   return v.close();
 }
