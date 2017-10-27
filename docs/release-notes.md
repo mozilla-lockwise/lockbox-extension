@@ -20,9 +20,9 @@ _Date: 2017-10-30_
 ### Known Issues
 
 * There is no way to change your Lockbox master password.  If you forget your master password, you'll need to start over fresh by either:
-  - Opening the this extension's Settings page and clicking **\[INSERT ACTUAL NAME OF "FACTORY-RESET"]**; or
+  - Opening the this extension's Preferences and clicking the "`💥💣 Reset 💣💥`" button; or
   - Uninstalling and re-installing the extension
-* Default Firefox request to save logins is only disabled on new installs of this extension; updating Lockbox will not change your current Firefox preferences.
+* Firefox's default prompt to save logins is only disabled on new installs of this extension; updating Lockbox will not change your current Firefox preferences.
 
 ## 0.1.0-alpha1
 
