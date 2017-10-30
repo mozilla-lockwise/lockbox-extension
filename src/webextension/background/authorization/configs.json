@@ -1,0 +1,28 @@
+{
+  "production": {
+    "client_id": "1b024772203a0849",
+    "redirect_uri": "https://2aa95473a5115d5f3deb36bb6875cf76f05e4c4d.extensions.allizom.org/",
+    "oauth_uri": "https://oauth.accounts.firefox.com/v1",
+    "profile_uri": "https://profile.accounts.firefox.com/v1/profile",
+    "scopes": ["openid", "profile"],
+    "pkce": true
+  },
+  "dev-latest": {
+    "client_id": "f69b2d16e724b432",
+    "client_secret": "32052e102892dd07b1885c38887849d8283d1407350ee009b6377b8f542a272c",
+    "redirect_uri": "https://2aa95473a5115d5f3deb36bb6875cf76f05e4c4d.extensions.allizom.org/",
+    "oauth_uri": "https://oauth-latest.dev.lcip.org/v1",
+    "profile_uri": "https://latest.dev.lcip.org/profile/v1/profile",
+    "scopes": ["openid", "profile", "https://identity.mozilla.org/apps/lockbox"],
+    "pkce": false
+  },
+  "dev-stable": {
+    "client_id": "13fcf7de6665ff95",
+    "client_secret": "095992b7c83869c1eefff00b69a3fbe97c68bcf0d5de3e08e3f63ffb3199216f",
+    "redirect_uri": "https://2aa95473a5115d5f3deb36bb6875cf76f05e4c4d.extensions.allizom.org/",
+    "oauth_uri": "https://oauth-stable.dev.lcip.org/v1",
+    "profile_uri": "https://stable.dev.lcip.org/profile/v1",
+    "scopes": ["profile"],
+    "pkce": true
+  }
+}
