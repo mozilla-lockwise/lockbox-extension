@@ -11,5 +11,6 @@
 # @todo uncomment below after initial string freeze
 #src/webextension/locales/en-US/*.ftl    @flodolo
 
-# otherwise, everything is to be reviewed by @jimporter
-*         @jimporter
+# everything is to be reviewed by @jimporter
+# also, default to always include PI
+*         @jimporter @mozilla-lockbox/product-integrity
