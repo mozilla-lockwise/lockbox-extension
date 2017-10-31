@@ -15,6 +15,7 @@ async function generateAuthzURL(config, props) {
   queryParams.set("response_type", "code");
   queryParams.set("client_id", config.client_id);
   queryParams.set("redirect_uri", config.redirect_uri);
+  queryParams.set("access_type", "offline");
   queryParams.set("scope", config.scopes.join(" "));
 
   let state = props.state = jose.util.randomBytes(16).toString("hex");
@@ -76,6 +77,7 @@ export class Authorization {
     if (info) {
       info = { ...info };
       delete info.email;
+      delete info.refresh_token;
     }
     return {
       config,
@@ -83,11 +85,13 @@ export class Authorization {
     };
   }
 
-  get signedIn() { return this.info !== undefined; }
+  get signedIn() { return (this.info !== undefined) && (this.info.access_token); }
   get verified() { return (this.info && this.info.verified) || false; }
 
   get uid() { return (this.info && this.info.uid) || undefined; }
   get email() { return (this.info && this.info.email) || undefined; }
+
+  get idToken() { return (this.info && this.info.id_token) || undefined; }
 
   async signIn(interactive = true) {
     let cfg = configs[this.config];
@@ -161,7 +165,6 @@ export class Authorization {
       refresh_token: oauthInfo.refresh_token,
       id_token: oauthInfo.id_token,
     };
-    console.log(`authorization.info: ${JSON.stringify(this.info)}`);
     return this.info;
   }
 
