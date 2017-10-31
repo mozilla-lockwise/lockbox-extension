@@ -2,12 +2,67 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-const DEFAULT_CONFIG = "dev-latest";
+const DEFAULT_CONFIG = "scoped-keys";
 
-import UUID from "uuid";
 import jose from "node-jose";
 
 import configs from "./configs.json";
+
+const APP_KEY_NAME_PREFIX = "https://identity.mozilla.org/apps/";
+
+async function generateAuthzURL(config, props) {
+  let queryParams = new URLSearchParams();
+  queryParams.set("response_type", "code");
+  queryParams.set("client_id", config.client_id);
+  queryParams.set("redirect_uri", config.redirect_uri);
+  queryParams.set("scope", config.scopes.join(" "));
+
+  let state = props.state = jose.util.randomBytes(16).toString("hex");
+  queryParams.set("state", state);
+  if (config.pkce) {
+    props.pkce = jose.util.randomBytes(16).toString("hex");
+    let challenge = new TextEncoder().encode(props.pkce);
+    challenge = await jose.JWA.digest("SHA-256", challenge);
+    challenge = jose.util.base64url.encode(challenge);
+    queryParams.set("code_challenge", challenge);
+    queryParams.set("code_challenge_method", "S256");
+  }
+  if (config.app_keys) {
+    let keystore = jose.JWK.createKeyStore();
+    props.appKey = await keystore.generate("EC", "P-256");
+    let keysJWK = jose.util.base64url.encode(JSON.stringify(props.appKey));
+    queryParams.set("keys_jwk", keysJWK);
+  }
+  return `${config.authorization_endpoint}?${queryParams}`;
+}
+
+function processAuthzResponse(url, props) {
+  let queryParams = url.searchParams;
+  if (queryParams.get("state") !== props.state) {
+    throw new Error("invalid oauth state");
+  }
+  let code = queryParams.get("code");
+  if (!code) {
+    throw new Error("invalid oauth authorization code");
+  }
+  return code;
+}
+
+async function fetchFromEndPoint(name, url, request) {
+  let response = await fetch(url, request);
+  let body;
+  try {
+    body = await response.json();
+  } catch (err) {
+    body = {};
+  }
+  if (!response.ok) {
+    let error = new Error(`failed ${name} request: ${body.message || response.statusText}`);
+    error.errno = body.errno;
+    throw error;
+  }
+  return body;
+}
 
 export class Authorization {
   constructor({config = DEFAULT_CONFIG, info}) {
@@ -37,75 +92,76 @@ export class Authorization {
   async signIn(interactive = true) {
     let cfg = configs[this.config];
 
-    // setup authorization URL
-    let params = new URLSearchParams();
-    let state, pkceCode;
-    state = await jose.util.randomBytes(32).toString("hex");
+    let props = {},
+        url,
+        request;
 
-    console.log(`redirect URI == ${browser.identity.getRedirectURL()}`);
-
-    params.set("response_type", "code");
-    params.set("client_id", cfg.client_id);
-    params.set("redirect_uri", cfg.redirect_uri);
-    params.set("scope", cfg.scopes.join(" "));
-    params.set("state", state);
-    if (cfg.pkce) {
-      pkceCode = jose.util.randomBytes(32).toString("hex");
-      let pkceChallenge = (new TextEncoder()).encode(pkceCode);
-      pkceChallenge = await jose.JWA.digest("SHA-256", pkceChallenge);
-      pkceChallenge = jose.util.base64url.encode(pkceChallenge);
-      params.set("code_challenge", pkceChallenge);
-      params.set("code_challenge_method", "S256");
-    }
-
-    let url, response;
-    url = `${cfg.oauth_uri}/authorization?${params}`;
-    response = await browser.identity.launchWebAuthFlow({
+    // request authorization
+    url = await generateAuthzURL(cfg, props);
+    let authzRsp = await browser.identity.launchWebAuthFlow({
       url,
       interactive,
     });
-    console.log(`authorization response: ${response}`);
-    url = new URL(response);
-    params = url.searchParams;
-    if (params.get("state") !== state) {
-      throw new Error("invalid oauth state");
-    }
-    let authCode = params.get("code");
-    if (!authCode) {
-      throw new Error("missing oauth code");
-    }
+    let authzCode = processAuthzResponse(new URL(authzRsp), props);
 
     // exchange token
-    let request;
-    request = {
+    let tokenParams = {
       grant_type: "authorization_code",
-      code: authCode,
-      code_verifier: pkceCode,
+      code: authzCode,
       client_id: cfg.client_id,
     };
     if (cfg.pkce) {
-      request.code_verifier = pkceCode;
+      tokenParams.code_verifier = props.pkce;
     } else {
-      request.client_secret = cfg.client_secret;
+      tokenParams.client_secret = cfg.client_secret;
     }
-    url = `${cfg.oauth_uri}/token`;
-    response = await fetch(url, {
+    url = cfg.token_endpoint;
+    request = {
       method: "post",
       headers: {
         "content-type": "application/json",
       },
-      body: (new TextEncoder()).encode(JSON.stringify(request)),
-    });
-    let body = await response.json();
-    if (!response.ok) {
-      let err = new Error("oauth token error: ${body.message || response.statusText}");
-      err.code = body.errno;
+      cache: "no-cache",
+      body: JSON.stringify(tokenParams),
+    };
+    let oauthInfo = await fetchFromEndPoint("token", url, request);
+    console.log(`oauth info == ${JSON.stringify(oauthInfo)}`);
+
+    if (oauthInfo.keys_jwe) {
+      let bundle = await jose.JWE.createDecrypt(props.appKey).decrypt(oauthInfo.keys_jwe);
+      bundle = JSON.parse(new TextDecoder().decode(bundle.payload));
+      this.keys = {};
+      let pending = Object.keys(bundle).map(async(name) => {
+        let key = bundle[name];
+        key = await jose.JWK.asKey(key);
+        name = name.startsWith(APP_KEY_NAME_PREFIX) ?
+               name.substring(APP_KEY_NAME_PREFIX.length) :
+               name;
+        this.keys[name] = key;
+      });
+      await Promise.all(pending);
     }
 
-    let uid = UUID();
-    this.info = {
-      uid,
+    // retrieve user info
+    url = cfg.userinfo_endpoint;
+    request = {
+      method: "get",
+      headers: {
+        authorization: `Bearer ${oauthInfo.access_token}`,
+      },
+      cache: "no-cache",
     };
+    let userInfo = await fetchFromEndPoint("userinfo", url, request);
+
+    this.info = {
+      uid: userInfo.uid,
+      email: userInfo.email,
+      access_token: oauthInfo.access_token,
+      expires_at: (Date.now / 1000) + oauthInfo.expires_in,
+      refresh_token: oauthInfo.refresh_token,
+      id_token: oauthInfo.id_token,
+    };
+    console.log(`authorization.info: ${JSON.stringify(this.info)}`);
     return this.info;
   }
 
