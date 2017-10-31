@@ -9,6 +9,11 @@ welcome-intro =
     new entries, and then later you can view, search, edit, and
     delete those entries.
 
+welcome-warning =
+    This is a prototype that is rapidly evolving with many great improvements.
+    Much of the functionality seen in this Alpha is expected to change. As such,
+    data stored here may not be retained in future updates.
+
 welcome-feedback =
     Please be sure to let us know your thoughts using our feedback
     button within the tool, including any issues you may find, things
