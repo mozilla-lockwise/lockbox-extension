@@ -18,7 +18,7 @@ export default function SendFeedback() {
 
   return (
     <Localized id="toolbar-send-feedback">
-      <Button theme="minimal" onClick={doClick}>
+      <Button theme="ghost" onClick={doClick}>
         fEEDBACk
       </Button>
     </Localized>
