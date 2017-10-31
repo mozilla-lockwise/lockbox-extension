@@ -17,7 +17,7 @@ welcome-warning =
 welcome-feedback =
     Please be sure to let us know your thoughts using our feedback
     button within the tool, including any issues you may find, things
-    you like, and the things you're looking forward in the future.
+    you like, and the things you're looking forward to in the future.
 
 master-password-setup-formtitle = Please create a master password below:
 
