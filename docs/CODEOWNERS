@@ -1,9 +1,6 @@
 # lockbox-extension code owners
 # https://help.github.com/articles/about-codeowners/
 
-# docs are shepherded by @devinreams
-/docs/    @jimporter @devinreams
-
 # include Flod for l10n string changes
 # @todo uncomment below after initial string freeze
 #src/webextension/locales/en-US/*.ftl    @flodolo
