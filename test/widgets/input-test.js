@@ -19,11 +19,13 @@ describe("widgets > <Input/>", () => {
     expect(wrapper.find("input")).to.have.prop("value", "some text");
   });
 
-  it("apply className", () => {
+  it("merge classNames", () => {
     const wrapper = mount(
       <Input className="foo" value="some text" onChange={() => {}}/>
     );
-    expect(wrapper.find("input").prop("className")).to.equal("foo");
+    expect(wrapper.find("input").prop("className")).to.match(
+      /^\S+input\S+ foo$/
+    );
   });
 
   it("focus() focuses input", () => {

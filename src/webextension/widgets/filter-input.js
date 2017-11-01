@@ -6,7 +6,7 @@ import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
-import styles from "./filter-input.css";
+import styles from "./input.css";
 
 export default class FilterInput extends React.Component {
   static get propTypes() {
@@ -37,17 +37,14 @@ export default class FilterInput extends React.Component {
     // eslint-disable-next-line no-unused-vars
     const {onChange, value, ...props} = this.props;
 
-    // Our input should probably be `type="search"`, but there's no browser-
-    // style for that.
     return (
-      <div className={styles.filterInput}>
-        <span className="browser-style">
-          <input type="text" role="search" {...props} value={this.state.value}
-                 onChange={(e) => this.updateValue(e.target.value)}/>
-        </span>
+      <div className={styles.inputWrapper}>
+        <input type="search" {...props} value={this.state.value}
+               onChange={(e) => this.updateValue(e.target.value)}/>
         <Localized id="filter-input-clear">
-          <button type="button" className="browser-style"
-                  onClick={() => this.updateValue("")}>cLEAr</button>
+          <button type="button" onClick={() => this.updateValue("")}>
+            cLEAr
+          </button>
         </Localized>
       </div>
     );
