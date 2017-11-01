@@ -7,6 +7,9 @@ Lockbox for Firefox is a work-in-progress extension for Firefox to improve upon
 Firefox's built-in password management. If you're interested, you should
 probably come back later when we have more to show!
 
+:warning: **Note: This is a rapidly evolving prototype that will change. Any
+data stored here is not guaranteed to be retained in future updates.**
+
 ## [Quick Installation][install-link]
 
 If you'd like to quickly **start up a new Firefox profile on Nightly** with
