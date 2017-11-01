@@ -8,7 +8,7 @@ import React from "react";
 
 import ButtonStack from "./button-stack.js";
 
-import styles from "./password-input.css";
+import styles from "./input.css";
 
 export default class PasswordInput extends React.Component {
   static get propTypes() {
@@ -42,19 +42,16 @@ export default class PasswordInput extends React.Component {
 
   render() {
     return (
-      <div className={styles.passwordInput}>
-        <span className="browser-style">
-          <input type={this.state.showPassword ? "text" : "password"}
-                 {...this.props}
-                 ref={(element) => this.inputElement = element}/>
-        </span>
+      <div className={styles.inputWrapper}>
+        <input type={this.state.showPassword ? "text" : "password"}
+               ref={(element) => this.inputElement = element} {...this.props}/>
         <ButtonStack ref={(element) => this.stackElement = element}>
           <Localized id="password-input-show">
-            <button type="button" className="browser-style"
+            <button type="button"
                     onClick={() => this.showPassword(true)}>sHOw</button>
           </Localized>
           <Localized id="password-input-hide">
-            <button type="button" className="browser-style"
+            <button type="button"
                     onClick={() => this.showPassword(false)}>hIDe</button>
           </Localized>
         </ButtonStack>

@@ -26,11 +26,10 @@ export default class Input extends React.Component {
 
   render() {
     const {className, ...props} = this.props;
+    const finalClassName = `${styles.input} ${className}`.trimRight();
     return (
-      <span className={`${styles.input} browser-style`}>
-        <input className={className} {...props}
-               ref={(element) => this.inputElement = element}/>
-      </span>
+      <input className={finalClassName} {...props}
+             ref={(element) => this.inputElement = element}/>
     );
   }
 }

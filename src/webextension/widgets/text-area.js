@@ -26,8 +26,7 @@ export default class TextArea extends React.Component {
 
   render() {
     const {className, ...props} = this.props;
-    const finalClassName = `browser-style ${styles.textArea} ${className || ""}`
-                           .trimRight();
+    const finalClassName = `${styles.textArea} ${className}`.trimRight();
     return (
       <textarea className={finalClassName} {...props}
                 ref={(element) => this.textAreaElement = element}/>

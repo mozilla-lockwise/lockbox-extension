@@ -2,11 +2,57 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-span.input {
-  /* Override the margin-bottom from browser-style. */
-  margin-bottom: 0;
+.input,
+.input-wrapper {
+  height: 30px;
+  width: -moz-available;
+  font-size: 13px;
+  color: #0c0c0d;
+  background-color: #f9f9fa;
+  border: 1px solid rgba(12, 12, 13, 0.3);
+  border-radius: 2px;
 }
 
-.input > input {
-  width: -moz-available;
+.input {
+  padding: 0 8px;
+}
+
+.input:hover,
+.input-wrapper:hover {
+  border-color: rgba(12, 12, 13, 0.5);
+}
+
+.input:focus,
+.input-wrapper:focus-within {
+  /* Note: This is reverse-engineered by looking at the mockups. */
+  border-color: #7cddee;
+  box-shadow: 0 0 3px rgba(124, 221, 238, 0.5);
+}
+
+.input-wrapper {
+  display: flex;
+}
+
+.input-wrapper > input {
+  flex: 1;
+  padding: 0 8px;
+  width: 0;
+  min-width: 0;
+  border: 0;
+  background-color: transparent;
+}
+
+.input-wrapper button {
+  white-space: nowrap;
+  text-align: center;
+  height: 28px;
+  font-size: 13px;
+  border: 0;
+  color: #0060df;
+  background-color: transparent;
+  padding: 4px 8px;
+}
+
+.input-wrapper button:active {
+  color: #003eaa;
 }
