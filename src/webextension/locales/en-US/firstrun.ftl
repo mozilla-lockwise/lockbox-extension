@@ -10,9 +10,8 @@ welcome-intro =
     delete those entries.
 
 welcome-warning =
-    This is a prototype that is rapidly evolving with many great improvements.
-    Much of the functionality seen in this Alpha is expected to change. As such,
-    data stored here may not be retained in future updates.
+    This is a rapidly evolving prototype that will change as Alpha progresses.
+    Any data stored here is not guaranteed to be retained in future updates.
 
 welcome-feedback =
     Please be sure to let us know your thoughts using our feedback
