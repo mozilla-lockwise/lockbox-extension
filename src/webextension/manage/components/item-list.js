@@ -34,3 +34,15 @@ ItemList.propTypes = {
   selected: PropTypes.string,
   onItemSelected: PropTypes.func.isRequired,
 };
+
+export function ItemListPlaceholder({children}) {
+  return (
+    <div className={styles.empty}>
+      {children}
+    </div>
+  );
+}
+
+ItemListPlaceholder.propTypes = {
+  children: PropTypes.node,
+};
