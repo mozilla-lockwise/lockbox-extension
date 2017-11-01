@@ -20,13 +20,15 @@ export default function Welcome() {
         adipiscing elit. Etiam porta sem malesuada magna mollis euismod. Cras
         mattis consectetur purus sit amet fermentum.</p>
       </Localized>
-      <Localized id="welcome-warning">
-        <p><strong>Lorem ipsum dolor sit amet, consectetur.
-        Mauris, aliquam vel pellentesque et, mattis bibendum tellus. Fusce
-        sodales, tellus a auctor accumsan, diam risus pharetra orci, at lacinia
-        libero eros ut erat. Fusce ex neque, pharetra id rhoncus in,
-        pellentesque quis urna.</strong></p>
-      </Localized>
+      <p>
+        <Localized id="welcome-warning">
+          <strong>Lorem ipsum dolor sit amet, consectetur.
+          Mauris, aliquam vel pellentesque et, mattis bibendum tellus. Fusce
+          sodales, tellus a auctor accumsan, diam risus pharetra orci, at lacinia
+          libero eros ut erat. Fusce ex neque, pharetra id rhoncus in,
+          pellentesque quis urna.</strong>
+        </Localized>
+      </p>
       <Localized id="welcome-feedback">
         <p>Curabitur blandit tempus porttitor. Nulla vitae elit libero, a
         pharetra augue. Vestibulum id ligula porta felis euismod semper.
