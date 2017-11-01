@@ -21,11 +21,11 @@ export default function Welcome() {
         mattis consectetur purus sit amet fermentum.</p>
       </Localized>
       <Localized id="welcome-warning">
-        <p style={{fontWeight: "bold"}}>Lorem ipsum dolor sit amet, consectetur.
+        <p><strong>Lorem ipsum dolor sit amet, consectetur.
         Mauris, aliquam vel pellentesque et, mattis bibendum tellus. Fusce
         sodales, tellus a auctor accumsan, diam risus pharetra orci, at lacinia
         libero eros ut erat. Fusce ex neque, pharetra id rhoncus in,
-        pellentesque quis urna.</p>
+        pellentesque quis urna.</strong></p>
       </Localized>
       <Localized id="welcome-feedback">
         <p>Curabitur blandit tempus porttitor. Nulla vitae elit libero, a
