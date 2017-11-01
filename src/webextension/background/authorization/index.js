@@ -21,7 +21,7 @@ async function generateAuthzURL(config, props) {
   let state = props.state = jose.util.randomBytes(16).toString("hex");
   queryParams.set("state", state);
   if (config.pkce) {
-    props.pkce = jose.util.randomBytes(16).toString("hex");
+    props.pkce = jose.util.randomBytes(32).toString("hex");
     let challenge = new TextEncoder().encode(props.pkce);
     challenge = await jose.JWA.digest("SHA-256", challenge);
     challenge = jose.util.base64url.encode(challenge);
