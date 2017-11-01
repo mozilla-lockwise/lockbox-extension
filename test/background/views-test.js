@@ -33,6 +33,16 @@ describe("background > views", () => {
       ]);
     });
 
+    it("open tab (navigated away)", async() => {
+      await view.open();
+      let tab = await browser.tabs.get(view.id);
+      tab.url = "https://example.com";
+      await view.open();
+      expect(browser.tabs.mockAllTabs.map((i) => i.url)).to.deep.equal([
+        "singleton.html",
+      ]);
+    });
+
     it("open tab (closed manually)", async() => {
       await view.open();
       browser.tabs.remove(view.id);

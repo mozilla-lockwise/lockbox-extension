@@ -9,12 +9,15 @@ export class SingletonView {
   }
 
   async open() {
-    let windowId;
+    let windowId,
+        offPath = false,
+        url = browser.extension.getURL(this.path);
     if (this.id !== undefined) {
       // verify tab still exists
       try {
         let tabInfo = await browser.tabs.get(this.id);
         windowId = tabInfo.windowId;
+        offPath = !tabInfo.url.startsWith(url);
       } catch (err) {
         // does not exist, forget existing info
         this.id = undefined;
@@ -26,13 +29,21 @@ export class SingletonView {
       await browser.windows.update(windowId, {
         focused: true,
       });
-      await browser.tabs.update(this.id, {
+
+      let tabProps = {
         active: true,
-      });
+      };
+      if (offPath) {
+        tabProps = {
+          ...tabProps,
+          url,
+        };
+      }
+      await browser.tabs.update(this.id, tabProps);
     } else {
       // create a tab in the current window
       let tabInfo = await browser.tabs.create({
-        url: browser.extension.getURL(this.path),
+        url,
       });
       this.id = tabInfo.id;
     }
