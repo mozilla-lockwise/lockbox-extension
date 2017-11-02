@@ -29,7 +29,6 @@ export class SingletonView {
       await browser.windows.update(windowId, {
         focused: true,
       });
-
       await browser.tabs.update(this.id, {
         active: true,
       });
