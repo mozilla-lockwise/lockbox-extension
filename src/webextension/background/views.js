@@ -24,22 +24,15 @@ export class SingletonView {
       }
     }
 
-    if (this.id !== undefined) {
+    if (!offPath && this.id !== undefined) {
       // focus owning window and activate tab
       await browser.windows.update(windowId, {
         focused: true,
       });
 
-      let tabProps = {
+      await browser.tabs.update(this.id, {
         active: true,
-      };
-      if (offPath) {
-        tabProps = {
-          ...tabProps,
-          url,
-        };
-      }
-      await browser.tabs.update(this.id, tabProps);
+      });
     } else {
       // create a tab in the current window
       let tabInfo = await browser.tabs.create({

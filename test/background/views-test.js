@@ -39,6 +39,7 @@ describe("background > views", () => {
       tab.url = "https://example.com";
       await view.open();
       expect(browser.tabs.mockAllTabs.map((i) => i.url)).to.deep.equal([
+        "https://example.com",
         "singleton.html",
       ]);
     });
