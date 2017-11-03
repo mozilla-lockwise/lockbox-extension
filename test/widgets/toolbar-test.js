@@ -20,15 +20,37 @@ describe("widgets > toolbar", () => {
         </Toolbar>
       );
       expect(wrapper.find("span")).to.have.text("hello");
+      expect(wrapper.find("menu").prop("className")).to.match(
+        /^\S+toolbar\S+$/
+      );
+    });
+
+    it("merge classNames", () => {
+      const wrapper = mount(
+        <Toolbar className="foo">
+          <span>hello</span>
+        </Toolbar>
+      );
+      expect(wrapper.find("menu").prop("className")).to.match(
+        /^\S+toolbar\S+ foo$/
+      );
     });
   });
 
   describe("<ToolbarSpace/>", () => {
     it("render space", () => {
-      const wrapper = mount(
-        <ToolbarSpace/>
-      );
+      const wrapper = mount(<ToolbarSpace/>);
       expect(wrapper.find("span")).to.have.length(1);
+      expect(wrapper.find("span").prop("className")).to.match(
+        /^\S+toolbar-space\S+$/
+      );
+    });
+
+    it("merge classNames", () => {
+      const wrapper = mount(<ToolbarSpace className="foo"/>);
+      expect(wrapper.find("span").prop("className")).to.match(
+        /^\S+toolbar-space\S+ foo$/
+      );
     });
   });
 });
