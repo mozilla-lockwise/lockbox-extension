@@ -3,8 +3,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .modal {
-  background-color: ActiveCaption;
+  border: 1px solid #0c0c0d;
+  border-radius: 2px;
   box-shadow: 0 0 3em rgba(0, 0, 0, 0.75);
+  color: #0c0c0d;
+  background-color: #f9f9fa;
 }
 
 .overlay {
