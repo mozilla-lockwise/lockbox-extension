@@ -97,10 +97,13 @@ describe("manage > containers > <CurrentSelection/>", () => {
           ...filledState.cache,
           currentItem: null,
         },
-        ui: {
-          ...filledState.ui,
-          editing: true,
+        list: {
+          ...filledState.list,
           selectedItemId: NEW_ITEM_ID,
+        },
+        editor: {
+          ...filledState.editor,
+          editing: true,
         },
       };
       store = mockStore(state);
@@ -167,8 +170,8 @@ describe("manage > containers > <CurrentSelection/>", () => {
     let store, wrapper;
 
     beforeEach(() => {
-      store = mockStore({...filledState, ui: {
-        ...filledState.ui, editing: true,
+      store = mockStore({...filledState, editor: {
+        ...filledState.editor, editing: true,
       }});
       wrapper = mountWithL10nIntoDOM(
         <Provider store={store}>
@@ -241,8 +244,8 @@ describe("manage > containers > <CurrentSelection/>", () => {
           origins: [],
         },
       },
-      ui: {
-        ...filledState.ui,
+      editor: {
+        ...filledState.editor,
         editing: true,
       },
     };
@@ -276,7 +279,7 @@ describe("manage > containers > <CurrentSelection/>", () => {
     beforeEach(() => {
       store = mockStore({
         ...initialState,
-        ui: {...initialState.ui, hideHome: true},
+        editor: {...initialState.editor, hideHome: true},
       });
       wrapper = mountWithL10n(
         <Provider store={store}>
@@ -298,11 +301,14 @@ describe("manage > containers > <CurrentSelection/>", () => {
           ...filledState.cache,
           currentItem: null,
         },
-        ui: {
-          ...filledState.ui,
-          editing: true,
-          editorChanged: true,
+        list: {
+          ...filledState.list,
           selectedItemId: NEW_ITEM_ID,
+        },
+        editor: {
+          ...filledState.editor,
+          editing: true,
+          changed: true,
         },
       };
       const store = mockStore(state);
@@ -322,8 +328,8 @@ describe("manage > containers > <CurrentSelection/>", () => {
     });
 
     it("editing exiting item", () => {
-      const store = mockStore({...filledState, ui: {
-        ...filledState.ui, editing: true, editorChanged: true,
+      const store = mockStore({...filledState, editor: {
+        ...filledState.editor, editing: true, changed: true,
       }});
       const wrapper = mountWithL10nIntoDOM(
         <Provider store={store}>

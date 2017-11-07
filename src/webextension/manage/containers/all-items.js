@@ -35,8 +35,8 @@ AllItems.propTypes = {
 export default connect(
   (state, ownProps) => {
     const totalItemCount = state.cache.items.length;
-    const filter = parseFilterString(state.filter);
-    const selected = state.ui.selectedItemId;
+    const filter = parseFilterString(state.list.filter);
+    const selected = state.list.selectedItemId;
     const items = state.cache.items
                        .filter((i) => filterItem(filter, i))
                        .sort((a, b) => collator.compare(a.title, b.title));
