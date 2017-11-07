@@ -8,7 +8,6 @@ export const initialState = {
   cache: {
     items: [],
     currentItem: null,
-    pendingAdd: null,
   },
   list: {
     selectedItemId: null,
@@ -46,7 +45,6 @@ export const filledState = {
         notes: "notes 1",
       },
     },
-    pendingAdd: null,
   },
   list: {
     selectedItemId: "1",
