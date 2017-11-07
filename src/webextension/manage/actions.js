@@ -169,8 +169,8 @@ function removeItemCompleted(actionId, id) {
 
 export function requestSelectItem(id) {
   return async (dispatch, getState) => {
-    const {ui: {editorChanged}} = getState();
-    if (!editorChanged) {
+    const {editor: {changed}} = getState();
+    if (!changed) {
       dispatch(selectItem(id));
       return;
     }
@@ -233,8 +233,8 @@ export function editorChanged() {
 
 export function requestCancelEditing() {
   return (dispatch, getState) => {
-    const {ui: {editorChanged}} = getState();
-    if (!editorChanged) {
+    const {editor: {changed}} = getState();
+    if (!changed) {
       dispatch(cancelEditing());
       return;
     }

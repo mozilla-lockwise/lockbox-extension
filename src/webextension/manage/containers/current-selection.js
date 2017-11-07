@@ -97,9 +97,9 @@ CurrentSelection.propTypes = {
 
 export default connect(
   (state) => ({
-    editing: state.ui.editing,
+    editing: state.editor.editing,
+    hideHome: state.editor.hideHome,
     item: state.cache.currentItem,
-    hideHome: state.ui.hideHome,
     numItems: state.cache.items.length,
   })
 )(CurrentSelection);

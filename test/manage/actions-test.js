@@ -168,7 +168,7 @@ describe("manage > actions", () => {
   it("requestSelectItem() dispatched (with editor changes)", async () => {
     const store = mockStore({
       ...initialState,
-      ui: {...initialState.ui, editing: true, editorChanged: true},
+      editor: {...initialState.editor, editing: true, changed: true},
     });
 
     await store.dispatch(actions.requestSelectItem("1"));
@@ -302,7 +302,7 @@ describe("manage > actions", () => {
   it("requestCancelEditing() dispatched (with editor changes)", () => {
     const store = mockStore({
       ...initialState,
-      ui: {...initialState.ui, editing: true, editorChanged: true},
+      editor: {...initialState.editor, changed: true, hideHome: false},
     });
 
     store.dispatch(actions.requestCancelEditing());

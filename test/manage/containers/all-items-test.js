@@ -83,7 +83,7 @@ describe("manage > containers > <AllItems/>", () => {
     beforeEach(() => {
       store = mockStore({
         ...filledState,
-        filter: "2",
+        list: {...filledState.list, filter: "2"},
       });
       wrapper = mountWithL10n(
         <Provider store={store}>
@@ -103,8 +103,8 @@ describe("manage > containers > <AllItems/>", () => {
     beforeEach(() => {
       store = mockStore({
         ...initialState,
-        ui: {
-          ...initialState.ui,
+        list: {
+          ...initialState.list,
           selectedItemId: NEW_ITEM_ID,
         },
       });
