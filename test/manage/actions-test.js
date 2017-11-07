@@ -71,7 +71,8 @@ describe("manage > actions", () => {
         item },
       { type: actions.ADD_ITEM_COMPLETED,
         actionId: dispatched[0].actionId,
-        item: {...item, id: "1"} },
+        item: {...item, id: "1"},
+        interactive: true },
     ]);
   });
 
@@ -100,7 +101,8 @@ describe("manage > actions", () => {
         item },
       { type: actions.UPDATE_ITEM_COMPLETED,
         actionId: dispatched[0].actionId,
-        item },
+        item,
+        interactive: true },
     ]);
   });
 
@@ -237,7 +239,8 @@ describe("manage > actions", () => {
     expect(store.getActions()).to.deep.equal([
       { type: actions.ADD_ITEM_COMPLETED,
         actionId: undefined,
-        item },
+        item,
+        interactive: false },
     ]);
   });
 
@@ -256,7 +259,8 @@ describe("manage > actions", () => {
     expect(store.getActions()).to.deep.equal([
       { type: actions.UPDATE_ITEM_COMPLETED,
         actionId: undefined,
-        item },
+        item,
+        interactive: false },
     ]);
   });
 

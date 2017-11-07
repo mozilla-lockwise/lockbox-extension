@@ -45,6 +45,7 @@ describe("manage > message ports", () => {
       type: actions.ADD_ITEM_COMPLETED,
       actionId: dispatched[0].actionId,
       item,
+      interactive: false,
     }]);
   });
 
@@ -65,6 +66,7 @@ describe("manage > message ports", () => {
       type: actions.UPDATE_ITEM_COMPLETED,
       actionId: dispatched[0].actionId,
       item,
+      interactive: false,
     }]);
   });
 

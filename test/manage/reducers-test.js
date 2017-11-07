@@ -18,7 +18,6 @@ describe("manage > reducers", () => {
       expect(cacheReducer(undefined, action)).to.deep.equal({
         items: [],
         currentItem: null,
-        pendingAdd: null,
       });
     });
 
@@ -34,7 +33,6 @@ describe("manage > reducers", () => {
       expect(cacheReducer(undefined, action)).to.deep.equal({
         items: action.items,
         currentItem: null,
-        pendingAdd: null,
       });
     });
 
@@ -58,15 +56,13 @@ describe("manage > reducers", () => {
         expect(cacheReducer(undefined, action)).to.deep.equal({
           items: [],
           currentItem: null,
-          pendingAdd: action.actionId,
         });
       });
 
-      it("handle ADD_ITEM_COMPLETED (direct)", () => {
+      it("handle ADD_ITEM_COMPLETED (interactive)", () => {
         const state = {
           items: [],
           currentItem: null,
-          pendingAdd: 0,
         };
         const action = {
           type: actions.ADD_ITEM_COMPLETED,
@@ -82,6 +78,7 @@ describe("manage > reducers", () => {
               notes: "notes",
             },
           },
+          interactive: true,
         };
 
         expect(cacheReducer(state, action)).to.deep.equal({
@@ -92,15 +89,13 @@ describe("manage > reducers", () => {
             username: action.item.entry.username,
           }],
           currentItem: action.item,
-          pendingAdd: null,
         });
       });
 
-      it("handle ADD_ITEM_COMPLETED (indirect)", () => {
+      it("handle ADD_ITEM_COMPLETED (non-interactive)", () => {
         const state = {
           items: [],
           currentItem: null,
-          pendingAdd: 1,
         };
         const action = {
           type: actions.ADD_ITEM_COMPLETED,
@@ -116,6 +111,7 @@ describe("manage > reducers", () => {
               notes: "notes",
             },
           },
+          interactive: false,
         };
 
         expect(cacheReducer(state, action)).to.deep.equal({
@@ -126,7 +122,6 @@ describe("manage > reducers", () => {
             origins: action.item.origins,
           }],
           currentItem: null,
-          pendingAdd: 1,
         });
       });
     });
@@ -149,7 +144,6 @@ describe("manage > reducers", () => {
               notes: "original notes",
             },
           },
-          pendingAdd: null,
         };
         const action = {
           type: actions.UPDATE_ITEM_COMPLETED,
@@ -178,7 +172,6 @@ describe("manage > reducers", () => {
             state.items[1],
           ],
           currentItem: action.item,
-          pendingAdd: null,
         });
       });
 
@@ -191,7 +184,6 @@ describe("manage > reducers", () => {
              origins: ["another-origin.com"]},
           ],
           currentItem: null,
-          pendingAdd: null,
         };
         const action = {
           type: actions.UPDATE_ITEM_COMPLETED,
@@ -220,7 +212,6 @@ describe("manage > reducers", () => {
             state.items[1],
           ],
           currentItem: null,
-          pendingAdd: null,
         });
       });
     });
@@ -241,7 +232,6 @@ describe("manage > reducers", () => {
               notes: "notes",
             },
           },
-          pendingAdd: null,
         };
         const action = {
           type: actions.REMOVE_ITEM_COMPLETED,
@@ -252,7 +242,6 @@ describe("manage > reducers", () => {
         expect(cacheReducer(state, action)).to.deep.equal({
           items: [],
           currentItem: null,
-          pendingAdd: null,
         });
       });
 
@@ -275,7 +264,6 @@ describe("manage > reducers", () => {
               notes: "notes",
             },
           },
-          pendingAdd: null,
         };
         const action = {
           type: actions.REMOVE_ITEM_COMPLETED,
@@ -286,7 +274,6 @@ describe("manage > reducers", () => {
         expect(cacheReducer(state, action)).to.deep.equal({
           items: [state.items[0]],
           currentItem: state.currentItem,
-          pendingAdd: null,
         });
       });
     });
@@ -295,7 +282,6 @@ describe("manage > reducers", () => {
       const state = {
         items: [{id: "1", title: "title"}],
         currentItem: null,
-        pendingAdd: null,
       };
       const action = {
         type: actions.SELECT_ITEM_COMPLETED,
@@ -315,7 +301,6 @@ describe("manage > reducers", () => {
       expect(cacheReducer(state, action)).to.deep.equal({
         items: state.items,
         currentItem: action.item,
-        pendingAdd: null,
       });
     });
 
@@ -336,7 +321,6 @@ describe("manage > reducers", () => {
             notes: "notes",
           },
         },
-        pendingAdd: null,
       };
       const action = {
         type: actions.START_NEW_ITEM,
@@ -345,7 +329,6 @@ describe("manage > reducers", () => {
       expect(cacheReducer(state, action)).to.deep.equal({
         items: state.items,
         currentItem: null,
-        pendingAdd: null,
       });
     });
   });
@@ -358,23 +341,44 @@ describe("manage > reducers", () => {
       });
     });
 
-    it("handle ADD_ITEM_COMPLETED", () => {
-      const action = {
-        type: actions.ADD_ITEM_COMPLETED,
-        item: {
-          id: "1",
-        },
-      };
+    describe("handle ADD_ITEM_COMPLETED", () => {
+      it("interactive", () => {
+        const action = {
+          type: actions.ADD_ITEM_COMPLETED,
+          actionId: 0,
+          item: {
+            id: "1",
+          },
+          interactive: true,
+        };
 
-      expect(listReducer(undefined, action)).to.deep.equal({
-        selectedItemId: "1",
-        filter: "",
+        expect(listReducer(undefined, action)).to.deep.equal({
+          selectedItemId: "1",
+          filter: "",
+        });
+      });
+
+      it("non-interactive", () => {
+        const action = {
+          type: actions.ADD_ITEM_COMPLETED,
+          actionId: 0,
+          item: {
+            id: "1",
+          },
+          interactive: false,
+        };
+
+        expect(listReducer(undefined, action)).to.deep.equal({
+          selectedItemId: null,
+          filter: "",
+        });
       });
     });
 
     it("handle SELECT_ITEM_STARTING", () => {
       const action = {
         type: actions.SELECT_ITEM_STARTING,
+        actionId: 0,
         id: "1",
       };
 
@@ -395,33 +399,35 @@ describe("manage > reducers", () => {
       });
     });
 
-    it("handle CANCEL_EDITING (new item)", () => {
-      const state = {
-        selectedItemId: NEW_ITEM_ID,
-        filter: "",
-      };
-      const action = {
-        type: actions.CANCEL_EDITING,
-      };
+    describe("handle CANCEL_EDITING", () => {
+      it("new item", () => {
+        const state = {
+          selectedItemId: NEW_ITEM_ID,
+          filter: "",
+        };
+        const action = {
+          type: actions.CANCEL_EDITING,
+        };
 
-      expect(listReducer(state, action)).to.deep.equal({
-        selectedItemId: null,
-        filter: "",
+        expect(listReducer(state, action)).to.deep.equal({
+          selectedItemId: null,
+          filter: "",
+        });
       });
-    });
 
-    it("handle CANCEL_EDITING (existing item)", () => {
-      const state = {
-        selectedItemId: "1",
-        filter: "",
-      };
-      const action = {
-        type: actions.CANCEL_EDITING,
-      };
+      it("existing item", () => {
+        const state = {
+          selectedItemId: "1",
+          filter: "",
+        };
+        const action = {
+          type: actions.CANCEL_EDITING,
+        };
 
-      expect(listReducer(state, action)).to.deep.equal({
-        selectedItemId: "1",
-        filter: "",
+        expect(listReducer(state, action)).to.deep.equal({
+          selectedItemId: "1",
+          filter: "",
+        });
       });
     });
 
@@ -447,93 +453,146 @@ describe("manage > reducers", () => {
       });
     });
 
-    it("handle ADD_ITEM_COMPLETED", () => {
-      const state = {
-        editing: true,
-        changed: true,
-        hideHome: false,
-      };
-      const action = {
-        type: actions.ADD_ITEM_COMPLETED,
-        item: {
+    describe("handle ADD_ITEM_COMPLETED", () => {
+      it("interactive", () => {
+        const state = {
+          editing: true,
+          changed: true,
+          hideHome: false,
+        };
+        const action = {
+          type: actions.ADD_ITEM_COMPLETED,
+          actionId: 0,
+          item: { id: "1" },
+          interactive: true,
+        };
+
+        expect(editorReducer(state, action)).to.deep.equal({
+          editing: false,
+          changed: false,
+          hideHome: false,
+        });
+      });
+
+      it("non-interactive", () => {
+        const state = {
+          editing: true,
+          changed: true,
+          hideHome: false,
+        };
+        const action = {
+          type: actions.ADD_ITEM_COMPLETED,
+          actionId: 0,
+          item: { id: "1" },
+          interactive: false,
+        };
+
+        expect(editorReducer(state, action)).to.deep.equal({
+          editing: true,
+          changed: true,
+          hideHome: false,
+        });
+      });
+    });
+
+    describe("handle UPDATE_ITEM_COMPLETED", () => {
+      it("interactive", () => {
+        const state = {
+          editing: true,
+          changed: true,
+          hideHome: false,
+        };
+        const action = {
+          type: actions.UPDATE_ITEM_COMPLETED,
+          actionId: 0,
+          item: { id: "1" },
+          interactive: true,
+        };
+
+        expect(editorReducer(state, action)).to.deep.equal({
+          editing: false,
+          changed: false,
+          hideHome: false,
+        });
+      });
+
+      it("non-interactive", () => {
+        const state = {
+          editing: true,
+          changed: true,
+          hideHome: false,
+        };
+        const action = {
+          type: actions.UPDATE_ITEM_COMPLETED,
+          actionId: 0,
+          item: { id: "1" },
+          interactive: false,
+        };
+
+        expect(editorReducer(state, action)).to.deep.equal({
+          editing: true,
+          changed: true,
+          hideHome: false,
+        });
+      });
+    });
+
+    describe("handle SELECT_ITEM_*", () => {
+      it("handle SELECT_ITEM_STARTING (not editing)", () => {
+        const state = {
+          editing: false,
+          changed: false,
+          hideHome: false,
+        };
+        const action = {
+          type: actions.SELECT_ITEM_STARTING,
+          actionId: 0,
           id: "1",
-        },
-      };
+        };
 
-      expect(editorReducer(state, action)).to.deep.equal({
-        editing: false,
-        changed: false,
-        hideHome: false,
+        expect(editorReducer(state, action)).to.deep.equal({
+          editing: false,
+          changed: false,
+          hideHome: false,
+        });
       });
-    });
 
-    it("handle UPDATE_ITEM_COMPLETED", () => {
-      const state = {
-        editing: true,
-        changed: true,
-        hideHome: false,
-      };
-      const action = {
-        type: actions.UPDATE_ITEM_COMPLETED,
-      };
+      it("handle SELECT_ITEM_STARTING (editing)", () => {
+        const state = {
+          editing: true,
+          changed: true,
+          hideHome: false,
+        };
+        const action = {
+          type: actions.SELECT_ITEM_STARTING,
+          actionId: 0,
+          id: "1",
+        };
 
-      expect(editorReducer(state, action)).to.deep.equal({
-        editing: false,
-        changed: false,
-        hideHome: false,
+        expect(editorReducer(state, action)).to.deep.equal({
+          editing: false,
+          changed: false,
+          hideHome: true,
+        });
       });
-    });
 
-    it("handle SELECT_ITEM_STARTING (not editing)", () => {
-      const state = {
-        editing: false,
-        changed: false,
-        hideHome: false,
-      };
-      const action = {
-        type: actions.SELECT_ITEM_STARTING,
-        id: "1",
-      };
+      it("handle SELECT_ITEM_COMPLETED", () => {
+        const state = {
+          editing: false,
+          changed: false,
+          hideHome: true,
+        };
+        const action = {
+          type: actions.SELECT_ITEM_COMPLETED,
+          actionId: 0,
+          item: { id: "1" },
+        };
 
-      expect(editorReducer(state, action)).to.deep.equal({
-        editing: false,
-        changed: false,
-        hideHome: false,
-      });
-    });
-
-    it("handle SELECT_ITEM_STARTING (editing)", () => {
-      const state = {
-        editing: true,
-        changed: true,
-        hideHome: false,
-      };
-      const action = {
-        type: actions.SELECT_ITEM_STARTING,
-        id: "1",
-      };
-
-      expect(editorReducer(state, action)).to.deep.equal({
-        editing: false,
-        changed: false,
-        hideHome: true,
-      });
-    });
-
-    it("handle SELECT_ITEM_COMPLETED", () => {
-      const state = {
-        editing: false,
-        changed: false,
-        hideHome: true,
-      };
-      const action = {
-        type: actions.SELECT_ITEM_COMPLETED,
-      };
-
-      expect(editorReducer(state, action)).to.deep.equal({
-        editing: false,
-        changed: false,
-        hideHome: false,
+        expect(editorReducer(state, action)).to.deep.equal({
+          editing: false,
+          changed: false,
+          hideHome: false,
+        });
       });
     });
 

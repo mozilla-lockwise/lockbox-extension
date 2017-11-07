@@ -29,8 +29,8 @@ export const FILTER_ITEMS = Symbol("FILTER_ITEMS");
 export const SHOW_MODAL = Symbol("SHOW_MODAL");
 export const HIDE_MODAL = Symbol("HIDE_MODAL");
 
-// The action ID is used to correlate async actions with each other (i.e.
-// FOO_STARTING and FOO_COMPLETED).
+// The action ID is used for debugging to correlate async actions with each
+// other (i.e. FOO_STARTING and FOO_COMPLETED).
 let nextActionId = 0;
 
 export function listItems() {
@@ -70,7 +70,7 @@ export function addItem(details) {
       type: "add_item",
       item: details,
     });
-    dispatch(addItemCompleted(actionId, response.item));
+    dispatch(addItemCompleted(actionId, response.item, true));
     telemetry.recordEvent("itemAdded", "addItemForm");
   };
 }
@@ -87,11 +87,12 @@ function addItemStarting(actionId, item) {
   };
 }
 
-function addItemCompleted(actionId, item) {
+function addItemCompleted(actionId, item, interactive = false) {
   return {
     type: ADD_ITEM_COMPLETED,
     actionId,
     item,
+    interactive,
   };
 }
 
@@ -105,7 +106,7 @@ export function updateItem(item) {
       type: "update_item",
       item,
     });
-    dispatch(updateItemCompleted(actionId, response.item));
+    dispatch(updateItemCompleted(actionId, response.item, true));
   };
 }
 
@@ -121,11 +122,12 @@ function updateItemStarting(actionId, item) {
   };
 }
 
-function updateItemCompleted(actionId, item) {
+function updateItemCompleted(actionId, item, interactive = false) {
   return {
     type: UPDATE_ITEM_COMPLETED,
     actionId,
     item,
+    interactive,
   };
 }
 
