@@ -46,7 +46,7 @@ describe("manage > containers > <AllItems/>", () => {
     it("render items", () => {
       expect(wrapper.find(ItemSummary)).to.have.length(0);
       expect(wrapper.find("div")).to.have.text(
-        "lOOKs lIKe yOu dON't hAVe aNy eNTRIEs sAVEd yEt..."
+        "WhEn YOu cReAtE An enTRy..."
       );
     });
   });

@@ -3,8 +3,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { withLocalization } from "fluent-react";
+import { Localized } from 'fluent-react';
 import PropTypes from "prop-types";
 import React from "react";
+import DocumentTitle from "react-document-title";
+
 
 import styles from "./homepage.css";
 
@@ -13,21 +16,22 @@ function Homepage({count, getString}) {
 
   let key;
   if (count === 0) {
-    key = "homepage-no-passwords";
-  } else if (count < 10) {
-    key = "homepage-under-10-passwords";
-  } else if (count < 50) {
-    key = "homepage-under-50-passwords";
+    key = "homepage-no-passwords-title";
   } else {
-    key = "homepage-over-50-passwords";
+    key = "homepage-has-passwords-title";
   }
 
   return (
     <article className={styles.homepage}>
       <img src={imgSrc}/>
-      <p>{
-        getString(key, {count})
-      }</p>
+      <DocumentTitle title="wELCOMe to lOCKBOx">
+        <h1>{
+          getString(key, {count})
+        }</h1>
+      </DocumentTitle>
+      <Localized id="homepage-greeting">
+        <p>{'yOu\'Ve suCCessfuLLY iNSTalled...'}</p>
+      </Localized>
     </article>
   );
 }
