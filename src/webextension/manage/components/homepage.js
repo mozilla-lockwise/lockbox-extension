@@ -25,9 +25,9 @@ function Homepage({count, getString}) {
   return (
     <article className={styles.homepage}>
       <img src={imgSrc}/>
-      <pre>{
+      <p>{
         getString(key, {count})
-      }</pre>
+      }</p>
     </article>
   );
 }

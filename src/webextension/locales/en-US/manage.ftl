@@ -33,9 +33,13 @@ item-summary-username =
   }
 
 homepage-no-passwords =
-  Welcome to Lockbox! I'm here to help you lock up your passwords!
-
-  To get started, click { toolbar-add-item } above.
+  You’ve just installed the Lockbox browser extension! This Alpha prototype will
+  give you the ability to create new entries, and then later you can view,
+  search, edit, and delete those entries.
+  
+  Please be sure to let us know your thoughts using our feedback button above,
+  including any issues you may find, things you like, and the things you’re
+  looking forward to in the future.
 
 homepage-under-10-passwords =
   { $count ->
@@ -44,9 +48,7 @@ homepage-under-10-passwords =
   }
 
 homepage-under-50-passwords =
-  Hey again! Just your pal Lockie checking in!
-
-  You've added { $count } entries. Great job, keep it up!
+  Hey again! You've added { $count } entries. Great job, keep it up!
 
 homepage-over-50-passwords =
   Welcome back! I hope you're having a great day!
