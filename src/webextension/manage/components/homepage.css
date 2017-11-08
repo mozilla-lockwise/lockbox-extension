@@ -6,27 +6,25 @@
   align-items: center;
   display: flex;
   flex-flow: column nowrap;
-  font-size: 1.25em;
   justify-content: center;
   margin: 3em auto;
   width: 701px;
 }
 
-.homepage h1 {
+.homepage > h1,
+.homepage > p {
   color: #0c0c0d;
+  letter-spacing: 0.2px;
+  line-height: 1.5;  
+}
+.homepage h1 {
   font-size: 33px;
   font-weight: 300;
-  letter-spacing: 0.2px;
-  line-height: 1.5;
   margin: auto;
   text-align: center;
 }
-
 .homepage p {
-  color: #0c0c0d;
   font-size: 15px;
-  letter-spacing: 0.2px;
-  line-height: 1.5;
   text-align: left;
   white-space: pre-line;
 }
