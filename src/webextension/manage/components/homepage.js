@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import styles from "./homepage.css";
-import lockie from "./lockie.txt";
 
 function printableLength(s) {
   return s.replace(/(\u2068|\u2069)/g, "").length;
@@ -44,7 +43,7 @@ function Homepage({count, getString}) {
 
   return (
     <pre className={styles.homepage}>{
-      speechBubble(getString(key, {count})) + "\n" + lockie
+      speechBubble(getString(key, {count})) + "\n"
     }</pre>
   );
 }
