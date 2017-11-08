@@ -3,6 +3,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .homepage {
-  margin: 2em;
+  width: 459px;
+  margin: 3em auto;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
   font-size: 1.25em;
 }
