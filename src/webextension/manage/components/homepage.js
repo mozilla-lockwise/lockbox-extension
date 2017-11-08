@@ -8,7 +8,6 @@ import PropTypes from "prop-types";
 import React from "react";
 import DocumentTitle from "react-document-title";
 
-
 import styles from "./homepage.css";
 
 function Homepage({count, getString}) {
