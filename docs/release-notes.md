@@ -1,5 +1,20 @@
 # Lockbox Release Notes
 
+## 0.1.1-alpha1
+
+_Date: 2017-11-01_
+
+### What's Fixed
+
+* We added language to the first-run experience to remind testers that this is pre-release software and both **subject to change and data may not be retained**.
+
+### Known Issues
+
+* There is no way to change your Lockbox master password.  If you forget your master password, you'll need to start over fresh by either:
+  - Opening the this extension's Preferences and clicking the "`💥💣 Reset 💣💥`" button; or
+  - Uninstalling and re-installing the extension
+* Firefox's default prompt to save logins is only disabled on new installs of this extension; updating Lockbox will not change your current Firefox preferences.
+
 ## 0.1.1-alpha
 
 _Date: 2017-10-30_
@@ -43,6 +58,6 @@ This starts as a signed Firefox extension where you can:
 
 ### Known Issues
 
-* Lockbox has only been tested on Firefox 57 and above.  Installing on Firefox 56 or lower may not function at all. 
+* Lockbox has only been tested on Firefox 57 and above.  Installing on Firefox 56 or lower may not function at all.
 * There is no way to reset your Lockbox master password. If you forget your master password, you'll need to start over fresh by uninstalling and re-installing this extension.
 * This is a Lockbox account, which stays local to your Firefox installation. There is no integration with Firefox accounts to sync (yet).

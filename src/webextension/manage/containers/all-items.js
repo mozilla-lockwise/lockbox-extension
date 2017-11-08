@@ -2,45 +2,51 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { withLocalization } from "fluent-react";
+import { Localized } from "fluent-react";
+import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
 import { requestSelectItem } from "../actions";
 import { parseFilterString, filterItem } from "../filter";
 import { NEW_ITEM_ID } from "../common";
-import ItemList from "../components/item-list";
+import ItemList, { ItemListPlaceholder } from "../components/item-list";
 
 const collator = new Intl.Collator();
 
-function AllItems({items, selected, getString, ...props}) {
-  if (selected === NEW_ITEM_ID) {
-    items = [
-      { title: getString("item-summary-new-item"),
-        id: NEW_ITEM_ID,
-        username: "" },
-      ...items,
-    ];
+function AllItems({totalItemCount, ...props}) {
+  if (props.items.length === 0) {
+    return (
+      <Localized id={`all-items-${totalItemCount ? "filtered" : "empty"}`}>
+        <ItemListPlaceholder>
+          lOOKs lIKe yOu dON&apos;t hAVe aNy eNTRIEs sAVEd yEt...
+        </ItemListPlaceholder>
+      </Localized>
+    );
   }
-
-  return <ItemList {...{items, selected, ...props}}/>;
+  return <ItemList {...props}/>;
 }
 
 AllItems.propTypes = {
+  totalItemCount: PropTypes.number.isRequired,
   ...ItemList.propTypes,
 };
 
 export default connect(
   (state, ownProps) => {
+    const totalItemCount = state.cache.items.length;
     const filter = parseFilterString(state.filter);
-    return {
-      items: state.cache.items
-                  .filter((i) => filterItem(filter, i))
-                  .sort((a, b) => collator.compare(a.title, b.title)),
-      selected: state.ui.selectedItemId,
-    };
+    const selected = state.ui.selectedItemId;
+    const items = state.cache.items
+                       .filter((i) => filterItem(filter, i))
+                       .sort((a, b) => collator.compare(a.title, b.title));
+
+    if (selected === NEW_ITEM_ID) {
+      items.unshift({id: NEW_ITEM_ID, title: "", username: ""});
+    }
+    return {totalItemCount, items, selected};
   },
   (dispatch) => ({
     onItemSelected: (id) => dispatch(requestSelectItem(id)),
   }),
-)(withLocalization(AllItems));
+)(AllItems);

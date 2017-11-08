@@ -8,7 +8,7 @@ addons:
 
 script:
   - STRICT_LINT=1 npm run test
-  - npx nsp check
+  - npm run nsp
 
 after_success:
   - npm run codecov

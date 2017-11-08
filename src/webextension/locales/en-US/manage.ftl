@@ -14,9 +14,23 @@ toolbar-send-feedback = Feedback
 item-filter
   .placeholder = Search for an entry
 
-item-summary-new-item = New Entry
-item-summary-no-title = (No Entry Name)
-item-summary-no-username = (No Username)
+all-items-empty =
+  Looks like you don't have any entries saved yet…
+  
+  Create a new entry so Lockie has something to protect.
+all-items-filtered = No results
+
+item-summary-new-title = New Entry
+item-summary-title =
+  { $length ->
+     [0]     (No Entry Name)
+    *[other] { $title }
+  }
+item-summary-username =
+  { $length ->
+     [0]     (No Username)
+    *[other] { username }
+  }
 
 homepage-no-passwords =
   Welcome to Lockbox! I'm Lockie, and I'm here to help you lock

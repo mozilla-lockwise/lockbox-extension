@@ -2,7 +2,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { expect } from "chai";
+import chai, { expect } from "chai";
+import chaiEnzyme from "chai-enzyme";
+import { Localized } from "fluent-react";
 import React from "react";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
@@ -14,6 +16,8 @@ import ItemSummary from "src/webextension/manage/components/item-summary";
 import AllItems from "src/webextension/manage/containers/all-items";
 import { SELECT_ITEM_STARTING } from "src/webextension/manage/actions";
 import { NEW_ITEM_ID } from "src/webextension/manage/common";
+
+chai.use(chaiEnzyme());
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -41,6 +45,9 @@ describe("manage > containers > <AllItems/>", () => {
 
     it("render items", () => {
       expect(wrapper.find(ItemSummary)).to.have.length(0);
+      expect(wrapper.find("div")).to.have.text(
+        "lOOKs lIKe yOu dON't hAVe aNy eNTRIEs sAVEd yEt..."
+      );
     });
   });
 
@@ -111,7 +118,9 @@ describe("manage > containers > <AllItems/>", () => {
     it("render items", () => {
       const item = wrapper.find(ItemSummary);
       expect(item).to.have.length(1);
-      expect(item.prop("title")).to.equal("item-summary-new-item");
+      expect(item.find(Localized).at(0)).to.have.prop(
+        "id", "item-summary-new-title"
+      );
     });
   });
 });
