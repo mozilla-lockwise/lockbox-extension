@@ -8,28 +8,9 @@ import React from "react";
 
 import styles from "./homepage.css";
 
-function printableLength(s) {
-  return s.replace(/(\u2068|\u2069)/g, "").length;
-}
-
-function speechBubble(text) {
-  const lines = text.split("\n");
-  const innerWidth = Math.max(...lines.map(printableLength), 1);
-
-  const result = [
-    " " + "_".repeat(innerWidth + 4),
-    "/" + " ".repeat(innerWidth + 4) + "\\",
-    ...lines.map((i) => {
-      return "|  " + i + " ".repeat(innerWidth - printableLength(i)) + "  |";
-    }),
-    "\\__   " + "_".repeat(innerWidth - 1) + "/",
-    "   \\ /",
-    "    v",
-  ];
-  return result.join("\n");
-}
-
 function Homepage({count, getString}) {
+  const imgSrc = browser.extension.getURL("/images/lockie_v2.svg");
+
   let key;
   if (count === 0) {
     key = "homepage-no-passwords";
@@ -42,9 +23,12 @@ function Homepage({count, getString}) {
   }
 
   return (
-    <pre className={styles.homepage}>{
-      speechBubble(getString(key, {count})) + "\n"
-    }</pre>
+    <article className={styles.homepage}>
+      <img src={imgSrc}/>
+      <pre>{
+        getString(key, {count})
+      }</pre>
+    </article>
   );
 }
 
