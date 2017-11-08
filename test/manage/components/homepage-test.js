@@ -25,6 +25,6 @@ describe("manage > components > <Homepage/>", () => {
       <Homepage count={5}/>
     );
 
-    expect(wrapper).to.contain.text("homepage-some-passwords-title");
+    expect(wrapper).to.contain.text("homepage-has-passwords-title");
   });
 });

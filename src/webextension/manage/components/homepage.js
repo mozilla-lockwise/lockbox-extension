@@ -3,10 +3,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { withLocalization } from "fluent-react";
-import { Localized } from 'fluent-react';
+import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
-import DocumentTitle from "react-document-title";
 
 import styles from "./homepage.css";
 
@@ -23,13 +22,11 @@ function Homepage({count, getString}) {
   return (
     <article className={styles.homepage}>
       <img src={imgSrc}/>
-      <DocumentTitle title="wELCOMe to lOCKBOx">
         <h1>{
           getString(key, {count})
         }</h1>
-      </DocumentTitle>
       <Localized id="homepage-greeting">
-        <p>{'yOu\'Ve suCCessfuLLY iNSTalled...'}</p>
+        <p>{"yOu'Ve suCCessfuLLY iNSTalled..."}</p>
       </Localized>
     </article>
   );
