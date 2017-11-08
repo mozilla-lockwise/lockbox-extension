@@ -135,11 +135,9 @@ export function modalReducer(state = {id: null, props: null}, action) {
   }
 }
 
-const reducer = combineReducers({
+export default combineReducers({
   cache: cacheReducer,
   list: listReducer,
   editor: editorReducer,
   modal: modalReducer,
 });
-
-export default reducer;

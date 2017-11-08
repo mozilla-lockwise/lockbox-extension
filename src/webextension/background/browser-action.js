@@ -54,5 +54,6 @@ export default async function updateBrowserAction(ds) {
     return installPopup("popup/unlock/index.html");
   }
 
-  return installListener("manage");
+  // XXX: Add a pref to disable this before landing!
+  return installPopup("popup/list/index.html");
 }

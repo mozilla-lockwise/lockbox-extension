@@ -40,7 +40,8 @@ describe("background > browser action", () => {
 
   it("unlocked data store", async () => {
     await updateBrowserAction({initialized: true, locked: false});
-    browser.browserAction.onClicked.mockFireListener();
-    expect(openView).to.have.been.calledWith("manage");
+    expect(browser.browserAction.getPopup()).to.eventually.equal(
+      browser.extension.getURL("popup/list/index.html")
+    );
   });
 });
