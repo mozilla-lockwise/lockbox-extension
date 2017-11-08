@@ -16,8 +16,8 @@ item-filter
 
 all-items-empty =
   Looks like you don't have any entries saved yet…
-  
-  Create a new entry so Lockie has something to protect.
+
+  Create a new entry so Lockbox has something to protect.
 all-items-filtered = No results
 
 item-summary-new-title = New Entry
@@ -33,29 +33,24 @@ item-summary-username =
   }
 
 homepage-no-passwords =
-  Welcome to Lockbox! I'm Lockie, and I'm here to help you lock
-  up your passwords!
-  
+  Welcome to Lockbox! I'm here to help you lock up your passwords!
+
   To get started, click { toolbar-add-item } above.
 
 homepage-under-10-passwords =
   { $count ->
-     [1]     Hi there! It's your friend, Lockie!
-           
-             You've added { $count } entry. That's a great start!
-    *[other] Hi there! It's your friend, Lockie!
-           
-             You've added { $count } entries. That's a great start!
+     [1]     Hi there! You've added { $count } entry. That's a great start!
+    *[other] Hi there! You've added { $count } entries. That's a great start!
   }
 
 homepage-under-50-passwords =
   Hey again! Just your pal Lockie checking in!
-  
+
   You've added { $count } entries. Great job, keep it up!
 
 homepage-over-50-passwords =
   Welcome back! I hope you're having a great day!
-  
+
   You've added { $count } entries. Wow, I'm really impressed!
 
 item-details-heading-view = Entry Details
