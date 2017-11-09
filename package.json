@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/mozilla-lockbox/lockbox-extension/issues"
   },
-  "homepage": "https://github.com/mozilla-lockbox/lockbox-extension#readme",
+  "homepage": "https://mozilla-lockbox.github.io/lockbox-extension/",
   "keywords": [
     "passwords",
     "crypto",
