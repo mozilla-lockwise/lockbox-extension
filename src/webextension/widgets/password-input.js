@@ -14,12 +14,14 @@ export default class PasswordInput extends React.Component {
   static get propTypes() {
     return {
       className: PropTypes.string,
+      monospace: PropTypes.bool,
     };
   }
 
   static get defaultProps() {
     return {
       className: "",
+      monospace: true,
     };
   }
 
@@ -46,11 +48,12 @@ export default class PasswordInput extends React.Component {
   }
 
   render() {
-    const {className, ...props} = this.props;
+    const {className, monospace, ...props} = this.props;
     const finalClassName = `${styles.inputWrapper} ${className}`.trimRight();
     return (
       <div className={finalClassName}>
-        <input type={this.state.showPassword ? "text" : "password"}
+        <input className={monospace ? styles.monospace : ""}
+               type={this.state.showPassword ? "text" : "password"}
                ref={(element) => this.inputElement = element} {...props}/>
         <ButtonStack ref={(element) => this.stackElement = element}>
           <Localized id="password-input-show">

@@ -6,6 +6,7 @@ import { Localized } from "fluent-react";
 import React from "react";
 
 import Button from "../../widgets/button";
+import LabelText from "../../widgets/label-text";
 import PasswordInput from "../../widgets/password-input";
 import * as telemetry from "../../telemetry";
 
@@ -85,14 +86,14 @@ export default class MasterPasswordSetup extends React.Component {
         </Localized>
         <label>
           <Localized id="master-password-setup-password">
-            <div>pASSWORd</div>
+            <LabelText>pASSWORd</LabelText>
           </Localized>
           <PasswordInput {...controlledProps("password")}
                          ref={(element) => this._firstField = element}/>
         </label>
         <label>
           <Localized id="master-password-setup-confirm">
-            <div>cONFIRm pASSWORd</div>
+            <LabelText>cONFIRm pASSWORd</LabelText>
           </Localized>
           <PasswordInput {...controlledProps("confirmPassword")}/>
         </label>
