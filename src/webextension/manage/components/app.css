@@ -19,7 +19,7 @@ body > main,
 .side-toolbar,
 .main-toolbar {
   background-color: #ededf0;
-  border-bottom: solid 1px #c8c8c8;
+  border-bottom: 1px solid #c8c8c8;
 }
 
 .side-toolbar {

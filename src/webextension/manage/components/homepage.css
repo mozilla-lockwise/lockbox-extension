@@ -17,12 +17,14 @@
   letter-spacing: 0.2px;
   line-height: 1.5;  
 }
+
 .homepage h1 {
   font-size: 33px;
   font-weight: 300;
   margin: auto;
   text-align: center;
 }
+
 .homepage p {
   font-size: 15px;
   text-align: left;
