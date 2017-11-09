@@ -4,7 +4,7 @@
 
 .input,
 .input-wrapper {
-  height: 28px;
+  height: 30px;
   width: -moz-available;
   color: #0c0c0d;
   background-color: #f9f9fa;
@@ -24,10 +24,10 @@
 
 .input:focus,
 .input-wrapper:focus-within {
-  /* Note: This follows the theme in other Photon pages (e.g. about:newtab),
-     since there's no spec yet for the focus color. */
-  border-color: #0060df;
-  box-shadow: 0 0 3px rgba(0, 96, 223, 0.5);
+  border-color: #0a84ff;
+  /* Note: This is a best-guess from the screenshots for the Photon spec, since
+     the box shadow isn't actually specified. */
+  box-shadow: 0 0 3px rgba(10, 168, 255, 0.5);
 }
 
 .input-wrapper {

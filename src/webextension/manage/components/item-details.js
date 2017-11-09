@@ -29,7 +29,7 @@ export function FieldText(props) {
 function CopyToClipboardButton({text, ...props}) {
   return (
     <CopyToClipboard text={text}>
-      <Button size="micro" {...props}/>
+      <Button {...props}/>
     </CopyToClipboard>
   );
 }
