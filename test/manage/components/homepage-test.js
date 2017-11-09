@@ -17,7 +17,7 @@ describe("manage > components > <Homepage/>", () => {
       <Homepage count={0}/>
     );
 
-    expect(wrapper).to.contain.text("homepage-no-passwords-title");
+    expect(wrapper.find("h1")).to.contain.text("welcOMe to lOcKboX");
   });
 
   it("render with 5 items", () => {
@@ -25,6 +25,6 @@ describe("manage > components > <Homepage/>", () => {
       <Homepage count={5}/>
     );
 
-    expect(wrapper).to.contain.text("homepage-has-passwords-title");
+    expect(wrapper.find("h1")).to.contain.text("YoU have X enTrieS in YoUr lOcKboX");
   });
 });

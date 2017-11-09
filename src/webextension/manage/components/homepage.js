@@ -2,29 +2,28 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { withLocalization } from "fluent-react";
 import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
 import styles from "./homepage.css";
 
-function Homepage({count, getString}) {
+export default function Homepage({count}) {
   const imgSrc = browser.extension.getURL("/images/lockie_v2.svg");
 
-  let key;
+  let title;
   if (count === 0) {
-    key = "homepage-no-passwords-title";
+    title = "welcOMe to lOcKboX";
   } else {
-    key = "homepage-has-passwords-title";
+    title = "YoU have X enTrieS in YoUr lOcKboX";
   }
 
   return (
     <article className={styles.homepage}>
       <img src={imgSrc} alt=""/>
-        <h1>{
-          getString(key, {count})
-        }</h1>
+      <Localized id="homepage-title" $count={count}>
+        <h1>{title}</h1>
+      </Localized>
       <Localized id="homepage-greeting">
         <p>{"yOu'Ve suCCessfuLLY iNSTalled..."}</p>
       </Localized>
@@ -34,7 +33,4 @@ function Homepage({count, getString}) {
 
 Homepage.propTypes = {
   count: PropTypes.number.isRequired,
-  getString: PropTypes.func.isRequired,
 };
-
-export default withLocalization(Homepage);

@@ -31,7 +31,12 @@ item-summary-username =
     *[other] { username }
   }
 
-homepage-no-passwords-title = Welcome to Lockbox
+homepage-title =
+  { $count ->
+     [0]     Welcome to Lockbox
+     [1]     You have { $count } entry in your Lockbox
+    *[other] You have { $count } entries in your Lockbox
+  }
 
 homepage-greeting =
   You’ve successfully installed the Lockbox browser extension! This Alpha
@@ -41,12 +46,6 @@ homepage-greeting =
   Please be sure to let us know your thoughts using our feedback button above,
   including any issues you may find, things you like, and the things you’re
   looking forward to in the future.
-
-homepage-has-passwords-title =
-  { $count ->
-     [1]     You have { $count } entry in your Lockbox
-    *[other] You have { $count } entries in your Lockbox
-  }
 
 item-details-heading-view = Entry Details
 item-details-heading-new = Create a New Entry
