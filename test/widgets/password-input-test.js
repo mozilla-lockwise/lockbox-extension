@@ -19,6 +19,18 @@ describe("widgets > <PasswordInput/>", () => {
       <PasswordInput value="my password" onChange={() => {}}/>
     );
     expect(wrapper.find("input")).to.have.prop("value", "my password");
+    expect(wrapper.childAt(0).prop("className")).to.match(
+      /^\S+input-wrapper\S+$/
+    );
+  });
+
+  it("merge classNames", () => {
+    const wrapper = mountWithL10n(
+      <PasswordInput className="foo" value="some text" onChange={() => {}}/>
+    );
+    expect(wrapper.childAt(0).prop("className")).to.match(
+      /^\S+input-wrapper\S+ foo$/
+    );
   });
 
   it("show/hide button toggles password visibility", async() => {

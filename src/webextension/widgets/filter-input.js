@@ -11,8 +11,16 @@ import styles from "./input.css";
 export default class FilterInput extends React.Component {
   static get propTypes() {
     return {
+      className: PropTypes.string,
       onChange: PropTypes.func,
       value: PropTypes.string,
+    };
+  }
+
+  static get defaultProps() {
+    return {
+      className: "",
+      value: "",
     };
   }
 
@@ -20,7 +28,7 @@ export default class FilterInput extends React.Component {
     super(props);
 
     this.state = {
-      value: props.value || "",
+      value: props.value,
     };
   }
 
@@ -35,10 +43,11 @@ export default class FilterInput extends React.Component {
 
   render() {
     // eslint-disable-next-line no-unused-vars
-    const {onChange, value, ...props} = this.props;
+    const {className, onChange, value, ...props} = this.props;
+    const finalClassName = `${styles.inputWrapper} ${className}`.trimRight();
 
     return (
-      <div className={styles.inputWrapper}>
+      <div className={finalClassName}>
         <input type="search" {...props} value={this.state.value}
                onChange={(e) => this.updateValue(e.target.value)}/>
         <Localized id="filter-input-clear">

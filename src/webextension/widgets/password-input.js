@@ -13,8 +13,13 @@ import styles from "./input.css";
 export default class PasswordInput extends React.Component {
   static get propTypes() {
     return {
-      onChange: PropTypes.func,
-      value: PropTypes.string,
+      className: PropTypes.string,
+    };
+  }
+
+  static get defaultProps() {
+    return {
+      className: "",
     };
   }
 
@@ -41,10 +46,12 @@ export default class PasswordInput extends React.Component {
   }
 
   render() {
+    const {className, ...props} = this.props;
+    const finalClassName = `${styles.inputWrapper} ${className}`.trimRight();
     return (
-      <div className={styles.inputWrapper}>
+      <div className={finalClassName}>
         <input type={this.state.showPassword ? "text" : "password"}
-               ref={(element) => this.inputElement = element} {...this.props}/>
+               ref={(element) => this.inputElement = element} {...props}/>
         <ButtonStack ref={(element) => this.stackElement = element}>
           <Localized id="password-input-show">
             <button type="button"
