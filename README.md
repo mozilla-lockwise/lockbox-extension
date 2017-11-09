@@ -4,6 +4,8 @@
 
 # Lockbox for Firefox
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/mozilla-lockbox/lockbox-extension.svg)](https://greenkeeper.io/)
+
 Lockbox for Firefox is a work-in-progress extension for Firefox to improve upon
 Firefox's built-in password management. If you're interested, you should
 probably come back later when we have more to show!
