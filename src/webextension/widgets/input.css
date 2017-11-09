@@ -6,7 +6,6 @@
 .input-wrapper {
   height: 28px;
   width: -moz-available;
-  font-size: 13px;
   color: #0c0c0d;
   background-color: #f9f9fa;
   border: 1px solid rgba(12, 12, 13, 0.3);
@@ -15,6 +14,7 @@
 
 .input {
   padding: 0 8px;
+  font-size: 13px;
 }
 
 .input:hover,
@@ -24,9 +24,10 @@
 
 .input:focus,
 .input-wrapper:focus-within {
-  /* Note: This is reverse-engineered by looking at the mockups. */
-  border-color: #7cddee;
-  box-shadow: 0 0 3px rgba(124, 221, 238, 0.5);
+  /* Note: This follows the theme in other Photon pages (e.g. about:newtab),
+     since there's no spec yet for the focus color. */
+  border-color: #0060df;
+  box-shadow: 0 0 3px rgba(0, 96, 223, 0.5);
 }
 
 .input-wrapper {
@@ -36,6 +37,7 @@
 .input-wrapper > input {
   flex: 1;
   padding: 0 8px;
+  font-size: 13px;
   width: 0;
   min-width: 0;
   border: 0;

@@ -115,8 +115,7 @@ export default class EditItemDetails extends React.Component {
             <Button type="submit" theme="primary">sAVe</Button>
           </Localized>
           <Localized id="item-details-cancel">
-            <Button type="button" theme="ghost"
-                    onClick={(e) => onCancel()}>
+            <Button type="button" onClick={() => onCancel()}>
               cANCEl
             </Button>
           </Localized>

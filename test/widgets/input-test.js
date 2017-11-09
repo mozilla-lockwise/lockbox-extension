@@ -17,6 +17,9 @@ describe("widgets > <Input/>", () => {
   it("render input", () => {
     const wrapper = mount(<Input value="some text" onChange={() => {}}/>);
     expect(wrapper.find("input")).to.have.prop("value", "some text");
+    expect(wrapper.find("input").prop("className")).to.match(
+      /^\S+input\S+$/
+    );
   });
 
   it("merge classNames", () => {
