@@ -1,5 +1,6 @@
 [![Build Status][travis-image]][travis-link]
 [![Coverage Status][codecov-image]][codecov-link]
+[![Waffle Board][waffle-image]][waffle-link]
 
 # Lockbox for Firefox
 
@@ -43,6 +44,8 @@ version 2.0][license-link].
 [travis-link]: https://travis-ci.org/mozilla-lockbox/lockbox-extension
 [codecov-image]: https://img.shields.io/codecov/c/github/mozilla-lockbox/lockbox-extension.svg
 [codecov-link]: https://codecov.io/gh/mozilla-lockbox/lockbox-extension
+[waffle-image]: https://badge.waffle.io/mozilla-lockbox/lockbox-extension.svg?columns=In%20Progress
+[waffle-link]: https://waffle.io/mozilla-lockbox/lockbox-extension
 [install-link]: /docs/install.md
 [org-website]: https://mozilla-lockbox.github.io/
 [docs-link]: /docs
