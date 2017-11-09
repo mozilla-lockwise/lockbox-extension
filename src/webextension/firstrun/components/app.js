@@ -20,7 +20,7 @@ export default function App() {
     <Localized id="document">
       <DocumentTitle title="wELCOMe to lOCKBOx">
         <article className={styles.firstrun}>
-          <img src={imgSrc}/>
+          <img src={imgSrc} alt=""/>
           <Welcome />
           <MasterPasswordSetup />
         </article>

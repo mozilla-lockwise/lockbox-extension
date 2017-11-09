@@ -21,7 +21,7 @@ function Homepage({count, getString}) {
 
   return (
     <article className={styles.homepage}>
-      <img src={imgSrc}/>
+      <img src={imgSrc} alt=""/>
         <h1>{
           getString(key, {count})
         }</h1>
