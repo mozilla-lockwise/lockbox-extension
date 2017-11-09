@@ -22,8 +22,11 @@ npm run-script run -- -b nightly
 
 ## [Documentation][docs-link]
 
-For detailed documentation and installation instructions, please see the
-[`docs` directory][docs-link].
+*This is just one component of the Lockbox product. Please see the
+[Lockbox website][org-website] for more context.*
+
+For detailed documentation and installation instructions about this component,
+please see the [`docs` directory][docs-link].
 
 ## Contributing ##
 
@@ -41,6 +44,7 @@ version 2.0][license-link].
 [codecov-image]: https://img.shields.io/codecov/c/github/mozilla-lockbox/lockbox-extension.svg
 [codecov-link]: https://codecov.io/gh/mozilla-lockbox/lockbox-extension
 [install-link]: /docs/install.md
+[org-website]: https://mozilla-lockbox.github.io/
 [docs-link]: /docs
 [contributing-link]: docs/contributing.md
 [coc-link]: docs/code_of_conduct.md
