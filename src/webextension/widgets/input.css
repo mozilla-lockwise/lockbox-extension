@@ -2,6 +2,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+@font-face {
+  font-family: "Fira Sans Mono";
+  src: url("/fonts/fira-mono-regular.woff");
+}
+
+.monospace {
+  font-family: "Fira Sans Mono";
+}
+
 .input,
 .input-wrapper {
   height: 30px;
@@ -57,4 +66,20 @@
 
 .input-wrapper button:active {
   color: #003eaa;
+}
+
+.field-text {
+  /* This lines up our labels with the text in <input> elements. */
+  margin-top: 7px;
+  min-height: 25px;
+  font-size: 13px;
+  margin-inline-start: 9px;
+}
+
+.label-text {
+  margin-inline-start: 9px;
+  margin-top: 10px;
+  margin-bottom: 3px;
+  color: #626262;
+  font-size: 13px;
 }

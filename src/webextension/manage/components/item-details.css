@@ -5,17 +5,15 @@
 .item-details {
   display: grid;
   grid-template-columns: minmax(200px, 1fr);
-  grid-column-gap: 1em;
-  grid-row-gap: 3px;
   margin: 2em;
   max-width: 320px;
 }
 
 .item-details > h1 {
-  margin-top: 7px;
-  margin-inline-start: 7px;
-  font-weight: normal;
-  font-size: 1.5em;
+  margin-top: 9px;
+  margin-inline-start: 9px;
+  font-weight: 300;
+  font-size: 22px;
 }
 
 .item-details > label,
@@ -27,22 +25,10 @@
   resize: none;
 }
 
-.label-text {
-  margin-inline-start: 7px;
-  margin-top: 0.5em;
-  color: #626262;
-}
-
-.field-text {
-  /* This lines up our labels with the text in <input> elements. */
-  margin-top: 3.5px;
-  min-height: 20.5px;
-  margin-inline-start: 7px;
-}
-
 .inline-button {
   display: flex;
   overflow: hidden;
+  align-items: center;
 }
 
 .inline-button > *:first-child {
