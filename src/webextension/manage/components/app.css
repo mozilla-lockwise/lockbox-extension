@@ -18,8 +18,8 @@ body > main,
 
 .side-toolbar,
 .main-toolbar {
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #d6d6d6;
+  background-color: #ededf0;
+  border-bottom: 1px solid #c8c8c8;
 }
 
 .side-toolbar {
@@ -34,13 +34,13 @@ body > main,
   grid-column: 1;
   min-width: 0;
   min-height: 0;
-  background-color: #e6e6e6;
-  border-right: 1px solid #e1e1e1;
+  background-color: #dfdfe3;
+  border-right: 1px solid #b1b1b3;
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
 
 .app-main > article {
   grid-column: 2;
-  background-color: #f9f9f9;
+  background-color: #f9f9fa;
 }

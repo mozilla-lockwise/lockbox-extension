@@ -15,9 +15,8 @@ item-filter
   .placeholder = Search for an entry
 
 all-items-empty =
-  Looks like you don't have any entries saved yet…
-  
-  Create a new entry so Lockie has something to protect.
+  When you create an entry, it will be saved in this sidebar. 
+
 all-items-filtered = No results
 
 item-summary-new-title = New Entry
@@ -32,31 +31,21 @@ item-summary-username =
     *[other] { username }
   }
 
-homepage-no-passwords =
-  Welcome to Lockbox! I'm Lockie, and I'm here to help you lock
-  up your passwords!
-  
-  To get started, click { toolbar-add-item } above.
-
-homepage-under-10-passwords =
+homepage-title =
   { $count ->
-     [1]     Hi there! It's your friend, Lockie!
-           
-             You've added { $count } entry. That's a great start!
-    *[other] Hi there! It's your friend, Lockie!
-           
-             You've added { $count } entries. That's a great start!
+     [0]     Welcome to Lockbox
+     [1]     You have { $count } entry in your Lockbox
+    *[other] You have { $count } entries in your Lockbox
   }
 
-homepage-under-50-passwords =
-  Hey again! Just your pal Lockie checking in!
+homepage-greeting =
+  You’ve successfully installed the Lockbox browser extension! This Alpha
+  prototype gives you the ability to create new entries, and then view, search,
+  edit, and delete those entries.
   
-  You've added { $count } entries. Great job, keep it up!
-
-homepage-over-50-passwords =
-  Welcome back! I hope you're having a great day!
-  
-  You've added { $count } entries. Wow, I'm really impressed!
+  Please be sure to let us know your thoughts using our feedback button above,
+  including any issues you may find, things you like, and the things you’re
+  looking forward to in the future.
 
 item-details-heading-view = Entry Details
 item-details-heading-new = Create a New Entry

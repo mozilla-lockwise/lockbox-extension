@@ -17,7 +17,7 @@ describe("manage > components > <Homepage/>", () => {
       <Homepage count={0}/>
     );
 
-    expect(wrapper).to.contain.text("homepage-no-passwords");
+    expect(wrapper.find("h1")).to.contain.text("welcOMe to lOcKboX");
   });
 
   it("render with 5 items", () => {
@@ -25,22 +25,6 @@ describe("manage > components > <Homepage/>", () => {
       <Homepage count={5}/>
     );
 
-    expect(wrapper).to.contain.text("homepage-under-10-passwords");
-  });
-
-  it("render with 15 items", () => {
-    const wrapper = mountWithL10n(
-      <Homepage count={15}/>
-    );
-
-    expect(wrapper).to.contain.text("homepage-under-50-passwords");
-  });
-
-  it("render with 75 items", () => {
-    const wrapper = mountWithL10n(
-      <Homepage count={75}/>
-    );
-
-    expect(wrapper).to.contain.text("homepage-over-50-passwords");
+    expect(wrapper.find("h1")).to.contain.text("YoU have X enTrieS in YoUr lOcKboX");
   });
 });
