@@ -33,7 +33,8 @@
 
   "permissions": [
     "identity",
-    "storage"
+    "storage",
+    "tabs"
   ],
 
   "options_ui": {
