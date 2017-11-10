@@ -142,6 +142,7 @@ export default {
       chunks: ["webextension/firstrun/index"],
       inject: false,
       minify: htmlMinifyOptions,
+      icon: "../icons/lb_locked.svg",
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",
