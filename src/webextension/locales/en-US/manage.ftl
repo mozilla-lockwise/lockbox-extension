@@ -28,7 +28,7 @@ item-summary-title =
 item-summary-username =
   { $length ->
      [0]     (No Username)
-    *[other] { username }
+    *[other] { $username }
   }
 
 homepage-title =

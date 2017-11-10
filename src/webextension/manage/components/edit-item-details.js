@@ -11,7 +11,7 @@ import Input from "../../widgets/input";
 import PasswordInput from "../../widgets/password-input";
 import TextArea from "../../widgets/text-area";
 import Toolbar from "../../widgets/toolbar";
-import { LabelText } from "./item-details.js";
+import LabelText from "../../widgets/label-text";
 
 import styles from "./item-details.css";
 
@@ -90,13 +90,13 @@ export default class EditItemDetails extends React.Component {
           <Localized id="item-details-origin">
             <LabelText>oRIGIn</LabelText>
           </Localized>
-          <Input type="text" {...controlledProps("origin")}/>
+          <Input type="text" monospace={true} {...controlledProps("origin")}/>
         </label>
         <label>
           <Localized id="item-details-username">
             <LabelText>uSERNAMe</LabelText>
           </Localized>
-          <Input type="text" {...controlledProps("username")}/>
+          <Input type="text" monospace={true} {...controlledProps("username")}/>
         </label>
         <label>
           <Localized id="item-details-password">
@@ -115,8 +115,7 @@ export default class EditItemDetails extends React.Component {
             <Button type="submit" theme="primary">sAVe</Button>
           </Localized>
           <Localized id="item-details-cancel">
-            <Button type="button" theme="minimal"
-                    onClick={(e) => onCancel()}>
+            <Button type="button" onClick={() => onCancel()}>
               cANCEl
             </Button>
           </Localized>

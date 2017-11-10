@@ -117,10 +117,11 @@ export default {
   plugins: [
     new CopyWebpackPlugin([
       {from: "bootstrap.js"},
-      {from: "webextension/locales/**/*.ftl"},
+      {from: "icon.png"},
+      {from: "webextension/fonts/*"},
       {from: "webextension/icons/*"},
       {from: "webextension/images/*"},
-      {from: "icon.png"},
+      {from: "webextension/locales/**/*.ftl"},
       ...extraCopy,
     ]),
     new webpack.DefinePlugin({
@@ -142,6 +143,7 @@ export default {
       chunks: ["webextension/firstrun/index"],
       inject: false,
       minify: htmlMinifyOptions,
+      icon: "../icons/lb_locked.svg",
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",
