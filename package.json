@@ -2,7 +2,7 @@
   "title": "Lockbox",
   "name": "lockbox",
   "id": "lockbox@mozilla.com",
-  "version": "0.1.1-alpha1",
+  "version": "0.1.2-alpha",
   "main": "dist/bootstrap.js",
   "description": "A Lockbox extension for Firefox",
   "author": "Lockbox Team <lockbox-dev@mozilla.com>",
@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/mozilla-lockbox/lockbox-extension/issues"
   },
-  "homepage": "https://github.com/mozilla-lockbox/lockbox-extension#readme",
+  "homepage": "https://mozilla-lockbox.github.io/lockbox-extension/",
   "keywords": [
     "passwords",
     "crypto",
