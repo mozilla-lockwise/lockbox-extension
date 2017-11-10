@@ -5,6 +5,8 @@
 .modal-dialog {
   padding: 1em;
   border: 1px solid ActiveBorder;
+
+  background-color: #E8E8E7;
 }
 
 .modal-dialog > menu {
