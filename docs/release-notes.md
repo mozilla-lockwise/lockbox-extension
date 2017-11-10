@@ -6,18 +6,19 @@ _Date: 2017-11-13_
 
 ### What's New
 
-* Interface styles updated to more closely match Photon design language ([#295](https://github.com/mozilla-lockbox/lockbox-extension/issues/295))
+* Interface styles updated to more closely match Photon design language ([#295](https://github.com/mozilla-lockbox/lockbox-extension/pull/295)) ([#307](https://github.com/mozilla-lockbox/lockbox-extension/pull/307))
 * Improved user interface design on welcome screen and home page ([#300](https://github.com/mozilla-lockbox/lockbox-extension/issues/300))
-* Added initial content in the interface to guide the user experience ([#165](https://github.com/mozilla-lockbox/lockbox-extension/issues/165))
+* Updated content throughout the interface to guide the user experience ([#165](https://github.com/mozilla-lockbox/lockbox-extension/issues/165))
 
 ### What's Fixed
 
 * Clicking the toolbar (browser action) icon would not open the editor if the editor was opened and the user changed the URL ([#262](https://github.com/mozilla-lockbox/lockbox-extension/issues/262))
+* The toolbar icon did not invert to light colors on dark themes ([#306](https://github.com/mozilla-lockbox/lockbox-extension/pull/306))
 
 ### Known Issues
 
 * This is pre-release software subject to change. Your data may not be retained.
-* There is no way to change your Lockbox master password.  If you forget your master password, you'll need to start over fresh by either:
+* There is no way to change your Lockbox master password. If you forget your master password, you'll need to start over fresh by either:
   - Opening the this extension's Preferences and clicking the "`💥💣 Reset 💣💥`" button; or
   - Uninstalling and re-installing the extension
 * Firefox's default prompt to save logins is only disabled on new installs of this extension; updating Lockbox will not change your current Firefox preferences.
