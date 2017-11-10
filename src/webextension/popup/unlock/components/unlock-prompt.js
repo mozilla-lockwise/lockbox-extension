@@ -71,7 +71,8 @@ export default class UnlockPrompt extends React.Component {
           <Localized id="unlock-prompt-desc">
             <p>eNTEr yOUr mASTEr pASSWORd to uNLOCk:</p>
           </Localized>
-          <PasswordInput name="password" value={this.state.password}
+          <PasswordInput className={styles.passwordInput}
+                         name="password" value={this.state.password}
                          onChange={(e) => {
                            this.handlePasswordChange(e.target.value);
                          }}

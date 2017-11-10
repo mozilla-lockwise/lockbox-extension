@@ -19,6 +19,28 @@ describe("widgets > <PasswordInput/>", () => {
       <PasswordInput value="my password" onChange={() => {}}/>
     );
     expect(wrapper.find("input")).to.have.prop("value", "my password");
+    expect(wrapper.childAt(0).prop("className")).to.match(
+      /^\S+input-wrapper\S+$/
+    );
+    expect(wrapper.find("input").prop("className")).to.match(
+      /^\S+monospace\S+$/
+    );
+  });
+
+  it("merge classNames", () => {
+    const wrapper = mountWithL10n(
+      <PasswordInput className="foo" value="some text" onChange={() => {}}/>
+    );
+    expect(wrapper.childAt(0).prop("className")).to.match(
+      /^\S+input-wrapper\S+ foo$/
+    );
+  });
+
+  it("non-monospace", () => {
+    const wrapper = mountWithL10n(
+      <PasswordInput monospace={false} value="my password" onChange={() => {}}/>
+    );
+    expect(wrapper.find("input")).to.have.prop("className", "");
   });
 
   it("show/hide button toggles password visibility", async() => {

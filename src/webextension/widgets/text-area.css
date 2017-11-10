@@ -2,7 +2,22 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-textarea.text-area {
-  /* Override the margin-bottom from browser-style. */
-  margin-bottom: 0;
+.text-area {
+  padding: 8px;
+  font: caption;
+  font-size: 13px;
+  color: #0c0c0d;
+  background-color: #f9f9fa;
+  border: 1px solid rgba(12, 12, 13, 0.3);
+  border-radius: 2px;
+}
+
+.text-area:hover {
+  border-color: rgba(12, 12, 13, 0.5);
+}
+
+.text-area:focus {
+  /* Note: This is reverse-engineered by looking at the mockups. */
+  border-color: #7cddee;
+  box-shadow: 0 0 3px rgba(124, 221, 238, 0.5);
 }

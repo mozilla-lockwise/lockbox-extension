@@ -8,23 +8,13 @@ import React from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 
 import Button from "../../widgets/button";
+import FieldText from "../../widgets/field-text";
+import LabelText from "../../widgets/label-text";
 import Toolbar from "../../widgets/toolbar";
 
 import styles from "./item-details.css";
 
 const PASSWORD_DOT = "\u25cf";
-
-export function LabelText(props) {
-  return (
-    <span className={styles.labelText} {...props}/>
-  );
-}
-
-export function FieldText(props) {
-  return (
-    <span className={styles.fieldText} {...props}/>
-  );
-}
 
 function CopyToClipboardButton({text, ...props}) {
   return (
@@ -57,14 +47,18 @@ export default function ItemDetails({fields, onEdit, onDelete}) {
         <Localized id="item-details-origin">
           <LabelText>oRIGIn</LabelText>
         </Localized>
-        <FieldText data-name="origin">{fields.origin}</FieldText>
+        <FieldText monospace={true} data-name="origin">
+          {fields.origin}
+        </FieldText>
       </div>
       <div className={styles.field}>
         <Localized id="item-details-username">
           <LabelText>uSERNAMe</LabelText>
         </Localized>
         <div className={styles.inlineButton}>
-          <FieldText data-name="username">{fields.username}</FieldText>
+          <FieldText monospace={true} data-name="username">
+            {fields.username}
+          </FieldText>
           <Localized id="item-details-copy-username">
             <CopyToClipboardButton text={fields.username}>
               cOPy
@@ -77,7 +71,7 @@ export default function ItemDetails({fields, onEdit, onDelete}) {
           <LabelText>pASSWORd</LabelText>
         </Localized>
         <div className={styles.inlineButton}>
-          <FieldText data-name="password">
+          <FieldText monospace={true} data-name="password">
             {PASSWORD_DOT.repeat(fields.password.length)}
           </FieldText>
           <Localized id="item-details-copy-password">
@@ -98,7 +92,7 @@ export default function ItemDetails({fields, onEdit, onDelete}) {
           <Button onClick={() => onEdit()}>eDIt</Button>
         </Localized>
         <Localized id="item-details-delete">
-          <Button theme="minimal" onClick={() => onDelete()}>dELETe</Button>
+          <Button theme="ghost" onClick={() => onDelete()}>dELETe</Button>
         </Localized>
       </Toolbar>
     </div>

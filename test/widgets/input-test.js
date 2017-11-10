@@ -17,13 +17,37 @@ describe("widgets > <Input/>", () => {
   it("render input", () => {
     const wrapper = mount(<Input value="some text" onChange={() => {}}/>);
     expect(wrapper.find("input")).to.have.prop("value", "some text");
+    expect(wrapper.find("input").prop("className")).to.match(
+      /^\S+input\S+$/
+    );
   });
 
-  it("apply className", () => {
+  it("merge classNames", () => {
     const wrapper = mount(
       <Input className="foo" value="some text" onChange={() => {}}/>
     );
-    expect(wrapper.find("input").prop("className")).to.equal("foo");
+    expect(wrapper.find("input").prop("className")).to.match(
+      /^\S+input\S+ foo$/
+    );
+  });
+
+  it("monospace", () => {
+    const wrapper = mount(
+      <Input monospace={true} value="some text" onChange={() => {}}/>
+    );
+    expect(wrapper.find("input").prop("className")).to.match(
+      /^\S+input\S+ \S+monospace\S+$/
+    );
+  });
+
+  it("monospace with merged classnames", () => {
+    const wrapper = mount(
+      <Input monospace={true} className="foo" value="some text"
+             onChange={() => {}}/>
+    );
+    expect(wrapper.find("input").prop("className")).to.match(
+      /^\S+input\S+ \S+monospace\S+ foo$/
+    );
   });
 
   it("focus() focuses input", () => {
