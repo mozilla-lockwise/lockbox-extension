@@ -10,10 +10,9 @@ import ScrollingList from "../../widgets/scrolling-list";
 
 import styles from "./item-list.css";
 
-export default function ItemList({items, selected, onItemSelected}) {
+export default function ItemList({items, ...props}) {
   return (
-    <ScrollingList itemClassName={styles.item} data={items} selected={selected}
-                   onItemSelected={onItemSelected}>
+    <ScrollingList itemClassName={styles.item} data={items} {...props}>
       {({id, title, username}) => {
         return (
           <ItemSummary id={id} title={title} username={username}/>
@@ -31,8 +30,6 @@ ItemList.propTypes = {
       username: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
-  selected: PropTypes.string,
-  onItemSelected: PropTypes.func.isRequired,
 };
 
 export function ItemListPlaceholder({children}) {

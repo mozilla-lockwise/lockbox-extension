@@ -16,7 +16,7 @@ chai.use(chaiEnzyme());
 chai.use(sinonChai);
 
 describe("manage > components > <ItemList/>", () => {
-  let onItemSelected, wrapper;
+  let onChange, onClick, wrapper;
   const items = [
     {id: "0", title: "title 0", username: "username 0"},
     {id: "1", title: "title 1", username: "username 1"},
@@ -24,10 +24,11 @@ describe("manage > components > <ItemList/>", () => {
   ];
 
   beforeEach(() => {
-    onItemSelected = sinon.spy();
+    onChange = sinon.spy();
+    onClick = sinon.spy();
     wrapper = mountWithL10n(
-      <ItemList items={items} selected={items[0].id}
-                onItemSelected={onItemSelected}/>
+      <ItemList items={items} selected={items[0].id} onChange={onChange}
+                onClick={onClick}/>
     );
   });
 
@@ -39,8 +40,9 @@ describe("manage > components > <ItemList/>", () => {
     expect(wrapper.find("li").at(0)).to.have.prop("data-selected", true);
   });
 
-  it("onItemSelected called", () => {
+  it("onChange() and onClick() called", () => {
     wrapper.find(ItemSummary).at(0).simulate("mousedown");
-    expect(onItemSelected).to.have.been.calledWith(items[0].id);
+    expect(onChange).to.have.been.calledWith(items[0].id);
+    expect(onClick).to.have.been.calledWith(items[0].id);
   });
 });
