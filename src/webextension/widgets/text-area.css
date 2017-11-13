@@ -17,7 +17,8 @@
 }
 
 .text-area:focus {
-  /* Note: This is reverse-engineered by looking at the mockups. */
-  border-color: #7cddee;
-  box-shadow: 0 0 3px rgba(124, 221, 238, 0.5);
+  border-color: #0a84ff;
+  /* Note: This is a best-guess from the screenshots for the Photon spec, since
+     the box shadow isn't actually specified. */
+  box-shadow: 0 0 3px rgba(10, 168, 255, 0.5);
 }
