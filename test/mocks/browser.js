@@ -168,7 +168,13 @@ window.browser = {
       return tab;
     },
 
-    update() {},
+    update(id, props) {
+      const tab = this.get(id);
+      if ("url" in props) {
+        tab.url = props.url;
+      }
+      return tab;
+    },
 
     get mockAllTabs() {
       return this._openedTabs;

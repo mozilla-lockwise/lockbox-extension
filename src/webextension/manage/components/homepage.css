@@ -3,6 +3,30 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .homepage {
-  margin: 2em;
-  font-size: 1.25em;
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  margin: 3em auto;
+  width: 701px;
+}
+
+.homepage > h1,
+.homepage > p {
+  color: #0c0c0d;
+  letter-spacing: 0.2px;
+  line-height: 1.5;  
+}
+
+.homepage h1 {
+  font-size: 33px;
+  font-weight: 300;
+  margin: auto;
+  text-align: center;
+}
+
+.homepage p {
+  font-size: 15px;
+  text-align: left;
+  white-space: pre-line;
 }

@@ -14,9 +14,9 @@ export default function ItemList({items, selected, onItemSelected}) {
   return (
     <ScrollingList itemClassName={styles.item} data={items} selected={selected}
                    onItemSelected={onItemSelected}>
-      {({title, username}) => {
+      {({id, title, username}) => {
         return (
-          <ItemSummary title={title} username={username}/>
+          <ItemSummary id={id} title={title} username={username}/>
         );
       }}
     </ScrollingList>
@@ -33,4 +33,16 @@ ItemList.propTypes = {
   ).isRequired,
   selected: PropTypes.string,
   onItemSelected: PropTypes.func.isRequired,
+};
+
+export function ItemListPlaceholder({children}) {
+  return (
+    <div className={styles.empty}>
+      {children}
+    </div>
+  );
+}
+
+ItemListPlaceholder.propTypes = {
+  children: PropTypes.node,
 };

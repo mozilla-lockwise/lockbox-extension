@@ -21,6 +21,10 @@ Toolbar.propTypes = {
   children: PropTypes.node,
 };
 
+Toolbar.defaultProps = {
+  className: "",
+};
+
 export function ToolbarSpace({className}) {
   const finalClassName = `${styles.toolbarSpace} ${className}`.trimRight();
   return (
@@ -32,3 +36,6 @@ ToolbarSpace.propTypes = {
   className: PropTypes.string,
 };
 
+ToolbarSpace.defaultProps = {
+  className: "",
+};

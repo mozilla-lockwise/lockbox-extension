@@ -2,11 +2,83 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-span.input {
-  /* Override the margin-bottom from browser-style. */
-  margin-bottom: 0;
+@font-face {
+  font-family: "Fira Sans Mono";
+  src: url("/fonts/fira-mono-regular.woff");
 }
 
-.input > input {
+.monospace {
+  font-family: "Fira Sans Mono";
+}
+
+.input,
+.input-wrapper {
+  height: 30px;
   width: -moz-available;
+  color: #0c0c0d;
+  background-color: #f9f9fa;
+  border: 1px solid rgba(12, 12, 13, 0.3);
+  border-radius: 2px;
+}
+
+.input {
+  padding: 0 8px;
+  font-size: 13px;
+}
+
+.input:hover,
+.input-wrapper:hover {
+  border-color: rgba(12, 12, 13, 0.5);
+}
+
+.input:focus,
+.input-wrapper:focus-within {
+  border-color: #0a84ff;
+  /* Note: This is a best-guess from the screenshots for the Photon spec, since
+     the box shadow isn't actually specified. */
+  box-shadow: 0 0 3px rgba(10, 168, 255, 0.5);
+}
+
+.input-wrapper {
+  display: flex;
+}
+
+.input-wrapper > input {
+  flex: 1;
+  padding: 0 8px;
+  font-size: 13px;
+  width: 0;
+  min-width: 0;
+  border: 0;
+  background-color: transparent;
+}
+
+.input-wrapper button {
+  white-space: nowrap;
+  text-align: center;
+  height: 28px;
+  font-size: 13px;
+  border: 0;
+  color: #0060df;
+  background-color: transparent;
+  padding: 4px 8px;
+}
+
+.input-wrapper button:active {
+  color: #003eaa;
+}
+
+.field-text {
+  /* This lines up our labels with the text in <input> elements. */
+  margin-top: 7px;
+  min-height: 25px;
+  font-size: 13px;
+  -moz-user-select: text;
+}
+
+.label-text {
+  margin-top: 10px;
+  margin-bottom: 3px;
+  color: #626262;
+  font-size: 13px;
 }

@@ -14,13 +14,13 @@ import styles from "./app.css";
 export default function App() {
   // Eventually, we'll have a feedback button up top here, and maybe some other
   // stuff.
-  const imgSrc = browser.extension.getURL("/images/lockie_v1.png");
+  const imgSrc = browser.extension.getURL("/images/lockie_v2.svg");
 
   return (
     <Localized id="document">
       <DocumentTitle title="wELCOMe to lOCKBOx">
         <article className={styles.firstrun}>
-          <img src={imgSrc}/>
+          <img src={imgSrc} alt=""/>
           <Welcome />
           <MasterPasswordSetup />
         </article>

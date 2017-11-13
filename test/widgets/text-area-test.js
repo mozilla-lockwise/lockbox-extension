@@ -24,7 +24,7 @@ describe("widgets > <TextArea/>", () => {
       <TextArea className="foo" value="text" onChange={() => {}}/>
     );
     expect(wrapper.find("textarea").prop("className")).to.match(
-      /^browser-style \S+ foo$/
+      /^\S+text-area\S+ foo$/
     );
   });
 

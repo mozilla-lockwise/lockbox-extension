@@ -7,6 +7,8 @@ import React from "react";
 import LocalReset from "./local-reset";
 import ModalRoot from "../containers/modals";
 
+import "./app.css";
+
 export default function App() {
   return (
     <article>

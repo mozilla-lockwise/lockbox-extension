@@ -19,6 +19,18 @@ describe("widgets > <FilterInput/>", () => {
   it("render input", () => {
     const wrapper = mountWithL10n(<FilterInput value="some text"/>);
     expect(wrapper.find("input")).to.have.prop("value", "some text");
+    expect(wrapper.childAt(0).prop("className")).to.match(
+      /^\S+input-wrapper\S+$/
+    );
+  });
+
+  it("merge classNames", () => {
+    const wrapper = mountWithL10n(
+      <FilterInput className="foo" value="some text"/>
+    );
+    expect(wrapper.childAt(0).prop("className")).to.match(
+      /^\S+input-wrapper\S+ foo$/
+    );
   });
 
   it("reset button clears filter", () => {

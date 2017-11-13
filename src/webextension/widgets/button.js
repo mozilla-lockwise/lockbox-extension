@@ -8,15 +8,22 @@ import React from "react";
 import styles from "./button.css";
 
 const THEME_CLASS_NAME = {
-  primary: "browser-style default",
-  normal: "browser-style",
-  minimal: `browser-style ${styles.minimal}`,
+  primary: `${styles.primaryTheme}`,
+  normal: `${styles.normalTheme}`,
+  ghost: `${styles.ghostTheme}`,
+};
+
+const SIZE_CLASS_NAME = {
+  puffy: `${styles.puffySize}`,
+  normal: `${styles.normalSize}`,
+  micro: `${styles.microSize}`,
 };
 
 export default class Button extends React.Component {
   static get propTypes() {
     return {
-      theme: PropTypes.oneOf(["primary", "normal", "minimal"]),
+      theme: PropTypes.oneOf(Object.keys(THEME_CLASS_NAME)),
+      size: PropTypes.oneOf(Object.keys(SIZE_CLASS_NAME)),
       className: PropTypes.string,
     };
   }
@@ -24,6 +31,7 @@ export default class Button extends React.Component {
   static get defaultProps() {
     return {
       theme: "normal",
+      size: "normal",
       className: "",
     };
   }
@@ -33,9 +41,11 @@ export default class Button extends React.Component {
   }
 
   render() {
-    const {className, theme, ...props} = this.props;
+    const {className, theme, size, ...props} = this.props;
+    const themeClass = THEME_CLASS_NAME[theme];
+    const sizeClass = SIZE_CLASS_NAME[size];
     const finalClassName = (
-      `${THEME_CLASS_NAME[theme]} ${styles.button} ${className}`
+      `${styles.button} ${themeClass} ${sizeClass} ${className}`
     ).trimRight();
 
     return (

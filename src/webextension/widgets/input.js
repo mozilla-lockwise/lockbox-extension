@@ -11,12 +11,14 @@ export default class Input extends React.Component {
   static get propTypes() {
     return {
       className: PropTypes.string,
+      monospace: PropTypes.bool,
     };
   }
 
   static get defaultProps() {
     return {
       className: "",
+      monospace: false,
     };
   }
 
@@ -25,12 +27,12 @@ export default class Input extends React.Component {
   }
 
   render() {
-    const {className, ...props} = this.props;
+    const {className, monospace, ...props} = this.props;
+    const mono = monospace ? ` ${styles.monospace}` : "";
+    const finalClassName = `${styles.input}${mono} ${className}`.trimRight();
     return (
-      <span className={`${styles.input} browser-style`}>
-        <input className={className} {...props}
-               ref={(element) => this.inputElement = element}/>
-      </span>
+      <input className={finalClassName} {...props}
+             ref={(element) => this.inputElement = element}/>
     );
   }
 }
