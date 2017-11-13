@@ -62,6 +62,7 @@
   color: #0060df;
   background-color: transparent;
   padding: 4px 8px;
+  cursor: pointer;
 }
 
 .input-wrapper button:active {
