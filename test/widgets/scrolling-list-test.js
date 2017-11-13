@@ -13,7 +13,7 @@ import ScrollingList from "src/webextension/widgets/scrolling-list";
 chai.use(sinonChai);
 
 describe("widgets > <ScrollingList/>", () => {
-  let wrapper, onItemSelected;
+  let wrapper, onChange, onClick;
 
   const data = [
     {id: "1", name: "item 1"},
@@ -22,12 +22,13 @@ describe("widgets > <ScrollingList/>", () => {
   ];
 
   beforeEach(() => {
-    onItemSelected = sinon.spy();
+    onChange = sinon.spy();
+    onClick = sinon.spy();
   });
 
   it("merge classNames", () => {
     wrapper = mount(
-      <ScrollingList className="foo" data={[]} onItemSelected={onItemSelected}>
+      <ScrollingList className="foo" data={[]} onChange={onChange}>
         {({item, ...props}) => {
           return (
             <li {...props}>{item.name}</li>
@@ -43,11 +44,9 @@ describe("widgets > <ScrollingList/>", () => {
   describe("empty list", () => {
     beforeEach(() => {
       wrapper = mount(
-        <ScrollingList data={[]} onItemSelected={onItemSelected}>
-          {({item, ...props}) => {
-            return (
-              <li {...props}>{item.name}</li>
-            );
+        <ScrollingList data={[]} onChange={onChange} onClick={onClick}>
+          {({name}) => {
+            return <div>{name}</div>;
           }}
         </ScrollingList>
       );
@@ -58,15 +57,27 @@ describe("widgets > <ScrollingList/>", () => {
       expect(wrapper.find("li")).to.have.length(0);
     });
 
-    describe("onItemSelected()", () => {
+    describe("onChange()", () => {
       it("not dispatched on arrow down", () => {
         wrapper.simulate("keydown", {key: "ArrowDown"});
-        expect(onItemSelected).to.have.callCount(0);
+        expect(onChange).to.have.callCount(0);
       });
 
       it("not dispatched on arrow up", () => {
         wrapper.simulate("keydown", {key: "ArrowUp"});
-        expect(onItemSelected).to.have.callCount(0);
+        expect(onChange).to.have.callCount(0);
+      });
+    });
+
+    describe("onClick()", () => {
+      it("not dispatched on enter", () => {
+        wrapper.simulate("keydown", {key: "Enter"});
+        expect(onClick).to.have.callCount(0);
+      });
+
+      it("not dispatched on spce", () => {
+        wrapper.simulate("keydown", {key: "Space"});
+        expect(onClick).to.have.callCount(0);
       });
     });
   });
@@ -74,11 +85,9 @@ describe("widgets > <ScrollingList/>", () => {
   describe("filled list", () => {
     beforeEach(() => {
       wrapper = mount(
-        <ScrollingList data={data} onItemSelected={onItemSelected}>
+        <ScrollingList data={data} onChange={onChange} onClick={onClick}>
           {({name}) => {
-            return (
-              <div>{name}</div>
-            );
+            return <div>{name}</div>;
           }}
         </ScrollingList>
       );
@@ -89,49 +98,73 @@ describe("widgets > <ScrollingList/>", () => {
       expect(wrapper.find("li")).to.have.length(3);
     });
 
-    describe("onItemSelected()", () => {
+    describe("onChange()", () => {
       it("dispatched on clicking item", () => {
         wrapper.find("li").first().simulate("mousedown");
-        expect(onItemSelected).to.have.been.calledWith("1");
+        expect(onChange).to.have.been.calledWith("1");
       });
 
       it("dispatched on arrow down", () => {
         wrapper.setProps({selected: "1"});
         wrapper.simulate("keydown", {key: "ArrowDown"});
-        expect(onItemSelected).to.have.been.calledWith("2");
+        expect(onChange).to.have.been.calledWith("2");
       });
 
       it("dispatched on arrow up", () => {
         wrapper.setProps({selected: "3"});
         wrapper.simulate("keydown", {key: "ArrowUp"});
-        expect(onItemSelected).to.have.been.calledWith("2");
+        expect(onChange).to.have.been.calledWith("2");
       });
 
       it("dispatched on arrow down for no selection", () => {
         wrapper.simulate("keydown", {key: "ArrowDown"});
-        expect(onItemSelected).to.have.been.calledWith("1");
+        expect(onChange).to.have.been.calledWith("1");
       });
 
       it("dispatched on arrow up for no selection", () => {
         wrapper.simulate("keydown", {key: "ArrowUp"});
-        expect(onItemSelected).to.have.been.calledWith("1");
+        expect(onChange).to.have.been.calledWith("1");
       });
 
       it("not dispatched on arrow down for last item", () => {
         wrapper.setProps({selected: "3"});
         wrapper.simulate("keydown", {key: "ArrowDown"});
-        expect(onItemSelected).to.have.callCount(0);
+        expect(onChange).to.have.callCount(0);
       });
 
       it("not dispatched on arrow up for first item", () => {
         wrapper.setProps({selected: "1"});
         wrapper.simulate("keydown", {key: "ArrowUp"});
-        expect(onItemSelected).to.have.callCount(0);
+        expect(onChange).to.have.callCount(0);
       });
 
       it("not dispatched for irrelevant key press", () => {
+        wrapper.simulate("keydown", {key: "A"});
+        expect(onChange).to.have.callCount(0);
+      });
+    });
+
+    describe("onClick()", () => {
+      it("dispatched on clicking item", () => {
+        wrapper.find("li").first().simulate("mousedown");
+        expect(onClick).to.have.been.calledWith("1");
+      });
+
+      it("dispatched on arrow down", () => {
+        wrapper.setProps({selected: "1"});
         wrapper.simulate("keydown", {key: "Enter"});
-        expect(onItemSelected).to.have.callCount(0);
+        expect(onClick).to.have.been.calledWith("1");
+      });
+
+      it("dispatched on arrow up", () => {
+        wrapper.setProps({selected: "1"});
+        wrapper.simulate("keydown", {key: "Space"});
+        expect(onClick).to.have.been.calledWith("1");
+      });
+
+      it("not dispatched for irrelevant key press", () => {
+        wrapper.simulate("keydown", {key: "A"});
+        expect(onClick).to.have.callCount(0);
       });
     });
   });
@@ -143,11 +176,9 @@ describe("widgets > <ScrollingList/>", () => {
         style: "display: grid; height: 5px; grid-template-rows: 1fr;",
       });
       wrapper = mount(
-        <ScrollingList data={data} onItemSelected={onItemSelected}>
+        <ScrollingList data={data} onChange={onChange}>
           {({name}) => {
-            return (
-              <div>{name}</div>
-            );
+            return <div>{name}</div>;
           }}
         </ScrollingList>,
         { attachTo: inject }

@@ -10,6 +10,7 @@ const skippedSrc = [
   "./webextension/firstrun/index.js",
   "./webextension/manage/index.js",
   "./webextension/popup/unlock/index.js",
+  "./webextension/popup/list/index.js",
   "./webextension/settings/index.js",
 ];
 

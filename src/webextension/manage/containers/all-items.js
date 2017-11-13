@@ -47,6 +47,6 @@ export default connect(
     return {totalItemCount, items, selected};
   },
   (dispatch) => ({
-    onItemSelected: (id) => dispatch(requestSelectItem(id)),
+    onChange: (id) => dispatch(requestSelectItem(id)),
   }),
 )(AllItems);
