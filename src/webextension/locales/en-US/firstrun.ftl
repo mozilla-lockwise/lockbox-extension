@@ -18,6 +18,8 @@ welcome-feedback =
     button within the tool, including any issues you may find, things
     you like, and the things you're looking forward to in the future.
 
+welcome-add-item = Create Entry
+
 master-password-setup-formtitle = Please create a master password below:
 
 master-password-setup-password = Password
