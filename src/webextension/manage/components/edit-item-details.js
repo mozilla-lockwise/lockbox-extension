@@ -83,20 +83,31 @@ export default class EditItemDetails extends React.Component {
           <Localized id="item-details-title">
             <LabelText>tITLe</LabelText>
           </Localized>
-          <Input type="text" {...controlledProps("title")}
-                 ref={(element) => this._firstField = element}/>
+          <Localized id="item-details-title-input">
+            <Input type="text" {...controlledProps("title")}
+                placeholder="eNTRY NAMe"
+                ref={(element) => this._firstField = element}/>
+          </Localized>
         </label>
         <label>
           <Localized id="item-details-origin">
             <LabelText>oRIGIn</LabelText>
           </Localized>
-          <Input type="text" monospace={true} {...controlledProps("origin")}/>
+          <Localized id="item-details-origin-input">
+            <Input type="text" monospace={true}
+                placeholder="wWW.EXAMPLE.COm"
+                {...controlledProps("origin")}/>
+          </Localized>
         </label>
         <label>
           <Localized id="item-details-username">
             <LabelText>uSERNAMe</LabelText>
           </Localized>
-          <Input type="text" monospace={true} {...controlledProps("username")}/>
+          <Localized id="item-details-username-input">
+            <Input type="text" monospace={true}
+                placeholder="nAME@USERNAME.COm"
+                {...controlledProps("username")}/>
+          </Localized>
         </label>
         <label>
           <Localized id="item-details-password">
@@ -108,7 +119,9 @@ export default class EditItemDetails extends React.Component {
           <Localized id="item-details-notes">
             <LabelText>nOTEs</LabelText>
           </Localized>
-          <TextArea {...controlledProps("notes", 10000)}/>
+          <Localized id="item-details-notes-input">
+            <TextArea placeholder="aNSWERS TO SECURITy..." {...controlledProps("notes", 10000)}/>
+          </Localized>
         </label>
         <Toolbar className={styles.buttons}>
           <Localized id={`item-details-save-${newItem ? "new" : "existing"}`}>
