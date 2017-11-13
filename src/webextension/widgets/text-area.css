@@ -17,7 +17,6 @@
 }
 
 .text-area:focus {
-  /* Note: This is reverse-engineered by looking at the mockups. */
-  border-color: #7cddee;
+  border-color: #0a84ff;
   box-shadow: 0 0 3px rgba(124, 221, 238, 0.5);
 }
