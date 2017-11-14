@@ -14,9 +14,12 @@ import Toolbar from "../../widgets/toolbar";
 
 import styles from "./item-details.css";
 
+import * as telemetry from "../../telemetry";
+
 const PASSWORD_DOT = "\u25cf";
 
 function CopyToClipboardButton({text, ...props}) {
+  telemetry.recordEvent("itemCopied", "entryDetails");
   return (
     <CopyToClipboard text={text}>
       <Button {...props}/>

@@ -1,6 +1,7 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+import * as telemetry from "../telemetry";
 
 export const LOCAL_RESET_STARTING = Symbol("LOCAL_RESET_STARTING");
 export const LOCAL_RESET_COMPLETED = Symbol("LOCAL_RESET_COMPLETED");
@@ -31,6 +32,7 @@ function localResetStarting(actionId) {
 }
 
 function localResetCompleted(actionId) {
+  telemetry.recordEvent("resetCompleted", "settings");
   return {
     type: LOCAL_RESET_COMPLETED,
     actionId,
@@ -38,6 +40,7 @@ function localResetCompleted(actionId) {
 }
 
 export function requestLocalReset() {
+  telemetry.recordEvent("resetRequested", "settings");
   return showModal("local-reset");
 }
 
