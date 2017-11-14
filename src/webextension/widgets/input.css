@@ -15,7 +15,6 @@
 .input-wrapper {
   height: 30px;
   width: -moz-available;
-  color: #0c0c0d;
   background-color: #f9f9fa;
   border: 1px solid rgba(12, 12, 13, 0.3);
   border-radius: 2px;
@@ -30,6 +29,7 @@
 .input {
   padding: 0 8px;
   font-size: 13px;
+  color: #0c0c0d;
 }
 
 .input:not([disabled]):hover,
@@ -56,6 +56,7 @@
   width: 0;
   min-width: 0;
   border: 0;
+  color: #0c0c0d;
   background-color: transparent;
 }
 
