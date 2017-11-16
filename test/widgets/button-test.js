@@ -21,14 +21,14 @@ describe("widgets > <Button/>", () => {
     const wrapper = mount(<Button>click me</Button>);
     expect(wrapper.find("button")).to.have.text("click me");
     expect(wrapper.find("button").prop("className")).to.match(
-      /^browser-style \S+$/
+      /^\S*button\S* \S*normal-theme\S* \S*normal-size\S*$/
     );
   });
 
   it("merge classNames", () => {
     const wrapper = mount(<Button className="foo">click me</Button>);
     expect(wrapper.find("button").prop("className")).to.match(
-      /^browser-style \S+ foo$/
+      /^\S*button\S* \S*normal-theme\S* \S*normal-size\S* foo$/
     );
   });
 

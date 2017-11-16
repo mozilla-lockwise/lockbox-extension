@@ -16,7 +16,6 @@
   },
 
   "browser_action": {
-    "browser_style": true,
     "default_icon": {
       "32": "icons/lb_locked.svg"
     },
@@ -38,7 +37,6 @@
   ],
 
   "options_ui": {
-    "page": "settings/index.html",
-    "browser_style": true
+    "page": "settings/index.html"
   }
 }

@@ -22,6 +22,6 @@
   flex: 1;
 }
 
-.unlock-prompt > form input {
+.password-input {
   margin-bottom: 1em;
 }

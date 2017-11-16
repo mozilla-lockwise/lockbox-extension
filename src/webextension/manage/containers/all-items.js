@@ -19,7 +19,7 @@ function AllItems({totalItemCount, ...props}) {
     return (
       <Localized id={`all-items-${totalItemCount ? "filtered" : "empty"}`}>
         <ItemListPlaceholder>
-          lOOKs lIKe yOu dON&apos;t hAVe aNy eNTRIEs sAVEd yEt...
+          WhEn YOu cReAtE An enTRy...
         </ItemListPlaceholder>
       </Localized>
     );

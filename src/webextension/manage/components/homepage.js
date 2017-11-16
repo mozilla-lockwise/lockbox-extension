@@ -2,56 +2,35 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { withLocalization } from "fluent-react";
+import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
 import styles from "./homepage.css";
-import lockie from "./lockie.txt";
 
-function printableLength(s) {
-  return s.replace(/(\u2068|\u2069)/g, "").length;
-}
+export default function Homepage({count}) {
+  const imgSrc = browser.extension.getURL("/images/lockie_v2.svg");
 
-function speechBubble(text) {
-  const lines = text.split("\n");
-  const innerWidth = Math.max(...lines.map(printableLength), 1);
-
-  const result = [
-    " " + "_".repeat(innerWidth + 4),
-    "/" + " ".repeat(innerWidth + 4) + "\\",
-    ...lines.map((i) => {
-      return "|  " + i + " ".repeat(innerWidth - printableLength(i)) + "  |";
-    }),
-    "\\__   " + "_".repeat(innerWidth - 1) + "/",
-    "   \\ /",
-    "    v",
-  ];
-  return result.join("\n");
-}
-
-function Homepage({count, getString}) {
-  let key;
+  let title;
   if (count === 0) {
-    key = "homepage-no-passwords";
-  } else if (count < 10) {
-    key = "homepage-under-10-passwords";
-  } else if (count < 50) {
-    key = "homepage-under-50-passwords";
+    title = "welcOMe to lOcKboX";
   } else {
-    key = "homepage-over-50-passwords";
+    title = "YoU have X enTrieS in YoUr lOcKboX";
   }
 
   return (
-    <pre className={styles.homepage}>{
-      speechBubble(getString(key, {count})) + "\n" + lockie
-    }</pre>
+    <article className={styles.homepage}>
+      <img src={imgSrc} alt=""/>
+      <Localized id="homepage-title" $count={count}>
+        <h1>{title}</h1>
+      </Localized>
+      <Localized id="homepage-greeting">
+        <p>{"yOu'Ve suCCessfuLLY iNSTalled..."}</p>
+      </Localized>
+    </article>
   );
 }
 
 Homepage.propTypes = {
   count: PropTypes.number.isRequired,
-  getString: PropTypes.func.isRequired,
 };
-
-export default withLocalization(Homepage);

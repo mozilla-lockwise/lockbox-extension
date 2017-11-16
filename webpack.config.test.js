@@ -15,9 +15,6 @@ export default {
       exclude: /node_modules/,
       loader: "babel-loader",
     }, {
-      test: /\.txt$/,
-      use: "raw-loader",
-    }, {
       test: /\.css$/,
       exclude: /node_modules/,
       loader: combineLoaders([{

@@ -2,14 +2,62 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-button.button {
+.button {
   white-space: nowrap;
-  /* Override the margin-bottom from browser-style. */
-  margin-bottom: 0;
   text-align: center;
+  border: 0;
 }
 
-button.minimal {
-  /* Override the browser-style borders. */
-  border: 0 !important;
+.primary-theme {
+  color: #ffffff;
+  background-color: #0060df;
+}
+
+.normal-theme {
+  color: #0c0c0d;
+  background-color: rgba(12, 12, 13, 0.1);
+}
+
+.ghost-theme {
+  color: #0c0c0d;
+  background-color: transparent;
+}
+
+.primary-theme:hover {
+  background-color: #003eaa;
+}
+
+.normal-theme:hover,
+.ghost-theme:hover {
+  background-color: rgba(12, 12, 13, 0.2);
+}
+
+.primary-theme:active {
+  background-color: #002275;
+}
+
+.normal-theme:hover,
+.ghost-theme:hover {
+  background-color: rgba(12, 12, 13, 0.3);
+}
+
+.puffy-size {
+  height: 48px;
+  padding: 0 16px;
+  font-size: 15px;
+  border-radius: 4px;
+}
+
+.normal-size {
+  height: 32px;
+  padding: 0 8px;
+  font-size: 13px;
+  border-radius: 2px;
+}
+
+.micro-size {
+  height: 24px;
+  padding: 0 8px;
+  font-size: 11px;
+  border-radius: 2px;
 }

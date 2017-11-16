@@ -15,11 +15,11 @@
 }
 
 .scrolling-list > li[data-selected] {
-  color: InactiveCaptionText;
-  background-color: InactiveCaption;
+  color: #0c0c0d;
+  background-color: #b1b1b3;
 }
 
 .scrolling-list:focus > li[data-selected] {
-  color: HighlightText;
-  background-color: Highlight;
+  color: #ffffff;
+  background-color: #0060df;
 }
