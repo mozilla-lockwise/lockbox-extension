@@ -5,10 +5,20 @@
 import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
+import { connect } from "react-redux";
+
+import Button from "../../widgets/button";
+import { startNewItem } from "../actions";
+import * as telemetry from "../../telemetry";
 
 import styles from "./homepage.css";
 
-export default function Homepage({count}) {
+function Homepage({count, dispatch}) {
+  const doAddItem = () => {
+    telemetry.recordEvent("addClick", "addButton", "homescreenAddButton");
+    dispatch(startNewItem());
+  };
+
   const imgSrc = browser.extension.getURL("/images/lockie_v2.svg");
 
   let title;
@@ -27,10 +37,18 @@ export default function Homepage({count}) {
       <Localized id="homepage-greeting">
         <p>{"yOu'Ve suCCessfuLLY iNSTalled..."}</p>
       </Localized>
+      <Localized id="homepage-add-entry">
+        <Button theme="primary" onClick={doAddItem}>
+          aDd enTry
+        </Button>
+      </Localized>
     </article>
   );
 }
 
 Homepage.propTypes = {
   count: PropTypes.number.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
+
+export default connect()(Homepage);

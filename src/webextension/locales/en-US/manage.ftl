@@ -47,6 +47,8 @@ homepage-greeting =
   including any issues you may find, things you like, and the things you’re
   looking forward to in the future.
 
+homepage-add-entry = Add Entry
+
 item-details-heading-view = Entry Details
 item-details-heading-new = Create a New Entry
 item-details-heading-edit = Edit Entry
