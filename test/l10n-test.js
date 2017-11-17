@@ -47,7 +47,7 @@ describe("<AppLocalizationProvider/>", () => {
     AppLocalizationProvider.prototype.render.restore();
   });
 
-  it("translate to en-US", async() => {
+  it("translate to en-US", async () => {
     const wrapper = mount(
       <AppLocalizationProvider bundles={bundles}
                                userLocales={["en-US"]}>
@@ -66,7 +66,7 @@ describe("<AppLocalizationProvider/>", () => {
     expect(wrapper).to.have.text("HelloGoodbye");
   });
 
-  it("translate to es-ES", async() => {
+  it("translate to es-ES", async () => {
     const wrapper = mount(
       <AppLocalizationProvider bundles={bundles}
                                userLocales={["es-ES"]}>
@@ -86,7 +86,7 @@ describe("<AppLocalizationProvider/>", () => {
     expect(wrapper).to.have.text("HolaGoodbye");
   });
 
-  it("translate to de", async() => {
+  it("translate to de", async () => {
     const wrapper = mount(
       <AppLocalizationProvider bundles={bundles}
                                userLocales={["de"]}>
@@ -107,7 +107,7 @@ describe("<AppLocalizationProvider/>", () => {
     expect(wrapper).to.have.text("HelloGoodbye");
   });
 
-  it("fallback to text content", async() => {
+  it("fallback to text content", async () => {
     const wrapper = mount(
       <AppLocalizationProvider bundles={bundles}
                                userLocales={locales}>

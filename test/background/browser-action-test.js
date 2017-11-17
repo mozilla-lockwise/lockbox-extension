@@ -25,20 +25,20 @@ describe("background > browser action", () => {
     updateBrowserAction.__ResetDependency__("openView");
   });
 
-  it("uninitialized data store", async() => {
+  it("uninitialized data store", async () => {
     await updateBrowserAction({initialized: false});
     browser.browserAction.onClicked.mockFireListener();
     expect(openView).to.have.been.calledWith("firstrun");
   });
 
-  it("locked data store", async() => {
+  it("locked data store", async () => {
     await updateBrowserAction({initialized: true, locked: true});
     expect(browser.browserAction.getPopup()).to.eventually.equal(
       browser.extension.getURL("popup/unlock/index.html")
     );
   });
 
-  it("unlocked data store", async() => {
+  it("unlocked data store", async () => {
     await updateBrowserAction({initialized: true, locked: false});
     browser.browserAction.onClicked.mockFireListener();
     expect(openView).to.have.been.calledWith("manage");

@@ -24,7 +24,7 @@ describe("settings > actions", () => {
     browser.runtime.onMessage.mockClearListener();
   });
 
-  it("localReset() dispatched", async() => {
+  it("localReset() dispatched", async () => {
     browser.runtime.onMessage.addListener((msg) => {
       if (msg.type === "reset") {
         return {};

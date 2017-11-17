@@ -43,7 +43,7 @@ describe("widgets > <PasswordInput/>", () => {
     expect(wrapper.find("input")).to.have.prop("className", "");
   });
 
-  it("show/hide button toggles password visibility", async() => {
+  it("show/hide button toggles password visibility", async () => {
     const wrapper = mountWithL10n(
       <PasswordInput value="password" onChange={() => {}}/>
     );

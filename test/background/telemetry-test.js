@@ -27,7 +27,7 @@ describe("background > telemetry", () => {
       getAuthorization().info = undefined;
     });
 
-    it("recordEvent()", async() => {
+    it("recordEvent()", async () => {
       const result = await telemetry.recordEvent("method", "object");
       expect(result).to.deep.equal({});
       expect(onMessage).to.have.been.calledWith({
@@ -38,7 +38,7 @@ describe("background > telemetry", () => {
       });
     });
 
-    it("recordEvent() with extra", async() => {
+    it("recordEvent() with extra", async () => {
       const result = await telemetry.recordEvent("method", "object",
                                                  {extra: "value"});
       expect(result).to.deep.equal({});
@@ -63,7 +63,7 @@ describe("background > telemetry", () => {
       getAuthorization().info = undefined;
     });
 
-    it("recordEvent() (with fxa uid)", async() => {
+    it("recordEvent() (with fxa uid)", async () => {
       const result = await telemetry.recordEvent("method", "object");
       expect(result).to.deep.equal({});
       expect(onMessage).to.have.been.calledWith({
@@ -74,7 +74,7 @@ describe("background > telemetry", () => {
       });
     });
 
-    it("recordEvent() (with fxa uid and extras)", async() => {
+    it("recordEvent() (with fxa uid and extras)", async () => {
       const result = await telemetry.recordEvent("method", "object",
                                                  {extra: "value"});
       expect(result).to.deep.equal({});

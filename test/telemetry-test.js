@@ -22,7 +22,7 @@ describe("telemetry", () => {
     browser.runtime.onMessage.mockClearListener();
   });
 
-  it("recordEvent()", async() => {
+  it("recordEvent()", async () => {
     const result = await telemetry.recordEvent("method", "object",
                                                {extra: "value"});
     expect(result).to.deep.equal({});

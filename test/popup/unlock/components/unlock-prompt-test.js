@@ -42,7 +42,7 @@ describe("popup > unlock > components > <UnlockPrompt/>", () => {
     wrapper.find('button[type="submit"]').simulate("submit");
   });
 
-  it("submit incorrect password", async() => {
+  it("submit incorrect password", async () => {
     simulateTyping(wrapper.find("input"), "jonesy");
     wrapper.find('button[type="submit"]').simulate("submit");
     await waitUntil(() => UnlockPrompt.prototype.render.callCount === 3);
