@@ -33,6 +33,5 @@ module.exports = {
     "curly": "error",
     "no-console": "warn",
     "semi": "error",
-    "space-before-function-paren": [2, "never"],
   },
 };
