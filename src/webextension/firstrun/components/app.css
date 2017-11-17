@@ -19,3 +19,7 @@ body {
   flex-flow: column nowrap;
   align-items: center;
 }
+
+.firstrun > img {
+  width: 300px;
+}
