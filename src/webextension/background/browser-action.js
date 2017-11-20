@@ -55,5 +55,5 @@ export default async function updateBrowserAction(ds) {
   }
 
   // XXX: Add a pref to disable this before landing!
-  return installPopup("popup/list/index.html");
+  return installPopup("list/popup/index.html");
 }

@@ -8,9 +8,9 @@ tests.keys().forEach(tests);
 const skippedSrc = [
   "./webextension/background/index.js",
   "./webextension/firstrun/index.js",
-  "./webextension/manage/index.js",
+  "./webextension/list/manage/index.js",
+  "./webextension/list/popup/index.js",
   "./webextension/popup/unlock/index.js",
-  "./webextension/popup/list/index.js",
   "./webextension/settings/index.js",
 ];
 

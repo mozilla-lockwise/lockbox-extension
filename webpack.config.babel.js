@@ -94,10 +94,10 @@ export default {
 
   entry: {
     "webextension/background": "./webextension/background/index.js",
-    "webextension/manage/index": "./webextension/manage/index.js",
+    "webextension/list/manage/index": "./webextension/list/manage/index.js",
+    "webextension/list/popup/index": "./webextension/list/popup/index.js",
     "webextension/firstrun/index": "./webextension/firstrun/index.js",
     "webextension/popup/unlock/index": "./webextension/popup/unlock/index.js",
-    "webextension/popup/list/index": "./webextension/popup/list/index.js",
     "webextension/settings/index": "./webextension/settings/index.js",
   },
 
@@ -132,14 +132,6 @@ export default {
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",
-      filename: "webextension/manage/index.html",
-      chunks: ["webextension/manage/index"],
-      inject: false,
-      minify: htmlMinifyOptions,
-      icon: "../icons/lb_unlocked.svg",
-    }),
-    new HTMLWebpackPlugin({
-      template: "template.ejs",
       filename: "webextension/firstrun/index.html",
       chunks: ["webextension/firstrun/index"],
       inject: false,
@@ -148,15 +140,23 @@ export default {
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",
-      filename: "webextension/popup/unlock/index.html",
-      chunks: ["webextension/popup/unlock/index"],
+      filename: "webextension/list/manage/index.html",
+      chunks: ["webextension/list/manage/index"],
+      inject: false,
+      minify: htmlMinifyOptions,
+      icon: "../icons/lb_unlocked.svg",
+    }),
+    new HTMLWebpackPlugin({
+      template: "template.ejs",
+      filename: "webextension/list/popup/index.html",
+      chunks: ["webextension/list/popup/index"],
       inject: false,
       minify: htmlMinifyOptions,
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",
-      filename: "webextension/popup/list/index.html",
-      chunks: ["webextension/popup/list/index"],
+      filename: "webextension/popup/unlock/index.html",
+      chunks: ["webextension/popup/unlock/index"],
       inject: false,
       minify: htmlMinifyOptions,
     }),
