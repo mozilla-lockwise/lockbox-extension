@@ -120,7 +120,8 @@ export default class EditItemDetails extends React.Component {
             <LabelText>nOTEs</LabelText>
           </Localized>
           <Localized id="item-details-notes-input">
-            <TextArea placeholder="aNSWERs tO sECURITy..." {...controlledProps("notes", 10000)}/>
+            <TextArea placeholder="aNSWERs tO sECURITy..."
+                      {...controlledProps("notes", 10000)}/>
           </Localized>
         </label>
         <Toolbar className={styles.buttons}>
