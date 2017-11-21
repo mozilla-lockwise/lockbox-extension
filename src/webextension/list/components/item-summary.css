@@ -7,6 +7,16 @@
   padding: .5em;
 }
 
+.arrow {
+  float: right;
+  padding: .5em;
+  vertical-align: middle;
+}
+
+[data-selected] .arrow {
+  display: none;
+}
+
 .title, .subtitle {
   overflow: hidden;
   white-space: nowrap;
