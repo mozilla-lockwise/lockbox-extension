@@ -59,7 +59,7 @@ item-details-origin-input
   .placeholder = www.example.com
 item-details-username = Username
 item-details-username-input
-  .placeholder = name@username.com
+  .placeholder = name@example.org
 item-details-copy-username = Copy
   .title = Copy the username to the clipboard
 item-details-password = Password
