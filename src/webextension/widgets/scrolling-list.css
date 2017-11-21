@@ -16,7 +16,7 @@
 
 .scrolling-list > li[data-selected] {
   color: #0c0c0d;
-  background-color: #b1b1b3;
+  background-color: #f3f3f5;
 }
 
 .scrolling-list:focus > li[data-selected] {

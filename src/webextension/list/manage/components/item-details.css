@@ -3,7 +3,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .item-details {
-  margin: 2em;
+  padding: 2em;
+  background-color: #f3f3f5;
+  height: 100%;
+  border-bottom: 1px solid #e9e9ea;
 }
 
 .item-details > h1 {
