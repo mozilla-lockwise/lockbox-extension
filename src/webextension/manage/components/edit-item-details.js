@@ -85,8 +85,8 @@ export default class EditItemDetails extends React.Component {
           </Localized>
           <Localized id="item-details-title-input">
             <Input type="text" {...controlledProps("title")}
-                placeholder="eNTRY NAMe"
-                ref={(element) => this._firstField = element}/>
+                   placeholder="eNTRy nAMe"
+                   ref={(element) => this._firstField = element}/>
           </Localized>
         </label>
         <label>
@@ -95,8 +95,8 @@ export default class EditItemDetails extends React.Component {
           </Localized>
           <Localized id="item-details-origin-input">
             <Input type="text" monospace={true}
-                placeholder="wWW.EXAMPLE.COm"
-                {...controlledProps("origin")}/>
+                   placeholder="wWw.eXAMPLe.cOm"
+                   {...controlledProps("origin")}/>
           </Localized>
         </label>
         <label>
@@ -105,8 +105,8 @@ export default class EditItemDetails extends React.Component {
           </Localized>
           <Localized id="item-details-username-input">
             <Input type="text" monospace={true}
-                placeholder="nAME@USERNAME.COm"
-                {...controlledProps("username")}/>
+                   placeholder="nAMeE@eXAMPLE.oRg"
+                   {...controlledProps("username")}/>
           </Localized>
         </label>
         <label>
@@ -120,7 +120,7 @@ export default class EditItemDetails extends React.Component {
             <LabelText>nOTEs</LabelText>
           </Localized>
           <Localized id="item-details-notes-input">
-            <TextArea placeholder="aNSWERS TO SECURITy..." {...controlledProps("notes", 10000)}/>
+            <TextArea placeholder="aNSWERs tO sECURITy..." {...controlledProps("notes", 10000)}/>
           </Localized>
         </label>
         <Toolbar className={styles.buttons}>
