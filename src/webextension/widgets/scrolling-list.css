@@ -23,3 +23,7 @@
   color: #ffffff;
   background-color: #0060df;
 }
+
+.scrolling-list > li[data-selected=false] {
+  border-right: #ff0000;
+}
