@@ -42,7 +42,7 @@ body > main,
 
 .app-main > aside {
   grid-column: 1;
-  min-width: 0;
+  min-width: 320px;
   min-height: 0;
   background-color: #dfdfe3;
   border-right: 1px solid #b1b1b3;
