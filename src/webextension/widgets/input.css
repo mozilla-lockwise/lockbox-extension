@@ -83,7 +83,8 @@
   /* This lines up our labels with the text in <input> elements. */
   margin-top: 7px;
   min-height: 25px;
-  font-size: 13px;
+  font-size: 15px;
+  font-weight: 600;
   -moz-user-select: text;
 }
 
