@@ -5,6 +5,7 @@
 .item-summary {
   border-bottom: 1px solid #d7d7db;
   padding: .5em;
+  font-size: 17px;
 }
 
 .arrow {
@@ -18,12 +19,13 @@
 }
 
 .title, .subtitle {
+  weight: 600;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .subtitle {
-  font-size: 80%;
-  opacity: 0.75;
+  font-size: 13px;
+  font-wight: 400;
 }
