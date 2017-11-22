@@ -14,7 +14,8 @@ import { NEW_ITEM_ID } from "../../common";
 function AddItem({disabled, onAddItem}) {
   return (
     <Localized id="toolbar-add-item">
-      <Button theme="primary" disabled={disabled} onClick={onAddItem}>
+      <Button theme="primary" size="puffy" disabled={disabled}
+              onClick={onAddItem}>
         aDd iTEm
       </Button>
     </Localized>

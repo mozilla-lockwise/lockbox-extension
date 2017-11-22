@@ -13,7 +13,7 @@ import { requestSelectItem } from "../../actions";
 function GoHome({onClick}) {
   return (
     <Localized id="toolbar-go-home">
-      <Button theme="ghost" onClick={onClick}>
+      <Button theme="ghost" size="puffy" onClick={onClick}>
         hOMe
       </Button>
     </Localized>

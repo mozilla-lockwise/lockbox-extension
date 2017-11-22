@@ -5,14 +5,10 @@
 .toolbar {
   margin: 0;
   padding: 1ch;
-  display: flex;
+  grid-column-start: span 2;
   align-items: baseline;
 }
 
 .toolbar > * + * {
   margin-inline-start: 1ch;
-}
-
-.toolbar-space {
-  flex: 1;
 }
