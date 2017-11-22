@@ -6,19 +6,10 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
+import { flattenItem } from "../..";
 import { selectItem } from "../../actions";
 import ItemDetailsPanel from "../components/item-details-panel";
 import ItemListPanel from "../components/item-list-panel";
-
-function flattenItem(item) {
-  return {
-    title: item.title,
-    origin: item.origins[0] || "",
-    username: item.entry.username,
-    password: item.entry.password,
-    notes: item.entry.notes,
-  };
-}
 
 function CurrentSelection({item, goHome}) {
   if (item) {

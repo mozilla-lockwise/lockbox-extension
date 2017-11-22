@@ -13,7 +13,7 @@ import thunk from "redux-thunk";
 import { initialState, filledState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
 import { SELECT_ITEM_STARTING } from "src/webextension/list/actions";
-import { NEW_ITEM_ID } from "src/webextension/list/common";
+import { NEW_ITEM_ID } from "src/webextension/list";
 import ItemSummary from "src/webextension/list/components/item-summary";
 import AllItems from "src/webextension/list/manage/containers/all-items";
 
@@ -46,7 +46,7 @@ describe("list > manage > containers > <AllItems/>", () => {
     it("render items", () => {
       expect(wrapper.find(ItemSummary)).to.have.length(0);
       expect(wrapper.find("div")).to.have.text(
-        "WhEn YOu cReAtE An enTRy..."
+        "wHEn yOu cREATe an eNTRy..."
       );
     });
   });

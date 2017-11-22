@@ -4,7 +4,7 @@
 
 import * as actions from "./actions";
 import { makeItemSummary } from "../common";
-import { NEW_ITEM_ID } from "./common";
+import { NEW_ITEM_ID } from ".";
 
 function maybeAddCurrentItem(state, action) {
   if (action.interactive) {

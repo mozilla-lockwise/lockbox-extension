@@ -8,7 +8,7 @@ import { Localized } from "fluent-react";
 import React from "react";
 
 import mountWithL10n from "test/mocks/l10n";
-import { NEW_ITEM_ID } from "src/webextension/list/common";
+import { NEW_ITEM_ID } from "src/webextension/list";
 import ItemSummary from "src/webextension/list/components/item-summary";
 
 chai.use(chaiEnzyme());
