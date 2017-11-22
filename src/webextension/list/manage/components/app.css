@@ -26,18 +26,9 @@ body > main,
   grid-template-rows: auto 1fr;
 }
 
-.side-toolbar,
-.main-toolbar {
+.navigation {
   background-color: #ededf0;
-  border-bottom: 1px solid #c8c8c8;
-}
-
-.side-toolbar {
-  padding-inline-end: 0;
-}
-
-.main-toolbar {
-  padding-inline-start: 0;
+  border-bottom: 1px solid #d1d1d2;
 }
 
 .app-main > aside {

@@ -13,7 +13,7 @@ import { sendFeedback } from "../../actions";
 function SendFeedback({onSendFeedback}) {
   return (
     <Localized id="toolbar-send-feedback">
-      <Button theme="ghost" onClick={onSendFeedback}>
+      <Button theme="ghost" size="puffy" onClick={onSendFeedback}>
         fEEDBACk
       </Button>
     </Localized>
