@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 
 import { requestSelectItem } from "../../actions";
 import { parseFilterString, filterItem } from "../../filter";
-import { NEW_ITEM_ID } from "../../common";
+import { NEW_ITEM_ID } from "../..";
 import ItemList, { ItemListPlaceholder } from "../../components/item-list";
 
 const collator = new Intl.Collator();
@@ -19,7 +19,7 @@ function AllItems({totalItemCount, ...props}) {
     return (
       <Localized id={`all-items-${totalItemCount ? "filtered" : "empty"}`}>
         <ItemListPlaceholder>
-          WhEn YOu cReAtE An enTRy...
+          wHEn yOu cREATe an eNTRy...
         </ItemListPlaceholder>
       </Localized>
     );

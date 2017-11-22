@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
+import { flattenItem, unflattenItem } from "../..";
 import {
   addItem, updateItem, requestRemoveItem, editCurrentItem, requestCancelEditing,
   editorChanged,
@@ -13,30 +14,6 @@ import {
 import EditItemDetails from "../components/edit-item-details";
 import ItemDetails from "../components/item-details";
 import Homepage from "../components/homepage";
-
-function unflattenItem(item, id) {
-  return {
-    id,
-    title: item.title,
-    origins: item.origin ? [item.origin] : [],
-    entry: {
-      kind: "login",
-      username: item.username,
-      password: item.password,
-      notes: item.notes,
-    },
-  };
-}
-
-function flattenItem(item) {
-  return {
-    title: item.title,
-    origin: item.origins[0] || "",
-    username: item.entry.username,
-    password: item.entry.password,
-    notes: item.entry.notes,
-  };
-}
 
 const ConnectedEditItemDetails = connect(
   (state, ownProps) => ({

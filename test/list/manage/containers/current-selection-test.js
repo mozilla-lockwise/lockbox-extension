@@ -12,7 +12,7 @@ import chaiFocus from "test/chai-focus";
 import { simulateTyping } from "test/common";
 import mountWithL10n, { mountWithL10nIntoDOM } from "test/mocks/l10n";
 import { initialState, filledState } from "../mock-redux-state";
-import { NEW_ITEM_ID } from "src/webextension/list/common";
+import { NEW_ITEM_ID } from "src/webextension/list";
 import * as actions from "src/webextension/list/actions";
 import EditItemDetails from
        "src/webextension/list/manage/components/edit-item-details";

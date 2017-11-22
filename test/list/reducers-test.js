@@ -8,7 +8,7 @@ import * as actions from "src/webextension/list/actions";
 import {
   cacheReducer, listReducer,
 } from "src/webextension/list/reducers";
-import { NEW_ITEM_ID } from "src/webextension/list/common";
+import { NEW_ITEM_ID } from "src/webextension/list";
 
 describe("list > reducers", () => {
   describe("cache reducer", () => {
