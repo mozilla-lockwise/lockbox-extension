@@ -76,17 +76,7 @@ export default function Panel({className, children}) {
 
 Panel.propTypes = {
   className: PropTypes.string,
-  children(props, propName, componentName) {
-    const validTypes = [PanelHeader, PanelBody, PanelFooter];
-    let error = null;
-    React.Children.forEach(props[propName], (child) => {
-      if (!validTypes.includes(child.type)) {
-        const validTypeNames = validTypes.map((i) => `\`${i.name}\``);
-        error = new Error(`children should be one of ${validTypeNames}.`);
-      }
-    });
-    return error;
-  },
+  children: PropTypes.node.isRequired,
 };
 
 Panel.defaultProps = {

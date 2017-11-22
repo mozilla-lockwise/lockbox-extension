@@ -14,7 +14,7 @@ import styles from "./item-details-panel.css";
 export default function ItemDetailsPanel({fields, onBack}) {
   return (
     <Panel>
-      <Localized id="entry-details-title">
+      <Localized id="item-details-panel-title">
         <PanelHeader onBack={() => { onBack(); }}>
           eNTRy dETAILs
         </PanelHeader>
