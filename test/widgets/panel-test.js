@@ -76,15 +76,6 @@ describe("widgets > panel", () => {
   });
 
   describe("<Panel/>", () => {
-    beforeEach(() => {
-      sinon.stub(console, "error");
-    });
-
-    afterEach(() => {
-      // eslint-disable-next-line no-console
-      console.error.restore();
-    });
-
     it("render panel", () => {
       const wrapper = mount(
         <Panel>
@@ -102,16 +93,13 @@ describe("widgets > panel", () => {
     });
 
     it("merge classNames", () => {
-      const wrapper = mount(<Panel className="foo"/>);
+      const wrapper = mount(
+        <Panel className="foo">
+          <PanelBody>body</PanelBody>
+        </Panel>);
       expect(wrapper.find("article").prop("className")).to.match(
         /^\S*panel\S* foo$/
       );
-    });
-
-    it("render with invalid children", () => {
-      mount(<Panel>invalid</Panel>);
-      // eslint-disable-next-line no-console
-      expect(console.error).to.have.callCount(1);
     });
   });
 });

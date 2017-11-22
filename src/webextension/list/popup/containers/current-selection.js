@@ -11,23 +11,28 @@ import { selectItem } from "../../actions";
 import ItemDetailsPanel from "../components/item-details-panel";
 import ItemListPanel from "../components/item-list-panel";
 
-function CurrentSelection({item, goHome}) {
+const ConnectedItemDetailsPanel = connect(
+  (state, ownProps) => ({
+    fields: flattenItem(ownProps.item),
+  }),
+  (dispatch) => ({
+    onBack: () => { dispatch(selectItem(null)); },
+  })
+)(ItemDetailsPanel);
+
+function CurrentSelection({item}) {
   if (item) {
-    return <ItemDetailsPanel fields={flattenItem(item)} onBack={goHome}/>;
+    return <ConnectedItemDetailsPanel item={item}/>;
   }
   return <ItemListPanel/>;
 }
 
 CurrentSelection.propTypes = {
   item: PropTypes.object,
-  goHome: PropTypes.func.isRequired,
 };
 
 export default connect(
   (state) => ({
     item: state.cache.currentItem,
-  }),
-  (dispatch) => ({
-    goHome: () => { dispatch(selectItem(null)); },
   })
 )(CurrentSelection);

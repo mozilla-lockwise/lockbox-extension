@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import chai, { expect } from "chai";
+import chaiEnzyme from "chai-enzyme";
 import React from "react";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
@@ -16,10 +17,12 @@ import { NEW_ITEM_ID } from "src/webextension/list";
 import * as actions from "src/webextension/list/actions";
 import EditItemDetails from
        "src/webextension/list/manage/components/edit-item-details";
+import Homepage from "src/webextension/list/manage/components/homepage";
 import ItemDetails from "src/webextension/list/manage/components/item-details";
 import CurrentSelection from
        "src/webextension/list/manage/containers/current-selection";
 
+chai.use(chaiEnzyme());
 chai.use(chaiFocus);
 
 const middlewares = [thunk];
@@ -47,7 +50,7 @@ describe("list > manage > containers > <CurrentSelection/>", () => {
     });
 
     it("render item", () => {
-      expect(wrapper.find("h1")).to.contain.text("welcOMe to lOcKboX");
+      expect(wrapper).to.contain(Homepage);
     });
   });
 
@@ -64,8 +67,7 @@ describe("list > manage > containers > <CurrentSelection/>", () => {
     });
 
     it("render item", () => {
-      const details = wrapper.find(ItemDetails);
-      expect(details).to.have.length(1);
+      expect(wrapper).to.contain(ItemDetails);
     });
 
     it("editCurrentItem() dispatched", () => {

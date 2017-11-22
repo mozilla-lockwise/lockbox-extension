@@ -10,4 +10,4 @@ unlock-prompt-submit = Unlock
 [[list]]
 
 manage-lockbox = Manage Lockbox
-entry-details-title = Entry Details
+item-details-panel-title = Entry Details
