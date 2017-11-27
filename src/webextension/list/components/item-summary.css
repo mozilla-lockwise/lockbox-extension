@@ -19,7 +19,7 @@
 }
 
 .title, .subtitle {
-  weight: 600;
+  font-weight: 600;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -27,5 +27,5 @@
 
 .subtitle {
   font-size: 13px;
-  font-wight: 400;
+  font-weight: 400;
 }
