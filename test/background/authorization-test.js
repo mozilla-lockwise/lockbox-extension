@@ -127,7 +127,7 @@ describe("background > authorization", () => {
         }
 
         // setup fake OAuth Authorization response
-        stubWAF.callsFake(async({ url }) => {
+        stubWAF.callsFake(async ({url}) => {
           url = new URL(url);
           let requestParams = url.searchParams;
           let redirect = requestParams.get("redirect_uri");
@@ -152,7 +152,7 @@ describe("background > authorization", () => {
         });
 
         // setup fake OAuth token response
-        fetchMock.post("end:/v1/token", async() => ({
+        fetchMock.post("end:/v1/token", async () => ({
           status: 200,
           body: {
             grant_type: "bearer",
@@ -180,23 +180,23 @@ describe("background > authorization", () => {
         authorization = new authz.Authorization({ config: "scoped-keys" });
       });
 
-      beforeEach(async() => {
+      beforeEach(async () => {
         stubWAF = sinon.stub(browser.identity, "launchWebAuthFlow");
       });
-      afterEach(async() => {
+      afterEach(async () => {
         stubWAF.restore();
         fetchMock.restore();
         await authorization.signOut();
       });
 
-      it("signIn() without keys", async() => {
+      it("signIn() without keys", async () => {
         await setupMocks(false);
         const result = await authorization.signIn();
 
         expect(result).to.have.property("uid").that.is.a("string");
       });
 
-      it("signIn() with keys", async() => {
+      it("signIn() with keys", async () => {
         const expectedKeys = await setupMocks(true);
         const result = await authorization.signIn();
 
@@ -205,26 +205,9 @@ describe("background > authorization", () => {
         expect(authorization).to.have.property("keys").to.have.all.keys(...expectedKeys.keys());
       });
 
-      it("signOut()", async() => {
+      it("signOut()", async () => {
         await authorization.signOut();
         expect(authorization.info).to.equal(undefined);
-      });
-    });
-
-    describe("verify()", () => {
-      it("verify user", async () => {
-        authorization.info = fakeInfo;
-
-        const result = await authorization.verify("password");
-
-        expect(result).to.equal("password");
-        expect(authorization.verified).to.equal(true);
-      });
-
-      it("fail when not signed in", () => {
-        expect(authorization.verify("password")).to.be.rejectedWith(
-          Error, "not signed in"
-        );
       });
     });
   });

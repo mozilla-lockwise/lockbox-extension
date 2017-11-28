@@ -137,7 +137,7 @@ export class Authorization {
     if (oauthInfo.keys_jwe) {
       let bundle = await jose.JWE.createDecrypt(props.appKey).decrypt(oauthInfo.keys_jwe);
       bundle = JSON.parse(new TextDecoder().decode(bundle.payload));
-      let pending = Object.keys(bundle).map(async(name) => {
+      let pending = Object.keys(bundle).map(async (name) => {
         let key = bundle[name];
         key = await jose.JWK.asKey(key);
         keys.set(name, key);
