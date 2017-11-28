@@ -1,7 +1,7 @@
 {
   "presets": [
     "react",
-    ["env", {"targets": {"browsers": ["firefox >= 54"]}}]
+    ["env", {"targets": {"browsers": ["firefox >= 56"]}}]
   ],
   "plugins": [
     ["transform-object-rest-spread", {"useBuiltins": true}]
