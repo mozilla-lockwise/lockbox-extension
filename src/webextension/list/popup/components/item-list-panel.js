@@ -31,7 +31,7 @@ export default function ItemListPanel() {
       </PanelBody>
 
       <PanelFooter>
-        <Localized id="manage-lockbox">
+        <Localized id="manage-lockbox-button">
           <Button theme="ghost" onClick={openManager}>
             mANAGe lOCKBox
           </Button>
