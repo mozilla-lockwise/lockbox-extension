@@ -9,7 +9,7 @@ import React from "react";
 import styles from "./homepage.css";
 
 export default function Homepage({count}) {
-  const imgSrc = browser.extension.getURL("/images/lockie_v2.svg");
+  const imgSrc = browser.extension.getURL("/images/nessie_v2.svg");
 
   let title;
   if (count === 0) {
