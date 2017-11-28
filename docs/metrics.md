@@ -1,6 +1,6 @@
 # Lockbox Metrics Plan
 
-_Last Updated: Nov 14, 2017_
+_Last Updated: Nov 28, 2017_
 
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
@@ -48,7 +48,7 @@ Data collection is done solely for the purpose of product development, improveme
 
 **Note:** *This is the collection plan for our internal alpha release. For our beta release will be taking advantage of test pilot's telemetry API. The metrics plan for beta will be described in a separate document.*
 
-At this point, all measurements related to Lockbox will be made client-side. However, future releases will give users the option to sync their lockbox data via an FxA account, at which point additional measurements will be logged server-side through the FxA data pipeline. We  are not directly responsible for the measurements made through that mechanism.
+At this point, all measurements related to Lockbox will be made client-side. However, future releases will give users the option to sync their Lockbox data via an FxA account, at which point additional measurements will be logged server-side through the FxA data pipeline. We are not directly responsible for the measurements made through that mechanism.
 
 For our internal alpha release, we will be making use of the public JavaScript API that allows recording and sending of event data through an add-on. **This means that for our alpha release we will only be collecting event-based data**. The API is documented here:
 
@@ -104,7 +104,7 @@ For alpha, we'd like to (ideally) like to be able to track the following general
 - Interactions with the list of the user's Lockbox items (credentials)
 - Interactions with the add / modify dialogs used to enter / edit item information
 - Changes to the datastore that actually contains the user's items, in addition to user actions that lead to those changes
-- When the user submits feedback about lockbox
+- When the user submits feedback about Lockbox
 - Usage of the copy and reveal functions for stored Lockbox items.
 
 Each of these are described below within their own Events subsection.
@@ -130,7 +130,7 @@ All events are currently implemented under the **category: lockboxV0**. The `ext
 
 2. `iconClick` fires when someone clicks the toolbar icon. **objects**: toolbar
 
-3. `render` events fire when the firstrun view (showing the initial lockbox setup form), item manager or doorhanger (when implemented) are rendered. **objects**: firstrun, manage, doorhanger
+3. `render` events fire when the firstrun view (showing the initial Lockbox setup form), item manager or doorhanger (when implemented) are rendered. **objects**: firstrun, manage, doorhanger
 
 4. `itemAdding`, `itemUpdating`, `itemDeleting` fire when a user clicks to submit a new item or edit or delete an existing item. **objects**: addItemForm, updatingItemForm
 
