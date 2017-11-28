@@ -3,7 +3,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { openView } from "./views";
-import getAuthorization from "./authorization";
 import * as telemetry from "./telemetry";
 
 let listener;
@@ -26,11 +25,7 @@ function uninstallPopup() {
 function installListener(name) {
   listener = () => {
     telemetry.recordEvent("iconClick", "toolbar");
-    if (name === "firstrun") {
-      getAuthorization().signIn();
-    } else {
-      openView(name);
-    }
+    openView(name);
   };
   browser.browserAction.onClicked.addListener(listener);
 }

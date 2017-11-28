@@ -5,7 +5,7 @@
     "authorization_endpoint": "https://oauth.accounts.firefox.com/v1/authorization",
     "token_endpoint": "https://oauth.accounts.firefox.com/v1/token",
     "userinfo_endpoint": "https://profile.accounts.firefox.com/v1/profile",
-    "scopes": ["openid", "profile", "https://identity.mozilla.org/apps/lockbox"],
+    "scopes": ["openid", "profile", "https://identity.mozilla.com/apps/lockbox"],
     "pkce": true
   },
   "dev-latest": {
@@ -15,7 +15,7 @@
     "authorization_endpoint": "https://oauth-latest.dev.lcip.org/v1/authorization",
     "token_endpoint": "https://oauth-latest.dev.lcip.org/v1/token",
     "userinfo_endpoint": "https://latest.dev.lcip.org/profile/v1/profile",
-    "scopes": ["openid", "profile", "https://identity.mozilla.org/apps/lockbox"],
+    "scopes": ["openid", "profile", "https://identity.mozilla.com/apps/lockbox"],
     "pkce": false
   },
   "dev-stable": {
@@ -31,10 +31,10 @@
   "scoped-keys": {
     "client_id": "37fdfa37698f251a",
     "redirect_uri": "https://2aa95473a5115d5f3deb36bb6875cf76f05e4c4d.extensions.allizom.org/",
-    "authorization_endpoint": "https://oauth-scoped-keys-oct10.dev.lcip.org/v1/authorization",
-    "token_endpoint": "https://oauth-scoped-keys-oct10.dev.lcip.org/v1/token",
-    "userinfo_endpoint": "https://scoped-keys-oct10.dev.lcip.org/profile/v1/profile",
-    "scopes": ["openid", "profile", "https://identity.mozilla.org/apps/lockbox"],
+    "authorization_endpoint": "https://oauth-latest-keys.dev.lcip.org/v1/authorization",
+    "token_endpoint": "https://oauth-latest-keys.dev.lcip.org/v1/token",
+    "userinfo_endpoint": "https://latest-keys.dev.lcip.org/profile/v1/profile",
+    "scopes": ["openid", "profile", "https://identity.mozilla.com/apps/lockbox"],
     "pkce": true,
     "app_keys": true
   }

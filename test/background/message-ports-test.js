@@ -26,6 +26,25 @@ describe("background > message ports", () => {
 
     selfMessagePort = browser.runtime.connect();
     otherMessagePort = browser.runtime.connect(undefined, {mockPrimary: false});
+
+    // setup fake OAuth response
+    fetchMock.post("end:/v1/token", {
+      status: 200,
+      body: {
+        grant_type: "bearer",
+        access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
+        expires_in: 1209600,
+        auth_at: 1510734551,
+        refresh_token: "rmrBzLYi2zia4ExNBy7uXE4s_Da_HMS4d3tvr203OVTq1EMQqh-85m4Hejo3TKBKuont6QFIlLJ23rZR4xqZBA",
+      },
+    });
+    fetchMock.get("end:/v1/profile", {
+      status: 200,
+      body: {
+        uid: "1234",
+        email: "eripley@wyutani.com",
+      },
+    });
   });
 
   after(() => {

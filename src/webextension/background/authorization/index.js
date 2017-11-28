@@ -78,6 +78,7 @@ export class Authorization {
       info = { ...info };
       delete info.email;
       delete info.refresh_token;
+      delete info.keys;
     }
     return {
       config,
@@ -85,8 +86,7 @@ export class Authorization {
     };
   }
 
-  get signedIn() { return (this.info !== undefined) && (this.info.access_token); }
-  get verified() { return (this.info && this.info.verified) || false; }
+  get signedIn() { return Boolean((this.info !== undefined) && (this.info.access_token)); }
 
   get uid() { return (this.info && this.info.uid) || undefined; }
   get email() { return (this.info && this.info.email) || undefined; }
@@ -131,17 +131,17 @@ export class Authorization {
     let oauthInfo = await fetchFromEndPoint("token", url, request);
     console.log(`oauth info == ${JSON.stringify(oauthInfo)}`);
 
+    let keys = {};
     if (oauthInfo.keys_jwe) {
       let bundle = await jose.JWE.createDecrypt(props.appKey).decrypt(oauthInfo.keys_jwe);
       bundle = JSON.parse(new TextDecoder().decode(bundle.payload));
-      this.keys = {};
       let pending = Object.keys(bundle).map(async(name) => {
         let key = bundle[name];
         key = await jose.JWK.asKey(key);
         name = name.startsWith(APP_KEY_NAME_PREFIX) ?
                name.substring(APP_KEY_NAME_PREFIX.length) :
                name;
-        this.keys[name] = key;
+        keys[name] = key;
       });
       await Promise.all(pending);
     }
@@ -164,6 +164,7 @@ export class Authorization {
       expires_at: (Date.now / 1000) + oauthInfo.expires_in,
       refresh_token: oauthInfo.refresh_token,
       id_token: oauthInfo.id_token,
+      keys,
     };
     return this.info;
   }
@@ -171,17 +172,6 @@ export class Authorization {
   async signOut() {
     // TODO: something server side?
     this.info = undefined;
-  }
-
-  async verify(password) {
-    if (!this.signedIn) {
-      throw new Error("not signed in");
-    }
-
-    // TODO: do something real!
-    this.info.verified = true;
-
-    return password;
   }
 }
 
