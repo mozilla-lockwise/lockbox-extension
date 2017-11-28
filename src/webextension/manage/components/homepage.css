@@ -30,3 +30,7 @@
   text-align: left;
   white-space: pre-line;
 }
+
+.homepage > img {
+  width: 300px;
+}

@@ -82,9 +82,9 @@ Services.telemetry.registerEvents("event_category", {
 
 For our purposes, we will use the `extra` field for a few purposes:
 
--   To log the FxA user id of the client logging the event (e.g. `"fxauid": uid`)
--   To log the UUID of the item that has been added or changed (e.g. `"item_id": UUID`)
--   To log the fields that are modified when an item is updated in the datastore (e.g. `"fields": "password,notes"`  (because the value has to be a string we will have to concat the fields that were updated somehow)
+- To log the FxA user id of the client logging the event (e.g. `"fxauid": uid`)
+- To log the UUID of the item that has been added or changed (e.g. `"item_id": UUID`)
+- To log the fields that are modified when an item is updated in the datastore (e.g. `"fields": "password,notes"`  (because the value has to be a string we will have to concat the fields that were updated somehow)
 
 Once an event is registered, we can record it with:
 
@@ -99,13 +99,13 @@ See the Events section for specific examples of event registration and recording
 (this section may redundant with analysis section)
 For alpha, we'd like to (ideally) like to be able to track the following general categories of things:
 
--   The setup flow, so we can know at what points (if any) people quit the flow before finishing it
--   Top-level interactions centered around use of the Lockbox toolbar icon. This includes interactions within the initial doorhanger that is displayed when the user clicks the icon.
--   Interactions with the list of the user's Lockbox items (credentials)
--   Interactions with the add / modify dialogs used to enter / edit item information
--   Changes to the datastore that actually contains the user's items, in addition to user actions that lead to those changes
--   When the user submits feedback about lockbox
--		Usage of the copy and reveal functions for stored Lockbox items.
+- The setup flow, so we can know at what points (if any) people quit the flow before finishing it
+- Top-level interactions centered around use of the Lockbox toolbar icon. This includes interactions within the initial doorhanger that is displayed when the user clicks the icon.
+- Interactions with the list of the user's Lockbox items (credentials)
+- Interactions with the add / modify dialogs used to enter / edit item information
+- Changes to the datastore that actually contains the user's items, in addition to user actions that lead to those changes
+- When the user submits feedback about lockbox
+- Usage of the copy and reveal functions for stored Lockbox items.
 
 Each of these are described below within their own Events subsection.
 
@@ -114,17 +114,17 @@ Each of these are described below within their own Events subsection.
 
 These are the metrics we plan to collect regarding the state of user datastores. Note that we won't be able to record these directly for alpha. We will have to infer them from the event data.
 
--   `n_items` The number of credentials that exist in the user's datastore. Integer
+- `n_items` The number of credentials that exist in the user's datastore. Integer
 
--   `n_notes` The number of items for which the user has manually entered custom notes for. Integer
+- `n_notes` The number of items for which the user has manually entered custom notes for. Integer
 
--   `timestamp_last` The timestamp of the last edit the user made to the datastore. Does not necessarily correspond to the last time they opened the CRUD editor.
+- `timestamp_last` The timestamp of the last edit the user made to the datastore. Does not necessarily correspond to the last time they opened the CRUD editor.
 
--   `n_uses` The number of times a user copied or auto-filled a Lockbox item.
+- `n_uses` The number of times a user copied or auto-filled a Lockbox item.
 
 ## List of Events Currently Recorded
 
-All events are currently implemented under the **category: lockboxV0**. The `extra` field always contains `fxaid` where possible (i.e. after FxA auth). For events pertaining to a particular Lockbox item, `itemid` is also included. They are listed and grouped together based on the contents of the event's `method` field.
+All events are currently implemented under the **category: lockboxV0**. The `extra` field always contains `fxauid` where possible (i.e. after FxA auth). For events pertaining to a particular Lockbox item, `itemid` is also included. They are listed and grouped together based on the contents of the event's `method` field.
 
 1. `startup` fires when the webextension is loaded. **objects**: webextension. Note that this event fires whenever the browser is started, so is not indicative of direct user interaction with Lockbox.
 

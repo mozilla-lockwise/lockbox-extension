@@ -19,9 +19,10 @@ import * as telemetry from "../../telemetry";
 const PASSWORD_DOT = "\u25cf";
 
 function CopyToClipboardButton({text, ...props}) {
-  telemetry.recordEvent("itemCopied", "entryDetails");
   return (
-    <CopyToClipboard text={text}>
+    <CopyToClipboard text={text} onCopy={() => {
+      telemetry.recordEvent("itemCopied", "entryDetails");
+    }}>
       <Button {...props}/>
     </CopyToClipboard>
   );
