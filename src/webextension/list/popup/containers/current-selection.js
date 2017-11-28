@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
-import { flattenItem } from "../..";
+import { flattenItem } from "../../common";
 import { selectItem } from "../../actions";
 import ItemDetailsPanel from "../components/item-details-panel";
 import ItemListPanel from "../components/item-list-panel";

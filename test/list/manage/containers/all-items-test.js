@@ -13,7 +13,7 @@ import thunk from "redux-thunk";
 import { initialState, filledState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
 import { SELECT_ITEM_STARTING } from "src/webextension/list/actions";
-import { NEW_ITEM_ID } from "src/webextension/list";
+import { NEW_ITEM_ID } from "src/webextension/list/common";
 import ItemSummary from "src/webextension/list/components/item-summary";
 import AllItems from "src/webextension/list/manage/containers/all-items";
 

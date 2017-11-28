@@ -87,6 +87,9 @@ function addItemStarting(actionId, item) {
   };
 }
 
+// `interactive` refers to actions that occurred as a result of the user doing
+// something in the *current* view (as opposed to an action triggered by another
+// view).
 function addItemCompleted(actionId, item, interactive = false) {
   return {
     type: ADD_ITEM_COMPLETED,
@@ -122,6 +125,9 @@ function updateItemStarting(actionId, item) {
   };
 }
 
+// `interactive` refers to actions that occurred as a result of the user doing
+// something in the *current* view (as opposed to an action triggered by another
+// view).
 function updateItemCompleted(actionId, item, interactive = false) {
   return {
     type: UPDATE_ITEM_COMPLETED,
