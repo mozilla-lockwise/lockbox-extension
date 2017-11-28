@@ -24,7 +24,7 @@ describe("manage > actions", () => {
     browser.runtime.onMessage.mockClearListener();
   });
 
-  it("listItems() dispatched", async() => {
+  it("listItems() dispatched", async () => {
     const items = [
       {id: "1", title: "title 1"},
       {id: "2", title: "title 2"},
@@ -47,7 +47,7 @@ describe("manage > actions", () => {
     ]);
   });
 
-  it("addItem() dispatched", async() => {
+  it("addItem() dispatched", async () => {
     const item = {
       title: "title",
       entry: {
@@ -75,7 +75,7 @@ describe("manage > actions", () => {
     ]);
   });
 
-  it("updateItem() dispatched", async() => {
+  it("updateItem() dispatched", async () => {
     const item = {
       id: "1",
       title: "title",
@@ -115,7 +115,7 @@ describe("manage > actions", () => {
     ]);
   });
 
-  it("removeItem() dispatched", async() => {
+  it("removeItem() dispatched", async () => {
     const id = "1";
     browser.runtime.onMessage.addListener((msg) => {
       if (msg.type === "remove_item") {
@@ -136,7 +136,7 @@ describe("manage > actions", () => {
     ]);
   });
 
-  it("requestSelectItem() dispatched (no editor changes)", async() => {
+  it("requestSelectItem() dispatched (no editor changes)", async () => {
     const item = {
       id: "1",
       title: "title",
@@ -165,7 +165,7 @@ describe("manage > actions", () => {
     ]);
   });
 
-  it("requestSelectItem() dispatched (with editor changes)", async() => {
+  it("requestSelectItem() dispatched (with editor changes)", async () => {
     const store = mockStore({
       ...initialState,
       ui: {...initialState.ui, editing: true, editorChanged: true},
@@ -180,7 +180,7 @@ describe("manage > actions", () => {
     ]);
   });
 
-  it("selectItem() dispatched", async() => {
+  it("selectItem() dispatched", async () => {
     const item = {
       id: "1",
       title: "title",
@@ -209,7 +209,7 @@ describe("manage > actions", () => {
     ]);
   });
 
-  it("selectItem(null) dispatched", async() => {
+  it("selectItem(null) dispatched", async () => {
     await store.dispatch(actions.selectItem(null));
     const dispatched = store.getActions();
     expect(dispatched).to.deep.equal([

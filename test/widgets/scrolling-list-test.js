@@ -165,7 +165,7 @@ describe("widgets > <ScrollingList/>", () => {
       });
     });
 
-    it("scroll down into view", async() => {
+    it("scroll down into view", async () => {
       const scrollIntoView = sinon.spy();
       wrapper.find("li").at(2).instance().scrollIntoView = scrollIntoView;
       wrapper.setProps({selected: "3"});

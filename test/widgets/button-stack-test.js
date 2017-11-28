@@ -32,7 +32,7 @@ describe("widgets > <ButtonStack/>", () => {
     expect(wrapper.find("button")).to.have.text("click me");
   });
 
-  it("select child", async() => {
+  it("select child", async () => {
     const wrapper = mount(
       <ButtonStack>
         <button>click me</button>

@@ -26,8 +26,8 @@ describe("background > authorization", () => {
   });
 
   describe("loadAuthorization()", () => {
-    it("with saved authz", async() => {
-      const result = await authz.loadAuthorization({get: async() => {
+    it("with saved authz", async () => {
+      const result = await authz.loadAuthorization({get: async () => {
         return {authz: {
           config: "dev-latest",
           info: {
@@ -39,15 +39,15 @@ describe("background > authorization", () => {
       expect(result.info).to.deep.equal({verified: true, uid: "1234"});
     });
 
-    it("without saved authz", async() => {
-      const result = await authz.loadAuthorization({get: async() => {
+    it("without saved authz", async () => {
+      const result = await authz.loadAuthorization({get: async () => {
         return {};
       }});
       expect(result.info).to.equal(undefined);
     });
   });
 
-  it("saveAuthorization()", async() => {
+  it("saveAuthorization()", async () => {
     const set = sinon.stub().resolves({});
     await authz.saveAuthorization({set});
     expect(set).to.have.been.calledWith({authz: {
@@ -115,20 +115,20 @@ describe("background > authorization", () => {
       expect(authorization.email).to.equal("eripley@wyutani.com");
     });
 
-    it("signIn()", async() => {
+    it("signIn()", async () => {
       const result = await authorization.signIn();
       fetchMock.restore();
 
       expect(result).to.have.property("uid").that.is.a("string");
     });
 
-    it("signOut()", async() => {
+    it("signOut()", async () => {
       await authorization.signOut();
       expect(authorization.info).to.equal(undefined);
     });
 
     describe("verify()", () => {
-      it("verify user", async() => {
+      it("verify user", async () => {
         authorization.info = fakeInfo;
 
         const result = await authorization.verify("password");
