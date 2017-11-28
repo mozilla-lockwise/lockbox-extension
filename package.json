@@ -7,7 +7,7 @@
   "description": "A Lockbox extension for Firefox",
   "author": "Lockbox Team <lockbox-dev@mozilla.com>",
   "engines": {
-    "firefox": ">=54"
+    "firefox": ">=57"
   },
   "repository": {
     "type": "git",
