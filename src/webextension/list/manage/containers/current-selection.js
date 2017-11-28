@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
-import { flattenItem, unflattenItem } from "../..";
+import { flattenItem, unflattenItem } from "../../common";
 import {
   addItem, updateItem, requestRemoveItem, editCurrentItem, requestCancelEditing,
   editorChanged,

@@ -6,7 +6,7 @@ import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
-import { NEW_ITEM_ID } from "..";
+import { NEW_ITEM_ID } from "../common";
 import styles from "./item-summary.css";
 
 export default function ItemSummary({id, title, username}) {

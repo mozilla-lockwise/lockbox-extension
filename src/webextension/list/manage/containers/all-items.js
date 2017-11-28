@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 
 import { requestSelectItem } from "../../actions";
 import { parseFilterString, filterItem } from "../../filter";
-import { NEW_ITEM_ID } from "../..";
+import { NEW_ITEM_ID } from "../../common";
 import ItemList, { ItemListPlaceholder } from "../../components/item-list";
 
 const collator = new Intl.Collator();
