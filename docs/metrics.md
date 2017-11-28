@@ -48,7 +48,7 @@ Data collection is done solely for the purpose of product development, improveme
 
 **Note:** *This is the collection plan for our internal alpha release. For our beta release will be taking advantage of test pilot's telemetry API. The metrics plan for beta will be described in a separate document.*
 
-At this point, all measurements related to Lockbox will be made client-side. Eventually all users will have to authenticate through FxA, and thus additional measurements related to that will be logged on the FxA auth server. We have no control over what is already collected via that mechanism.
+At this point, all measurements related to Lockbox will be made client-side. However, future releases will give users the option to sync their lockbox data via an FxA account, at which point additional measurements will be logged server-side through the FxA data pipeline. We  are not directly responsible for the measurements made through that mechanism.
 
 For our internal alpha release, we will be making use of the public JavaScript API that allows recording and sending of event data through an add-on. **This means that for our alpha release we will only be collecting event-based data**. The API is documented here:
 
