@@ -23,6 +23,13 @@ const NODE_ENV = (() => {
   return "development";
 })();
 
+// Enable the doorhanger by default on dev builds.
+const ENABLE_DOORHANGER = (
+  process.env.ENABLE_DOORHANGER ?
+    Boolean(parseInt(process.env.ENABLE_DOORHANGER)) :
+    NODE_ENV !== "production"
+);
+
 const cssLoader = {
   loader: "css-loader",
   query: {
@@ -128,6 +135,7 @@ export default {
     new webpack.DefinePlugin({
       "process.env": {
         "NODE_ENV": JSON.stringify(NODE_ENV),
+        "ENABLE_DOORHANGER": JSON.stringify(ENABLE_DOORHANGER),
       },
     }),
     new HTMLWebpackPlugin({
