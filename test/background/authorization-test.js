@@ -51,7 +51,7 @@ describe("background > authorization", () => {
     const set = sinon.stub().resolves({});
     await authz.saveAuthorization({set});
     expect(set).to.have.been.calledWith({authz: {
-      config: "dev-latest",
+      config: "scoped-keys",
       info: undefined,
     }});
   });
@@ -69,9 +69,11 @@ describe("background > authorization", () => {
   describe("Authorization", () => {
     let authorization;
     const fakeInfo = {
-      verified: true,
       uid: "1234",
       email: "eripley@wyutani.com",
+      access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
+      refresh_token: "rmrBzLYi2zia4ExNBy7uXE4s_Da_HMS4d3tvr203OVTq1EMQqh-85m4Hejo3TKBKuont6QFIlLJ23rZR4xqZBA",
+      keys: {},
     };
 
     beforeEach(() => {
@@ -81,10 +83,10 @@ describe("background > authorization", () => {
     it("toJSON()", () => {
       authorization.info = fakeInfo;
       expect(authorization.toJSON()).to.deep.equal({
-        config: "dev-latest",
+        config: "scoped-keys",
         info: {
-          verified: true,
           uid: "1234",
+          access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
         },
       });
     });
@@ -93,14 +95,6 @@ describe("background > authorization", () => {
       expect(authorization.signedIn).to.equal(false);
       authorization.info = fakeInfo;
       expect(authorization.signedIn).to.equal(true);
-    });
-
-    it("verified", () => {
-      expect(authorization.verified).to.equal(false);
-      authorization.info = {...fakeInfo, verified: false};
-      expect(authorization.verified).to.equal(false);
-      authorization.info = fakeInfo;
-      expect(authorization.verified).to.equal(true);
     });
 
     it("uid", () => {

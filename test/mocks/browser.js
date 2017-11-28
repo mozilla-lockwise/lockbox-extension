@@ -114,7 +114,16 @@ window.browser = {
 
   identity: {
     async launchWebAuthFlow({url}) {
-      return url;
+      url = new URL(url);
+      let requestParams = url.searchParams;
+      let redirect = requestParams.get("redirect_uri");
+      let state = requestParams.get("state");
+
+      let responseParams = new URLSearchParams();
+      responseParams.set("state", state);
+      responseParams.set("code", "7scJCX3_Dhc5cfwA3iJ32k07dJEuf3pghu4cNsH5dBXXO9h0OAQ8tHjucatkh8qQVoUiDf04r0dlv4LqkxZ-7Q");
+      let responseURL = new URL(`${redirect}?${responseParams}`);
+      return responseURL.toString();
     },
   },
 
