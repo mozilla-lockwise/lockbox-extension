@@ -23,6 +23,8 @@ function CopyToClipboardButton({text, ...props}) {
     <CopyToClipboard text={text} onCopy={() => {
       telemetry.recordEvent("itemCopied", "entryDetails");
     }}>
+      <Button {...props}/>
+    </CopyToClipboard>
   );
 }
 
