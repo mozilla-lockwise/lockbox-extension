@@ -23,7 +23,7 @@ telemetry.recordEvent("render", "manage");
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppLocalizationProvider bundles={["manage", "widgets"]}
+    <AppLocalizationProvider bundles={["list", "widgets"]}
                              userLocales={navigator.languages}>
       <App/>
     </AppLocalizationProvider>

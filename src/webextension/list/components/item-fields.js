@@ -42,13 +42,13 @@ export function ItemFields({fields}) {
   return (
     <div className={styles.itemFields}>
       <div className={styles.field}>
-        <Localized id="item-details-title">
+        <Localized id="item-fields-title">
           <LabelText className={styles.firstLabel}>tITLe</LabelText>
         </Localized>
         <FieldText data-name="title">{fields.title}</FieldText>
       </div>
       <div className={styles.field}>
-        <Localized id="item-details-origin">
+        <Localized id="item-fields-origin">
           <LabelText>oRIGIn</LabelText>
         </Localized>
         <FieldText monospace={true} data-name="origin">
@@ -56,14 +56,14 @@ export function ItemFields({fields}) {
         </FieldText>
       </div>
       <div className={styles.field}>
-        <Localized id="item-details-username">
+        <Localized id="item-fields-username">
           <LabelText>uSERNAMe</LabelText>
         </Localized>
         <div className={styles.inlineButton}>
           <FieldText monospace={true} data-name="username">
             {fields.username}
           </FieldText>
-          <Localized id="item-details-copy-username">
+          <Localized id="item-fields-copy-username">
             <CopyToClipboardButton text={fields.username}>
               cOPy
             </CopyToClipboardButton>
@@ -71,14 +71,14 @@ export function ItemFields({fields}) {
         </div>
       </div>
       <div className={styles.field}>
-        <Localized id="item-details-password">
+        <Localized id="item-fields-password">
           <LabelText>pASSWORd</LabelText>
         </Localized>
         <div className={styles.inlineButton}>
           <FieldText monospace={true} data-name="password">
             {PASSWORD_DOT.repeat(fields.password.length)}
           </FieldText>
-          <Localized id="item-details-copy-password">
+          <Localized id="item-fields-copy-password">
             <CopyToClipboardButton text={fields.password}>
               cOPy
             </CopyToClipboardButton>
@@ -86,7 +86,7 @@ export function ItemFields({fields}) {
         </div>
       </div>
       <div className={styles.field}>
-        <Localized id="item-details-notes">
+        <Localized id="item-fields-notes">
           <LabelText>nOTEs</LabelText>
         </Localized>
         <FieldText data-name="notes">{fields.notes}</FieldText>
@@ -122,41 +122,49 @@ export class EditItemFields extends React.Component {
     return (
       <div className={styles.itemFields}>
         <label>
-          <Localized id="item-details-title">
+          <Localized id="item-fields-title">
             <LabelText className={styles.firstLabel}>tITLe</LabelText>
           </Localized>
-          <Input type="text" {...controlledProps("title")}
-                 placeholder="eNTRy nAMe"
-                 ref={(element) => this._firstField = element}/>
+          <Localized id="item-fields-title-input">
+            <Input type="text" {...controlledProps("title")}
+                   placeholder="eNTRy nAMe"
+                   ref={(element) => this._firstField = element}/>
+          </Localized>
         </label>
         <label>
-          <Localized id="item-details-origin">
+          <Localized id="item-fields-origin">
             <LabelText>oRIGIn</LabelText>
           </Localized>
-          <Input type="text" monospace={true}
-                 placeholder="wWw.eXAMPLe.cOm"
-                 {...controlledProps("origin")}/>
+          <Localized id="item-fields-origin-input">
+            <Input type="text" monospace={true}
+                   placeholder="wWw.eXAMPLe.cOm"
+                   {...controlledProps("origin")}/>
+          </Localized>
         </label>
         <label>
-          <Localized id="item-details-username">
+          <Localized id="item-fields-username">
             <LabelText>uSERNAMe</LabelText>
           </Localized>
-          <Input type="text" monospace={true}
-                 placeholder="nAMe@eXAMPLe.cOm"
-                 {...controlledProps("username")}/>
+          <Localized id="item-fields-username-input">
+            <Input type="text" monospace={true}
+                   placeholder="nAMe@eXAMPLe.cOm"
+                   {...controlledProps("username")}/>
+          </Localized>
         </label>
         <label>
-          <Localized id="item-details-password">
+          <Localized id="item-fields-password">
             <LabelText>pASSWORd</LabelText>
           </Localized>
           <PasswordInput {...controlledProps("password")}/>
         </label>
         <label>
-          <Localized id="item-details-notes">
+          <Localized id="item-fields-notes">
             <LabelText>nOTEs</LabelText>
           </Localized>
-          <TextArea placeholder="aNSWERs to sECURITy..."
-                    {...controlledProps("notes", 10000)}/>
+          <Localized id="item-fields-notes-input">
+            <TextArea placeholder="aNSWERs to sECURITy..."
+                      {...controlledProps("notes", 10000)}/>
+          </Localized>
         </label>
       </div>
     );
