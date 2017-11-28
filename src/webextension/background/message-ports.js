@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import openDataStore from "./datastore";
-import getAuthorization, { saveAuthorization } from "./authorization/index";
+import getAccount, { saveAccount } from "./accounts";
 import updateBrowserAction from "./browser-action";
 import * as telemetry from "./telemetry";
 import { openView, closeView } from "./views";
@@ -33,13 +33,13 @@ export default function initializeMessagePorts() {
       return closeView(message.name).then(() => ({}));
 
     case "signin":
-      return getAuthorization().signIn(message.interactive);
+      return getAccount().signIn(message.interactive);
     case "initialize":
       return openDataStore().then(async (ds) => {
         await ds.initialize({
           password: message.password,
         });
-        await saveAuthorization(browser.storage.local);
+        await saveAccount(browser.storage.local);
         await updateBrowserAction(ds);
         return {};
       });
