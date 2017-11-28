@@ -8,8 +8,6 @@ import jose from "node-jose";
 
 import configs from "./configs.json";
 
-const APP_KEY_NAME_PREFIX = "https://identity.mozilla.org/apps/";
-
 async function generateAuthzURL(config, props) {
   let queryParams = new URLSearchParams();
   queryParams.set("response_type", "code");
@@ -75,10 +73,13 @@ export class Authorization {
   toJSON() {
     let { config, info } = this;
     if (info) {
-      info = { ...info };
-      delete info.email;
-      delete info.refresh_token;
-      delete info.keys;
+      let exported = {
+        uid: info.uid,
+        access_token: info.access_token || undefined,
+        expires_at: info.expires_at || undefined,
+        id_token: info.id_token || undefined,
+      };
+      info = { ...exported };
     }
     return {
       config,
@@ -90,6 +91,7 @@ export class Authorization {
 
   get uid() { return (this.info && this.info.uid) || undefined; }
   get email() { return (this.info && this.info.email) || undefined; }
+  get keys() { return (this.info && this.info.keys) || new Map(); }
 
   get idToken() { return (this.info && this.info.id_token) || undefined; }
 
@@ -131,17 +133,14 @@ export class Authorization {
     let oauthInfo = await fetchFromEndPoint("token", url, request);
     console.log(`oauth info == ${JSON.stringify(oauthInfo)}`);
 
-    let keys = {};
+    let keys = new Map();
     if (oauthInfo.keys_jwe) {
       let bundle = await jose.JWE.createDecrypt(props.appKey).decrypt(oauthInfo.keys_jwe);
       bundle = JSON.parse(new TextDecoder().decode(bundle.payload));
       let pending = Object.keys(bundle).map(async(name) => {
         let key = bundle[name];
         key = await jose.JWK.asKey(key);
-        name = name.startsWith(APP_KEY_NAME_PREFIX) ?
-               name.substring(APP_KEY_NAME_PREFIX.length) :
-               name;
-        keys[name] = key;
+        keys.set(name, key);
       });
       await Promise.all(pending);
     }
