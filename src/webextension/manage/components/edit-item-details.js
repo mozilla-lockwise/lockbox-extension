@@ -105,7 +105,7 @@ export default class EditItemDetails extends React.Component {
           </Localized>
           <Localized id="item-details-username-input">
             <Input type="text" monospace={true}
-                   placeholder="nAMeE@eXAMPLE.oRg"
+                   placeholder="nAMe@eXAMPLE.cOm"
                    {...controlledProps("username")}/>
           </Localized>
         </label>
