@@ -36,7 +36,7 @@ function fetchAllMessages(baseDir, locale, bundles) {
 }
 
 async function createMessagesGenerator(baseDir, currentLocales, bundles) {
-  const fetched = await Promise.all(currentLocales.map(async(locale) => {
+  const fetched = await Promise.all(currentLocales.map(async (locale) => {
     return {[locale]: await fetchAllMessages(baseDir, locale, bundles)};
   }));
 

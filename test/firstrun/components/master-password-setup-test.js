@@ -39,7 +39,7 @@ describe("firstrun > components > master-password-setup", () => {
     wrapper.find('button[type="submit"]').simulate("submit");
   });
 
-  it("submit mismatched password", async() => {
+  it("submit mismatched password", async () => {
     simulateTyping(wrapper.find("input[name='password']"), "n0str0m0");
     simulateTyping(wrapper.find("input[name='confirmPassword']"), "jonesy");
     wrapper.find('button[type="submit"]').simulate("submit");
@@ -49,7 +49,7 @@ describe("firstrun > components > master-password-setup", () => {
     );
   });
 
-  it("catch failures to initialize", async() => {
+  it("catch failures to initialize", async () => {
     browser.runtime.onMessage.mockClearListener();
     browser.runtime.onMessage.addListener(() => {
       throw new Error();

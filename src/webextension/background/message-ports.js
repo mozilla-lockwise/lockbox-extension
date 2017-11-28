@@ -25,7 +25,7 @@ export default function initializeMessagePorts() {
     port.onDisconnect.addListener(() => ports.delete(port));
   });
 
-  browser.runtime.onMessage.addListener(async(message, sender) => {
+  browser.runtime.onMessage.addListener(async (message, sender) => {
     switch (message.type) {
     case "open_view":
       return openView(message.name).then(() => ({}));
@@ -35,7 +35,7 @@ export default function initializeMessagePorts() {
     case "signin":
       return getAuthorization().signIn(message.interactive);
     case "initialize":
-      return openDataStore().then(async(ds) => {
+      return openDataStore().then(async (ds) => {
         await ds.initialize({
           password: message.password,
         });
@@ -44,7 +44,7 @@ export default function initializeMessagePorts() {
         return {};
       });
     case "reset":
-      return openDataStore().then(async(ds) => {
+      return openDataStore().then(async (ds) => {
         await closeView();
 
         await ds.reset();
@@ -58,44 +58,44 @@ export default function initializeMessagePorts() {
 
 
     case "unlock":
-      return openDataStore().then(async(ds) => {
+      return openDataStore().then(async (ds) => {
         await ds.unlock(message.password);
         await updateBrowserAction(ds);
         return {};
       });
     case "lock":
-      return openDataStore().then(async(ds) => {
+      return openDataStore().then(async (ds) => {
         await ds.lock();
         await updateBrowserAction(ds);
         return {};
       });
 
     case "list_items":
-      return openDataStore().then(async(ds) => {
+      return openDataStore().then(async (ds) => {
         return {items: Array.from((await ds.list()).values(),
                                   makeItemSummary)};
       });
 
     case "add_item":
-      return openDataStore().then(async(ds) => {
+      return openDataStore().then(async (ds) => {
         const item = await ds.add(message.item);
         broadcast({type: "added_item", item}, sender);
         return {item};
       });
     case "update_item":
-      return openDataStore().then(async(ds) => {
+      return openDataStore().then(async (ds) => {
         const item = await ds.update(message.item);
         broadcast({type: "updated_item", item}, sender);
         return {item};
       });
     case "remove_item":
-      return openDataStore().then(async(ds) => {
+      return openDataStore().then(async (ds) => {
         await ds.remove(message.id);
         broadcast({type: "removed_item", id: message.id}, sender);
         return {};
       });
     case "get_item":
-      return openDataStore().then(async(ds) => {
+      return openDataStore().then(async (ds) => {
         return {item: await ds.get(message.id)};
       });
 

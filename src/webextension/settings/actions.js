@@ -13,7 +13,7 @@ let nextActionId = 0;
 // Reset actions
 
 export function localReset() {
-  return async(dispatch) => {
+  return async (dispatch) => {
     const actionId = nextActionId++;
     dispatch(localResetStarting(actionId));
     await browser.runtime.sendMessage({
