@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import openDataStore from "./datastore";
-import { loadAuthorization } from "./authorization";
+import { loadAccount } from "./accounts";
 import initializeMessagePorts from "./message-ports";
 import updateBrowserAction from "./browser-action";
 
@@ -13,9 +13,9 @@ import updateBrowserAction from "./browser-action";
 openDataStore().then(async (ds) => {
   try {
     // attempt to load authorization (FxA) data
-    let authz = await loadAuthorization(browser.storage.local);
+    let acct = await loadAccount(browser.storage.local);
     // eslint-disable-next-line no-console
-    console.log(`loaded authorization for '${authz.uid || ""}'`);
+    console.log(`loaded authorization for '${acct.uid || ""}'`);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(`loading failed: ${err.message}`);

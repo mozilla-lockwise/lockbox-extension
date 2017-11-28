@@ -63,7 +63,7 @@ async function fetchFromEndPoint(name, url, request) {
   return body;
 }
 
-export class Authorization {
+export class Account {
   constructor({config = DEFAULT_CONFIG, info}) {
     // TODO: verify configuration (when there is one)
     this.config = config;
@@ -174,27 +174,27 @@ export class Authorization {
   }
 }
 
-let authorization;
-export default function getAuthorization() {
-  if (!authorization) {
-    authorization = new Authorization({});
+let account;
+export default function getAccount() {
+  if (!account) {
+    account = new Account({});
   }
-  return authorization;
+  return account;
 }
 
-export async function loadAuthorization(storage) {
-  let stored = await storage.get("authz");
-  if (stored && stored.authz) {
-    authorization = new Authorization(stored.authz);
+export async function loadAccount(storage) {
+  let stored = await storage.get("account");
+  if (stored && stored.account) {
+    account = new Account(stored.account);
   }
-  return getAuthorization();
+  return getAccount();
 }
 
-export async function saveAuthorization(storage) {
-  let authz = getAuthorization().toJSON();
-  await storage.set({ authz });
+export async function saveAccount(storage) {
+  let account = getAccount().toJSON();
+  await storage.set({ account });
 }
 
-export function setAuthorization(config, info) {
-  authorization = config ? new Authorization({config, info}) : undefined;
+export function setAccount(config, info) {
+  account = config ? new Account({config, info}) : undefined;
 }

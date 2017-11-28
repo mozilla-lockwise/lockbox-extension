@@ -9,27 +9,27 @@ import jose from "node-jose";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
-import getAuthorization, * as authz from
-       "src/webextension/background/authorization";
+import getAccount, * as accounts from
+       "src/webextension/background/accounts";
 
 chai.use(chaiAsPromised);
 chai.use(sinonChai);
 
-describe("background > authorization", () => {
+describe("background > accounts", () => {
   beforeEach(() => {
-    authz.setAuthorization();
+    accounts.setAccount();
   });
 
-  it("getAuthorization()", () => {
-    const authorization = getAuthorization();
-    expect(authorization).to.be.an.instanceof(authz.Authorization);
-    expect(getAuthorization()).to.equal(authorization);
+  it("getAccount()", () => {
+    const acct = getAccount();
+    expect(acct).to.be.an.instanceof(accounts.Account);
+    expect(getAccount()).to.equal(acct);
   });
 
-  describe("loadAuthorization()", () => {
-    it("with saved authz", async () => {
-      const result = await authz.loadAuthorization({get: async () => {
-        return {authz: {
+  describe("loadAccount()", () => {
+    it("with saved acct", async () => {
+      const result = await accounts.loadAccount({get: async () => {
+        return {account: {
           config: "dev-latest",
           info: {
             verified: true,
@@ -40,35 +40,35 @@ describe("background > authorization", () => {
       expect(result.info).to.deep.equal({verified: true, uid: "1234"});
     });
 
-    it("without saved authz", async () => {
-      const result = await authz.loadAuthorization({get: async () => {
+    it("without saved acct", async () => {
+      const result = await accounts.loadAccount({get: async () => {
         return {};
       }});
       expect(result.info).to.equal(undefined);
     });
   });
 
-  it("saveAuthorization()", async () => {
+  it("saveAccount()", async () => {
     const set = sinon.stub().resolves({});
-    await authz.saveAuthorization({set});
-    expect(set).to.have.been.calledWith({authz: {
+    await accounts.saveAccount({set});
+    expect(set).to.have.been.calledWith({account: {
       config: "scoped-keys",
       info: undefined,
     }});
   });
 
-  it("setAuthorization()", () => {
-    authz.setAuthorization("dev-latest");
-    expect(getAuthorization.__GetDependency__("authorization").config)
+  it("setAccount()", () => {
+    accounts.setAccount("dev-latest");
+    expect(getAccount.__GetDependency__("account").config)
           .to.equal("dev-latest");
 
-    authz.setAuthorization();
-    expect(getAuthorization.__GetDependency__("authorization"))
+    accounts.setAccount();
+    expect(getAccount.__GetDependency__("accounts"))
           .to.equal(undefined);
   });
 
-  describe("Authorization", () => {
-    let authorization;
+  describe("Account", () => {
+    let acct;
     const fakeInfo = {
       uid: "1234",
       email: "eripley@wyutani.com",
@@ -80,11 +80,11 @@ describe("background > authorization", () => {
     };
 
     beforeEach(() => {
-      authorization = new authz.Authorization({});
+      acct = new accounts.Account({});
     });
 
     it("toJSON()", () => {
-      authorization.info = fakeInfo;
+      acct.info = fakeInfo;
       const expected = {
         config: "scoped-keys",
         info: {
@@ -94,26 +94,26 @@ describe("background > authorization", () => {
           id_token: "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBDWTBJb3RVVHBtWDFDbXJqMWNwcTB6aFBkd1NtalJSaWlJNzduMmMtMFkifQ.eyJ1aWQiOiIxMjM0IiwiaXNzIjoic2NvcGVkLWtleXMifQ.pX8I1LqCD849Gp0TzKcS6LM_fko0gc7wkSzBgPaxFDyF8AZrWn9-HTRoW-9YIuHujLzldbI1k34VeSHNM85vkPjm_AxbBKuXEiVJQdcCAxNjbSQmM1dOX6kZKwN4oDu8X4BB3CwQq5eXioYYiPur149O_I2bhFDuMBtQBoQosZtOScuKliXcURuWEwhYcnHe8axit0fQ0vd1FOJK3300hccqcZNoHGXrSVj42mdo_aSREOcwSUP4i0r0aCfJqnxai43uy1C5l54mSN1KzqGeasx60lWPU-Jm3gPm_2CXRWbfWxF3-OnxhMhSQiS90kefX81H03ZYVShDutsx55d0tQ",
         },
       };
-      const actual = authorization.toJSON();
+      const actual = acct.toJSON();
       expect(actual).to.deep.equal(expected);
     });
 
     it("signedIn", () => {
-      expect(authorization.signedIn).to.equal(false);
-      authorization.info = fakeInfo;
-      expect(authorization.signedIn).to.equal(true);
+      expect(acct.signedIn).to.equal(false);
+      acct.info = fakeInfo;
+      expect(acct.signedIn).to.equal(true);
     });
 
     it("uid", () => {
-      expect(authorization.uid).to.equal(undefined);
-      authorization.info = fakeInfo;
-      expect(authorization.uid).to.equal("1234");
+      expect(acct.uid).to.equal(undefined);
+      acct.info = fakeInfo;
+      expect(acct.uid).to.equal("1234");
     });
 
     it("email", () => {
-      expect(authorization.email).to.equal(undefined);
-      authorization.info = fakeInfo;
-      expect(authorization.email).to.equal("eripley@wyutani.com");
+      expect(acct.email).to.equal(undefined);
+      acct.info = fakeInfo;
+      expect(acct.email).to.equal("eripley@wyutani.com");
     });
 
     describe("signin/out", () => {
@@ -177,7 +177,7 @@ describe("background > authorization", () => {
       }
 
       before(() => {
-        authorization = new authz.Authorization({ config: "scoped-keys" });
+        acct = new accounts.Account({ config: "scoped-keys" });
       });
 
       beforeEach(async () => {
@@ -186,28 +186,28 @@ describe("background > authorization", () => {
       afterEach(async () => {
         stubWAF.restore();
         fetchMock.restore();
-        await authorization.signOut();
+        await acct.signOut();
       });
 
       it("signIn() without keys", async () => {
         await setupMocks(false);
-        const result = await authorization.signIn();
+        const result = await acct.signIn();
 
         expect(result).to.have.property("uid").that.is.a("string");
       });
 
       it("signIn() with keys", async () => {
         const expectedKeys = await setupMocks(true);
-        const result = await authorization.signIn();
+        const result = await acct.signIn();
 
         expect(result).to.have.property("uid").that.is.a("string");
         expect(result).to.have.property("keys").to.have.all.keys(...expectedKeys.keys());
-        expect(authorization).to.have.property("keys").to.have.all.keys(...expectedKeys.keys());
+        expect(acct).to.have.property("keys").to.have.all.keys(...expectedKeys.keys());
       });
 
       it("signOut()", async () => {
-        await authorization.signOut();
-        expect(authorization.info).to.equal(undefined);
+        await acct.signOut();
+        expect(acct.info).to.equal(undefined);
       });
     });
   });
