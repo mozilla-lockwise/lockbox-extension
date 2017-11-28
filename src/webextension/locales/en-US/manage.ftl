@@ -52,14 +52,22 @@ item-details-heading-new = Create a New Entry
 item-details-heading-edit = Edit Entry
 
 item-details-title = Entry Name
+item-details-title-input
+  .placeholder = Primary Bank
 item-details-origin = Website Address
+item-details-origin-input
+  .placeholder = www.example.com
 item-details-username = Username
+item-details-username-input
+  .placeholder = name@example.com
 item-details-copy-username = Copy
   .title = Copy the username to the clipboard
 item-details-password = Password
 item-details-copy-password = Copy
   .title = Copy the password to the clipboard
 item-details-notes = Notes
+item-details-notes-input
+  .placeholder = Answers to security questions or other account specifics...
 
 item-details-edit = Edit Entry
 item-details-delete = Delete Entry
