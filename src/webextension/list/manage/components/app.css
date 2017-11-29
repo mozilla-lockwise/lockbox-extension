@@ -36,7 +36,6 @@ body > main,
   min-width: 320px;
   min-height: 0;
   background-color: #dfdfe3;
-  border-right: 1px solid #b1b1b3;
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
