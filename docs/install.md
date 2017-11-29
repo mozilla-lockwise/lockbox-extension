@@ -13,7 +13,7 @@ npm install
 To **build the project**, you can run:
 
 ```sh
-npm run-script build
+npm run build
 ```
 
 This puts all the necessary files in the `dist/` directory, which you can then
@@ -24,7 +24,7 @@ temporarily load into Firefox (e.g. `about:debugging`).
 To **build an extension .xpi**, you can run:
 
 ```sh
-npm run-script package
+npm run package
 ```
 
 :warning: The resulting add-on is unsigned and likely won't work on release
@@ -39,7 +39,7 @@ you'll need to flip the `extensions.legacy.enabled` preference, too.
 To **run the extension in a Firefox Nightly** browser, you can run:
 
 ```sh
-npm run-script run -- -b nightly
+npm run run -- -b nightly
 ```
 
 This will automatically create a fresh new user profile that will not persist
@@ -52,10 +52,10 @@ create a new profile by browsing to `about:profiles`.
 
 Once you have a new profile created (no matter the location), you can tell jpm
 (via npm) to run using that profile _and_ not to copy the profile temporarily
-so that any changes (e.g. adding new entries) will be saved and persist:
+so that any changes (e.g. adding new entries) will be saved:
 
 ```sh
-npm run-script run -- -p /path/to/profile --no-copy
+npm run run -- -p /path/to/profile --no-copy
 ```
 
 Now when you run using this new profile, any data or settings you make to the
