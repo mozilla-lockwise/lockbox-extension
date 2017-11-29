@@ -10,7 +10,7 @@
   color: #626262;
 }
 
-.item:nth-child(2n+1) {
+.item:nth-child(2n + 1) {
   background-color: #f1f1f1;
 }
 
