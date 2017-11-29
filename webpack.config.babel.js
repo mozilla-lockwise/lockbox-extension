@@ -152,7 +152,7 @@ export default {
       chunks: ["webextension/list/manage/index"],
       inject: false,
       minify: htmlMinifyOptions,
-      icon: "/icons/lb_locked.svg",
+      icon: "/icons/lb_unlocked.svg",
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",
