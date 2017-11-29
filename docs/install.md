@@ -42,13 +42,35 @@ To **run the extension in a Firefox Nightly** browser, you can run:
 npm run-script run -- -b nightly
 ```
 
+This will automatically create a fresh new user profile that will not persist
+between runs. This means the data will be lost every time.
+
+## Running the extension with a persistent profile
+
+To **run the extension with a profile that persists** between runs, you can
+create a new profile by browsing to `about:profiles`.
+
+Once you have a new profile created (no matter the location), you can tell jpm
+(via npm) to run using that profile _and_ not to copy the profile temporarily
+so that any changes (e.g. adding new entries) will be saved and persist:
+
+```sh
+npm run-script run -- -p /path/to/profile --no-copy
+```
+
+Now when you run using this new profile, any data or settings you make to the
+browser itself or in Lockbox will be available for future runs.
+
+## Setting npm run flags 
+
 To specify flags for `run` to use regularly, use `npm config set jpm_runflags`:
 
 ```sh
-npm config set jpm_runflags="-b nightly"
+npm config set jpm_runflags="-b nightly -p /path/to/profile --no-copy"
 ```
 
-This way you can just run:
+This way if you want to always test locally using an existing profile (with
+example data) using Firefox Nightly, you can just run (without adding flags):
 
 ```sh
 npm run run
