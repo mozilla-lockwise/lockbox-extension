@@ -36,6 +36,23 @@
   background-color: transparent;
 }
 
+.link-theme {
+  color: #0060df;
+  background-color: transparent;
+}
+
+.link-theme:global(.external)::after {
+  background-image: url(/icons/external-link.svg);
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  content: "";
+  display: inline-block;
+  height: 16px;
+  margin: -.3rem .15rem 0 .25rem;
+  vertical-align: middle;
+  width: 16px;
+}
+
 .primary-theme:not([disabled]):hover {
   background-color: #003eaa;
 }
@@ -52,6 +69,20 @@
 .normal-theme:not([disabled]):active:hover,
 .ghost-theme:not([disabled]):active:hover {
   background-color: rgba(12, 12, 13, 0.3);
+.link-theme:active {
+  color: #003eaa;
+  text-decoration: underline;
+}
+
+.link-theme:hover {
+  color: #0060df;
+  text-decoration: underline;
+  background-color: transparent;
+}
+
+.link-theme:focus {
+  color: #0060df;
+  border-color: #0a84ff
 }
 
 .puffy-size {
