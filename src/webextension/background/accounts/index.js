@@ -63,6 +63,10 @@ async function fetchFromEndPoint(name, url, request) {
   return body;
 }
 
+export const GUEST = Symbol("GUEST");
+export const UNAUTHENTICATED = Symbol("UNAUTHENTICATED");
+export const AUTHENTICATED = Symbol("AUTHENTICATED");
+
 export class Account {
   constructor({config = DEFAULT_CONFIG, info}) {
     // TODO: verify configuration (when there is one)
@@ -87,7 +91,18 @@ export class Account {
     };
   }
 
-  get signedIn() { return Boolean((this.info !== undefined) && (this.info.access_token)); }
+  get mode() {
+    const info = this.info;
+    if (!info || !info.uid) {
+      return GUEST;
+    }
+    if (!info.refresh_token) {
+      return UNAUTHENTICATED;
+    }
+    return AUTHENTICATED;
+  }
+
+  get signedIn() { return this.mode === AUTHENTICATED; }
 
   get uid() { return (this.info && this.info.uid) || undefined; }
   get email() { return (this.info && this.info.email) || undefined; }
@@ -173,6 +188,7 @@ export class Account {
     this.info = undefined;
   }
 }
+
 
 let account;
 export default function getAccount() {
