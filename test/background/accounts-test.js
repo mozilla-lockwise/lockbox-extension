@@ -69,14 +69,19 @@ describe("background > accounts", () => {
 
   describe("Account", () => {
     let acct;
-    const fakeInfo = {
+    const unauthedInfo = {
+      uid: "1234",
+      access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
+      id_token: "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBDWTBJb3RVVHBtWDFDbXJqMWNwcTB6aFBkd1NtalJSaWlJNzduMmMtMFkifQ.eyJ1aWQiOiIxMjM0IiwiaXNzIjoic2NvcGVkLWtleXMifQ.pX8I1LqCD849Gp0TzKcS6LM_fko0gc7wkSzBgPaxFDyF8AZrWn9-HTRoW-9YIuHujLzldbI1k34VeSHNM85vkPjm_AxbBKuXEiVJQdcCAxNjbSQmM1dOX6kZKwN4oDu8X4BB3CwQq5eXioYYiPur149O_I2bhFDuMBtQBoQosZtOScuKliXcURuWEwhYcnHe8axit0fQ0vd1FOJK3300hccqcZNoHGXrSVj42mdo_aSREOcwSUP4i0r0aCfJqnxai43uy1C5l54mSN1KzqGeasx60lWPU-Jm3gPm_2CXRWbfWxF3-OnxhMhSQiS90kefX81H03ZYVShDutsx55d0tQ",
+    };
+    const authedInfo = {
       uid: "1234",
       email: "eripley@wyutani.com",
       access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
       refresh_token: "rmrBzLYi2zia4ExNBy7uXE4s_Da_HMS4d3tvr203OVTq1EMQqh-85m4Hejo3TKBKuont6QFIlLJ23rZR4xqZBA",
-      expires_at: 1209600 * 1509494400,
+      expires_at: 1825884426240000,
       id_token: "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBDWTBJb3RVVHBtWDFDbXJqMWNwcTB6aFBkd1NtalJSaWlJNzduMmMtMFkifQ.eyJ1aWQiOiIxMjM0IiwiaXNzIjoic2NvcGVkLWtleXMifQ.pX8I1LqCD849Gp0TzKcS6LM_fko0gc7wkSzBgPaxFDyF8AZrWn9-HTRoW-9YIuHujLzldbI1k34VeSHNM85vkPjm_AxbBKuXEiVJQdcCAxNjbSQmM1dOX6kZKwN4oDu8X4BB3CwQq5eXioYYiPur149O_I2bhFDuMBtQBoQosZtOScuKliXcURuWEwhYcnHe8axit0fQ0vd1FOJK3300hccqcZNoHGXrSVj42mdo_aSREOcwSUP4i0r0aCfJqnxai43uy1C5l54mSN1KzqGeasx60lWPU-Jm3gPm_2CXRWbfWxF3-OnxhMhSQiS90kefX81H03ZYVShDutsx55d0tQ",
-      keys: {},
+      keys: new Map(),
     };
 
     beforeEach(() => {
@@ -84,35 +89,66 @@ describe("background > accounts", () => {
     });
 
     it("toJSON()", () => {
-      acct.info = fakeInfo;
-      const expected = {
+      let expected;
+
+      // as GUEST
+      acct.info = undefined;
+      expected = {
+        config: "scoped-keys",
+        info: undefined,
+      };
+      expect(acct.toJSON()).to.deep.equal(expected);
+
+      // as UNAUTHENTICATED
+      acct.info = unauthedInfo;
+      expected = {
         config: "scoped-keys",
         info: {
           uid: "1234",
           access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
-          expires_at: 1509494400 * 1209600,
+          expires_at: undefined,
           id_token: "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBDWTBJb3RVVHBtWDFDbXJqMWNwcTB6aFBkd1NtalJSaWlJNzduMmMtMFkifQ.eyJ1aWQiOiIxMjM0IiwiaXNzIjoic2NvcGVkLWtleXMifQ.pX8I1LqCD849Gp0TzKcS6LM_fko0gc7wkSzBgPaxFDyF8AZrWn9-HTRoW-9YIuHujLzldbI1k34VeSHNM85vkPjm_AxbBKuXEiVJQdcCAxNjbSQmM1dOX6kZKwN4oDu8X4BB3CwQq5eXioYYiPur149O_I2bhFDuMBtQBoQosZtOScuKliXcURuWEwhYcnHe8axit0fQ0vd1FOJK3300hccqcZNoHGXrSVj42mdo_aSREOcwSUP4i0r0aCfJqnxai43uy1C5l54mSN1KzqGeasx60lWPU-Jm3gPm_2CXRWbfWxF3-OnxhMhSQiS90kefX81H03ZYVShDutsx55d0tQ",
         },
       };
-      const actual = acct.toJSON();
-      expect(actual).to.deep.equal(expected);
+      expect(acct.toJSON()).to.deep.equal(expected);
+
+      // as AUTHENTICATED
+      acct.info = authedInfo;
+      expected = {
+        config: "scoped-keys",
+        info: {
+          uid: "1234",
+          access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
+          expires_at: 1825884426240000,
+          id_token: "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBDWTBJb3RVVHBtWDFDbXJqMWNwcTB6aFBkd1NtalJSaWlJNzduMmMtMFkifQ.eyJ1aWQiOiIxMjM0IiwiaXNzIjoic2NvcGVkLWtleXMifQ.pX8I1LqCD849Gp0TzKcS6LM_fko0gc7wkSzBgPaxFDyF8AZrWn9-HTRoW-9YIuHujLzldbI1k34VeSHNM85vkPjm_AxbBKuXEiVJQdcCAxNjbSQmM1dOX6kZKwN4oDu8X4BB3CwQq5eXioYYiPur149O_I2bhFDuMBtQBoQosZtOScuKliXcURuWEwhYcnHe8axit0fQ0vd1FOJK3300hccqcZNoHGXrSVj42mdo_aSREOcwSUP4i0r0aCfJqnxai43uy1C5l54mSN1KzqGeasx60lWPU-Jm3gPm_2CXRWbfWxF3-OnxhMhSQiS90kefX81H03ZYVShDutsx55d0tQ",
+        },
+      };
+      expect(acct.toJSON()).to.deep.equal(expected);
+    });
+
+    it("mode", () => {
+      expect(acct.mode).to.equal(accounts.GUEST);
+      acct.info = unauthedInfo;
+      expect(acct.mode).to.equal(accounts.UNAUTHENTICATED);
+      acct.info = authedInfo;
+      expect(acct.mode).to.equal(accounts.AUTHENTICATED);
     });
 
     it("signedIn", () => {
       expect(acct.signedIn).to.equal(false);
-      acct.info = fakeInfo;
+      acct.info = authedInfo;
       expect(acct.signedIn).to.equal(true);
     });
 
     it("uid", () => {
       expect(acct.uid).to.equal(undefined);
-      acct.info = fakeInfo;
+      acct.info = authedInfo;
       expect(acct.uid).to.equal("1234");
     });
 
     it("email", () => {
       expect(acct.email).to.equal(undefined);
-      acct.info = fakeInfo;
+      acct.info = authedInfo;
       expect(acct.email).to.equal("eripley@wyutani.com");
     });
 
