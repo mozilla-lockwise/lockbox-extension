@@ -6,6 +6,12 @@ import path from "path";
 import webpack from "webpack";
 import combineLoaders from "webpack-combine-loaders";
 
+// Enable the doorhanger by default for our tests.
+const ENABLE_DOORHANGER = (
+  process.env.ENABLE_DOORHANGER ?
+    Boolean(parseInt(process.env.ENABLE_DOORHANGER)) : true
+);
+
 export default {
   devtool: "inline-source-map",
 
@@ -35,6 +41,7 @@ export default {
     new webpack.DefinePlugin({
       "process.env": {
         "NODE_ENV": JSON.stringify("test"),
+        "ENABLE_DOORHANGER": JSON.stringify(ENABLE_DOORHANGER),
       },
     }),
   ],

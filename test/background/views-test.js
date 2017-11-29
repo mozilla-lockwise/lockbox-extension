@@ -18,14 +18,14 @@ describe("background > views", () => {
       view = new views.SingletonView("singleton.html");
     });
 
-    it("open new tab", async() => {
+    it("open new tab", async () => {
       await view.open();
       expect(browser.tabs.mockAllTabs.map((i) => i.url)).to.deep.equal([
         "singleton.html",
       ]);
     });
 
-    it("open second tab", async() => {
+    it("open second tab", async () => {
       await view.open();
       await view.open();
       expect(browser.tabs.mockAllTabs.map((i) => i.url)).to.deep.equal([
@@ -33,7 +33,7 @@ describe("background > views", () => {
       ]);
     });
 
-    it("open tab (navigated away)", async() => {
+    it("open tab (navigated away)", async () => {
       await view.open();
       let tab = await browser.tabs.get(view.id);
       tab.url = "https://example.com";
@@ -44,7 +44,7 @@ describe("background > views", () => {
       ]);
     });
 
-    it("open tab (closed manually)", async() => {
+    it("open tab (closed manually)", async () => {
       await view.open();
       browser.tabs.remove(view.id);
       await view.open();
@@ -53,18 +53,18 @@ describe("background > views", () => {
       ]);
     });
 
-    it("close nonexistent tab", async() => {
+    it("close nonexistent tab", async () => {
       await view.close();
       expect(browser.tabs.mockAllTabs).to.deep.equal([]);
     });
 
-    it("close existing tab", async() => {
+    it("close existing tab", async () => {
       await view.open();
       await view.close();
       expect(browser.tabs.mockAllTabs).to.deep.equal([]);
     });
 
-    it("close already-closed tab", async() => {
+    it("close already-closed tab", async () => {
       await view.open();
       browser.tabs.remove(view.id);
       await view.close();
@@ -73,7 +73,7 @@ describe("background > views", () => {
   });
 
   describe("openView", () => {
-    it("firstrun", async() => {
+    it("firstrun", async () => {
       await views.openView("firstrun");
       await views.openView("firstrun");
       expect(browser.tabs.mockAllTabs.map((i) => i.url)).to.deep.equal([
@@ -81,23 +81,23 @@ describe("background > views", () => {
       ]);
     });
 
-    it("manage", async() => {
+    it("manage", async () => {
       await views.openView("manage");
       await views.openView("manage");
       expect(browser.tabs.mockAllTabs.map((i) => i.url)).to.deep.equal([
-        "/manage/index.html",
+        "/list/manage/index.html",
       ]);
     });
   });
 
   describe("closeView", () => {
-    it("firstrun", async() => {
+    it("firstrun", async () => {
       await views.openView("firstrun");
       await views.closeView("firstrun");
       expect(browser.tabs.mockAllTabs).to.deep.equal([]);
     });
 
-    it("manage", async() => {
+    it("manage", async () => {
       await views.openView("manage");
       await views.openView("manage");
       await views.closeView("manage");

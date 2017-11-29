@@ -23,6 +23,13 @@ const NODE_ENV = (() => {
   return "development";
 })();
 
+// Enable the doorhanger by default on dev builds.
+const ENABLE_DOORHANGER = (
+  process.env.ENABLE_DOORHANGER ?
+    Boolean(parseInt(process.env.ENABLE_DOORHANGER)) :
+    NODE_ENV !== "production"
+);
+
 const cssLoader = {
   loader: "css-loader",
   query: {
@@ -94,7 +101,8 @@ export default {
 
   entry: {
     "webextension/background": "./webextension/background/index.js",
-    "webextension/manage/index": "./webextension/manage/index.js",
+    "webextension/list/manage/index": "./webextension/list/manage/index.js",
+    "webextension/list/popup/index": "./webextension/list/popup/index.js",
     "webextension/firstrun/index": "./webextension/firstrun/index.js",
     "webextension/popup/unlock/index": "./webextension/popup/unlock/index.js",
     "webextension/settings/index": "./webextension/settings/index.js",
@@ -127,15 +135,8 @@ export default {
     new webpack.DefinePlugin({
       "process.env": {
         "NODE_ENV": JSON.stringify(NODE_ENV),
+        "ENABLE_DOORHANGER": JSON.stringify(ENABLE_DOORHANGER),
       },
-    }),
-    new HTMLWebpackPlugin({
-      template: "template.ejs",
-      filename: "webextension/manage/index.html",
-      chunks: ["webextension/manage/index"],
-      inject: false,
-      minify: htmlMinifyOptions,
-      icon: "../icons/lb_unlocked.svg",
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",
@@ -144,6 +145,21 @@ export default {
       inject: false,
       minify: htmlMinifyOptions,
       icon: "../icons/lb_locked.svg",
+    }),
+    new HTMLWebpackPlugin({
+      template: "template.ejs",
+      filename: "webextension/list/manage/index.html",
+      chunks: ["webextension/list/manage/index"],
+      inject: false,
+      minify: htmlMinifyOptions,
+      icon: "../icons/lb_unlocked.svg",
+    }),
+    new HTMLWebpackPlugin({
+      template: "template.ejs",
+      filename: "webextension/list/popup/index.html",
+      chunks: ["webextension/list/popup/index"],
+      inject: false,
+      minify: htmlMinifyOptions,
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",

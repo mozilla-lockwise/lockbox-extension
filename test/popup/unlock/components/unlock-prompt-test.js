@@ -20,6 +20,7 @@ describe("popup > unlock > components > <UnlockPrompt/>", () => {
 
   beforeEach(() => {
     sinon.spy(UnlockPrompt.prototype, "render");
+    sinon.stub(UnlockPrompt.prototype, "_navigate");
     wrapper = mountWithL10n(<UnlockPrompt/>);
     browser.runtime.onMessage.addListener((msg) => {
       if (msg.type === "unlock" && msg.password !== "n0str0m0") {
@@ -30,6 +31,7 @@ describe("popup > unlock > components > <UnlockPrompt/>", () => {
 
   afterEach(() => {
     UnlockPrompt.prototype.render.restore();
+    UnlockPrompt.prototype._navigate.restore();
     browser.runtime.onMessage.mockClearListener();
   });
 
@@ -42,7 +44,7 @@ describe("popup > unlock > components > <UnlockPrompt/>", () => {
     wrapper.find('button[type="submit"]').simulate("submit");
   });
 
-  it("submit incorrect password", async() => {
+  it("submit incorrect password", async () => {
     simulateTyping(wrapper.find("input"), "jonesy");
     wrapper.find('button[type="submit"]').simulate("submit");
     await waitUntil(() => UnlockPrompt.prototype.render.callCount === 3);

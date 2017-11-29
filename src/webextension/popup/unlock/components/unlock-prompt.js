@@ -20,6 +20,13 @@ export default class UnlockPrompt extends React.Component {
     };
   }
 
+  // This function exists to allow tests to override it; otherwise, our unit
+  // tests would break because we navigated away from the test URL!
+  _navigate(url) {
+    // istanbul ignore next
+    window.location.replace(url);
+  }
+
   async attempt() {
     const { password } = this.state;
 
@@ -28,11 +35,16 @@ export default class UnlockPrompt extends React.Component {
         type: "unlock",
         password,
       });
-      await browser.runtime.sendMessage({
-        type: "open_view",
-        name: "manage",
-      });
-      window.close();
+
+      if (process.env.ENABLE_DOORHANGER) {
+        this._navigate(browser.extension.getURL("/list/popup/index.html"));
+      } else {
+        await browser.runtime.sendMessage({
+          type: "open_view",
+          name: "manage",
+        });
+        window.close();
+      }
     } catch (err) {
       this.setState({
         error: "unlock-prompt-err-invalid-pwd",

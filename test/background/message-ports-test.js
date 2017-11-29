@@ -20,7 +20,7 @@ describe("background > message ports", () => {
 
   let itemId, selfMessagePort, otherMessagePort, selfListener, otherListener;
 
-  before(async() => {
+  before(async () => {
     await openDataStore();
     initializeMessagePorts();
 
@@ -49,7 +49,7 @@ describe("background > message ports", () => {
   // Note: these tests are in a specific order since we modify the datastore as
   // we test. Each test assumes the previous has passed.
 
-  it('handle "open_view"', async() => {
+  it('handle "open_view"', async () => {
     const result = await browser.runtime.sendMessage({
       type: "open_view",
       name: "firstrun",
@@ -58,7 +58,7 @@ describe("background > message ports", () => {
     expect(result).to.deep.equal({});
   });
 
-  it('handle "close_view"', async() => {
+  it('handle "close_view"', async () => {
     const result = await browser.runtime.sendMessage({
       type: "close_view",
       name: "firstrun",
@@ -67,7 +67,7 @@ describe("background > message ports", () => {
     expect(result).to.deep.equal({});
   });
 
-  it('handle "signin"', async() => {
+  it('handle "signin"', async () => {
     const result = await browser.runtime.sendMessage({
       type: "signin", interactive: true,
     });
@@ -75,7 +75,7 @@ describe("background > message ports", () => {
     expect(result).to.have.property("uid").that.is.a("string");
   });
 
-  it('handle "initialize"', async() => {
+  it('handle "initialize"', async () => {
     const result = await browser.runtime.sendMessage({
       type: "initialize", password,
     });
@@ -83,7 +83,7 @@ describe("background > message ports", () => {
     expect(result).to.deep.equal({});
   });
 
-  it('handle "lock"', async() => {
+  it('handle "lock"', async () => {
     const result = await browser.runtime.sendMessage({
       type: "lock",
     });
@@ -91,7 +91,7 @@ describe("background > message ports", () => {
     expect(result).to.deep.equal({});
   });
 
-  it('handle "unlock"', async() => {
+  it('handle "unlock"', async () => {
     const result = await browser.runtime.sendMessage({
       type: "unlock", password,
     });
@@ -99,7 +99,7 @@ describe("background > message ports", () => {
     expect(result).to.deep.equal({});
   });
 
-  it('handle "add_item"', async() => {
+  it('handle "add_item"', async () => {
     const item = {
       title: "title",
       origins: ["origin.com"],
@@ -123,7 +123,7 @@ describe("background > message ports", () => {
     expect(otherListener.args[0][0].item).to.deep.include(item);
   });
 
-  it('handle "update_item"', async() => {
+  it('handle "update_item"', async () => {
     const item = {
       title: "updated title",
       id: itemId,
@@ -147,7 +147,7 @@ describe("background > message ports", () => {
     expect(otherListener.args[0][0].item).to.deep.include(item);
   });
 
-  it('handle "get_item"', async() => {
+  it('handle "get_item"', async () => {
     const result = await browser.runtime.sendMessage({
       type: "get_item",
       id: itemId,
@@ -165,7 +165,7 @@ describe("background > message ports", () => {
     });
   });
 
-  it('handle "list_items"', async() => {
+  it('handle "list_items"', async () => {
     const result = await browser.runtime.sendMessage({
       type: "list_items",
     });
@@ -178,7 +178,7 @@ describe("background > message ports", () => {
     }]});
   });
 
-  it('handle "remove_item"', async() => {
+  it('handle "remove_item"', async () => {
     const result = await browser.runtime.sendMessage({
       type: "remove_item",
       id: itemId,
@@ -193,7 +193,7 @@ describe("background > message ports", () => {
     });
   });
 
-  it('handle "proxy_telemetry_event"', async() => {
+  it('handle "proxy_telemetry_event"', async () => {
     const recordEvent = sinon.stub().resolves({});
     initializeMessagePorts.__Rewire__("telemetry", {recordEvent});
     const result = await browser.runtime.sendMessage({
@@ -209,14 +209,14 @@ describe("background > message ports", () => {
                                                 {extra: "value"});
   });
 
-  it("handle unknown message type", async() => {
+  it("handle unknown message type", async () => {
     const result = await browser.runtime.sendMessage({
       type: "nonexist",
     });
     expect(result).to.equal(null);
   });
 
-  it("handle message port disconnect", async() => {
+  it("handle message port disconnect", async () => {
     otherMessagePort.disconnect();
 
     // Make sure no message is broadcast now that we've disconnected.
@@ -237,7 +237,7 @@ describe("background > message ports", () => {
 
   // this test has to be last, or all the message-ports tests after it FAIL.
   // Eventually better isolation or startup/teardown may be done
-  it('handle "reset"', async() => {
+  it('handle "reset"', async () => {
     const result = await browser.runtime.sendMessage({
       type: "reset",
     });

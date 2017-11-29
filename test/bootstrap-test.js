@@ -34,7 +34,7 @@ describe("bootstrap", () => {
       browser.runtime.onMessage.mockClearListener();
     });
 
-    it("web extension loaded and telemetry recorded", async() => {
+    it("web extension loaded and telemetry recorded", async () => {
       startup({webExtension: {
         startup: webextStartup,
       }});
@@ -46,7 +46,7 @@ describe("bootstrap", () => {
       expect(result).to.deep.equal({});
     });
 
-    it("re-registering telemetry doesn't throw", async() => {
+    it("re-registering telemetry doesn't throw", async () => {
       sinon.stub(Services.telemetry, "registerEvents").throws(new Error(
         "Attempt to register event that is already registered."
       ));
