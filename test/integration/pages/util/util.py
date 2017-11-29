@@ -13,12 +13,12 @@ class_names = [{
         'ghost-theme'
     ],
     # Item Summary Styles
-    'webextension/manage/components/item-summary.css': [
+    'webextension/list/components/item-summary.css': [
         'item-summary',
         'title'
     ],
     # Homepage Styles
-    'webextension/manage/components/homepage.css': [
+    'webextension/list/manage/components/homepage.css': [
         'homepage'
     ],
 }]
