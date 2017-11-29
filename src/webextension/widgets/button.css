@@ -27,11 +27,6 @@
   background-color: #003eaa;
 }
 
-.normal-theme:hover,
-.ghost-theme:hover {
-  background-color: rgba(12, 12, 13, 0.2);
-}
-
 .primary-theme:active {
   background-color: #002275;
 }
