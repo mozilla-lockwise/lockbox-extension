@@ -48,7 +48,7 @@ export default function initializeMessagePorts() {
       });
     case "upgrade":
       return openDataStore().then(async (ds) => {
-        let acct = getAccount().signIn(true);
+        getAccount().signIn(true);
         // await ds.initialize({ masterKey, rebase: true });
         // FIXME: be more implicit on saving account info
         // await saveAccount(browser.storage.local);
