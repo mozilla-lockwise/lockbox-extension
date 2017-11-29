@@ -16,8 +16,6 @@ chai.use(chaiAsPromised);
 chai.use(sinonChai);
 
 describe("background > message ports", () => {
-  const password = "n0str0m0";
-
   let itemId, selfMessagePort, otherMessagePort, selfListener, otherListener;
 
   before(async () => {
@@ -88,7 +86,7 @@ describe("background > message ports", () => {
 
   it('handle "signin"', async () => {
     const result = await browser.runtime.sendMessage({
-      type: "signin", interactive: true,
+      type: "signin",
     });
 
     expect(result).to.have.property("uid").that.is.a("string");
@@ -96,7 +94,7 @@ describe("background > message ports", () => {
 
   it('handle "initialize"', async () => {
     const result = await browser.runtime.sendMessage({
-      type: "initialize", password,
+      type: "initialize",
     });
 
     expect(result).to.deep.equal({});
@@ -112,7 +110,7 @@ describe("background > message ports", () => {
 
   it('handle "unlock"', async () => {
     const result = await browser.runtime.sendMessage({
-      type: "unlock", password,
+      type: "unlock",
     });
 
     expect(result).to.deep.equal({});
