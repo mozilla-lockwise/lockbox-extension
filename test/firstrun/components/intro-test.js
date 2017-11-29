@@ -7,16 +7,17 @@ import chaiEnzyme from "chai-enzyme";
 import React from "react";
 
 import mountWithL10n from "test/mocks/l10n";
-import Welcome from "src/webextension/firstrun/components/welcome";
+import Intro from "src/webextension/firstrun/components/intro";
 
 chai.use(chaiEnzyme());
 
-describe("firstrun > components > <Welcome/>", () => {
-  it("render <Welcome/>", () => {
+describe("firstrun > components > <Intro/>", () => {
+  it("render <Intro/>", () => {
     const wrapper = mountWithL10n(
-      <Welcome/>
+      <Intro/>
     );
 
     expect(wrapper.find("h1")).to.have.text("wELCOMe");
+    expect(wrapper.find("h2")).to.have.text("mORe wELCOMe");
   });
 });

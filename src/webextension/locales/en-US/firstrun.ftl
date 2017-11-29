@@ -1,29 +1,31 @@
 document
   .title = Welcome to Lockbox
 
-welcome-title = Welcome to Lockbox (Alpha)
+firstrun-intro-title = Welcome to Lockbox (Alpha)
+firstrun-intro-tagline = the simple way to manage your passwords
 
-welcome-intro =
-    You've just installed the Lockbox browser extension!
-    This Alpha prototype will give you the ability to create
-    new entries, and then later you can view, search, edit, and
-    delete those entries.
+firstrun-intro-description =
+    Lockbox is the easy way to store, retrieve, and manage website login info - right from Firefox.
 
-welcome-warning =
+firstrun-intro-warning =
     This is a rapidly evolving prototype that will change as Alpha progresses.
     Any data stored here is not guaranteed to be retained in future updates.
 
-welcome-feedback =
-    Please be sure to let us know your thoughts using our feedback
-    button within the tool, including any issues you may find, things
-    you like, and the things you're looking forward to in the future.
+firstrun-using-title = Add Serious Security & Convenience
 
-master-password-setup-formtitle = Please create a master password below:
+firstrun-using-description =
+    Creating a Firefox account - or adding Lockbox to an existing account - protects your logins
+    with the strongest encryption available.
 
-master-password-setup-password = Password
+// when Kinto is supported, the above should be changed to:
+//    Creating a Firefox account - or adding Lockbox to an existing account - protects your logins
+//    with the strongest encryption available and syncs your Lockbox info across accounts.
 
-master-password-setup-confirm = Confirm Password
 
-master-password-setup-err-mismatch = Passwords to not match
+firstrun-using-guest-title = New to Lockbox?
 
-master-password-setup-submit = Continue to Lockbox
+firstrun-using-guest-action = Get Started
+
+firstrun-using-returning-title = Already using Lockbox?
+
+firstrun-using-returning-action = Sign in to your Firefox Account
