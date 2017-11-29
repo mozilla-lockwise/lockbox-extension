@@ -55,7 +55,7 @@ describe("list > popup > components > <ItemListPanel/>", () => {
     });
 
     it("open manager", () => {
-      wrapper.findWhere((x) => x.prop("id") === "manage-lockbox")
+      wrapper.findWhere((x) => x.prop("id") === "manage-lockbox-button")
              .find("button").simulate("click");
       expect(onMessage).to.have.been.calledWith({
         type: "open_view",
