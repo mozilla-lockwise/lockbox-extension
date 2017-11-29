@@ -1,5 +1,27 @@
 # Lockbox Release Notes
 
+## 0.1.3-alpha
+
+_Date: 2017-11-29_
+
+### What's New
+
+* We added placeholder text into the item editor to help show what's expected  ([#336](https://github.com/mozilla-lockbox/lockbox-extension/pull/336))
+* Every time the "Copy" button is used we'll log a Telemetry event ([#342](https://github.com/mozilla-lockbox/lockbox-extension/pull/342))
+
+### What's Fixed
+
+* Our friendly monster looks a bit better on light backgrounds ([#347](https://github.com/mozilla-lockbox/lockbox-extension/pull/347))
+* We've updated some dependencies, including React, so that we're using and testing against the latest and greatest ([#346](https://github.com/mozilla-lockbox/lockbox-extension/pull/346)) ([#335](https://github.com/mozilla-lockbox/lockbox-extension/pull/335))
+
+### Known Issues
+
+* This is pre-release software subject to change. Your data may not be retained.
+* There is no way to change your Lockbox master password. If you forget your master password, you'll need to start over fresh by either:
+  - Opening the this extension's Preferences and clicking the "`💥💣 Reset 💣💥`" button; or
+  - Uninstalling and re-installing the extension
+* Firefox's default prompt to save logins is only disabled on new installs of this extension; updating Lockbox will not change your current Firefox preferences.
+
 ## 0.1.2-alpha
 
 _Date: 2017-11-13_
