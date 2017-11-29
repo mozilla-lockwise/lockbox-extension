@@ -33,14 +33,26 @@ export default function initializeMessagePorts() {
       return closeView(message.name).then(() => ({}));
 
     case "signin":
-      return getAccount().signIn(message.interactive);
+      return getAccount().signIn();
     case "initialize":
       return openDataStore().then(async (ds) => {
-        await ds.initialize({
-          password: message.password,
-        });
+        await ds.initialize();
+        // FIXME: be more implicit on saving account info
         await saveAccount(browser.storage.local);
         await updateBrowserAction(ds);
+        if (!message.silent) {
+          await openView("manage");
+        }
+
+        return {};
+      });
+    case "upgrade":
+      return openDataStore().then(async (ds) => {
+        let acct = getAccount().signIn(true);
+        // await ds.initialize({ masterKey, rebase: true });
+        // FIXME: be more implicit on saving account info
+        // await saveAccount(browser.storage.local);
+        // await updateBrowserAction(ds);
         return {};
       });
     case "reset":
@@ -75,7 +87,6 @@ export default function initializeMessagePorts() {
         return {items: Array.from((await ds.list()).values(),
                                   makeItemSummary)};
       });
-
     case "add_item":
       return openDataStore().then(async (ds) => {
         const item = await ds.add(message.item);

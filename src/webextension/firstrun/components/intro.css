@@ -2,18 +2,26 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-.welcome {
+.intro {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
 }
 
-.welcome > h1,
-.welcome > p {
+.intro > h1,
+.intro > h2,
+.intro > p {
   text-align: center;
 }
-.welcome > h1 {
+.intro > h1 {
   font-size: 2em;
+  font-weight: bold;
+  margin: 0 0 .5em;
+}
+.intro > h2 {
+  font-size: 1.5em;
   font-weight: normal;
+  font-style: italic;
+  margin: 0px;
 }

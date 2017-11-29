@@ -5,15 +5,18 @@
 import { Localized } from "fluent-react";
 import React from "react";
 
-import styles from "./welcome.css";
+import styles from "./intro.css";
 
-export default function Welcome() {
+export default function Intro() {
   return (
-    <section className={styles.welcome}>
-      <Localized id="welcome-title">
+    <section className={styles.intro}>
+      <Localized id="firstrun-intro-title">
         <h1>wELCOMe</h1>
       </Localized>
-      <Localized id="welcome-intro">
+      <Localized id="firstrun-intro-tagline">
+        <h2>mORe wELCOMe</h2>
+      </Localized>
+      <Localized id="firstrun-intro-description">
         <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Sed
         posuere consectetur est at lobortis. Lorem ipsum dolor sit amet,
         consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur
@@ -21,7 +24,7 @@ export default function Welcome() {
         mattis consectetur purus sit amet fermentum.</p>
       </Localized>
       <p>
-        <Localized id="welcome-warning">
+        <Localized id="firstrun-intro-warning">
           <strong>Lorem ipsum dolor sit amet, consectetur.
           Mauris, aliquam vel pellentesque et, mattis bibendum tellus. Fusce
           sodales, tellus a auctor accumsan, diam risus pharetra orci, at lacinia
@@ -29,14 +32,6 @@ export default function Welcome() {
           pellentesque quis urna.</strong>
         </Localized>
       </p>
-      <Localized id="welcome-feedback">
-        <p>Curabitur blandit tempus porttitor. Nulla vitae elit libero, a
-        pharetra augue. Vestibulum id ligula porta felis euismod semper.
-        Maecenas sed diam eget risus varius blandit sit amet non magna.
-        Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis
-        vestibulum. Maecenas sed diam eget risus varius blandit sit amet
-        non magna.</p>
-      </Localized>
     </section>
   );
 }
