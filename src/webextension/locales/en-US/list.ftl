@@ -3,10 +3,10 @@
 document
   .title = Lockbox Entries
 
-item-fields-title = Entry Name
+item-fields-title = Site Name
 item-fields-title-input
   .placeholder = Primary Bank
-item-fields-origin = Website Address
+item-fields-origin = Site Address
 item-fields-origin-input
   .placeholder = www.example.com
 item-fields-username = Username
@@ -34,7 +34,7 @@ item-summary-username =
   }
 
 item-filter
-  .placeholder = Search for an entry
+  .placeholder = Search Lockbox Entries
 
 [[manage]]
 
@@ -46,10 +46,10 @@ toolbar-item-count =
 
 toolbar-add-item = New Entry
 toolbar-go-home = Home
-toolbar-send-feedback = Provide Feedback
+toolbar-send-feedback = Submit Feedback
 
 all-items-empty =
-  When you create an entry, it will be saved in this sidebar.
+  When you add an entry, it automatically shows up here.
 
 all-items-filtered = No results
 
