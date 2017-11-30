@@ -67,6 +67,8 @@ export const GUEST = Symbol("GUEST");
 export const UNAUTHENTICATED = Symbol("UNAUTHENTICATED");
 export const AUTHENTICATED = Symbol("AUTHENTICATED");
 
+export const APP_KEY_NAME = "https://identity.mozilla.com/apps/lockbox";
+
 export class Account {
   constructor({config = DEFAULT_CONFIG, info}) {
     // TODO: verify configuration (when there is one)
@@ -180,12 +182,14 @@ export class Account {
       id_token: oauthInfo.id_token,
       keys,
     };
-    return this.info;
+    return this;
   }
 
   async signOut() {
+    // TODO: implement a complete signout/forget
     // TODO: something server side?
     this.info = undefined;
+    return this;
   }
 }
 
@@ -213,4 +217,21 @@ export async function saveAccount(storage) {
 
 export function setAccount(config, info) {
   account = config ? new Account({config, info}) : undefined;
+}
+
+export async function openAccount(storage) {
+  let account;
+
+  try {
+    // attempt to load account (FxA) data
+    account = await loadAccount(storage);
+    // eslint-disable-next-line no-console
+    console.log(`loaded account for (${account.mode.toString()}) '${account.uid || ""}'`);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error(`loading account failed (fallback to empty GUEST): ${err.message}`);
+    account = getAccount();
+  }
+
+  return account;
 }

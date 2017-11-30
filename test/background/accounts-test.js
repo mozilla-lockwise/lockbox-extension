@@ -27,7 +27,7 @@ describe("background > accounts", () => {
   });
 
   describe("loadAccount()", () => {
-    it("with saved acct", async () => {
+    it("with saved account", async () => {
       const result = await accounts.loadAccount({get: async () => {
         return {account: {
           config: "dev-latest",
@@ -40,10 +40,47 @@ describe("background > accounts", () => {
       expect(result.info).to.deep.equal({verified: true, uid: "1234"});
     });
 
-    it("without saved acct", async () => {
+    it("without saved account", async () => {
       const result = await accounts.loadAccount({get: async () => {
         return {};
       }});
+      expect(result.info).to.equal(undefined);
+    });
+  });
+
+  describe("openAccount()", () => {
+    it("with saved account", async () => {
+      const result = await accounts.openAccount({
+        get: async () => {
+          return {
+            account: {
+              config: "dev-latest",
+              info: {
+                verified: true,
+                uid: "1234",
+              },
+            },
+          };
+        },
+      });
+      expect(result.info).to.deep.equal({ verified: true, uid: "1234" });
+    });
+
+    it("without saved account", async () => {
+      const result = await accounts.openAccount({
+        get: async () => {
+          return {};
+        },
+      });
+      expect(result.info).to.equal(undefined);
+    });
+
+    it("with error", async () => {
+      const result = await accounts.openAccount({
+        get: async () => {
+          throw new Error("test for failure");
+        },
+      });
       expect(result.info).to.equal(undefined);
     });
   });
@@ -63,7 +100,7 @@ describe("background > accounts", () => {
           .to.equal("dev-latest");
 
     accounts.setAccount();
-    expect(getAccount.__GetDependency__("accounts"))
+    expect(getAccount.__GetDependency__("account"))
           .to.equal(undefined);
   });
 
