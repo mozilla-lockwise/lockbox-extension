@@ -32,8 +32,6 @@ export default function initializeMessagePorts() {
     case "close_view":
       return closeView(message.name).then(() => ({}));
 
-    case "signin":
-      return getAccount().signIn();
     case "initialize":
       return openDataStore().then(async (datastore) => {
         await datastore.initialize();
@@ -49,20 +47,13 @@ export default function initializeMessagePorts() {
     case "upgrade":
       return openDataStore().then(async (datastore) => {
         let account = await getAccount().signIn(true);
-        console.log(`signed in with account ${JSON.stringify(account)}`);
         let appKey = account.keys.get("https://identity.mozilla.com/apps/lockbox");
-        console.log(` ... using appKey ${JSON.stringify(appKey)}`);
         let salt = account.uid;
-        console.log(` ... and salt ${salt}`);
 
         if (datastore.initialized && datastore.locked) {
-          console.log(`unlocking datastore ...`);
           await datastore.unlock();
-          console.log(`datastore unlocked ...`);
         }
-        console.log(`rebase/initialize datastore ...`);
         await datastore.initialize({ appKey, salt, rebase: true });
-        console.log(`datastore rebased; save and update browser-action ...`);
         // FIXME: be more implicit on saving account info
         await accounts.saveAccount(browser.storage.local);
         await updateBrowserAction({account, datastore});
