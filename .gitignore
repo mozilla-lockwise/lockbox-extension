@@ -1,3 +1,4 @@
+__pycache__
 /coverage/
 /dist/
 /docs/api.md
@@ -7,4 +8,7 @@
 /*.xpi
 /addon.env
 .DS_Store
+.cache
+.tox
 *.log
+*.pyc
