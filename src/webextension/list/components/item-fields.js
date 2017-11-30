@@ -23,7 +23,7 @@ const PASSWORD_DOT = "\u25cf";
 function CopyToClipboardButton({text, ...props}) {
   return (
     <CopyToClipboard text={text} onCopy={() => {
-      telemetry.recordEvent("itemCopied", "entryDetails");
+      telemetry.recordEvent("itemCopied", "itemDetails");
       }}>
       <Button {...props}/>
     </CopyToClipboard>

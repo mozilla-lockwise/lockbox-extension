@@ -92,7 +92,7 @@ function startup({webExtension}, reason) {
       },
       "itemCopied": {
         methods: ["itemCopied"],
-        objects: ["entryDetails"],
+        objects: ["itemDetails"],
         extra_keys: ["fxauid"],
       },
       "resetRequested": {
