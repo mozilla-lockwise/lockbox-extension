@@ -20,11 +20,11 @@ import * as telemetry from "../../telemetry";
 
 const PASSWORD_DOT = "\u25cf";
 
-function CopyToClipboardButton({text, ...props}) {
+function CopyToClipboardButton({text, field, ...props}) {
   return (
     <CopyToClipboard text={text} onCopy={() => {
-      telemetry.recordEvent("itemCopied", "itemDetails");
-      }}>
+      telemetry.recordEvent(`${field}Copied`, "itemDetails");
+    }}>
       <Button {...props}/>
     </CopyToClipboard>
   );
@@ -32,6 +32,7 @@ function CopyToClipboardButton({text, ...props}) {
 
 CopyToClipboardButton.propTypes = {
   text: PropTypes.string.isRequired,
+  field: PropTypes.oneOf(["username", "password"]).isRequired,
 };
 
 const fieldsPropTypes = PropTypes.shape({
@@ -68,7 +69,7 @@ export function ItemFields({fields}) {
             {fields.username}
           </FieldText>
           <Localized id="item-fields-copy-username">
-            <CopyToClipboardButton text={fields.username}>
+            <CopyToClipboardButton text={fields.username} field="username">
               cOPy
             </CopyToClipboardButton>
           </Localized>
@@ -83,7 +84,7 @@ export function ItemFields({fields}) {
             {PASSWORD_DOT.repeat(fields.password.length)}
           </FieldText>
           <Localized id="item-fields-copy-password">
-            <CopyToClipboardButton text={fields.password}>
+            <CopyToClipboardButton text={fields.password} field="password">
               cOPy
             </CopyToClipboardButton>
           </Localized>

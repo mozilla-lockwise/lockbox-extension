@@ -140,7 +140,7 @@ All events are currently implemented under the **category: lockboxV0**. The `ext
 
 7. `itemSelected` fires when a user clicks an item in the itemlist. **objects** itemList  
 
-8. `itemCopied` fires when a user copies their username or password from an item. **objects**: entryDetails
+8. `usernameCopied` and `passwordCopied` fire when a user copies their username or password from an item. **objects**: itemDetails
 
 9. `feedbackClick` fires when the user clicks the "Send Feedback" button. **objects**: manage
 
