@@ -99,6 +99,13 @@ describe("background > message ports", () => {
 
     expect(result).to.deep.equal({});
   });
+  it('handle "upgrade"', async () => {
+    const result = await browser.runtime.sendMessage({
+      type: "upgrade",
+    });
+
+    expect(result).to.deep.equal({});
+  });
 
   it('handle "lock"', async () => {
     const result = await browser.runtime.sendMessage({

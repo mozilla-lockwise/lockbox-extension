@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import openDataStore from "./datastore";
-import getAccount, { saveAccount } from "./accounts";
+import getAccount, * as accounts from "./accounts";
 import updateBrowserAction from "./browser-action";
 import * as telemetry from "./telemetry";
 import { openView, closeView } from "./views";
@@ -38,7 +38,7 @@ export default function initializeMessagePorts() {
       return openDataStore().then(async (datastore) => {
         await datastore.initialize();
         // FIXME: be more implicit on saving account info
-        await saveAccount(browser.storage.local);
+        await accounts.saveAccount(browser.storage.local);
         await updateBrowserAction({datastore});
         if (!message.silent) {
           await openView("manage");
@@ -48,11 +48,28 @@ export default function initializeMessagePorts() {
       });
     case "upgrade":
       return openDataStore().then(async (datastore) => {
-        await getAccount().signIn(true);
-        // await datastore.initialize({ masterKey, rebase: true });
+        let account = await getAccount().signIn(true);
+        console.log(`signed in with account ${JSON.stringify(account)}`);
+        let appKey = account.keys.get("https://identity.mozilla.com/apps/lockbox");
+        console.log(` ... using appKey ${JSON.stringify(appKey)}`);
+        let salt = account.uid;
+        console.log(` ... and salt ${salt}`);
+
+        if (datastore.initialized && datastore.locked) {
+          console.log(`unlocking datastore ...`);
+          await datastore.unlock();
+          console.log(`datastore unlocked ...`);
+        }
+        console.log(`rebase/initialize datastore ...`);
+        await datastore.initialize({ appKey, salt, rebase: true });
+        console.log(`datastore rebased; save and update browser-action ...`);
         // FIXME: be more implicit on saving account info
-        // await saveAccount(browser.storage.local);
-        // await updateBrowserAction(ds);
+        await accounts.saveAccount(browser.storage.local);
+        await updateBrowserAction({account, datastore});
+        if (!message.silent) {
+          await openView("manage");
+        }
+
         return {};
       });
     case "reset":
