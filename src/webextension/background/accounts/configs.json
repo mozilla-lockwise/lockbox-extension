@@ -18,16 +18,6 @@
     "scopes": ["openid", "profile", "https://identity.mozilla.com/apps/lockbox"],
     "pkce": false
   },
-  "dev-stable": {
-    "client_id": "13fcf7de6665ff95",
-    "client_secret": "095992b7c83869c1eefff00b69a3fbe97c68bcf0d5de3e08e3f63ffb3199216f",
-    "redirect_uri": "https://2aa95473a5115d5f3deb36bb6875cf76f05e4c4d.extensions.allizom.org/",
-    "authorization_endpoint": "https://oauth-stable.dev.lcip.org/v1/authorization",
-    "token_endpoint": "https://oauth-stable.dev.lcip.org/v1/token",
-    "userinfo_endpoint": "https://stable.dev.lcip.org/profile/v1",
-    "scopes": ["profile"],
-    "pkce": false
-  },
   "scoped-keys": {
     "client_id": "37fdfa37698f251a",
     "redirect_uri": "https://2aa95473a5115d5f3deb36bb6875cf76f05e4c4d.extensions.allizom.org/",
