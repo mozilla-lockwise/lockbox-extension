@@ -91,7 +91,7 @@ function startup({webExtension}, reason) {
         extra_keys: ["fxauid"],
       },
       "itemCopied": {
-        methods: ["usernameCopied","passwordCopied"],
+        methods: ["usernameCopied", "passwordCopied"],
         objects: ["itemDetails"],
         extra_keys: ["fxauid"],
       },
