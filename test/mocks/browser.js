@@ -131,6 +131,8 @@ window.browser = {
     onMessage: new MockOnMessageListener(),
     onConnect: new MockListener(),
 
+    openOptionsPage: () => {},
+
     async sendMessage(msg) {
       return this.onMessage.mockFireListener(msg, primaryMessageSender);
     },

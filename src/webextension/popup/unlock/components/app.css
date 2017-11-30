@@ -5,10 +5,68 @@
 body {
   padding: 0;
   margin: 0;
-  width: 250px;
+  width: 344px;
   color: #0c0c0d;
   background-color: #f9f9fa;
   font: caption;
   font-size: 13px;
   -moz-user-select: none;
+}
+
+.locked {
+  margin: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.locked > img {
+  margin: 2em auto;
+  width: 229px;
+}
+
+.locked > .content {
+  margin: 2em auto;
+  width: 229px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.locked > .content > h1 {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 0 .5em;
+}
+.locked > .content > h2 {
+  font-size: 1.5em;
+  font-weight: normal;
+  font-style: italic;
+  text-align: center;
+  margin: 0;
+}
+
+.locked > menu {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+}
+
+.locked > menu > * {
+  width: 50%;
+  flex-grow: 1;
+}
+.locked > menu > * {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.locked > menu > *:first-child {
+  border-bottom-right-radius: 0;
+}
+.locked > menu > *:last-child {
+  border-bottom-left-radius: 0;
 }
