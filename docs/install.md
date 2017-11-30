@@ -55,10 +55,12 @@ Once you have a new profile created (no matter the location), you can tell jpm
 so that any changes (e.g. adding new entries) will be saved:
 
 ```sh
-npm run run -- -p /path/to/profile --no-copy
+npm run run -- -p PROFILE --no-copy
 ```
 
-Now when you run using this new profile, any data or settings you make to the
+The PROFILE value may be a profile name or the path to the profile.
+
+Now, when you run using this profile, any data or settings you make to the
 browser itself or in Lockbox will be available for future runs.
 
 ## Setting npm run flags 
@@ -66,7 +68,7 @@ browser itself or in Lockbox will be available for future runs.
 To specify flags for `run` to use regularly, use `npm config set jpm_runflags`:
 
 ```sh
-npm config set jpm_runflags="-b nightly -p /path/to/profile --no-copy"
+npm config set jpm_runflags="-b nightly -p PROFILE --no-copy"
 ```
 
 This way if you want to always test locally using an existing profile (with
