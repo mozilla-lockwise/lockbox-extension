@@ -2,12 +2,51 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import { Localized } from "fluent-react";
 import React from "react";
 
-import UnlockPrompt from "./unlock-prompt";
+import Button from "../../../widgets/button";
 
-import "./app.css";
+import styles from "./app.css";
 
 export default function App() {
-  return <UnlockPrompt/>;
+  const imgSrc = browser.extension.getURL("/images/nessie_v2.svg");
+
+  const doSignIn = async () => {
+    browser.runtime.sendMessage({
+      type: "signin",
+      view: "manage",
+    });
+  };
+  const doPrefs = async () => {
+    browser.runtime.openOptionsPage();
+    window.close();
+  };
+
+  return (
+    <article className={styles.locked}>
+      <img src={imgSrc} alt="" />
+      <section className={styles.content}>
+        <Localized id="locked-title">
+          <h1>lOCKBOx</h1>
+        </Localized>
+        <Localized id="locked-tagline">
+          <h2>lOCKBOx tAGLINe</h2>
+        </Localized>
+      </section>
+      <menu>
+        <Localized id="locked-signin-action">
+          <Button id="locked-signin-action"
+                  size="puffy"
+                  theme="primary"
+                  onClick={doSignIn}>sIGn iN</Button>
+        </Localized>
+        <Localized id="locked-prefs-action">
+          <Button id="locked-prefs-action"
+                  size="puffy"
+                  onClick={doPrefs}>pREFs</Button>
+        </Localized>
+      </menu>
+    </article>
+  );
 }

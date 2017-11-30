@@ -77,14 +77,25 @@ export default function initializeMessagePorts() {
       });
 
 
-    case "unlock":
+    case "signin":
       return openDataStore().then(async (datastore) => {
-        await datastore.unlock(message.password);
+        let account = getAccount(),
+            appKey;
+        if (account.mode === accounts.UNAUTHENTICATED) {
+          await account.signIn();
+          appKey = account.keys.get(accounts.APP_KEY_NAME);
+        }
+        await datastore.unlock(appKey);
         await updateBrowserAction({datastore});
+        if (message.view) {
+          openView(message.view);
+        }
+
         return {};
       });
-    case "lock":
+    case "signout":
       return openDataStore().then(async (datastore) => {
+        // TODO: perform (light) signout from FxA
         await datastore.lock();
         await updateBrowserAction({datastore});
         return {};

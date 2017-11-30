@@ -1,8 +1,7 @@
-[[unlock]]
+[[locked]]
 
-unlock-prompt-title = Lockbox
-unlock-prompt-desc = Enter your password
+locked-title = { product-title }
+locked-tagline = { product-tagline }
 
-unlock-prompt-err-invalid-pwd = Wrong password
-
-unlock-prompt-submit = Unlock
+locked-signin-action = Sign In
+locked-prefs-action = Preferences

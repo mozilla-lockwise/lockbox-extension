@@ -4,18 +4,57 @@
 
 import { expect } from "chai";
 import React from "react";
+import sinon from "sinon";
+import waitUntil from "async-wait-until";
 
 import mountWithL10n from "test/mocks/l10n";
 import App from "src/webextension/popup/unlock/components/app";
-import UnlockPrompt from
-       "src/webextension/popup/unlock/components/unlock-prompt";
 
-describe("popup > unlock > components > <App/>", () => {
+describe("popup > locked > components > <App/>", () => {
+  let wrapper, spyMessage, spyOptions;
+
+  beforeEach(() => {
+    wrapper = mountWithL10n(
+      <App />
+    );
+    spyMessage = sinon.spy();
+
+    browser.runtime.onMessage.addListener(spyMessage);
+    spyOptions = sinon.spy(browser.runtime, "openOptionsPage");
+  });
+  afterEach(() => {
+    browser.runtime.onMessage.mockClearListener();
+    browser.runtime.openOptionsPage.restore();
+
+    spyMessage.reset();
+    spyOptions.reset();
+  });
+
   it("render app", () => {
     const wrapper = mountWithL10n(
       <App/>
     );
 
-    expect(wrapper.find(UnlockPrompt)).to.have.length(1);
+    expect(wrapper.find("h1")).to.have.text("lOCKBOx");
+    expect(wrapper.find("h2")).to.have.text("lOCKBOx tAGLINe");
+    expect(wrapper.find("button").at(0)).to.have.text("sIGn iN");
+    expect(wrapper.find("button").at(1)).to.have.text("pREFs");
+  });
+
+  it("click signin", async () => {
+    wrapper.find("button#locked-signin-action").simulate("click");
+    waitUntil(() => spyMessage.callCount === 1);
+
+    expect(spyMessage).to.have.been.calledWith({
+      type: "signin",
+      view: "manage",
+    });
+  });
+
+  it("click prefs", async () => {
+    wrapper.find("button#locked-prefs-action").simulate("click");
+    waitUntil(() => spyOptions.callCount === 1);
+
+    expect(spyOptions).to.have.been.calledWith();
   });
 });

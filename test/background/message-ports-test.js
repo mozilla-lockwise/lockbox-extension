@@ -99,17 +99,17 @@ describe("background > message ports", () => {
     expect(result).to.deep.equal({});
   });
 
-  it('handle "lock"', async () => {
+  it('handle "signout"', async () => {
     const result = await browser.runtime.sendMessage({
-      type: "lock",
+      type: "signout",
     });
 
     expect(result).to.deep.equal({});
   });
 
-  it('handle "unlock"', async () => {
+  it('handle "signin"', async () => {
     const result = await browser.runtime.sendMessage({
-      type: "unlock",
+      type: "signin",
     });
 
     expect(result).to.deep.equal({});
