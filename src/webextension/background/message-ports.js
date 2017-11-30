@@ -35,11 +35,11 @@ export default function initializeMessagePorts() {
     case "signin":
       return getAccount().signIn();
     case "initialize":
-      return openDataStore().then(async (ds) => {
-        await ds.initialize();
+      return openDataStore().then(async (datastore) => {
+        await datastore.initialize();
         // FIXME: be more implicit on saving account info
         await saveAccount(browser.storage.local);
-        await updateBrowserAction(ds);
+        await updateBrowserAction({datastore});
         if (!message.silent) {
           await openView("manage");
         }
@@ -47,22 +47,22 @@ export default function initializeMessagePorts() {
         return {};
       });
     case "upgrade":
-      return openDataStore().then(async (ds) => {
-        getAccount().signIn(true);
-        // await ds.initialize({ masterKey, rebase: true });
+      return openDataStore().then(async (datastore) => {
+        await getAccount().signIn(true);
+        // await datastore.initialize({ masterKey, rebase: true });
         // FIXME: be more implicit on saving account info
         // await saveAccount(browser.storage.local);
         // await updateBrowserAction(ds);
         return {};
       });
     case "reset":
-      return openDataStore().then(async (ds) => {
+      return openDataStore().then(async (datastore) => {
         await closeView();
 
-        await ds.reset();
+        await datastore.reset();
         // TODO: put other reset calls here
 
-        await updateBrowserAction(ds);
+        await updateBrowserAction({datastore});
         await openView("firstrun");
 
         return {};
@@ -70,15 +70,15 @@ export default function initializeMessagePorts() {
 
 
     case "unlock":
-      return openDataStore().then(async (ds) => {
-        await ds.unlock(message.password);
-        await updateBrowserAction(ds);
+      return openDataStore().then(async (datastore) => {
+        await datastore.unlock(message.password);
+        await updateBrowserAction({datastore});
         return {};
       });
     case "lock":
-      return openDataStore().then(async (ds) => {
-        await ds.lock();
-        await updateBrowserAction(ds);
+      return openDataStore().then(async (datastore) => {
+        await datastore.lock();
+        await updateBrowserAction({datastore});
         return {};
       });
 
