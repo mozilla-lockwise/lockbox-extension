@@ -84,14 +84,6 @@ describe("background > message ports", () => {
     expect(result).to.deep.equal({});
   });
 
-  it('handle "signin"', async () => {
-    const result = await browser.runtime.sendMessage({
-      type: "signin",
-    });
-
-    expect(result).to.have.property("uid").that.is.a("string");
-  });
-
   it('handle "initialize"', async () => {
     const result = await browser.runtime.sendMessage({
       type: "initialize",
