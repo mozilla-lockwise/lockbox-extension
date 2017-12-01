@@ -90,6 +90,21 @@ function startup({webExtension}, reason) {
         objects: ["manage"],
         extra_keys: ["fxauid"],
       },
+      "itemCopied": {
+        methods: ["usernameCopied", "passwordCopied"],
+        objects: ["itemDetails"],
+        extra_keys: ["fxauid"],
+      },
+      "resetRequested": {
+        methods: ["resetRequested"],
+        objects: ["settings"],
+        extra_keys: ["fxauid"],
+      },
+      "resetCompleted": {
+        methods: ["resetCompleted"],
+        objects: ["settings"],
+        extra_keys: ["fxauid"],
+      },
     });
   } catch (e) {
     if (e.message === "Attempt to register event that is already registered.") {

@@ -20,7 +20,8 @@ export default class ScrollingList extends React.Component {
       ).isRequired,
       tabIndex: PropTypes.string,
       selected: PropTypes.string,
-      onItemSelected: PropTypes.func.isRequired,
+      onChange: PropTypes.func.isRequired,
+      onClick: PropTypes.func,
     };
   }
 
@@ -34,37 +35,49 @@ export default class ScrollingList extends React.Component {
   }
 
   handleKeyDown(e) {
-    if (this.props.data.length === 0) {
-      return;
-    }
-    let currentIndex, newIndex;
+    const changeSelection = (index) => {
+      this.props.onChange(this.props.data[index].id);
+    };
+    const currentIndex = this.getCurrentIndex();
 
     switch (e.key) {
     case "ArrowDown":
-      currentIndex = this.getCurrentIndex();
-      if (currentIndex === -1) {
-        newIndex = 0;
-      } else if (currentIndex < this.props.data.length - 1) {
-        newIndex = currentIndex + 1;
+      if (this.props.data.length) {
+        if (currentIndex === -1) {
+          changeSelection(0);
+        } else if (currentIndex < this.props.data.length - 1) {
+          changeSelection(currentIndex + 1);
+        }
       }
       break;
     case "ArrowUp":
-      currentIndex = this.getCurrentIndex();
-      if (currentIndex === -1) {
-        newIndex = 0;
-      } else if (currentIndex > 0) {
-        newIndex = currentIndex - 1;
+      if (this.props.data.length) {
+        if (currentIndex === -1) {
+          changeSelection(0);
+        } else if (currentIndex > 0) {
+          changeSelection(currentIndex - 1);
+        }
+      }
+      break;
+    case "Enter":
+    case "Space":
+      if (currentIndex !== -1 && this.props.onClick) {
+        this.props.onClick(this.props.data[currentIndex].id);
       }
       break;
     default:
       return;
     }
 
-    if (newIndex !== undefined) {
-      this.props.onItemSelected(this.props.data[newIndex].id);
-    }
     e.stopPropagation();
     e.preventDefault();
+  }
+
+  handleMouseDown(id) {
+    this.props.onChange(id);
+    if (this.props.onClick) {
+      this.props.onClick(id);
+    }
   }
 
   getCurrentIndex() {
@@ -93,8 +106,8 @@ export default class ScrollingList extends React.Component {
   }
 
   render() {
-    const { className, itemClassName, children, data, tabIndex, selected,
-            onItemSelected } = this.props;
+    const { className, itemClassName, children, data, tabIndex,
+            selected } = this.props;
     const finalClassName = `${styles.scrollingList} ${className}`
                            .trimRight();
 
@@ -104,7 +117,7 @@ export default class ScrollingList extends React.Component {
           onKeyDown={(e) => this.handleKeyDown(e)}>
         {data.map((item) => {
           let props = {
-            onMouseDown: () => onItemSelected(item.id),
+            onMouseDown: () => this.handleMouseDown(item.id),
             className: itemClassName,
           };
           if (item.id === selected) {

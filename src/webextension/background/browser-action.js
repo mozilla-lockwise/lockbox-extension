@@ -54,5 +54,8 @@ export default async function updateBrowserAction(ds) {
     return installPopup("popup/unlock/index.html");
   }
 
+  if (process.env.ENABLE_DOORHANGER) {
+    return installPopup("list/popup/index.html");
+  }
   return installListener("manage");
 }

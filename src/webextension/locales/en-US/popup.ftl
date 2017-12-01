@@ -1,3 +1,5 @@
+[[unlock]]
+
 unlock-prompt-title = Lockbox
 unlock-prompt-desc = Enter your password
 
