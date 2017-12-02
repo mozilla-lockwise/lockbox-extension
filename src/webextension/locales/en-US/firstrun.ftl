@@ -11,16 +11,9 @@ firstrun-intro-warning =
     This is a rapidly evolving prototype that will change as Alpha progresses.
     Any data stored here is not guaranteed to be retained in future updates.
 
-firstrun-using-title = Add Serious Security & Convenience
+firstrun-using-title = { product-fxa-title }
 
-firstrun-using-description =
-    Creating a Firefox account - or adding Lockbox to an existing account - protects your logins
-    with the strongest encryption available.
-
-// when Kinto is supported, the above should be changed to:
-//    Creating a Firefox account - or adding Lockbox to an existing account - protects your logins
-//    with the strongest encryption available and syncs your Lockbox info across accounts.
-
+firstrun-using-description = { product-fxa-description }
 
 firstrun-using-guest-title = New to Lockbox?
 

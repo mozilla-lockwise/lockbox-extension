@@ -4,6 +4,9 @@
 
 import * as telemetry from "../telemetry";
 
+export const ACCOUNT_STATUS_STARTING = Symbol("ACCOUNT_STATUS_STARTING");
+export const ACCOUNT_STATUS_COMPLETED = Symbol("ACCOUNT_STATUS_COMPLETED");
+
 export const LIST_ITEMS_STARTING = Symbol("LIST_ITEMS_STARTING");
 export const LIST_ITEMS_COMPLETED = Symbol("LIST_ITEMS_COMPLETED");
 
@@ -32,6 +35,35 @@ export const HIDE_MODAL = Symbol("HIDE_MODAL");
 // The action ID is used for debugging to correlate async actions with each
 // other (i.e. FOO_STARTING and FOO_COMPLETED).
 let nextActionId = 0;
+
+export function accountStatus() {
+  return async (dispatch) => {
+    const actionId = nextActionId++;
+    dispatch(accountStatusStarting(actionId));
+
+    const response = await browser.runtime.sendMessage({
+      type: "account_status",
+    });
+    dispatch(accountStatusCompleted(actionId, response.account));
+  };
+}
+
+function accountStatusStarting(actionId) {
+  return {
+    type: ACCOUNT_STATUS_STARTING,
+  };
+}
+
+function accountStatusCompleted(actionId, account) {
+  return {
+    type: ACCOUNT_STATUS_COMPLETED,
+    account,
+  };
+}
+
+export function accountStatusUpdated(account) {
+  return accountStatusCompleted(undefined, account);
+}
 
 export function listItems() {
   return async (dispatch) => {

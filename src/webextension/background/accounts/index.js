@@ -15,6 +15,9 @@ async function generateAuthzURL(config, props) {
   queryParams.set("redirect_uri", config.redirect_uri);
   queryParams.set("access_type", "offline");
   queryParams.set("scope", config.scopes.join(" "));
+  if (config.action) {
+    queryParams.set("action", config.action);
+  }
 
   let state = props.state = jose.util.randomBytes(16).toString("hex");
   queryParams.set("state", state);
@@ -63,9 +66,9 @@ async function fetchFromEndPoint(name, url, request) {
   return body;
 }
 
-export const GUEST = Symbol("GUEST");
-export const UNAUTHENTICATED = Symbol("UNAUTHENTICATED");
-export const AUTHENTICATED = Symbol("AUTHENTICATED");
+export const GUEST = "guest";
+export const UNAUTHENTICATED = "unauthenticated";
+export const AUTHENTICATED = "authenticated";
 
 export const APP_KEY_NAME = "https://identity.mozilla.com/apps/lockbox";
 
@@ -112,7 +115,7 @@ export class Account {
 
   get idToken() { return (this.info && this.info.id_token) || undefined; }
 
-  async signIn(interactive = true) {
+  async signIn(action) {
     let cfg = configs[this.config];
 
     let props = {},
@@ -120,10 +123,14 @@ export class Account {
         request;
 
     // request authorization
+    cfg = {
+      ...cfg,
+      action,
+    };
     url = await generateAuthzURL(cfg, props);
     let authzRsp = await browser.identity.launchWebAuthFlow({
       url,
-      interactive,
+      interactive: true,
     });
     let authzCode = processAuthzResponse(new URL(authzRsp), props);
 
@@ -190,6 +197,14 @@ export class Account {
     // TODO: something server side?
     this.info = undefined;
     return this;
+  }
+
+  status() {
+    return {
+      mode: this.mode,
+      uid: this.uid,
+      email: this.email,
+    };
   }
 }
 
