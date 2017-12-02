@@ -27,6 +27,8 @@ export default function initializeMessagePorts() {
 
   browser.runtime.onMessage.addListener(async (message, sender) => {
     switch (message.type) {
+    case "account_status":
+      return {account: getAccount().status()};
     case "open_view":
       return openView(message.name).then(() => ({}));
     case "close_view":
@@ -46,7 +48,7 @@ export default function initializeMessagePorts() {
       });
     case "upgrade":
       return openDataStore().then(async (datastore) => {
-        let account = await getAccount().signIn(true);
+        let account = await getAccount().signIn(message.action);
         let appKey = account.keys.get("https://identity.mozilla.com/apps/lockbox");
         let salt = account.uid;
 
@@ -57,21 +59,26 @@ export default function initializeMessagePorts() {
         // FIXME: be more implicit on saving account info
         await accounts.saveAccount(browser.storage.local);
         await updateBrowserAction({account, datastore});
-        if (!message.silent) {
-          await openView("manage");
+        broadcast({ type: "account_status_updated", account: account.status() });
+        if (message.view) {
+          openView(message.view);
         }
 
         return {};
       });
     case "reset":
       return openDataStore().then(async (datastore) => {
+        let account = getAccount();
+
         await closeView();
 
         await datastore.reset();
+        await account.signOut();
         // TODO: put other reset calls here
 
         await updateBrowserAction({datastore});
-        await openView("firstrun");
+        broadcast({type: "account_status_updated", account: account.status()});
+        openView("firstrun");
 
         return {};
       });
@@ -87,6 +94,7 @@ export default function initializeMessagePorts() {
         }
         await datastore.unlock(appKey);
         await updateBrowserAction({datastore});
+        broadcast({ type: "account_status_updated", account: account.status() });
         if (message.view) {
           openView(message.view);
         }

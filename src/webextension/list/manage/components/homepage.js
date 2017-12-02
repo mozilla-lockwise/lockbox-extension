@@ -6,6 +6,8 @@ import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
+import UpgradeAccount from "./upgrade-account";
+
 import styles from "./homepage.css";
 
 export default function Homepage({count}) {
@@ -27,6 +29,7 @@ export default function Homepage({count}) {
       <Localized id="homepage-greeting">
         <p>{"yOu'Ve suCCessfuLLY iNSTalled..."}</p>
       </Localized>
+      <UpgradeAccount />
     </article>
   );
 }

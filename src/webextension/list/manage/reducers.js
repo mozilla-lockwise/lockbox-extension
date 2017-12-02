@@ -7,6 +7,18 @@ import { combineReducers } from "redux";
 import * as actions from "../actions";
 import { cacheReducer, listReducer } from "../reducers";
 
+export function accountReducer(state = { mode: "guest" }, action) {
+  switch (action.type) {
+    case actions.ACCOUNT_STATUS_COMPLETED:
+      return {
+        ...state,
+        ...action.account,
+      };
+    default:
+      return state;
+  }
+}
+
 export function editorReducer(state = {
   editing: false, changed: false, hideHome: false,
 }, action) {
@@ -45,6 +57,7 @@ export function modalReducer(state = {id: null, props: null}, action) {
 }
 
 export default combineReducers({
+  account: accountReducer,
   cache: cacheReducer,
   list: listReducer,
   editor: editorReducer,

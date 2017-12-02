@@ -5,6 +5,9 @@
 // Keep these in sync with <src/webextension/list/manage/reducers.js>.
 
 export const initialState = {
+  account: {
+    mode: "guest",
+  },
   cache: {
     items: [],
     currentItem: null,
@@ -25,6 +28,9 @@ export const initialState = {
 };
 
 export const filledState = {
+  account: {
+    mode: "guest",
+  },
   cache: {
     items: [
       {id: "0", title: "title 0", username: "username 0",

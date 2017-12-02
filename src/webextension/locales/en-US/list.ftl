@@ -69,6 +69,12 @@ homepage-greeting =
   including any issues you may find, things you like, and the things you’re
   looking forward to in the future.
 
+homepage-upgrade-title = { product-fxa-title }
+homepage-upgrade-description = { product-fxa-description }
+
+homepage-upgrade-action-create = Create Account
+homepage-upgrade-action-signin = { product-action-signin }
+
 item-details-heading-view = Entry Details
 item-details-heading-new = Create a New Entry
 item-details-heading-edit = Edit Entry
