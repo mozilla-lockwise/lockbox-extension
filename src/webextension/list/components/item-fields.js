@@ -44,18 +44,18 @@ export function ItemFields({fields, onCopy}) {
   return (
     <div className={styles.itemFields}>
       <div className={styles.field}>
-        <Localized id="item-fields-title">
-          <LabelText className={styles.firstLabel}>tITLe</LabelText>
-        </Localized>
-        <FieldText data-name="title">{fields.title}</FieldText>
-      </div>
-      <div className={styles.field}>
         <Localized id="item-fields-origin">
-          <LabelText>oRIGIn</LabelText>
+          <LabelText className={styles.firstLabel}>oRIGIn</LabelText>
         </Localized>
         <FieldText monospace={true} data-name="origin">
           {fields.origin}
         </FieldText>
+      </div>
+      <div className={styles.field}>
+        <Localized id="item-fields-title">
+          <LabelText>tITLe</LabelText>
+        </Localized>
+        <FieldText data-name="title">{fields.title}</FieldText>
       </div>
       <div className={styles.field}>
         <Localized id="item-fields-username">
