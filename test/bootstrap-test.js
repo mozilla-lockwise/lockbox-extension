@@ -32,6 +32,7 @@ describe("bootstrap", () => {
     afterEach(() => {
       // Clear the listeners set in <src/bootstrap.js>.
       browser.runtime.onMessage.mockClearListener();
+      browser.runtime.onConnect.mockClearListener();
     });
 
     it("web extension loaded and telemetry recorded", async () => {
