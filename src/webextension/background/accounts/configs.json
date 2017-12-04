@@ -6,7 +6,8 @@
     "token_endpoint": "https://oauth.accounts.firefox.com/v1/token",
     "userinfo_endpoint": "https://profile.accounts.firefox.com/v1/profile",
     "scopes": ["openid", "profile", "https://identity.mozilla.com/apps/lockbox"],
-    "pkce": true
+    "pkce": true,
+    "app_keys": true
   },
   "dev-latest": {
     "client_id": "f69b2d16e724b432",
