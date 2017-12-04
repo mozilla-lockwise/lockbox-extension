@@ -20,6 +20,31 @@ const ORIGINAL_REMEMBER_SIGNONS_PREF =
 // events, please increment the version number here by 1.
 const TELEMETRY_CATEGORY = "lockboxv0";
 
+class EventDispatcher {
+  constructor() {
+    this.events = [];
+  }
+
+  record(event) {
+    if (this.port) {
+      this.port.postMessage(event);
+    } else {
+      this.events.push(event);
+    }
+  }
+
+  connect(port) {
+    this.port = port;
+
+    let events = this.events;
+    this.events = [];
+    for (let evt of events) {
+      this.port.postMessage(evt);
+    }
+  }
+}
+
+let dispatcher = new EventDispatcher();
 function startup({webExtension}, reason) {
   try {
     Services.telemetry.registerEvents(TELEMETRY_CATEGORY, {
@@ -128,6 +153,10 @@ function startup({webExtension}, reason) {
         respond({});
       }
     });
+
+      browser.runtime.onConnect.addListener((port) => {
+        dispatcher.connect(port);
+      });
   });
 }
 
@@ -143,6 +172,8 @@ function install(data, reason) {
       Services.prefs.getBoolPref(REMEMBER_SIGNONS_PREF)
     );
     Services.prefs.setBoolPref(REMEMBER_SIGNONS_PREF, false);
+
+    dispatcher.record({ type: "extension_installed" });
   }
 }
 

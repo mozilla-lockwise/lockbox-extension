@@ -19,10 +19,22 @@ function broadcast(message, excludedSender) {
   }
 }
 
+let legacyPort;
+
 export default function initializeMessagePorts() {
   browser.runtime.onConnect.addListener((port) => {
     ports.add(port);
     port.onDisconnect.addListener(() => ports.delete(port));
+  });
+
+  legacyPort = browser.runtime.connect({name: "webext-to-legacy"});
+  legacyPort.onMessage.addListener(async (message) => {
+    switch (message.type) {
+    case "extension_installed":
+      return openView("firstrun");
+    default:
+      return null;
+    }
   });
 
   browser.runtime.onMessage.addListener(async (message, sender) => {
