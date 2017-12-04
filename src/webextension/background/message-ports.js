@@ -52,9 +52,6 @@ export default function initializeMessagePorts() {
         // FIXME: be more implicit on saving account info
         await accounts.saveAccount(browser.storage.local);
         await updateBrowserAction({datastore});
-        if (!message.silent) {
-          await openView("manage");
-        }
 
         return {};
       });
