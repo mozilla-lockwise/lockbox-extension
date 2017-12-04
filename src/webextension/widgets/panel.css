@@ -24,10 +24,19 @@
   text-align: center;
 }
 
+.panel-header > button {
+  content: "";
+  height: 16px;
+  width: 16px;
+  margin: 0;
+  padding: 0;
+}
+
 .panel-body {
   flex: 1;
   overflow-x: hidden;
   overflow-y: auto;
+  background-color: #ededf0;
 }
 
 .panel-footer {
