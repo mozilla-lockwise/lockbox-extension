@@ -104,7 +104,7 @@ export default {
     "webextension/list/manage/index": "./webextension/list/manage/index.js",
     "webextension/list/popup/index": "./webextension/list/popup/index.js",
     "webextension/firstrun/index": "./webextension/firstrun/index.js",
-    "webextension/popup/unlock/index": "./webextension/popup/unlock/index.js",
+    "webextension/unlock/index": "./webextension/unlock/index.js",
     "webextension/settings/index": "./webextension/settings/index.js",
   },
 
@@ -163,8 +163,8 @@ export default {
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",
-      filename: "webextension/popup/unlock/index.html",
-      chunks: ["webextension/popup/unlock/index"],
+      filename: "webextension/unlock/index.html",
+      chunks: ["webextension/unlock/index"],
       inject: false,
       minify: htmlMinifyOptions,
     }),
