@@ -51,12 +51,14 @@ export function accountStatus() {
 function accountStatusStarting(actionId) {
   return {
     type: ACCOUNT_STATUS_STARTING,
+    actionId,
   };
 }
 
 function accountStatusCompleted(actionId, account) {
   return {
     type: ACCOUNT_STATUS_COMPLETED,
+    actionId,
     account,
   };
 }
