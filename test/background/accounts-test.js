@@ -192,7 +192,11 @@ describe("background > accounts", () => {
     describe("signin/out", () => {
       let stubWAF;
 
-      async function setupMocks(withKeys) {
+      async function setupMocks({
+        withKeys = false,
+        badState = false,
+        missingCode = false,
+      }) {
         let keys_jwe = "", appKeys = new Map();
         if (withKeys) {
           let k = await jose.JWK.createKeyStore().generate("oct", 256);
@@ -218,8 +222,13 @@ describe("background > accounts", () => {
           }
 
           let responseParams = new URLSearchParams();
+          if (badState) {
+            state = "thisisabogusstatevalue";
+          }
           responseParams.set("state", state);
-          responseParams.set("code", "7scJCX3_Dhc5cfwA3iJ32k07dJEuf3pghu4cNsH5dBXXO9h0OAQ8tHjucatkh8qQVoUiDf04r0dlv4LqkxZ-7Q");
+          if (!missingCode) {
+            responseParams.set("code", "7scJCX3_Dhc5cfwA3iJ32k07dJEuf3pghu4cNsH5dBXXO9h0OAQ8tHjucatkh8qQVoUiDf04r0dlv4LqkxZ-7Q");
+          }
           let responseURL = new URL(`${redirect}?${responseParams}`);
           return responseURL.toString();
         });
@@ -263,19 +272,31 @@ describe("background > accounts", () => {
       });
 
       it("signIn() without keys", async () => {
-        await setupMocks(false);
+        await setupMocks({});
         const result = await acct.signIn();
 
         expect(result).to.have.property("uid").that.is.a("string");
       });
 
       it("signIn() with keys", async () => {
-        const expectedKeys = await setupMocks(true);
+        const expectedKeys = await setupMocks({withKeys: true});
         const result = await acct.signIn();
 
         expect(result).to.have.property("uid").that.is.a("string");
         expect(result).to.have.property("keys").to.have.all.keys(...expectedKeys.keys());
         expect(acct).to.have.property("keys").to.have.all.keys(...expectedKeys.keys());
+      });
+
+      it("signIn() fails with invalid state", async () => {
+        await setupMocks({ badState: true });
+
+        expect(acct.signIn()).to.be.rejectedWith(Error, "invalid oauth state");
+      });
+
+      it("signIn() fails with missing code", async () => {
+        await setupMocks({missingCode: true});
+
+        expect(acct.signIn()).to.be.rejectedWith(Error, "invalid oauth authorization code");
       });
 
       it("signOut()", async () => {

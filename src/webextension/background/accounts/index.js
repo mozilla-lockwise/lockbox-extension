@@ -19,10 +19,10 @@ async function generateAuthzURL(config, props) {
     queryParams.set("action", config.action);
   }
 
-  let state = props.state = jose.util.randomBytes(16).toString("hex");
+  let state = props.state = jose.util.base64url.encode(jose.util.randomBytes(16));
   queryParams.set("state", state);
   if (config.pkce) {
-    props.pkce = jose.util.randomBytes(32).toString("hex");
+    props.pkce = jose.util.base64url.encode(jose.util.randomBytes(32));
     let challenge = new TextEncoder().encode(props.pkce);
     challenge = await jose.JWA.digest("SHA-256", challenge);
     challenge = jose.util.base64url.encode(challenge);
@@ -113,9 +113,7 @@ export class Account {
   get email() { return (this.info && this.info.email) || undefined; }
   get keys() { return (this.info && this.info.keys) || new Map(); }
 
-  get idToken() { return (this.info && this.info.id_token) || undefined; }
-
-  async signIn(action) {
+  async signIn(action = "signin") {
     let cfg = configs[this.config];
 
     let props = {},
