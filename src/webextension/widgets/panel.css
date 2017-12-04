@@ -12,11 +12,12 @@
 .panel-header {
   display: flex;
   align-items: center;
+  font-weight: 500;
   height: 32px;
-  padding: 12px;
+  padding: 2px 5px;
   /* Ensure the box shadow overlays the body. */
   z-index: 10;
-  box-shadow: 0 -5px 5px 5px rgba(12, 12, 13, 0.5);
+  box-shadow: 0 -3px 3px 3px rgba(12, 12, 13, 0.5);
 }
 
 .panel-header > span {
