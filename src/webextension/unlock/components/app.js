@@ -5,7 +5,7 @@
 import { Localized } from "fluent-react";
 import React from "react";
 
-import Button from "../../../widgets/button";
+import Button from "../../widgets/button";
 
 import styles from "./app.css";
 
@@ -24,25 +24,25 @@ export default function App() {
   };
 
   return (
-    <article className={styles.locked}>
+    <article className={styles.unlock}>
       <img src={imgSrc} alt="" />
       <section className={styles.content}>
-        <Localized id="locked-title">
+        <Localized id="unlock-title">
           <h1>lOCKBOx</h1>
         </Localized>
-        <Localized id="locked-tagline">
+        <Localized id="unlock-tagline">
           <h2>lOCKBOx tAGLINe</h2>
         </Localized>
       </section>
       <menu>
-        <Localized id="locked-signin-action">
-          <Button id="locked-signin-action"
+        <Localized id="unlock-action-signin">
+          <Button id="unlock-action-signin"
                   size="puffy"
                   theme="primary"
                   onClick={doSignIn}>sIGn iN</Button>
         </Localized>
-        <Localized id="locked-prefs-action">
-          <Button id="locked-prefs-action"
+        <Localized id="unlock-action-prefs">
+          <Button id="unlock-action-prefs"
                   size="puffy"
                   onClick={doPrefs}>pREFs</Button>
         </Localized>

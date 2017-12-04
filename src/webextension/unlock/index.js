@@ -5,9 +5,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import AppLocalizationProvider from "../../l10n";
+import AppLocalizationProvider from "../l10n";
 import App from "./components/app";
-import * as telemetry from "../../telemetry";
+import * as telemetry from "../telemetry";
 
 // This is the closest approximation we can get to a toolbar click when the
 // popup is registered.

@@ -8,9 +8,9 @@ import sinon from "sinon";
 import waitUntil from "async-wait-until";
 
 import mountWithL10n from "test/mocks/l10n";
-import App from "src/webextension/popup/unlock/components/app";
+import App from "src/webextension/unlock/components/app";
 
-describe("popup > locked > components > <App/>", () => {
+describe("unlock > components > <App/>", () => {
   let wrapper, spyMessage, spyOptions;
 
   beforeEach(() => {
@@ -37,12 +37,12 @@ describe("popup > locked > components > <App/>", () => {
 
     expect(wrapper.find("h1")).to.have.text("lOCKBOx");
     expect(wrapper.find("h2")).to.have.text("lOCKBOx tAGLINe");
-    expect(wrapper.find("button").at(0)).to.have.text("sIGn iN");
-    expect(wrapper.find("button").at(1)).to.have.text("pREFs");
+    expect(wrapper.find("button#unlock-action-signin")).to.have.text("sIGn iN");
+    expect(wrapper.find("button#unlock-action-prefs")).to.have.text("pREFs");
   });
 
   it("click signin", async () => {
-    wrapper.find("button#locked-signin-action").simulate("click");
+    wrapper.find("button#unlock-action-signin").simulate("click");
     waitUntil(() => spyMessage.callCount === 1);
 
     expect(spyMessage).to.have.been.calledWith({
@@ -52,7 +52,7 @@ describe("popup > locked > components > <App/>", () => {
   });
 
   it("click prefs", async () => {
-    wrapper.find("button#locked-prefs-action").simulate("click");
+    wrapper.find("button#unlock-action-prefs").simulate("click");
     waitUntil(() => spyOptions.callCount === 1);
 
     expect(spyOptions).to.have.been.calledWith();
