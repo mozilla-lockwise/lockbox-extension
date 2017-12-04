@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 import { initialState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
 import Homepage from "src/webextension/list/manage/components/homepage";
-import UpgradeAccount from "src/webextension/list/manage/components/upgrade-account";
+import UpgradeAccount from "src/webextension/list/manage/containers/upgrade-account";
 
 chai.use(chaiEnzyme());
 

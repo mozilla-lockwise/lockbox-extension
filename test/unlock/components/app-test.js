@@ -37,12 +37,17 @@ describe("unlock > components > <App/>", () => {
 
     expect(wrapper.find("h1")).to.have.text("lOCKBOx");
     expect(wrapper.find("h2")).to.have.text("lOCKBOx tAGLINe");
-    expect(wrapper.find("button#unlock-action-signin")).to.have.text("sIGn iN");
-    expect(wrapper.find("button#unlock-action-prefs")).to.have.text("pREFs");
+    expect(wrapper.findWhere(
+      (x) => x.prop("id") === "unlock-action-signin").find("button")
+    ).to.have.text("sIGn iN");
+    expect(wrapper.findWhere(
+      (x) => x.prop("id") === "unlock-action-prefs").find("button")
+    ).to.have.text("pREFs");
   });
 
   it("click signin", async () => {
-    wrapper.find("button#unlock-action-signin").simulate("click");
+    wrapper.findWhere((x) => x.prop("id") === "unlock-action-signin")
+           .find("button").simulate("click");
     waitUntil(() => spyMessage.callCount === 1);
 
     expect(spyMessage).to.have.been.calledWith({
@@ -52,7 +57,8 @@ describe("unlock > components > <App/>", () => {
   });
 
   it("click prefs", async () => {
-    wrapper.find("button#unlock-action-prefs").simulate("click");
+    wrapper.findWhere((x) => x.prop("id") === "unlock-action-prefs")
+           .find("button").simulate("click");
     waitUntil(() => spyOptions.callCount === 1);
 
     expect(spyOptions).to.have.been.calledWith();

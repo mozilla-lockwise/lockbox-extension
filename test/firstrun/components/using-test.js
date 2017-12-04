@@ -39,7 +39,8 @@ describe("firstrun > components > <Using/>", () => {
   });
 
   it("guest action started", async () => {
-    wrapper.find("button#firstrun-using-guest-action").simulate("click");
+    wrapper.findWhere((x) => x.prop("id") === "firstrun-using-guest-action")
+           .find("button").simulate("click");
 
     await waitUntil(() => spyRedirect.callCount === 1);
     expect(spyMessage).to.have.been.calledWith({
@@ -49,7 +50,8 @@ describe("firstrun > components > <Using/>", () => {
   });
 
   it("returning action started", async () => {
-    wrapper.find("button#firstrun-using-returning-action").simulate("click");
+    wrapper.findWhere((x) => x.prop("id") === "firstrun-using-returning-action")
+           .find("button").simulate("click");
 
     await waitUntil(() => spyRedirect.callCount === 1);
     expect(spyMessage).to.have.been.calledWith({

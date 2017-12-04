@@ -45,8 +45,7 @@ export default function StartUsing({redirect = defaultRedirect}) {
           <h2>gUESt</h2>
         </Localized>
         <Localized id="firstrun-using-guest-action">
-          <Button id="firstrun-using-guest-action"
-                  theme="primary"
+          <Button theme="primary"
                   size="puffy"
                   onClick={doGuest}>gEt sTARTEd</Button>
         </Localized>
@@ -54,8 +53,7 @@ export default function StartUsing({redirect = defaultRedirect}) {
           <h2>rETURNINg</h2>
         </Localized>
         <Localized id="firstrun-using-returning-action">
-          <Button id="firstrun-using-returning-action"
-                  theme="ghost"
+          <Button theme="ghost"
                   onClick={doReturning}>sIGn iN</Button>
         </Localized>
       </div>

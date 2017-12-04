@@ -4,8 +4,8 @@
 
 import * as telemetry from "../telemetry";
 
-export const ACCOUNT_STATUS_STARTING = Symbol("ACCOUNT_STATUS_STARTING");
-export const ACCOUNT_STATUS_COMPLETED = Symbol("ACCOUNT_STATUS_COMPLETED");
+export const GET_ACCOUNT_DETAILS_STARTING = Symbol("GET_ACCOUNT_DETAILS_STARTING");
+export const GET_ACCOUNT_DETAILS_COMPLETED = Symbol("GET_ACCOUNT_DETAILS_COMPLETED");
 
 export const LIST_ITEMS_STARTING = Symbol("LIST_ITEMS_STARTING");
 export const LIST_ITEMS_COMPLETED = Symbol("LIST_ITEMS_COMPLETED");
@@ -42,7 +42,7 @@ export function accountStatus() {
     dispatch(accountStatusStarting(actionId));
 
     const response = await browser.runtime.sendMessage({
-      type: "account_status",
+      type: "get_account_details",
     });
     dispatch(accountStatusCompleted(actionId, response.account));
   };
@@ -50,14 +50,14 @@ export function accountStatus() {
 
 function accountStatusStarting(actionId) {
   return {
-    type: ACCOUNT_STATUS_STARTING,
+    type: GET_ACCOUNT_DETAILS_STARTING,
     actionId,
   };
 }
 
 function accountStatusCompleted(actionId, account) {
   return {
-    type: ACCOUNT_STATUS_COMPLETED,
+    type: GET_ACCOUNT_DETAILS_COMPLETED,
     actionId,
     account,
   };
