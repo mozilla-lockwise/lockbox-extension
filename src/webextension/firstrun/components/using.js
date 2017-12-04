@@ -3,30 +3,31 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { Localized } from "fluent-react";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Button from "../../widgets/button";
 
 import styles from "./using.css";
 
-export default function StartUsing() {
-  const doGuest = () => {
-    browser.runtime.sendMessage({
+// TODO: move this to somewhere more common?
+function defaultRedirect(url) {
+  window.location = url;
+}
+
+export default function StartUsing({redirect = defaultRedirect}) {
+  const manageURL = browser.extension.getURL("/list/manage/index.html");
+  const doGuest = async () => {
+    await browser.runtime.sendMessage({
       type: "initialize",
     });
-    browser.runtime.sendMessage({
-      type: "close_view",
-      name: "firstrun",
-    });
+    redirect(manageURL);
   };
-  const doReturning = () => {
-    browser.runtime.sendMessage({
+  const doReturning = async () => {
+    await browser.runtime.sendMessage({
       type: "upgrade",
     });
-    browser.runtime.sendMessage({
-      type: "close_view",
-      name: "firstrun",
-    });
+    redirect(manageURL);
   };
 
   return (
@@ -61,3 +62,6 @@ export default function StartUsing() {
     </section>
   );
 }
+StartUsing.propTypes = {
+  redirect: PropTypes.func,
+};

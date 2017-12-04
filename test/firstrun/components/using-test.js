@@ -14,18 +14,21 @@ import StartUsing from "src/webextension/firstrun/components/using";
 chai.use(chaiEnzyme());
 
 describe("firstrun > components > <Using/>", () => {
-  let wrapper, spy;
+  let wrapper, spyRedirect, spyMessage;
 
   beforeEach(() => {
+    spyRedirect = sinon.spy();
     wrapper = mountWithL10n(
-      <StartUsing />
+      <StartUsing redirect={spyRedirect}/>
     );
-    spy = sinon.spy();
-    browser.runtime.onMessage.addListener(spy);
+
+    spyMessage = sinon.spy();
+    browser.runtime.onMessage.addListener(spyMessage);
   });
   afterEach(() => {
     browser.runtime.onMessage.mockClearListener();
-    spy.reset();
+    spyMessage.reset();
+    spyRedirect.reset();
   });
 
   it("render <StartUsing/>", () => {
@@ -38,26 +41,20 @@ describe("firstrun > components > <Using/>", () => {
   it("guest action started", async () => {
     wrapper.find("button#firstrun-using-guest-action").simulate("click");
 
-    await waitUntil(() => spy.callCount === 2);
-    expect(spy.getCall(0)).to.have.been.calledWith({
+    await waitUntil(() => spyRedirect.callCount === 1);
+    expect(spyMessage).to.have.been.calledWith({
       type: "initialize",
     });
-    expect(spy.getCall(1)).to.have.been.calledWith({
-      type: "close_view",
-      name: "firstrun",
-    });
+    expect(spyRedirect).to.have.been.calledWith(browser.extension.getURL("/list/manage/index.html"));
   });
 
   it("returning action started", async () => {
     wrapper.find("button#firstrun-using-returning-action").simulate("click");
 
-    await waitUntil(() => spy.callCount === 2);
-    expect(spy.getCall(0)).to.have.been.calledWith({
+    await waitUntil(() => spyRedirect.callCount === 1);
+    expect(spyMessage).to.have.been.calledWith({
       type: "upgrade",
     });
-    expect(spy.getCall(1)).to.have.been.calledWith({
-      type: "close_view",
-      name: "firstrun",
-    });
+    expect(spyRedirect).to.have.been.calledWith(browser.extension.getURL("/list/manage/index.html"));
   });
 });
