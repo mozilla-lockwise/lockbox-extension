@@ -5,6 +5,8 @@
 .button {
   white-space: nowrap;
   text-align: center;
+  letter-spacing: 0.2px;
+  line-height: 1.5;
   border: 0;
 }
 
@@ -22,11 +24,13 @@
 }
 
 .primary-theme {
+  min-width: 80px;
   color: #ffffff;
   background-color: #0060df;
 }
 
 .normal-theme {
+  min-width: 80px;
   color: #0c0c0d;
   background-color: rgba(12, 12, 13, 0.1);
 }
