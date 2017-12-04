@@ -10,11 +10,11 @@ import Button from "../../../widgets/button";
 
 export function AccountStatus({email, onClick, ...props}) {
   if (!email) {
-    return <span/>;
+    return null;
   }
 
   return (
-    <Button theme="ghost" onClick={onClick}>{email} ☰</Button>
+    <Button theme="ghost">{email} ☰</Button>
   );
 }
 AccountStatus.propTypes = {
@@ -30,8 +30,5 @@ export default connect(
       };
     }
     return {};
-  },
-  (dispatch) => ({
-    onClick: () => { /* TODO: display "menu" ... */ },
-  })
+  }
 )(AccountStatus);

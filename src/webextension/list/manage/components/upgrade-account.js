@@ -13,7 +13,7 @@ import styles from "./upgrade-account.css";
 
 export function UpgradeAccount({mode, ...props}) {
   if (mode !== "guest") {
-    return <div/>;
+    return null;
   }
 
   const doCreate = async () => {
@@ -39,10 +39,14 @@ export function UpgradeAccount({mode, ...props}) {
       </Localized>
       <menu>
         <Localized id="homepage-upgrade-action-create">
-          <Button size="puffy" onClick={doCreate}>cREATe aCCOUNt</Button>
+          <Button id="homepage-upgrade-action-create"
+                  size="puffy"
+                  onClick={doCreate}>cREATe aCCOUNt</Button>
         </Localized>
         <Localized id="homepage-upgrade-action-signin">
-          <Button size="puffy" onClick={doSignIn}>sIGn iN</Button>
+          <Button id="homepage-upgrade-action-signin"
+                  size="puffy"
+                  onClick={doSignIn}>sIGn iN</Button>
         </Localized>
       </menu>
     </section>

@@ -10,38 +10,39 @@ import { Provider } from "react-redux";
 
 import { initialState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
-import Homepage from "src/webextension/list/manage/components/homepage";
-import UpgradeAccount from "src/webextension/list/manage/components/upgrade-account";
+import AccountStatus from "src/webextension/list/manage/components/account-status";
 
 chai.use(chaiEnzyme());
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
-describe("list > manage > components > <Homepage/>", () => {
-  it("render with no items", () => {
-    const store = mockStore(initialState);
+describe("list > manage > components > <AccountStatus/>", () => {
+  it("render in authenticated mode", () => {
+    const store = mockStore({
+      ...initialState,
+      account: {
+        mode: "authenticated",
+        uid: "1234",
+        email: "eripley@wyutani.com",
+      },
+    });
     const wrapper = mountWithL10n(
       <Provider store={store}>
-        <Homepage count={0}/>
+        <AccountStatus />
       </Provider>
     );
 
-    expect(wrapper.find("h1").at(0)).to.contain.text("welcOMe to lOcKboX");
-    expect(wrapper).to.contain(UpgradeAccount);
+    expect(wrapper.find("button")).to.have.text("eripley@wyutani.com ☰");
   });
-
-  it("render with 5 items", () => {
+  it("render empty in guest mode", () => {
     const store = mockStore(initialState);
     const wrapper = mountWithL10n(
       <Provider store={store}>
-        <Homepage count={5}/>
+        <AccountStatus />
       </Provider>
     );
 
-    expect(wrapper.find("h1").at(0)).to.contain.text(
-      "YoU have X enTrieS in YoUr lOcKboX"
-    );
-    expect(wrapper).to.contain(UpgradeAccount);
+    expect(wrapper.hostNodes()).to.have.length(0);
   });
 });
