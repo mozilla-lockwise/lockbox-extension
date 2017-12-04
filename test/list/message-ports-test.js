@@ -28,6 +28,22 @@ describe("list > message ports", () => {
     browser.runtime.onConnect.mockClearListener();
   });
 
+  it('handle "account_status_updated"', () => {
+    const account = {
+      mode: "authenticated",
+      uid: "1234",
+      email: "eripley@wyutani.com",
+    };
+    messagePort.postMessage({type: "account_status_updated", account});
+
+    const dispatched = store.getActions();
+    expect(store.getActions()).to.deep.equal([{
+      type: actions.ACCOUNT_STATUS_COMPLETED,
+      actionId: dispatched[0].actionId,
+      account,
+    }]);
+  });
+
   it('handle "added_item"', () => {
     const item = {
       id: "1",
