@@ -13,19 +13,19 @@ body {
   -moz-user-select: none;
 }
 
-.locked {
+.unlock {
   margin: 0;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
 }
 
-.locked > img {
+.unlock > img {
   margin: 2em auto;
   width: 229px;
 }
 
-.locked > .content {
+.unlock > .content {
   margin: 2em auto;
   width: 229px;
   display: flex;
@@ -33,13 +33,13 @@ body {
   align-items: center;
 }
 
-.locked > .content > h1 {
+.unlock > .content > h1 {
   font-size: 2em;
   font-weight: bold;
   text-align: center;
   margin: 0 0 .5em;
 }
-.locked > .content > h2 {
+.unlock > .content > h2 {
   font-size: 1.5em;
   font-weight: normal;
   font-style: italic;
@@ -47,7 +47,7 @@ body {
   margin: 0;
 }
 
-.locked > menu {
+.unlock > menu {
   margin: 0;
   padding: 0;
   width: 100vw;
@@ -56,17 +56,17 @@ body {
   align-items: stretch;
 }
 
-.locked > menu > * {
+.unlock > menu > * {
   width: 50%;
   flex-grow: 1;
 }
-.locked > menu > * {
+.unlock > menu > * {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-.locked > menu > *:first-child {
+.unlock > menu > *:first-child {
   border-bottom-right-radius: 0;
 }
-.locked > menu > *:last-child {
+.unlock > menu > *:last-child {
   border-bottom-left-radius: 0;
 }
