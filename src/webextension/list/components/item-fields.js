@@ -167,8 +167,7 @@ export class EditItemFields extends React.Component {
             <LabelText>nOTEs</LabelText>
           </Localized>
           <Localized id="item-fields-notes-input">
-            <TextArea placeholder="aNSWERs to sECURITy..."
-                      {...controlledProps("notes", 10000)}/>
+            <TextArea {...controlledProps("notes", 10000)}/>
           </Localized>
         </label>
       </div>
