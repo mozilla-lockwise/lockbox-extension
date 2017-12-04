@@ -11,9 +11,11 @@ import styles from "./panel.css";
 
 export function PanelHeader({className, onBack, children}) {
   const finalClassName = `${styles.panelHeader} ${className}`.trimRight();
+  const imgSrc = browser.extension.getURL("/icons/arrowhead-left-16.svg");
   return (
     <header className={finalClassName}>
-      {onBack ? <Button theme="ghost" onClick={onBack}>&lt;</Button> : null}
+      {onBack ? <Button theme="ghost" onClick={onBack}>
+        <img src={imgSrc} alt="&lt;"/></Button> : null}
       <span>{children}</span>
     </header>
   );
