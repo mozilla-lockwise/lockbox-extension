@@ -8,13 +8,18 @@
   font-size: 17px;
 }
 
-.arrow {
+.item-summary::before {
+  background-image: url(/icons/arrowhead-right-16.svg);
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  content: "";
   float: right;
-  padding: .5em;
-  vertical-align: middle;
+  height: 16px;
+  width: 16px;
+  margin: 1rem 0;
 }
 
-[data-selected] .arrow {
+[data-selected] .item-summary::before {
   display: none;
 }
 
