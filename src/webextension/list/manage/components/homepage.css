@@ -12,25 +12,32 @@
 }
 
 .homepage > h1,
+.homepage > h2,
 .homepage > p {
   color: #0c0c0d;
   letter-spacing: 0.2px;
-  line-height: 1.5;  
+  line-height: 1.5;
+  text-align: center;
 }
 
 .homepage h1 {
-  font-size: 33px;
+  font-size: 17px;
   font-weight: 300;
+  font-style: italic;
   margin: auto;
-  text-align: center;
+}
+
+.homepage h2 {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.32;
 }
 
 .homepage p {
   font-size: 15px;
-  text-align: left;
   white-space: pre-line;
 }
 
 .homepage > img {
-  width: 300px;
+  width: 279px;
 }

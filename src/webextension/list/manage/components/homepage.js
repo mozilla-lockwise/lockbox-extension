@@ -10,21 +10,14 @@ import AccountDetails from "../containers/account-details";
 
 import styles from "./homepage.css";
 
-export default function Homepage({count}) {
+export default function Homepage() {
   const imgSrc = browser.extension.getURL("/images/nessie_v2.svg");
-
-  let title;
-  if (count === 0) {
-    title = "welcOMe to lOcKboX";
-  } else {
-    title = "YoU have X enTrieS in YoUr lOcKboX";
-  }
 
   return (
     <article className={styles.homepage}>
       <img src={imgSrc} alt=""/>
-      <Localized id="homepage-title" $count={count}>
-        <h1>{title}</h1>
+      <Localized id="homepage-title">
+        <h1>{"tHe sIMPLe wAy tO sTORE..."}</h1>
       </Localized>
       <Localized id="homepage-greeting">
         <p>{"yOu'Ve suCCessfuLLY iNSTalled..."}</p>
