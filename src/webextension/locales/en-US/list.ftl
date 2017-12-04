@@ -22,12 +22,12 @@ item-fields-notes = Notes
 item-summary-new-title = New Entry
 item-summary-title =
   { $length ->
-     [0]     (No Entry Name)
+     [0]     (no site name)
     *[other] { $title }
   }
 item-summary-username =
   { $length ->
-     [0]     (No Username)
+     [0]     (no username)
     *[other] { $username }
   }
 
@@ -47,7 +47,7 @@ toolbar-go-home = Home
 toolbar-send-feedback = Submit Feedback
 
 all-items-empty =
-  When you add an entry, it automatically shows up here.
+  When you add an Entry, it automatically shows up here.
 
 all-items-filtered = No results
 
@@ -81,14 +81,14 @@ homepage-accountlinked-description =
     your logins – even for banking and other critical sites.
 
 item-details-heading-view = Entry Details
-item-details-heading-new = Create a New Entry
-item-details-heading-edit = Edit Entry
+item-details-heading-new = Create New Entry
+item-details-heading-edit = Edit Entry Details
 
-item-details-edit = Edit Entry
-item-details-delete = Delete Entry
+item-details-edit = Edit
+item-details-delete = Delete
 
-item-details-save-new = Save Entry
-item-details-save-existing = Save Changes
+item-details-save-new = Create Entry
+item-details-save-existing = Save
 item-details-cancel = Cancel
 
 [[popup]]
@@ -103,6 +103,6 @@ modal-cancel-editing = This entry has unsaved changes. Are you sure you want to 
   .confirmLabel = Discard Changes
   .cancelLabel = Go Back
 
-modal-delete = Are you sure you want to delete this entry?
-  .confirmLabel = Delete Entry
+modal-delete = Delete this Entry?
+  .confirmLabel = Delete
   .cancelLabel = Cancel
