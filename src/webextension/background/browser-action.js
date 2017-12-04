@@ -66,7 +66,7 @@ export default async function updateBrowserAction({account = getAccount(), datas
       return installEntriesAction();
     }
     // setup unlock popup
-    return installPopup("popup/unlock/index.html");
+    return installPopup("unlock/index.html");
   }
 
   return installEntriesAction();
