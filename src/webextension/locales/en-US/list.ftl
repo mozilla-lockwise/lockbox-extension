@@ -18,8 +18,6 @@ item-fields-password = Password
 item-fields-copy-password = Copy
   .title = Copy the password to the clipboard
 item-fields-notes = Notes
-item-fields-notes-input
-  .placeholder = Answers to security questions or other account specifics…
 
 item-summary-new-title = New Entry
 item-summary-title =
