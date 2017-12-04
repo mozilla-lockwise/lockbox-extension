@@ -14,7 +14,7 @@ import * as telemetry from "../telemetry";
 telemetry.recordEvent("render", "popupUnlock");
 
 ReactDOM.render(
-  <AppLocalizationProvider bundles={["popup", "widgets", "common"]}
+  <AppLocalizationProvider bundles={["unlock", "widgets", "common"]}
                            userLocales={navigator.languages}>
     <App/>
   </AppLocalizationProvider>,
