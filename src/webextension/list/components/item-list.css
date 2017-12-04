@@ -4,10 +4,13 @@
 
 .empty {
   white-space: pre-wrap;
-  margin: 3em 1em;
-  font-style: italic;
+  margin: 1em 1em;
+  padding: 20px;
   text-align: center;
-  color: #626262;
+  color: #737373;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
 }
 
 .item:nth-child(2n+1) {
