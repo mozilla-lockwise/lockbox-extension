@@ -16,7 +16,7 @@
   height: 30px;
   width: -moz-available;
   background-color: #f9f9fa;
-  border: 1px solid rgba(12, 12, 13, 0.3);
+  border: 0.5px solid #c8c8c8;
   border-radius: 2px;
 }
 
@@ -79,18 +79,25 @@
   color: #003eaa;
 }
 
+.field-text,
+.label-text {
+  color: #0c0c0d;
+  text-align: left;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+}
+
 .field-text {
   /* This lines up our labels with the text in <input> elements. */
-  margin-top: 7px;
   min-height: 25px;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: bold;
   -moz-user-select: text;
 }
 
 .label-text {
-  margin-top: 10px;
-  margin-bottom: 3px;
-  color: #626262;
+  margin: 10px 0 3px 0;
   font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
 }
