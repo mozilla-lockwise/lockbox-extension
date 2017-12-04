@@ -15,8 +15,10 @@
 
 .item:nth-child(2n+1) {
   background-color: #f1f1f1;
+  border: 0.5px solid #c8c8c8;
 }
 
 .item:nth-child(2n) {
   background-color: #f9f9fa;
+  border: 0.5px solid #c8c8c8;
 }

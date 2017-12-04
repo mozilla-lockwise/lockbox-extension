@@ -19,10 +19,16 @@
 }
 
 .title, .subtitle {
-  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+  color: #0c0c0d;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.title {
+  font-weight: bold;
 }
 
 .subtitle {
