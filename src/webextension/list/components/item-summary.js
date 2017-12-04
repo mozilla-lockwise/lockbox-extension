@@ -16,7 +16,6 @@ export default function ItemSummary({id, title, username}) {
   const titleId = `item-summary-${id === NEW_ITEM_ID ? "new-title" : "title"}`;
   return (
     <div className={styles.itemSummary}>
-      <div className={styles.arrow}>›</div>
       <Localized id={titleId} $title={title} $length={title.length}>
         <div className={styles.title}>no tITLe</div>
       </Localized>
