@@ -197,7 +197,7 @@ export class Account {
     return this;
   }
 
-  status() {
+  details() {
     return {
       mode: this.mode,
       uid: this.uid,

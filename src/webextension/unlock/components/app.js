@@ -36,14 +36,12 @@ export default function App() {
       </section>
       <menu>
         <Localized id="unlock-action-signin">
-          <Button id="unlock-action-signin"
-                  size="puffy"
+          <Button size="puffy"
                   theme="primary"
                   onClick={doSignIn}>sIGn iN</Button>
         </Localized>
         <Localized id="unlock-action-prefs">
-          <Button id="unlock-action-prefs"
-                  size="puffy"
+          <Button size="puffy"
                   onClick={doPrefs}>pREFs</Button>
         </Localized>
       </menu>

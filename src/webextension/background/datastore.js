@@ -20,9 +20,8 @@ async function recordMetric(method, itemid, fields) {
   telemetry.recordEvent(method, "datastore", extra);
 }
 
-export default async function openDataStore(cfg) {
+export default async function openDataStore(cfg = {}) {
   if (!datastore) {
-    cfg = cfg || {};
     datastore = await DataStore.open({
       ...cfg,
       recordMetric,

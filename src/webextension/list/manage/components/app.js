@@ -6,7 +6,7 @@ import { Localized } from "fluent-react";
 import React from "react";
 import DocumentTitle from "react-document-title";
 
-import AccountStatus from "./account-status";
+import AccountSummary from "../containers/account-summary";
 import AddItem from "../containers/add-item";
 import AllItems from "../containers/all-items";
 import CurrentSelection from "../containers/current-selection";
@@ -34,7 +34,7 @@ export default function App() {
               <GoHome />
               <ToolbarSpace/>
               <SendFeedback/>
-              <AccountStatus/>
+              <AccountSummary/>
             </Toolbar>
             <aside>
               <ItemFilter/>

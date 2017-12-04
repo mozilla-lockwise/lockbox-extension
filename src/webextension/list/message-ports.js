@@ -12,7 +12,7 @@ export default function initializeMessagePorts(store) {
   messagePort = browser.runtime.connect();
   messagePort.onMessage.addListener((message) => {
     switch (message.type) {
-    case "account_status_updated":
+    case "account_details_updated":
       store.dispatch(accountStatusUpdated(message.account));
       break;
     case "added_item":

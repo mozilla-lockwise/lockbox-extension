@@ -6,7 +6,7 @@ import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
-import UpgradeAccount from "./upgrade-account";
+import UpgradeAccount from "../containers/upgrade-account";
 
 import styles from "./homepage.css";
 

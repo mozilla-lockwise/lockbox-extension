@@ -39,8 +39,8 @@ export default function initializeMessagePorts() {
 
   browser.runtime.onMessage.addListener(async (message, sender) => {
     switch (message.type) {
-    case "account_status":
-      return {account: getAccount().status()};
+    case "get_account_details":
+      return {account: getAccount().details()};
     case "open_view":
       return openView(message.name).then(() => ({}));
     case "close_view":
@@ -68,7 +68,7 @@ export default function initializeMessagePorts() {
         // FIXME: be more implicit on saving account info
         await accounts.saveAccount(browser.storage.local);
         await updateBrowserAction({account, datastore});
-        broadcast({ type: "account_status_updated", account: account.status() });
+        broadcast({ type: "account_details_updated", account: account.details() });
         if (message.view) {
           openView(message.view);
         }
@@ -86,7 +86,7 @@ export default function initializeMessagePorts() {
         // TODO: put other reset calls here
 
         await updateBrowserAction({datastore});
-        broadcast({type: "account_status_updated", account: account.status()});
+        broadcast({type: "account_details_updated", account: account.details()});
         openView("firstrun");
 
         return {};
@@ -103,7 +103,7 @@ export default function initializeMessagePorts() {
         }
         await datastore.unlock(appKey);
         await updateBrowserAction({datastore});
-        broadcast({ type: "account_status_updated", account: account.status() });
+        broadcast({ type: "account_details_updated", account: account.details() });
         if (message.view) {
           openView(message.view);
         }

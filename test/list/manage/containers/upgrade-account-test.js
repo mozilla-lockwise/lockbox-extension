@@ -12,14 +12,14 @@ import waitUntil from "async-wait-until";
 
 import { initialState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
-import UpgradeAccount from "src/webextension/list/manage/components/upgrade-account";
+import UpgradeAccount from "src/webextension/list/manage/containers/upgrade-account";
 
 chai.use(chaiEnzyme());
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
-describe("list > manage > components > <UpgradeAccount/>", () => {
+describe("list > manage > containers > <UpgradeAccount/>", () => {
   it("render in guest mode", () => {
     const store = mockStore(initialState);
     const wrapper = mountWithL10n(
@@ -30,8 +30,12 @@ describe("list > manage > components > <UpgradeAccount/>", () => {
 
     expect(wrapper.find("h2")).to.have.text("uPGRADe");
     expect(wrapper.find("p")).to.have.text("uPGRADe yOUr lOCKBOx");
-    expect(wrapper.find("button#homepage-upgrade-action-create")).to.have.text("cREATe aCCOUNt");
-    expect(wrapper.find("button#homepage-upgrade-action-signin")).to.have.text("sIGn iN");
+    expect(
+      wrapper.findWhere((x) => x.prop("id") === "homepage-upgrade-action-create").find("button")
+    ).to.have.text("cREATe aCCOUNt");
+    expect(
+      wrapper.findWhere((x) => x.prop("id") === "homepage-upgrade-action-signin").find("button")
+    ).to.have.text("sIGn iN");
   });
 
   it("render empty in authenticated mode", () => {
@@ -73,7 +77,8 @@ describe("list > manage > components > <UpgradeAccount/>", () => {
     });
 
     it('click on "create account"', async () => {
-      wrapper.find("button#homepage-upgrade-action-create").simulate("click");
+      wrapper.findWhere((x) => x.prop("id") === "homepage-upgrade-action-create")
+             .find("button").simulate("click");
 
       await waitUntil(() => spy.callCount === 1);
       expect(spy).to.have.been.calledWith({
@@ -83,7 +88,8 @@ describe("list > manage > components > <UpgradeAccount/>", () => {
     });
 
     it('click on "sign in"', async () => {
-      wrapper.find("button#homepage-upgrade-action-signin").simulate("click");
+      wrapper.findWhere((x) => x.prop("id") === "homepage-upgrade-action-signin")
+             .find("button").simulate("click");
 
       await waitUntil(() => spy.callCount === 1);
       expect(spy).to.have.been.calledWith({

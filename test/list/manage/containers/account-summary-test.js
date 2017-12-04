@@ -10,14 +10,14 @@ import { Provider } from "react-redux";
 
 import { initialState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
-import AccountStatus from "src/webextension/list/manage/components/account-status";
+import AccountSummary from "src/webextension/list/manage/containers/account-summary";
 
 chai.use(chaiEnzyme());
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
-describe("list > manage > components > <AccountStatus/>", () => {
+describe("list > manage > containers > <AccountSummary/>", () => {
   it("render in authenticated mode", () => {
     const store = mockStore({
       ...initialState,
@@ -29,7 +29,7 @@ describe("list > manage > components > <AccountStatus/>", () => {
     });
     const wrapper = mountWithL10n(
       <Provider store={store}>
-        <AccountStatus />
+        <AccountSummary />
       </Provider>
     );
 
@@ -39,7 +39,7 @@ describe("list > manage > components > <AccountStatus/>", () => {
     const store = mockStore(initialState);
     const wrapper = mountWithL10n(
       <Provider store={store}>
-        <AccountStatus />
+        <AccountSummary />
       </Provider>
     );
 

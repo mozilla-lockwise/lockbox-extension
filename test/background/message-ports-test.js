@@ -66,9 +66,9 @@ describe("background > message ports", () => {
   // Note: these tests are in a specific order since we modify the datastore as
   // we test. Each test assumes the previous has passed.
 
-  it('handle "account_status"', async () => {
+  it('handle "get_account_details"', async () => {
     const result = await browser.runtime.sendMessage({
-      type: "account_status",
+      type: "get_account_details",
     });
 
     expect(result).to.deep.equal({

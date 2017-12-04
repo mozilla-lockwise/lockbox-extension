@@ -4,11 +4,10 @@
 
 import PropTypes from "prop-types";
 import React from "react";
-import { connect } from "react-redux";
 
 import Button from "../../../widgets/button";
 
-export function AccountStatus({email, onClick, ...props}) {
+export default function AccountSummaryLabel({email}) {
   if (!email) {
     return null;
   }
@@ -17,18 +16,6 @@ export function AccountStatus({email, onClick, ...props}) {
     <Button theme="ghost">{email} ☰</Button>
   );
 }
-AccountStatus.propTypes = {
+AccountSummaryLabel.propTypes = {
   email: PropTypes.string,
-  onClick: PropTypes.func,
 };
-
-export default connect(
-  (state) => {
-    if (state.account.mode === "authenticated") {
-      return {
-        email: state.account.email,
-      };
-    }
-    return {};
-  }
-)(AccountStatus);

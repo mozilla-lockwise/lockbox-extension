@@ -2,32 +2,18 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
- import { Localized } from "fluent-react";
+import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
-import { connect } from "react-redux";
 
 import Button from "../../../widgets/button";
 
-import styles from "./upgrade-account.css";
+import styles from "./upgrade-account-panel.css";
 
-export function UpgradeAccount({mode, ...props}) {
+export default function UpgradeAccountPanel({ mode, doCreateAccount, doSignIn }) {
   if (mode !== "guest") {
     return null;
   }
-
-  const doCreate = async () => {
-    browser.runtime.sendMessage({
-      type: "upgrade",
-      action: "signup",
-    });
-  };
-  const doSignIn = async () => {
-    browser.runtime.sendMessage({
-      type: "upgrade",
-      action: "signin",
-    });
-  };
 
   return (
     <section className={styles.upgrade}>
@@ -39,27 +25,19 @@ export function UpgradeAccount({mode, ...props}) {
       </Localized>
       <menu>
         <Localized id="homepage-upgrade-action-create">
-          <Button id="homepage-upgrade-action-create"
-                  size="puffy"
-                  onClick={doCreate}>cREATe aCCOUNt</Button>
+          <Button size="puffy"
+                  onClick={doCreateAccount}>cREATe aCCOUNt</Button>
         </Localized>
         <Localized id="homepage-upgrade-action-signin">
-          <Button id="homepage-upgrade-action-signin"
-                  size="puffy"
+          <Button size="puffy"
                   onClick={doSignIn}>sIGn iN</Button>
         </Localized>
       </menu>
     </section>
   );
 }
-
-UpgradeAccount.propTypes = {
+UpgradeAccountPanel.propTypes = {
   mode: PropTypes.string.isRequired,
+  doCreateAccount: PropTypes.func.isRequired,
+  doSignIn: PropTypes.func.isRequired,
 };
-
-export default connect(
-  (state) => {
-    return state.account;
-  },
-  (dispatch) => ({})
-)(UpgradeAccount);
