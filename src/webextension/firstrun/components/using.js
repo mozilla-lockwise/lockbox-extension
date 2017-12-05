@@ -32,14 +32,6 @@ export default function StartUsing({redirect = defaultRedirect}) {
 
   return (
     <section className={styles.using}>
-      <Localized id="firstrun-using-title">
-        <h1>sTARt uSINg lOCKBOx</h1>
-      </Localized>
-      <Localized id="firstrun-using-description">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-      </Localized>
-
       <div className={styles.actions}>
         <Localized id="firstrun-using-guest-title">
           <h2>gUESt</h2>

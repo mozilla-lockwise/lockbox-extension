@@ -32,8 +32,6 @@ describe("firstrun > components > <Using/>", () => {
   });
 
   it("render <StartUsing/>", () => {
-    expect(wrapper.find("h1")).to.have.text("sTARt uSINg lOCKBOx");
-    expect(wrapper.find("p").at(0)).to.have.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.");
     expect(wrapper.find("h2").at(0)).to.have.text("gUESt");
     expect(wrapper.find("h2").at(1)).to.have.text("rETURNINg");
   });

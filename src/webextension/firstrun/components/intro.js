@@ -16,13 +16,6 @@ export default function Intro() {
       <Localized id="firstrun-intro-tagline">
         <h2>mORe wELCOMe</h2>
       </Localized>
-      <Localized id="firstrun-intro-description">
-        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Sed
-        posuere consectetur est at lobortis. Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Etiam porta sem malesuada magna mollis euismod. Cras
-        mattis consectetur purus sit amet fermentum.</p>
-      </Localized>
       <p>
         <Localized id="firstrun-intro-warning">
           <strong>Lorem ipsum dolor sit amet, consectetur.
