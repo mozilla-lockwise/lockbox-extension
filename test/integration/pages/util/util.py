@@ -10,12 +10,16 @@ class_names = [{
     'webextension/widgets/button.css': [
         'button',
         'minimal',
-        'ghost-theme'
+        'ghost-theme',
+        'primary-theme',
     ],
     # Item Summary Styles
     'webextension/list/components/item-summary.css': [
         'item-summary',
         'title'
+    ],
+    'webextension/firstrun/components/intro.css':[
+        'intro'
     ],
     # Homepage Styles
     'webextension/list/manage/components/homepage.css': [

@@ -12,7 +12,7 @@ class Home(Page):
     _entries_locator = (By.CSS_SELECTOR,
                         'ul li div.{}'.format(
                             munged_class_name('item-summary')))
-    _lockie_locator = (By.CLASS_NAME, '{} h1'.format(
+    _lockie_locator = (By.CSS_SELECTOR, '.{} h1'.format(
                        munged_class_name('homepage')))
     _delete_entry_locator = (By.CSS_SELECTOR,
                              'article div menu '
@@ -27,6 +27,11 @@ class Home(Page):
                             munged_class_name('button')))
     _save_entry_locator = (By.CSS_SELECTOR, 'article div form menu '
                            'button.{}'.format(munged_class_name('button')))
+
+    def wait_for_page_to_load(self):
+        self.wait.until(
+            lambda s: s.find_element(*self._lockie_locator))
+        return self
 
     @property
     def lockie(self):
