@@ -18,7 +18,7 @@ const ORIGINAL_REMEMBER_SIGNONS_PREF =
 // category name. In order to do this, every time we update the events in any
 // way, we must also give them a unique category name. If you're updating the
 // events, please increment the version number here by 1.
-const TELEMETRY_CATEGORY = "lockboxv0";
+const TELEMETRY_CATEGORY = "lockboxv1";
 
 class EventDispatcher {
   constructor() {
@@ -121,11 +121,11 @@ function startup({webExtension}, reason) {
       },
       "setupGuest": {
         methods: ["click"],
-        objects: ["welcomeGetStartedButton"],
+        objects: ["welcomeGuest"],
       },
       "fxaStart": {
         methods: ["click"],
-        objects: ["welcomeReturningButton", "homepageAcctCreateButton", "homepageAcctSigninButton", "unlockSigninButton"],
+        objects: ["welcomeSignin", "manageAcctCreate", "manageAcctSignin", "unlockSignin"],
       },
       "fxaAuth": {
         methods: ["fxaUpgrade", "fxaSignin", "fxaSignout"],

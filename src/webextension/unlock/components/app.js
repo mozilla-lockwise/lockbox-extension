@@ -14,7 +14,7 @@ export default function App() {
   const imgSrc = browser.extension.getURL("/images/nessie_v2.svg");
 
   const doSignIn = async () => {
-    telemetry.recordEvent("click", "unlockSigninButton");
+    telemetry.recordEvent("click", "unlockSignin");
     browser.runtime.sendMessage({
       type: "signin",
       view: "manage",
