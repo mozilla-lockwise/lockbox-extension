@@ -127,16 +127,6 @@ export class EditItemFields extends React.Component {
     return (
       <div className={styles.itemFields}>
         <label>
-          <Localized id="item-fields-title">
-            <LabelText className={styles.firstLabel}>tITLe</LabelText>
-          </Localized>
-          <Localized id="item-fields-title-input">
-            <Input type="text" {...controlledProps("title")}
-                   placeholder="eNTRy nAMe"
-                   ref={(element) => this._firstField = element}/>
-          </Localized>
-        </label>
-        <label>
           <Localized id="item-fields-origin">
             <LabelText>oRIGIn</LabelText>
           </Localized>
@@ -144,6 +134,16 @@ export class EditItemFields extends React.Component {
             <Input type="text" monospace={true}
                    placeholder="wWw.eXAMPLe.cOm"
                    {...controlledProps("origin")}/>
+          </Localized>
+        </label>
+        <label>
+          <Localized id="item-fields-title">
+            <LabelText className={styles.firstLabel}>tITLe</LabelText>
+          </Localized>
+          <Localized id="item-fields-title-input">
+            <Input type="text" {...controlledProps("title")}
+                   placeholder="eNTRy nAMe"
+                   ref={(element) => this._firstField = element}/>
           </Localized>
         </label>
         <label>
