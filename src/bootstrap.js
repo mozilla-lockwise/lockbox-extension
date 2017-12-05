@@ -34,7 +34,7 @@ function startup({webExtension}, reason) {
       },
       "displayView": {
         methods: ["render"],
-        objects: ["firstrun", "manage", "popupUnlock"],
+        objects: ["firstrun", "popupUnlock", "manage", "doorhanger"],
         extra_keys: ["fxauid"],
       },
       "fxaSignIn": {
@@ -82,7 +82,7 @@ function startup({webExtension}, reason) {
       },
       "itemSelected": {
         methods: ["itemSelected"],
-        objects: ["manage"],
+        objects: ["manage", "doorhanger"],
         extra_keys: ["fxauid"],
       },
       "addClick": {
@@ -102,7 +102,7 @@ function startup({webExtension}, reason) {
       },
       "itemCopied": {
         methods: ["usernameCopied", "passwordCopied"],
-        objects: ["manage"],
+        objects: ["manage", "doorhanger"],
         extra_keys: ["fxauid"],
       },
       "resetRequested": {
