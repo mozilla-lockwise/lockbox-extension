@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import { flattenItem, unflattenItem } from "../../common";
 import {
   addItem, updateItem, requestRemoveItem, editCurrentItem, requestCancelEditing,
-  editorChanged,
+  editorChanged, copiedField,
 } from "../../actions";
 import EditItemDetails from "../components/edit-item-details";
 import ItemDetails from "../components/item-details";
@@ -45,6 +45,7 @@ const ConnectedItemDetails = connect(
     fields: flattenItem(ownProps.item),
   }),
   (dispatch, ownProps) => ({
+    onCopy: (field) => { dispatch(copiedField(field)); },
     onEdit: () => { dispatch(editCurrentItem()); },
     onDelete: () => { dispatch(requestRemoveItem(ownProps.item.id)); },
   })
