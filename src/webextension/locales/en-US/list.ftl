@@ -69,8 +69,10 @@ homepage-greeting =
   including any issues you may find, things you like, and the things you’re
   looking forward to in the future.
 
-homepage-upgrade-title = { product-fxa-title }
-homepage-upgrade-description = { product-fxa-description }
+homepage-upgrade-title = Add Serious Security & Convenience
+homepage-upgrade-description =
+    Creating a Firefox account - or adding { product-title } to an existing account - protects your logins
+    with the strongest encryption available.
 
 homepage-upgrade-action-create = Create Account
 homepage-upgrade-action-signin = { product-action-signin }
