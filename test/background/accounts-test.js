@@ -89,7 +89,7 @@ describe("background > accounts", () => {
     const set = sinon.stub().resolves({});
     await accounts.saveAccount({set});
     expect(set).to.have.been.calledWith({account: {
-      config: "scoped-keys",
+      config: "production",
       info: undefined,
     }});
   });
@@ -131,7 +131,7 @@ describe("background > accounts", () => {
       // as GUEST
       acct.info = undefined;
       expected = {
-        config: "scoped-keys",
+        config: "production",
         info: undefined,
       };
       expect(acct.toJSON()).to.deep.equal(expected);
@@ -139,7 +139,7 @@ describe("background > accounts", () => {
       // as UNAUTHENTICATED
       acct.info = unauthedInfo;
       expected = {
-        config: "scoped-keys",
+        config: "production",
         info: {
           uid: "1234",
           access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
@@ -152,7 +152,7 @@ describe("background > accounts", () => {
       // as AUTHENTICATED
       acct.info = authedInfo;
       expected = {
-        config: "scoped-keys",
+        config: "production",
         info: {
           uid: "1234",
           access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
@@ -259,7 +259,7 @@ describe("background > accounts", () => {
       }
 
       before(() => {
-        acct = new accounts.Account({ config: "scoped-keys" });
+        acct = new accounts.Account({ config: "production" });
       });
 
       beforeEach(async () => {
