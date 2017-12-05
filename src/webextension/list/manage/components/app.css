@@ -35,7 +35,7 @@ body > main,
   grid-column: 1;
   min-width: 320px;
   min-height: 0;
-  background-color: #dfdfe3;
+  background-color: rgba(215, 215, 219, 0.75);
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
