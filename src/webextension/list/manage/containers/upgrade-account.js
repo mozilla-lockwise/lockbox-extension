@@ -9,7 +9,7 @@ import UpgradeAccountPanel from "../components/upgrade-account-panel";
 function upgradeAction(action) {
   return async () => {
     browser.runtime.sendMessage({
-      type: "upgrade",
+      type: "upgrade_account",
       action,
     });
   };

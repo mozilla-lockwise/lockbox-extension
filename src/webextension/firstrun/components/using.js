@@ -25,7 +25,7 @@ export default function StartUsing({redirect = defaultRedirect}) {
   };
   const doReturning = async () => {
     await browser.runtime.sendMessage({
-      type: "upgrade",
+      type: "upgrade_account",
     });
     redirect(manageURL);
   };

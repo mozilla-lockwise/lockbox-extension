@@ -55,7 +55,7 @@ export default function initializeMessagePorts() {
 
         return {};
       });
-    case "upgrade":
+    case "upgrade_account":
       return openDataStore().then(async (datastore) => {
         let account = await getAccount().signIn(message.action);
         let appKey = account.keys.get("https://identity.mozilla.com/apps/lockbox");
