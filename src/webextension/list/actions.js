@@ -17,6 +17,8 @@ export const REMOVE_ITEM_COMPLETED = Symbol("REMOVE_ITEM_COMPLETED");
 export const SELECT_ITEM_STARTING = Symbol("SELECT_ITEM_STARTING");
 export const SELECT_ITEM_COMPLETED = Symbol("SELECT_ITEM_COMPLETED");
 
+export const COPIED_FIELD = Symbol("COPIED_FIELD");
+
 export const START_NEW_ITEM = Symbol("START_NEW_ITEM");
 export const EDIT_CURRENT_ITEM = Symbol("EDIT_CURRENT_ITEM");
 export const EDITOR_CHANGED = Symbol("EDITOR_CHANGED");
@@ -215,6 +217,13 @@ function selectItemCompleted(actionId, item) {
     type: SELECT_ITEM_COMPLETED,
     actionId,
     item,
+  };
+}
+
+export function copiedField(field) {
+  return {
+    type: COPIED_FIELD,
+    field,
   };
 }
 

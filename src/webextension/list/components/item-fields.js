@@ -16,15 +16,11 @@ import TextArea from "../../widgets/text-area";
 
 import styles from "./item-fields.css";
 
-import * as telemetry from "../../telemetry";
-
 const PASSWORD_DOT = "\u25cf";
 
-function CopyToClipboardButton({text, field, ...props}) {
+function CopyToClipboardButton({text, field, onCopy, ...props}) {
   return (
-    <CopyToClipboard text={text} onCopy={() => {
-      telemetry.recordEvent(`${field}Copied`, "itemDetails");
-    }}>
+    <CopyToClipboard text={text} onCopy={() => onCopy(field)}>
       <Button {...props}/>
     </CopyToClipboard>
   );
@@ -33,6 +29,7 @@ function CopyToClipboardButton({text, field, ...props}) {
 CopyToClipboardButton.propTypes = {
   text: PropTypes.string.isRequired,
   field: PropTypes.oneOf(["username", "password"]).isRequired,
+  onCopy: PropTypes.func.isRequired,
 };
 
 const fieldsPropTypes = PropTypes.shape({
@@ -43,7 +40,7 @@ const fieldsPropTypes = PropTypes.shape({
   notes: PropTypes.string.isRequired,
 });
 
-export function ItemFields({fields}) {
+export function ItemFields({fields, onCopy}) {
   return (
     <div className={styles.itemFields}>
       <div className={styles.field}>
@@ -69,7 +66,8 @@ export function ItemFields({fields}) {
             {fields.username}
           </FieldText>
           <Localized id="item-fields-copy-username">
-            <CopyToClipboardButton text={fields.username} field="username">
+            <CopyToClipboardButton text={fields.username} field="username"
+                                   onCopy={onCopy}>
               cOPy
             </CopyToClipboardButton>
           </Localized>
@@ -84,7 +82,8 @@ export function ItemFields({fields}) {
             {PASSWORD_DOT.repeat(fields.password.length)}
           </FieldText>
           <Localized id="item-fields-copy-password">
-            <CopyToClipboardButton text={fields.password} field="password">
+            <CopyToClipboardButton text={fields.password} field="password"
+                                   onCopy={onCopy}>
               cOPy
             </CopyToClipboardButton>
           </Localized>
@@ -102,6 +101,7 @@ export function ItemFields({fields}) {
 
 ItemFields.propTypes = {
   fields: fieldsPropTypes,
+  onCopy: PropTypes.func.isRequired,
 };
 
 export class EditItemFields extends React.Component {

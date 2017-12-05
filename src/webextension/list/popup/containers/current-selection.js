@@ -16,6 +16,7 @@ const ConnectedItemDetailsPanel = connect(
     fields: flattenItem(ownProps.item),
   }),
   (dispatch) => ({
+    onCopy: (field) => { /* TODO */ },
     onBack: () => { dispatch(selectItem(null)); },
   })
 )(ItemDetailsPanel);
