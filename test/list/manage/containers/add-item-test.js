@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import { initialState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
 import { startNewItem } from "src/webextension/list/actions";
+import { NEW_ITEM_ID } from "src/webextension/list/common";
 import AddItem from "src/webextension/list/manage/containers/add-item";
 
 const middlewares = [];
@@ -25,5 +26,22 @@ describe("list > manage > containers > <AddItem/>", () => {
     );
     wrapper.simulate("click");
     expect(store.getActions()).to.deep.equal([startNewItem()]);
+  });
+
+  it("disabled when editing a new item", () => {
+    const store = mockStore({
+      ...initialState,
+      list: {
+        ...initialState.list,
+        selectedItemId: NEW_ITEM_ID,
+      },
+    });
+    const wrapper = mountWithL10n(
+      <Provider store={store}>
+        <AddItem/>
+      </Provider>
+    );
+    wrapper.simulate("click");
+    expect(store.getActions()).to.deep.equal([]);
   });
 });

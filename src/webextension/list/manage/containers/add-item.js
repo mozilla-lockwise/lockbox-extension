@@ -9,17 +9,13 @@ import { connect } from "react-redux";
 
 import Button from "../../../widgets/button";
 import { startNewItem } from "../../actions";
+import { NEW_ITEM_ID } from "../../common";
 import * as telemetry from "../../../telemetry";
 
-function AddItem({dispatch}) {
-  const doClick = () => {
-    telemetry.recordEvent("addClick", "addButton");
-    dispatch(startNewItem());
-  };
-
+function AddItem({disabled, onAddItem}) {
   return (
     <Localized id="toolbar-add-item">
-      <Button theme="primary" onClick={doClick}>
+      <Button theme="primary" disabled={disabled} onClick={onAddItem}>
         aDd iTEm
       </Button>
     </Localized>
@@ -27,7 +23,18 @@ function AddItem({dispatch}) {
 }
 
 AddItem.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  onAddItem: PropTypes.func.isRequired,
 };
 
-export default connect()(AddItem);
+export default connect(
+  (state) => ({
+    disabled: state.list.selectedItemId === NEW_ITEM_ID,
+  }),
+  (dispatch) => ({
+    onAddItem: () => {
+      telemetry.recordEvent("addClick", "addButton");
+      dispatch(startNewItem());
+    },
+  })
+)(AddItem);
