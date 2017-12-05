@@ -10,13 +10,13 @@ import thunk from "redux-thunk";
 
 import AppLocalizationProvider from "../../l10n";
 import App from "./components/app";
-import { accountStatus, listItems } from "../actions";
+import { getAccountDetails, listItems } from "../actions";
 import reducer from "./reducers";
 import initializeMessagePorts from "../message-ports";
 import * as telemetry from "../../telemetry";
 
 const store = createStore(reducer, undefined, applyMiddleware(thunk));
-store.dispatch(accountStatus());
+store.dispatch(getAccountDetails());
 store.dispatch(listItems());
 initializeMessagePorts(store);
 

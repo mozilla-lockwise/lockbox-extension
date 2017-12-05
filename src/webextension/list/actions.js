@@ -36,26 +36,26 @@ export const HIDE_MODAL = Symbol("HIDE_MODAL");
 // other (i.e. FOO_STARTING and FOO_COMPLETED).
 let nextActionId = 0;
 
-export function accountStatus() {
+export function getAccountDetails() {
   return async (dispatch) => {
     const actionId = nextActionId++;
-    dispatch(accountStatusStarting(actionId));
+    dispatch(getAccountDetailsStarting(actionId));
 
     const response = await browser.runtime.sendMessage({
       type: "get_account_details",
     });
-    dispatch(accountStatusCompleted(actionId, response.account));
+    dispatch(getAccountDetailsCompleted(actionId, response.account));
   };
 }
 
-function accountStatusStarting(actionId) {
+function getAccountDetailsStarting(actionId) {
   return {
     type: GET_ACCOUNT_DETAILS_STARTING,
     actionId,
   };
 }
 
-function accountStatusCompleted(actionId, account) {
+function getAccountDetailsCompleted(actionId, account) {
   return {
     type: GET_ACCOUNT_DETAILS_COMPLETED,
     actionId,
@@ -63,8 +63,8 @@ function accountStatusCompleted(actionId, account) {
   };
 }
 
-export function accountStatusUpdated(account) {
-  return accountStatusCompleted(undefined, account);
+export function accountDetailsUpdated(account) {
+  return getAccountDetailsCompleted(undefined, account);
 }
 
 export function listItems() {
