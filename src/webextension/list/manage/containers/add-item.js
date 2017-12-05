@@ -10,7 +10,6 @@ import { connect } from "react-redux";
 import Button from "../../../widgets/button";
 import { startNewItem } from "../../actions";
 import { NEW_ITEM_ID } from "../../common";
-import * as telemetry from "../../../telemetry";
 
 function AddItem({disabled, onAddItem}) {
   return (
@@ -32,9 +31,6 @@ export default connect(
     disabled: state.list.selectedItemId === NEW_ITEM_ID,
   }),
   (dispatch) => ({
-    onAddItem: () => {
-      telemetry.recordEvent("addClick", "addButton");
-      dispatch(startNewItem());
-    },
+    onAddItem: () => { dispatch(startNewItem()); },
   })
 )(AddItem);
