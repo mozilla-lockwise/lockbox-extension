@@ -38,6 +38,9 @@ export default (store) => (next) => (action) => {
     telemetry.recordEvent("itemSelected", "itemList",
                           {itemid: action.item.id});
     break;
+  case actions.COPIED_FIELD:
+    telemetry.recordEvent(`${action.field}Copied`, "itemDetails");
+    break;
   case actions.START_NEW_ITEM:
     telemetry.recordEvent("addClick", "addButton");
     break;

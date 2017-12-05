@@ -279,6 +279,14 @@ describe("list > actions", () => {
     ]);
   });
 
+  it("copiedField() dispatched", () => {
+    store.dispatch(actions.copiedField("field"));
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.COPIED_FIELD,
+        field: "field" },
+    ]);
+  });
+
   it("startNewItem() dispatched", () => {
     store.dispatch(actions.startNewItem());
     expect(store.getActions()).to.deep.equal([
