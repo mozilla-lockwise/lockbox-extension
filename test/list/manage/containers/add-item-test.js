@@ -4,8 +4,8 @@
 
 import { expect } from "chai";
 import React from "react";
-import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
+import configureStore from "redux-mock-store";
 
 import { initialState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";

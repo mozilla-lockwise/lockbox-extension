@@ -27,9 +27,13 @@ export const FILTER_ITEMS = Symbol("FILTER_ITEMS");
 export const SHOW_MODAL = Symbol("SHOW_MODAL");
 export const HIDE_MODAL = Symbol("HIDE_MODAL");
 
+export const SEND_FEEDBACK = Symbol("SEND_FEEDBACK");
+
 // The action ID is used for debugging to correlate async actions with each
 // other (i.e. FOO_STARTING and FOO_COMPLETED).
 let nextActionId = 0;
+
+const FEEDBACK_URL = "https://qsurvey.mozilla.com/s3/Lockbox-Input";
 
 export function listItems() {
   return async (dispatch) => {
@@ -267,5 +271,12 @@ function showModal(id, props = {}) {
 export function hideModal() {
   return {
     type: HIDE_MODAL,
+  };
+}
+
+export function sendFeedback() {
+  window.open(FEEDBACK_URL, "_blank");
+  return {
+    type: SEND_FEEDBACK,
   };
 }
