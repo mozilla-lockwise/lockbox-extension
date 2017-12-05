@@ -8,41 +8,37 @@ import * as telemetry from "../../telemetry";
 export default (store) => (next) => (action) => {
   switch (action.type) {
   case actions.ADD_ITEM_STARTING:
-    telemetry.recordEvent("itemAdding", "addItemForm");
+    telemetry.recordEvent("itemAdding", "manage");
     break;
   case actions.UPDATE_ITEM_STARTING:
-    telemetry.recordEvent("itemUpdating", "updatingItemForm");
+    telemetry.recordEvent("itemUpdating", "manage");
     break;
   case actions.REMOVE_ITEM_STARTING:
-    telemetry.recordEvent("itemDeleting", "updatingItemForm");
+    telemetry.recordEvent("itemDeleting", "manage");
     break;
   case actions.ADD_ITEM_COMPLETED:
     if (action.interactive) {
-      telemetry.recordEvent("itemAdded", "addItemForm",
-                            {itemid: action.item.id});
+      telemetry.recordEvent("itemAdded", "manage", {itemid: action.item.id});
     }
     break;
   case actions.UPDATE_ITEM_COMPLETED:
     if (action.interactive) {
-      telemetry.recordEvent("itemUpdated", "updatingItemForm",
-                            {itemid: action.item.id});
+      telemetry.recordEvent("itemUpdated", "manage", {itemid: action.item.id});
     }
     break;
   case actions.REMOVE_ITEM_COMPLETED:
     if (action.interactive) {
-      telemetry.recordEvent("itemDeleted", "updatingItemForm",
-                            {itemid: action.item.id});
+      telemetry.recordEvent("itemDeleted", "manage", {itemid: action.item.id});
     }
     break;
   case actions.SELECT_ITEM_COMPLETED:
-    telemetry.recordEvent("itemSelected", "itemList",
-                          {itemid: action.item.id});
+    telemetry.recordEvent("itemSelected", "manage", {itemid: action.item.id});
     break;
   case actions.COPIED_FIELD:
-    telemetry.recordEvent(`${action.field}Copied`, "itemDetails");
+    telemetry.recordEvent(`${action.field}Copied`, "manage");
     break;
   case actions.START_NEW_ITEM:
-    telemetry.recordEvent("addClick", "addButton");
+    telemetry.recordEvent("addClick", "manage");
     break;
   case actions.SEND_FEEDBACK:
     telemetry.recordEvent("feedbackClick", "manage");
