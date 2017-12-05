@@ -9,7 +9,7 @@ import jose from "node-jose";
 import configs from "./configs.json";
 
 async function generateAuthzURL(config, props) {
-  let queryParams = new URLSearchParams();
+  const queryParams = new URLSearchParams();
   queryParams.set("response_type", "code");
   queryParams.set("client_id", config.client_id);
   queryParams.set("redirect_uri", config.redirect_uri);
@@ -19,7 +19,7 @@ async function generateAuthzURL(config, props) {
     queryParams.set("action", config.action);
   }
 
-  let state = props.state = jose.util.base64url.encode(jose.util.randomBytes(16));
+  const state = props.state = jose.util.base64url.encode(jose.util.randomBytes(16));
   queryParams.set("state", state);
   if (config.pkce) {
     props.pkce = jose.util.base64url.encode(jose.util.randomBytes(32));
@@ -30,20 +30,20 @@ async function generateAuthzURL(config, props) {
     queryParams.set("code_challenge_method", "S256");
   }
   if (config.app_keys) {
-    let keystore = jose.JWK.createKeyStore();
+    const keystore = jose.JWK.createKeyStore();
     props.appKey = await keystore.generate("EC", "P-256");
-    let keysJWK = jose.util.base64url.encode(JSON.stringify(props.appKey));
+    const keysJWK = jose.util.base64url.encode(JSON.stringify(props.appKey));
     queryParams.set("keys_jwk", keysJWK);
   }
   return `${config.authorization_endpoint}?${queryParams}`;
 }
 
 function processAuthzResponse(url, props) {
-  let queryParams = url.searchParams;
+  const queryParams = url.searchParams;
   if (queryParams.get("state") !== props.state) {
     throw new Error("invalid oauth state");
   }
-  let code = queryParams.get("code");
+  const code = queryParams.get("code");
   if (!code) {
     throw new Error("invalid oauth authorization code");
   }
@@ -51,7 +51,7 @@ function processAuthzResponse(url, props) {
 }
 
 async function fetchFromEndPoint(name, url, request) {
-  let response = await fetch(url, request);
+  const response = await fetch(url, request);
   let body;
   try {
     body = await response.json();
@@ -59,7 +59,7 @@ async function fetchFromEndPoint(name, url, request) {
     body = {};
   }
   if (!response.ok) {
-    let error = new Error(`failed ${name} request: ${body.message || response.statusText}`);
+    const error = new Error(`failed ${name} request: ${body.message || response.statusText}`);
     error.errno = body.errno;
     throw error;
   }
@@ -80,15 +80,16 @@ export class Account {
   }
 
   toJSON() {
-    let { config, info } = this;
+    const { config } = this;
+    let { info } = this;
     if (info) {
-      let exported = {
+      // only exporta specific whitelist of values
+      info = {
         uid: info.uid,
         access_token: info.access_token || undefined,
         expires_at: info.expires_at || undefined,
         id_token: info.id_token || undefined,
       };
-      info = { ...exported };
     }
     return {
       config,
@@ -116,9 +117,8 @@ export class Account {
   async signIn(action = "signin") {
     let cfg = configs[this.config];
 
-    let props = {},
-        url,
-        request;
+    const props = {};
+    let url, request;
 
     // request authorization
     cfg = {
@@ -126,14 +126,14 @@ export class Account {
       action,
     };
     url = await generateAuthzURL(cfg, props);
-    let authzRsp = await browser.identity.launchWebAuthFlow({
+    const authzRsp = await browser.identity.launchWebAuthFlow({
       url,
       interactive: true,
     });
-    let authzCode = processAuthzResponse(new URL(authzRsp), props);
+    const authzCode = processAuthzResponse(new URL(authzRsp), props);
 
     // exchange token
-    let tokenParams = {
+    const tokenParams = {
       grant_type: "authorization_code",
       code: authzCode,
       client_id: cfg.client_id,
@@ -152,14 +152,14 @@ export class Account {
       cache: "no-cache",
       body: JSON.stringify(tokenParams),
     };
-    let oauthInfo = await fetchFromEndPoint("token", url, request);
-    console.log(`oauth info == ${JSON.stringify(oauthInfo)}`);
+    const oauthInfo = await fetchFromEndPoint("token", url, request);
+    // console.log(`oauth info == ${JSON.stringify(oauthInfo)}`);
 
-    let keys = new Map();
+    const keys = new Map();
     if (oauthInfo.keys_jwe) {
       let bundle = await jose.JWE.createDecrypt(props.appKey).decrypt(oauthInfo.keys_jwe);
       bundle = JSON.parse(new TextDecoder().decode(bundle.payload));
-      let pending = Object.keys(bundle).map(async (name) => {
+      const pending = Object.keys(bundle).map(async (name) => {
         let key = bundle[name];
         key = await jose.JWK.asKey(key);
         keys.set(name, key);
@@ -176,7 +176,7 @@ export class Account {
       },
       cache: "no-cache",
     };
-    let userInfo = await fetchFromEndPoint("userinfo", url, request);
+    const userInfo = await fetchFromEndPoint("userinfo", url, request);
 
     this.info = {
       uid: userInfo.uid,
@@ -216,7 +216,7 @@ export default function getAccount() {
 }
 
 export async function loadAccount(storage) {
-  let stored = await storage.get("account");
+  const stored = await storage.get("account");
   if (stored && stored.account) {
     account = new Account(stored.account);
   }
@@ -224,7 +224,7 @@ export async function loadAccount(storage) {
 }
 
 export async function saveAccount(storage) {
-  let account = getAccount().toJSON();
+  const account = getAccount().toJSON();
   await storage.set({ account });
 }
 

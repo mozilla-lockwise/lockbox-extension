@@ -28,15 +28,17 @@ class EventDispatcher {
   record(event) {
     if (this.port) {
       this.port.postMessage(event);
-    } else {
-      this.events.push(event);
+      return true;
     }
+
+    this.events.push(event);
+    return false;
   }
 
   connect(port) {
     this.port = port;
 
-    let events = this.events;
+    const events = this.events;
     this.events = [];
     for (let evt of events) {
       this.port.postMessage(evt);
