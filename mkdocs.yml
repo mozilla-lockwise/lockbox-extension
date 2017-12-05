@@ -16,6 +16,5 @@ pages:
 - 'Release Notes': 'release-notes.md'
 - 'Contributing': 'contributing.md'
 - 'Code of Conduct': 'code_of_conduct.md'
-- 'API Guide': 'api.md'
 - 'Metrics Guide': 'metrics.md'
 - 'Releases': 'releases.md'
