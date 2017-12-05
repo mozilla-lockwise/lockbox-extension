@@ -6,6 +6,7 @@ import { Localized } from "fluent-react";
 import React from "react";
 
 import Button from "../../widgets/button";
+import * as telemetry from "../../telemetry";
 
 import styles from "./app.css";
 
@@ -13,6 +14,7 @@ export default function App() {
   const imgSrc = browser.extension.getURL("/images/nessie_v2.svg");
 
   const doSignIn = async () => {
+    telemetry.recordEvent("click", "unlockSigninButton");
     browser.runtime.sendMessage({
       type: "signin",
       view: "manage",

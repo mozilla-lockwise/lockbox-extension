@@ -64,19 +64,6 @@ function startup({webExtension}, reason) {
         objects: ["firstrun", "manage", "popupUnlock"],
         extra_keys: ["fxauid"],
       },
-      "fxaSignIn": {
-        methods: ["render"],
-        objects: ["signInPage"],
-      },
-      "confirmPW": {
-        methods: ["click"],
-        objects: ["confirmPWPage"],
-      },
-      "setupDone": {
-        methods: ["click"],
-        objects: ["setupDoneButton"],
-        extra_keys: ["fxauid"],
-      },
       "itemAdding": {
         methods: ["itemAdding"],
         objects: ["addItemForm"],
@@ -131,6 +118,24 @@ function startup({webExtension}, reason) {
         methods: ["resetCompleted"],
         objects: ["settings"],
         extra_keys: ["fxauid"],
+      },
+      "setupGuest": {
+        methods: ["click"],
+        objects: ["welcomeGetStartedButton"],
+      },
+      "fxaStart": {
+        methods: ["click"],
+        objects: ["welcomeReturningButton", "homepageAcctCreateButton", "homepageAcctSigninButton", "unlockSigninButton"],
+      },
+      "fxaAuth": {
+        methods: ["fxaUpgrade", "fxaSignin", "fxaSignout"],
+        objects: ["accounts"],
+        extra_keys: ["fxauid"],
+      },
+      "fxaFail": {
+        methods: ["fxaFailed"],
+        objects: ["accounts"],
+        extra_keys: ["message"],
       },
     });
   } catch (e) {

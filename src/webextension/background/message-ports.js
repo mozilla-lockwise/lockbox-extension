@@ -69,13 +69,20 @@ export default function initializeMessagePorts() {
         const appKey = account.keys.get("https://identity.mozilla.com/apps/lockbox");
         const salt = account.uid;
 
-        if (datastore.initialized && datastore.locked) {
-          await datastore.unlock();
+        try {
+          if (datastore.initialized && datastore.locked) {
+            await datastore.unlock();
+          }
+          await datastore.initialize({ appKey, salt, rebase: true });
+          // FIXME: be more implicit on saving account info
+          await accounts.saveAccount(browser.storage.local);
+          await updateBrowserAction({ account, datastore });
+          telemetry.recordEvent("fxaUpgrade", "accounts");
+        } catch (err) {
+          telemetry.recordEvent("fxaFailed", "accounts", err.message);
+          throw err;
         }
-        await datastore.initialize({ appKey, salt, rebase: true });
-        // FIXME: be more implicit on saving account info
-        await accounts.saveAccount(browser.storage.local);
-        await updateBrowserAction({account, datastore});
+
         broadcast({ type: "account_details_updated", account: account.details() });
         if (message.view) {
           openView(message.view);
@@ -105,12 +112,19 @@ export default function initializeMessagePorts() {
       return openDataStore().then(async (datastore) => {
         const account = getAccount();
         let appKey;
-        if (account.mode === accounts.UNAUTHENTICATED) {
-          await account.signIn();
-          appKey = account.keys.get(accounts.APP_KEY_NAME);
+        try {
+          if (account.mode === accounts.UNAUTHENTICATED) {
+            await account.signIn();
+            appKey = account.keys.get(accounts.APP_KEY_NAME);
+          }
+          await datastore.unlock(appKey);
+          await updateBrowserAction({ datastore });
+          telemetry.recordEvent("fxaSignin", "accounts");
+        } catch (err) {
+          telemetry.recordEvent("fxaFailed", "accounts", err.message);
+          throw err;
         }
-        await datastore.unlock(appKey);
-        await updateBrowserAction({datastore});
+
         broadcast({ type: "account_details_updated", account: account.details() });
         if (message.view) {
           openView(message.view);
@@ -123,6 +137,7 @@ export default function initializeMessagePorts() {
         // TODO: perform (light) signout from FxA
         await datastore.lock();
         await updateBrowserAction({datastore});
+
         return {};
       });
 
