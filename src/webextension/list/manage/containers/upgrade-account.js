@@ -4,10 +4,15 @@
 
 import { connect } from "react-redux";
 
+import * as telemetry from "../../../telemetry";
 import UpgradeAccountPanel from "../components/upgrade-account-panel";
 
 function upgradeAction(action) {
+  const obj = (action === "signup") ?
+              "homepageAcctCreateButton" :
+              "homepageAcctSigninButton";
   return async () => {
+    telemetry.recordEvent("click", obj);
     browser.runtime.sendMessage({
       type: "upgrade_account",
       action,

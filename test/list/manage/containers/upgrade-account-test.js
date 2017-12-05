@@ -80,7 +80,7 @@ describe("list > manage > containers > <UpgradeAccount/>", () => {
       wrapper.findWhere((x) => x.prop("id") === "homepage-upgrade-action-create")
              .find("button").simulate("click");
 
-      await waitUntil(() => spy.callCount === 1);
+      await waitUntil(() => spy.callCount === 2);
       expect(spy).to.have.been.calledWith({
         type: "upgrade_account",
         action: "signup",
@@ -91,7 +91,7 @@ describe("list > manage > containers > <UpgradeAccount/>", () => {
       wrapper.findWhere((x) => x.prop("id") === "homepage-upgrade-action-signin")
              .find("button").simulate("click");
 
-      await waitUntil(() => spy.callCount === 1);
+      await waitUntil(() => spy.callCount === 2);
       expect(spy).to.have.been.calledWith({
         type: "upgrade_account",
         action: "signin",
