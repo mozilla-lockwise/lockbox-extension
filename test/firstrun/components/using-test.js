@@ -53,7 +53,7 @@ describe("firstrun > components > <Using/>", () => {
 
     await waitUntil(() => spyRedirect.callCount === 1);
     expect(spyMessage).to.have.been.calledWith({
-      type: "upgrade",
+      type: "upgrade_account",
     });
     expect(spyRedirect).to.have.been.calledWith(browser.extension.getURL("/list/manage/index.html"));
   });

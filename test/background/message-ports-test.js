@@ -105,9 +105,9 @@ describe("background > message ports", () => {
 
     expect(result).to.deep.equal({});
   });
-  it('handle "upgrade"', async () => {
+  it('handle "upgrade_account"', async () => {
     const result = await browser.runtime.sendMessage({
-      type: "upgrade",
+      type: "upgrade_account",
     });
 
     expect(result).to.deep.equal({});

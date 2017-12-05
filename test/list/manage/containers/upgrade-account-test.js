@@ -82,7 +82,7 @@ describe("list > manage > containers > <UpgradeAccount/>", () => {
 
       await waitUntil(() => spy.callCount === 1);
       expect(spy).to.have.been.calledWith({
-        type: "upgrade",
+        type: "upgrade_account",
         action: "signup",
       });
     });
@@ -93,7 +93,7 @@ describe("list > manage > containers > <UpgradeAccount/>", () => {
 
       await waitUntil(() => spy.callCount === 1);
       expect(spy).to.have.been.calledWith({
-        type: "upgrade",
+        type: "upgrade_account",
         action: "signin",
       });
     });
