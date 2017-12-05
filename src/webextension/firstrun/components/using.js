@@ -3,7 +3,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { Localized } from "fluent-react";
-import PropTypes from "prop-types";
 import React from "react";
 
 import Button from "../../widgets/button";
@@ -11,26 +10,28 @@ import * as telemetry from "../../telemetry";
 
 import styles from "./using.css";
 
-// TODO: move this to somewhere more common?
-function defaultRedirect(url) {
-  window.location = url;
-}
-
-export default function StartUsing({redirect = defaultRedirect}) {
-  const manageURL = browser.extension.getURL("/list/manage/index.html");
+export default function StartUsing() {
   const doGuest = async () => {
     telemetry.recordEvent("click", "welcomeGuest");
-    await browser.runtime.sendMessage({
+    browser.runtime.sendMessage({
       type: "initialize",
+      view: "manage",
     });
-    redirect(manageURL);
+    browser.runtime.sendMessage({
+      type: "close_view",
+      name: "firstrun",
+    });
   };
   const doReturning = async () => {
     telemetry.recordEvent("fxaStart", "welcomeSignin");
-    await browser.runtime.sendMessage({
+    browser.runtime.sendMessage({
       type: "upgrade_account",
+      view: "manage",
     });
-    redirect(manageURL);
+    browser.runtime.sendMessage({
+      type: "close_view",
+      name: "firstrun",
+    });
   };
 
   return (
@@ -55,6 +56,3 @@ export default function StartUsing({redirect = defaultRedirect}) {
     </section>
   );
 }
-StartUsing.propTypes = {
-  redirect: PropTypes.func,
-};
