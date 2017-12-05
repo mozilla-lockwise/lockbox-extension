@@ -65,6 +65,21 @@ function startup({webExtension}, reason) {
         objects: ["updatingItemForm"],
         extra_keys: ["fxauid"],
       },
+      "itemAdded": {
+        methods: ["itemAdded"],
+        objects: ["addItemForm"],
+        extra_keys: ["itemid", "fxauid"],
+      },
+      "itemUpdated": {
+        methods: ["itemUpdated"],
+        objects: ["addItemForm"],
+        extra_keys: ["itemid", "fxauid"],
+      },
+      "itemDeleted": {
+        methods: ["itemDeleted"],
+        objects: ["addItemForm"],
+        extra_keys: ["itemid", "fxauid"],
+      },
       "itemSelected": {
         methods: ["itemSelected"],
         objects: ["itemList"],
@@ -74,11 +89,6 @@ function startup({webExtension}, reason) {
         methods: ["addClick"],
         objects: ["addButton"],
         extra_keys: ["fxauid"],
-      },
-      "itemAdded": {
-        methods: ["itemAdded"],
-        objects: ["addItemForm"],
-        extra_keys: ["itemid", "fxauid"],
       },
       "datastore": {
         methods: ["added", "updated", "deleted"],
