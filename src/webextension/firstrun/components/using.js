@@ -19,14 +19,14 @@ function defaultRedirect(url) {
 export default function StartUsing({redirect = defaultRedirect}) {
   const manageURL = browser.extension.getURL("/list/manage/index.html");
   const doGuest = async () => {
-    telemetry.recordEvent("click", "welcomeGetStartedButton");
+    telemetry.recordEvent("click", "welcomeGuest");
     await browser.runtime.sendMessage({
       type: "initialize",
     });
     redirect(manageURL);
   };
   const doReturning = async () => {
-    telemetry.recordEvent("fxaStart", "welcomeReturningButton");
+    telemetry.recordEvent("fxaStart", "welcomeSignin");
     await browser.runtime.sendMessage({
       type: "upgrade_account",
     });

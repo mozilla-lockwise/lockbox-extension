@@ -9,8 +9,8 @@ import UpgradeAccountPanel from "../components/upgrade-account-panel";
 
 function upgradeAction(action) {
   const obj = (action === "signup") ?
-              "homepageAcctCreateButton" :
-              "homepageAcctSigninButton";
+              "manageAcctCreate" :
+              "manageAcctSignin";
   return async () => {
     telemetry.recordEvent("click", obj);
     browser.runtime.sendMessage({
