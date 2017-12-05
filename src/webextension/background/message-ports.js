@@ -31,15 +31,17 @@ export default function initializeMessagePorts() {
   legacyPort.onMessage.addListener(async (message) => {
     switch (message.type) {
     case "extension_installed":
-      return openView("firstrun");
+      openView("firstrun");
+      break;
     case "extension_upgraded":
-      return openDataStore().then(async (datastore) => {
+      openDataStore().then(async (datastore) => {
         if (!datastore.initialized) {
           openView("firstrun");
         }
       });
+      break;
     default:
-      return null;
+      break;
     }
   });
 
@@ -63,9 +65,9 @@ export default function initializeMessagePorts() {
       });
     case "upgrade_account":
       return openDataStore().then(async (datastore) => {
-        let account = await getAccount().signIn(message.action);
-        let appKey = account.keys.get("https://identity.mozilla.com/apps/lockbox");
-        let salt = account.uid;
+        const account = await getAccount().signIn(message.action);
+        const appKey = account.keys.get("https://identity.mozilla.com/apps/lockbox");
+        const salt = account.uid;
 
         if (datastore.initialized && datastore.locked) {
           await datastore.unlock();
@@ -83,7 +85,7 @@ export default function initializeMessagePorts() {
       });
     case "reset":
       return openDataStore().then(async (datastore) => {
-        let account = getAccount();
+        const account = getAccount();
 
         await closeView();
 
@@ -101,8 +103,8 @@ export default function initializeMessagePorts() {
 
     case "signin":
       return openDataStore().then(async (datastore) => {
-        let account = getAccount(),
-            appKey;
+        const account = getAccount();
+        let appKey;
         if (account.mode === accounts.UNAUTHENTICATED) {
           await account.signIn();
           appKey = account.keys.get(accounts.APP_KEY_NAME);

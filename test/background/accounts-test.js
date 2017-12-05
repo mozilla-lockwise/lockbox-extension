@@ -197,18 +197,20 @@ describe("background > accounts", () => {
         badState = false,
         missingCode = false,
       }) {
-        let keys_jwe = "", appKeys = new Map();
+        const appKeys = new Map();
+        let keys_jwe = "";
+
         if (withKeys) {
-          let k = await jose.JWK.createKeyStore().generate("oct", 256);
+          const k = await jose.JWK.createKeyStore().generate("oct", 256);
           appKeys.set("https://identity.mozilla.com/apps/lockbox", k);
         }
 
         // setup fake OAuth Authorization response
         stubWAF.callsFake(async ({url}) => {
           url = new URL(url);
-          let requestParams = url.searchParams;
-          let redirect = requestParams.get("redirect_uri");
-          let state = requestParams.get("state");
+          const requestParams = url.searchParams;
+          const redirect = requestParams.get("redirect_uri");
+          const state = requestParams.get("state");
           let peerECDH = requestParams.get("keys_jwk");
 
           if (withKeys && peerECDH) {
@@ -221,15 +223,12 @@ describe("background > accounts", () => {
             keys_jwe = jose.JWE.createEncrypt({ format: "compact" }, peerECDH).final(payload, "utf8");
           }
 
-          let responseParams = new URLSearchParams();
-          if (badState) {
-            state = "thisisabogusstatevalue";
-          }
-          responseParams.set("state", state);
+          const responseParams = new URLSearchParams();
+          responseParams.set("state", !badState ? state : "thisisabogusstatevalue");
           if (!missingCode) {
             responseParams.set("code", "7scJCX3_Dhc5cfwA3iJ32k07dJEuf3pghu4cNsH5dBXXO9h0OAQ8tHjucatkh8qQVoUiDf04r0dlv4LqkxZ-7Q");
           }
-          let responseURL = new URL(`${redirect}?${responseParams}`);
+          const responseURL = new URL(`${redirect}?${responseParams}`);
           return responseURL.toString();
         });
 
