@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/* global Services, ADDON_INSTALL, ADDON_UNINSTALL */
+/* global Services, ADDON_INSTALL, ADDON_UPGRADE, ADDON_UNINSTALL */
 
 import waitUntil from "async-wait-until";
 import chai, { expect } from "chai";
@@ -82,8 +82,14 @@ describe("bootstrap", () => {
 
   describe("install()", () => {
     const install = bootstrap.__get__("install");
+    const dispatcher = bootstrap.__get__("dispatcher");
+
+    beforeEach(() => {
+      sinon.spy(dispatcher, "record");
+    });
 
     afterEach(() => {
+      dispatcher.record.restore();
       Services.prefs.mockResetPrefs();
     });
 
@@ -93,6 +99,18 @@ describe("bootstrap", () => {
       expect(Services.prefs.getBoolPref(REMEMBER_SIGNONS_PREF)).to.equal(false);
       expect(Services.prefs.getBoolPref(ORIGINAL_REMEMBER_SIGNONS_PREF))
             .to.equal(true);
+      expect(dispatcher.record).to.have.been.calledWith({
+        type: "extension_installed",
+      });
+    });
+
+    it('dispatches "extension_upgraded" event on upgrade', () => {
+      install({ newVersion: "0.1.2", oldVersion: "0.1.1" }, ADDON_UPGRADE);
+      expect(dispatcher.record).to.have.been.calledWith({
+        type: "extension_upgraded",
+        version: "0.1.2",
+        oldVersion: "0.1.1",
+      });
     });
 
     it("does nothing on other events", () => {
@@ -127,6 +145,57 @@ describe("bootstrap", () => {
             .to.equal(false);
       expect(Services.prefs.getBoolPref(ORIGINAL_REMEMBER_SIGNONS_PREF))
             .to.equal(true);
+    });
+  });
+
+
+  describe("EventDispatcher", () => {
+    const EventDispatcher = bootstrap.__get__("EventDispatcher");
+    let dispatcher, port;
+
+    beforeEach(() => {
+      dispatcher = new EventDispatcher();
+      port = {
+        postMessage: sinon.spy(),
+      };
+    });
+    afterEach(() => {
+      port = undefined;
+      dispatcher = undefined;
+    });
+
+    it("constructs", () => {
+      expect(dispatcher).to.have.property("events").to.deep.equal([]);
+    });
+
+    it("records event; saves for later", () => {
+      dispatcher.record({
+        type: "extension_installed",
+      });
+      expect(dispatcher).to.have.property("events").to.deep.equal([{
+        type: "extension_installed",
+      }]);
+
+      dispatcher.connect(port);
+      expect(dispatcher).to.have.property("port").to.equal(port);
+      expect(dispatcher).to.have.property("events").to.deep.equal([]);
+      expect(port.postMessage).to.have.been.calledWith({
+        type: "extension_installed",
+      });
+    });
+
+    it("records event; posts immediately", () => {
+      dispatcher.connect(port);
+      expect(dispatcher).to.have.property("port").to.equal(port);
+      expect(dispatcher).to.have.property("events").to.deep.equal([]);
+
+      dispatcher.record({
+        type: "extension_installed",
+      });
+      expect(dispatcher).to.have.property("events").to.deep.equal([]);
+      expect(port.postMessage).to.have.been.calledWith({
+        type: "extension_installed",
+      });
     });
   });
 });

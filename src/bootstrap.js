@@ -46,7 +46,7 @@ class EventDispatcher {
   }
 }
 
-let dispatcher = new EventDispatcher();
+const dispatcher = new EventDispatcher();
 function startup({webExtension}, reason) {
   try {
     Services.telemetry.registerEvents(TELEMETRY_CATEGORY, {
@@ -209,3 +209,5 @@ startup;
 shutdown;
 install;
 uninstall;
+dispatcher;
+EventDispatcher;
