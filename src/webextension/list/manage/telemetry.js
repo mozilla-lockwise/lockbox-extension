@@ -41,6 +41,9 @@ export default (store) => (next) => (action) => {
   case actions.START_NEW_ITEM:
     telemetry.recordEvent("addClick", "addButton");
     break;
+  case actions.SEND_FEEDBACK:
+    telemetry.recordEvent("feedbackClick", "manage");
+    break;
   }
 
   return next(action);

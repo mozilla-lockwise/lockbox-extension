@@ -3,26 +3,30 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { Localized } from "fluent-react";
+import PropTypes from "prop-types";
 import React from "react";
+import { connect } from "react-redux";
 
 import Button from "../../../widgets/button";
-import * as telemetry from "../../../telemetry";
+import { sendFeedback } from "../../actions";
 
-const FEEDBACK_URL = "https://qsurvey.mozilla.com/s3/Lockbox-Input";
-
-export default function SendFeedback() {
-  const doClick = () => {
-    telemetry.recordEvent("feedbackClick", "manage");
-    window.open(FEEDBACK_URL, "_blank");
-  };
-
+function SendFeedback({onSendFeedback}) {
   return (
     <Localized id="toolbar-send-feedback">
-      <Button theme="ghost" onClick={doClick}>
+      <Button theme="ghost" onClick={onSendFeedback}>
         fEEDBACk
       </Button>
     </Localized>
   );
 }
 
-SendFeedback.propTypes = {};
+SendFeedback.propTypes = {
+  onSendFeedback: PropTypes.func.isRequired,
+};
+
+export default connect(
+  undefined,
+  (dispatch) => ({
+    onSendFeedback: () => { dispatch(sendFeedback()); },
+  })
+)(SendFeedback);
