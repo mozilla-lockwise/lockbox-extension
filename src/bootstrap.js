@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/* global ADDON_INSTALL, ADDON_UNINSTALL */
+/* global ADDON_INSTALL, ADDON_UPGRADE, ADDON_UNINSTALL */
 /* eslint-disable no-unused-vars */
 
 const { utils: Cu } = Components;
@@ -154,9 +154,9 @@ function startup({webExtension}, reason) {
       }
     });
 
-      browser.runtime.onConnect.addListener((port) => {
-        dispatcher.connect(port);
-      });
+    browser.runtime.onConnect.addListener((port) => {
+      dispatcher.connect(port);
+    });
   });
 }
 
@@ -174,6 +174,12 @@ function install(data, reason) {
     Services.prefs.setBoolPref(REMEMBER_SIGNONS_PREF, false);
 
     dispatcher.record({ type: "extension_installed" });
+  } else if (reason === ADDON_UPGRADE) {
+    dispatcher.record({
+      type: "extension_upgraded",
+      version: data.newVersion,
+      oldVersion: data.oldVersion,
+    });
   }
 }
 

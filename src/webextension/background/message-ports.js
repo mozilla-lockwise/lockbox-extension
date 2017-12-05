@@ -32,6 +32,12 @@ export default function initializeMessagePorts() {
     switch (message.type) {
     case "extension_installed":
       return openView("firstrun");
+    case "extension_upgraded":
+      return openDataStore().then(async (datastore) => {
+        if (!datastore.initialized) {
+          openView("firstrun");
+        }
+      });
     default:
       return null;
     }
