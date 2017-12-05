@@ -12,6 +12,7 @@ class_names = [{
         'minimal',
         'ghost-theme',
         'primary-theme',
+        'puffy-size',
     ],
     # Item Summary Styles
     'webextension/list/components/item-summary.css': [

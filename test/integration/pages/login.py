@@ -15,7 +15,8 @@ class Login(Base):
     _continue_locator = (By.CSS_SELECTOR, 'button.{}'.format(
                          munged_class_name('button')))
     _create_account_locator = (By.ID, 'homepage-upgrade-action-create')
-    _get_started_button_locator = (By.ID, 'firstrun-using-guest-action')
+    _get_started_button_locator = (By.CLASS_NAME, '{}'.format(
+                                   munged_class_name('primary-theme')))
     _sign_in_button_locator = (By.ID, 'firstrun-using-returning-action')
     _welcome_locator = (By.CLASS_NAME, '{}'.format(
                         munged_class_name('intro')))
@@ -29,7 +30,7 @@ class Login(Base):
     def click_get_started(self):
         self.find_element(*self._get_started_button_locator).click()
         self.selenium.switch_to.window(self.selenium.window_handles[-1])
-        return Home(self.selenium).wait_for_page_to_load()
+        return Home(self.selenium, self.base_url).wait_for_page_to_load()
 
     def _click_fxa_sign_in(self):
         self.find_element(*self._fxa_sign_in_locator).click()

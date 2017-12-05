@@ -1,12 +1,14 @@
 """Representation of the Home page for lockbox."""
 
-from pypom import Page, Region
+from pypom import Region
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
+from pages.base import Base
 from pages.util.util import munged_class_name
 
 
-class Home(Page):
+class Home(Base):
     """Contain the locators and actions relating to the home page."""
 
     _entries_locator = (By.CSS_SELECTOR,
@@ -27,6 +29,13 @@ class Home(Page):
                             munged_class_name('button')))
     _save_entry_locator = (By.CSS_SELECTOR, 'article div form menu '
                            'button.{}'.format(munged_class_name('button')))
+    _sign_in_locator = (By.CLASS_NAME, '{}'.format(
+                        munged_class_name('puffy-size')))
+
+    @property
+    def extension(self):
+        from pages.extension import Extension
+        return Extension(self)
 
     def wait_for_page_to_load(self):
         self.wait.until(
@@ -50,6 +59,19 @@ class Home(Page):
         self.find_element(*self._delete_entry_locator).click()
         self.find_element(*self._delete_entry_modal_locator).click()
         self.wait.until(lambda _: len(self.entries) == 0)
+
+    def sign_in(self, user, password):
+        els = self.find_elements(*self._sign_in_locator)
+        els[-1].click()
+        self.fxa_sign_in(user, password)
+        self.wait.until(EC.invisibility_of_element_located(self._sign_in_locator))
+
+    def sign_in_button_is_displayed(self):
+        try:
+            button = self.find_elements(*self._sign_in_locator)[-1]
+        except Exception:
+            return False
+        return True
 
     @property
     def entries(self):

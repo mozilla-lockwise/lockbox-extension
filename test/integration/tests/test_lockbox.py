@@ -4,7 +4,7 @@
 def test_guest_login(login_page):
     """Log into Lockbox."""
     home_page = login_page.click_get_started()
-    assert 'Welcome to Lockbox' in home_page.lockie
+    assert home_page.sign_in_button_is_displayed()
 
 
 def test_add_entry_as_guest(home_page):
@@ -23,5 +23,22 @@ def test_delete_entry_as_guest(home_page):
 
 
 def test_sign_in_with_fxa(fxa_account, login_page):
-    home_page = login_page.fxa_sign_in(
-                           fxa_account.email, fxa_account.password)
+    fxa = fxa_account
+    home_page = login_page.fxa_sign_in(fxa.email, fxa.password)
+    assert home_page.sign_in_button_is_displayed() is False
+
+
+def test_sign_in_with_fxa_from_home(fxa_account, home_page):
+    fxa = fxa_account
+    home_page.sign_in(fxa.email, fxa.password)
+    assert home_page.sign_in_button_is_displayed() is False
+
+
+def test_web_ext_interaction(home_page, selenium, base_url):
+    from pages.extension import Extension
+    ext = home_page
+    ext.wait_for_page_to_load()
+    ext.extension.find_stuff
+    import time
+    time.sleep(60)
+    assert False

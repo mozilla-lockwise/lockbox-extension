@@ -33,7 +33,7 @@ return WebExtensionPolicy.getByID("{}").mozExtensionHostname;""".format(_id))  #
 @pytest.fixture
 def login_page(base_url, selenium, hostname):
     """Launch Lockbox."""
-    selenium.get('moz-extension://{}/firstrun/index.html'.format(hostname))
+    # selenium.get('moz-extension://{}/firstrun/index.html'.format(hostname))
     return Login(selenium, base_url).wait_for_page_to_load()
 
 
@@ -45,4 +45,4 @@ def home_page(login_page):
 
 @pytest.fixture(scope='session')
 def fxa_account(base_url):
-    return FxATestAccount(DEV_URL)
+    return FxATestAccount(PROD_URL)
