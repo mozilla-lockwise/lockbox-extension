@@ -13,7 +13,7 @@ export default function AccountSummaryLabel({email}) {
   }
 
   return (
-    <Button theme="ghost">{email} ☰</Button>
+    <Button theme="ghost">{email}</Button>
   );
 }
 AccountSummaryLabel.propTypes = {

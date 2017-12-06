@@ -17,7 +17,7 @@ describe("list > manage > components > <AccountSummaryLabel />", () => {
       <AccountSummaryLabel email="eripley@wyutani.com"/>
     );
 
-    expect(wrapper.find("button")).to.have.text("eripley@wyutani.com ☰");
+    expect(wrapper.find("button")).to.have.text("eripley@wyutani.com");
   });
 
   it("render nothing", () => {

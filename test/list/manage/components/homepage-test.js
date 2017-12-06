@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 import { initialState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
 import Homepage from "src/webextension/list/manage/components/homepage";
-import UpgradeAccount from "src/webextension/list/manage/containers/upgrade-account";
+import AccountDetails from "src/webextension/list/manage/containers/account-details";
 
 chai.use(chaiEnzyme());
 
@@ -28,7 +28,7 @@ describe("list > manage > components > <Homepage/>", () => {
     );
 
     expect(wrapper.find("h1").at(0)).to.contain.text("welcOMe to lOcKboX");
-    expect(wrapper).to.contain(UpgradeAccount);
+    expect(wrapper).to.contain(AccountDetails);
   });
 
   it("render with 5 items", () => {
@@ -42,6 +42,6 @@ describe("list > manage > components > <Homepage/>", () => {
     expect(wrapper.find("h1").at(0)).to.contain.text(
       "YoU have X enTrieS in YoUr lOcKboX"
     );
-    expect(wrapper).to.contain(UpgradeAccount);
+    expect(wrapper).to.contain(AccountDetails);
   });
 });

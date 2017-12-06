@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-.upgrade {
+.link {
   margin: 2em 0;
   padding: 0;
   display: flex;
@@ -10,25 +10,25 @@
   align-items: center;
 }
 
-.upgrade > h2,
-.upgrade > p {
+.link > h2,
+.link > p {
   text-align: center;
 }
 
-.upgrade > h2 {
+.link > h2 {
   margin: 0 0 .5em;
   padding: 0;
   font-size: 1.5em;
   font-weight: bold;
 }
 
-.upgrade > menu {
+.link > menu {
   margin: 0;
   padding: 0;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
 }
-.upgrade > menu > button {
+.link > menu > button {
   margin: 0 .5em;
 }

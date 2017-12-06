@@ -12,33 +12,28 @@ import waitUntil from "async-wait-until";
 
 import { initialState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
-import UpgradeAccount from "src/webextension/list/manage/containers/upgrade-account";
+import AccountDetails from "src/webextension/list/manage/containers/account-details";
+import LinkAccount from "src/webextension/list/manage/components/link-account";
+import AccountLinked from "src/webextension/list/manage/components/account-linked";
 
 chai.use(chaiEnzyme());
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
-describe("list > manage > containers > <UpgradeAccount/>", () => {
+describe("list > manage > containers > <AccountDetails/>", () => {
   it("render in guest mode", () => {
     const store = mockStore(initialState);
     const wrapper = mountWithL10n(
       <Provider store={store}>
-        <UpgradeAccount />
+        <AccountDetails />
       </Provider>
     );
 
-    expect(wrapper.find("h2")).to.have.text("uPGRADe");
-    expect(wrapper.find("p")).to.have.text("uPGRADe yOUr lOCKBOx");
-    expect(
-      wrapper.findWhere((x) => x.prop("id") === "homepage-upgrade-action-create").find("button")
-    ).to.have.text("cREATe aCCOUNt");
-    expect(
-      wrapper.findWhere((x) => x.prop("id") === "homepage-upgrade-action-signin").find("button")
-    ).to.have.text("sIGn iN");
+    expect(wrapper).to.contain(LinkAccount);
   });
 
-  it("render empty in authenticated mode", () => {
+  it("render in authenticated mode", () => {
     const store = mockStore({
       ...initialState,
       account: {
@@ -49,11 +44,11 @@ describe("list > manage > containers > <UpgradeAccount/>", () => {
     });
     const wrapper = mountWithL10n(
       <Provider store={store}>
-        <UpgradeAccount />
+        <AccountDetails />
       </Provider>
     );
 
-    expect(wrapper.hostNodes()).to.have.length(0);
+    expect(wrapper).to.contain(AccountLinked);
   });
 
   describe("actions", () => {
@@ -64,7 +59,7 @@ describe("list > manage > containers > <UpgradeAccount/>", () => {
       store = mockStore(initialState);
       wrapper = mountWithL10n(
         <Provider store={store}>
-          <UpgradeAccount />
+          <AccountDetails />
         </Provider>
       );
 
@@ -77,7 +72,7 @@ describe("list > manage > containers > <UpgradeAccount/>", () => {
     });
 
     it('click on "create account"', async () => {
-      wrapper.findWhere((x) => x.prop("id") === "homepage-upgrade-action-create")
+      wrapper.findWhere((x) => x.prop("id") === "homepage-linkaccount-action-create")
              .find("button").simulate("click");
 
       await waitUntil(() => spy.callCount === 2);
@@ -88,7 +83,7 @@ describe("list > manage > containers > <UpgradeAccount/>", () => {
     });
 
     it('click on "sign in"', async () => {
-      wrapper.findWhere((x) => x.prop("id") === "homepage-upgrade-action-signin")
+      wrapper.findWhere((x) => x.prop("id") === "homepage-linkaccount-action-signin")
              .find("button").simulate("click");
 
       await waitUntil(() => spy.callCount === 2);
