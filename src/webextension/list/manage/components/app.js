@@ -13,7 +13,8 @@ import CurrentSelection from "../containers/current-selection";
 import GoHome from "../containers/go-home";
 import ItemFilter from "../../containers/item-filter";
 import ModalRoot from "../containers/modals";
-import SendFeedback from "../containers/send-feedback";
+import SendFeedback from "../components/send-feedback";
+import OpenFAQ from "../components/open-faq";
 import Toolbar, { ToolbarSpace } from "../../../widgets/toolbar";
 
 import styles from "./app.css";
@@ -28,6 +29,7 @@ export default function App() {
               <AddItem/>
               <GoHome/>
               <ToolbarSpace/>
+              <OpenFAQ/>
               <SendFeedback/>
               <AccountSummary/>
             </Toolbar>
