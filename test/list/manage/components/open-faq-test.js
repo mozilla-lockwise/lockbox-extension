@@ -4,22 +4,37 @@
 
 import chai, { expect } from "chai";
 import React from "react";
+import { Provider } from "react-redux";
+import configureStore from "redux-mock-store";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
+import { initialState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
+import { OPEN_FAQ } from "src/webextension/list/actions";
 import OpenFAQ from
-       "src/webextension/list/manage/components/open-faq";
+       "src/webextension/list/manage/containers/open-faq";
 
 chai.use(sinonChai);
 
-describe("list > manage > components > <OpenFAQ/>", () => {
+const middlewares = [];
+const mockStore = configureStore(middlewares);
+
+describe("list > manage > containers > <OpenFAQ/>", () => {
   it("FAQ link opened", () => {
     const windowOpen = sinon.stub(window, "open");
+    const store = mockStore(initialState);
     const wrapper = mountWithL10n(
-      <OpenFAQ/>
+      <Provider store={store}>
+        <OpenFAQ/>
+      </Provider>
     );
+
     wrapper.simulate("click");
     expect(windowOpen).to.have.callCount(1);
+    expect(store.getActions()).to.deep.equal([{
+      type: OPEN_FAQ,
+    }]);
+    windowOpen.restore();
   });
 });

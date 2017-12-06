@@ -3,26 +3,30 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { Localized } from "fluent-react";
+import PropTypes from "prop-types";
 import React from "react";
+import { connect } from "react-redux";
 
 import Button from "../../../widgets/button";
-import * as telemetry from "../../../telemetry";
+import { openFAQ } from "../../actions";
 
-const FAQ_URL = "https://mozilla-lockbox.github.io/lockbox-extension/faqs/";
-
-export default function OpenFAQ() {
-  const doClick = () => {
-    telemetry.recordEvent("faqsClick", "manage");
-    window.open(FAQ_URL, "_blank");
-  };
-
+function OpenFAQ({onOpenFAQ}) {
   return (
     <Localized id="toolbar-open-faq">
-      <Button theme="ghost" onClick={doClick}>
+      <Button theme="ghost" onClick={onOpenFAQ}>
         fAQs
       </Button>
     </Localized>
   );
 }
 
-OpenFAQ.propTypes = {};
+OpenFAQ.propTypes = {
+  onOpenFAQ: PropTypes.func.isRequired,
+};
+
+export default connect(
+  undefined,
+  (dispatch) => ({
+    onOpenFAQ: () => { dispatch(openFAQ()); },
+  })
+)(OpenFAQ);
