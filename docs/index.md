@@ -12,9 +12,6 @@
     
     [Learn how to get started][contribute-link]
 
-This is just one component of the Lockbox product. Please see the
-[Lockbox website](website-link) for more documentation and context.
-
 The Lockbox extension is a simple, stand-alone password manager that works
 with Firefox for desktop. It’s the first of several planned experiments
 designed to help us test and improve password management and online
@@ -29,6 +26,9 @@ backup and next-generation encryption. Then [share feedback](feedback-link) here
 2. Create an entry with a website name, URL, username, and password.
 3. Search or browse in the toolbar menu or on the full tab to find the password you need.
 4. Sign up or sign in with a Firefox Account to encrypt and your entries and back them up.
+
+_This is just one component of the Lockbox product. Please see the [Lockbox
+website](website-link) for more documentation and context._
 
 [install-link]: https://testpilot.firefox.com/files/lockbox@mozilla.com/latest
 [faq-link]: /faqs/
