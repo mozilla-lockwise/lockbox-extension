@@ -24,7 +24,7 @@ When you protect Lockbox with a Firefox Account, Lockbox uses AES256-GCM encrypt
 
 ## How do I disable or delete Lockbox?
 1. Click the menu button ![menu](https://user-images.githubusercontent.com/49511/33676293-a3470a0c-da72-11e7-9f93-2f054bc16cb9.png)
- and choose Extensions ![extensions](https://user-images.githubusercontent.com/49511/33676294-a35f8b5e-da72-11e7-8bfa-186708b20aab.png)
+ and choose Add-ons ![extensions](https://user-images.githubusercontent.com/49511/33676294-a35f8b5e-da72-11e7-8bfa-186708b20aab.png)
 2. Click the ![disable](https://user-images.githubusercontent.com/49511/33676295-a3732b32-da72-11e7-9920-43c8b6d25134.png) or ![remove](https://user-images.githubusercontent.com/49511/33676296-a38aa708-da72-11e7-9c15-7960d17422b7.png) buttons next to Lockbox
 
 ## If I delete Lockbox, what happens to the entries I’ve saved?
