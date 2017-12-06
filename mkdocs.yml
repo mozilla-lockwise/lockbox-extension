@@ -10,7 +10,7 @@ markdown_extensions:
 - attr_list
 
 pages:
-- 'Introduction': 'index.md'
+- 'Introduction': 'index.html'
 - 'Release Notes': 'release-notes.md'
 - 'FAQs': 'faqs.md'
 - 'Contribute': 'contributing.md'
