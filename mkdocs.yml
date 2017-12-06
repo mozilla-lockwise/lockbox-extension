@@ -8,9 +8,10 @@ extra_css:
 
 markdown_extensions:
 - attr_list
+- admonition
 
 pages:
-- 'Introduction': 'index.html'
+- 'Introduction': 'index.md'
 - 'Release Notes': 'release-notes.md'
 - 'FAQs': 'faqs.md'
 - 'Contribute': 'contributing.md'
