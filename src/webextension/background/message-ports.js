@@ -22,27 +22,27 @@ function broadcast(message, excludedSender) {
 let legacyPort;
 
 export default function initializeMessagePorts() {
+  legacyPort = browser.runtime.connect({ name: "webext-to-legacy" });
+  legacyPort.onMessage.addListener(async (message) => {
+    switch (message.type) {
+      case "extension_installed":
+        openView("firstrun");
+        break;
+      case "extension_upgraded":
+        openDataStore().then(async (datastore) => {
+          if (!datastore.initialized) {
+            openView("firstrun");
+          }
+        });
+        break;
+      default:
+        break;
+    }
+  });
+
   browser.runtime.onConnect.addListener((port) => {
     ports.add(port);
     port.onDisconnect.addListener(() => ports.delete(port));
-  });
-
-  legacyPort = browser.runtime.connect({name: "webext-to-legacy"});
-  legacyPort.onMessage.addListener(async (message) => {
-    switch (message.type) {
-    case "extension_installed":
-      openView("firstrun");
-      break;
-    case "extension_upgraded":
-      openDataStore().then(async (datastore) => {
-        if (!datastore.initialized) {
-          openView("firstrun");
-        }
-      });
-      break;
-    default:
-      break;
-    }
   });
 
   browser.runtime.onMessage.addListener(async (message, sender) => {

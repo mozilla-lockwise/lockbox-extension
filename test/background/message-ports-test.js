@@ -7,6 +7,7 @@ import chaiAsPromised from "chai-as-promised";
 import fetchMock from "fetch-mock";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
+import waitUntil from "async-wait-until";
 
 import "test/mocks/browser";
 import openDataStore from "src/webextension/background/datastore";
@@ -17,9 +18,15 @@ chai.use(sinonChai);
 
 describe("background > message ports", () => {
   let itemId, selfMessagePort, otherMessagePort, selfListener, otherListener;
+  let addonPort;
 
   before(async () => {
     await openDataStore();
+    // capture connect from message-ports
+    browser.runtime.onConnect.addListener((port) => {
+      addonPort = port;
+      browser.runtime.onConnect.mockClearListener();
+    });
     initializeMessagePorts();
 
     selfMessagePort = browser.runtime.connect();
@@ -65,6 +72,36 @@ describe("background > message ports", () => {
 
   // Note: these tests are in a specific order since we modify the datastore as
   // we test. Each test assumes the previous has passed.
+  describe("from addon", () => {
+    let openView;
+
+    beforeEach(() => {
+      openView = sinon.spy();
+      initializeMessagePorts.__Rewire__("openView", openView);
+    });
+    afterEach(() => {
+      initializeMessagePorts.__ResetDependency__("openView");
+    });
+
+    it('handle (from addon) "extension_installed"', () => {
+      addonPort.postMessage({
+        type: "extension_installed",
+      });
+
+      expect(openView).to.have.callCount(1);
+    });
+
+    it('handle (from addon) "extension_upgraded"', async () => {
+      addonPort.postMessage({
+        type: "extension_upgraded",
+        oldVersion: "0.1.1",
+        version: "0.1.2",
+      });
+
+      await waitUntil(() => openView.callCount === 1);
+      expect(openView).to.have.callCount(1);
+    });
+  });
 
   it('handle "get_account_details"', async () => {
     const result = await browser.runtime.sendMessage({
