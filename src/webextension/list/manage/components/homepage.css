@@ -8,12 +8,12 @@
   flex-flow: column nowrap;
   justify-content: center;
   margin: 3em auto;
-  width: 701px;
+  width: 500px;
 }
 
-.homepage > h1,
-.homepage > h2,
-.homepage > p {
+.homepage h1,
+.homepage h2,
+.homepage p {
   color: #0c0c0d;
   letter-spacing: 0.2px;
   line-height: 1.5;
@@ -36,6 +36,7 @@
 .homepage p {
   font-size: 15px;
   white-space: pre-line;
+  margin-top: 0;
 }
 
 .homepage > img {
