@@ -1,18 +1,20 @@
 """Representation of the Home page for lockbox."""
 
-from pypom import Page, Region
+from pypom import Region
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
+from pages.base import Base
 from pages.util.util import munged_class_name
 
 
-class Home(Page):
+class Home(Base):
     """Contain the locators and actions relating to the home page."""
 
     _entries_locator = (By.CSS_SELECTOR,
                         'ul li div.{}'.format(
                             munged_class_name('item-summary')))
-    _lockie_locator = (By.CLASS_NAME, '{} h1'.format(
+    _lockie_locator = (By.CSS_SELECTOR, '.{} h1'.format(
                        munged_class_name('homepage')))
     _delete_entry_locator = (By.CSS_SELECTOR,
                              'article div menu '
@@ -27,6 +29,20 @@ class Home(Page):
                             munged_class_name('button')))
     _save_entry_locator = (By.CSS_SELECTOR, 'article div form menu '
                            'button.{}'.format(munged_class_name('button')))
+    _sign_in_locator = (By.CLASS_NAME, '{}'.format(
+                        munged_class_name('puffy-size')))
+
+    @property
+    def door_hanger(self):
+        """Interaction with the door hanger."""
+        from pages.door_hanger import DoorHanger
+        return DoorHanger(self)
+
+    def wait_for_page_to_load(self):
+        """Wait for page to load."""
+        self.wait.until(
+            lambda s: s.find_element(*self._lockie_locator))
+        return self
 
     @property
     def lockie(self):
@@ -45,6 +61,21 @@ class Home(Page):
         self.find_element(*self._delete_entry_locator).click()
         self.find_element(*self._delete_entry_modal_locator).click()
         self.wait.until(lambda _: len(self.entries) == 0)
+
+    def sign_in(self, user, password):
+        """Sign in with fxa."""
+        self.find_element(*self._sign_in_locator).click()
+        self.fxa_sign_in(user, password)
+        self.wait.until(
+            EC.invisibility_of_element_located(self._sign_in_locator))
+
+    def sign_in_button_is_displayed(self):
+        """Check if sign in button is displayed."""
+        try:
+            self.find_elements(*self._sign_in_locator)[-1]
+        except Exception:
+            return False
+        return True
 
     @property
     def entries(self):
@@ -79,7 +110,17 @@ class Entry(Region):
         _delete_entry_modal_locator = (By.CSS_SELECTOR,
                                        '.ReactModal__Content--after-open '
                                        'menu button.{}'.format(
-                                           munged_class_name('button')))
+                                        munged_class_name('button')))
+        _title_locator = (By.CLASS_NAME, '{}'.format(
+                          munged_class_name('first-label')))
+        _title_text_locator = (By.CLASS_NAME, '{}'.format(
+                               munged_class_name('field-text')))
+
+        @property
+        def title(self):
+            """Entry title."""
+            title = self.find_element(*self._title_locator)
+            return title.find_element(*self._title_text_locator).text
 
         def delete(self):
             """Delete an entry from the lockbox."""
