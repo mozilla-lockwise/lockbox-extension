@@ -23,22 +23,23 @@ def test_delete_entry_as_guest(home_page):
 
 
 def test_sign_in_with_fxa(fxa_account, login_page):
+    """Sign in with fxa from the login page."""
     fxa = fxa_account
     home_page = login_page.fxa_sign_in(fxa.email, fxa.password)
     assert home_page.sign_in_button_is_displayed() is False
 
 
 def test_sign_in_with_fxa_from_home(fxa_account, home_page):
+    """Sign in with fxa from 'Home' page."""
     fxa = fxa_account
     home_page.sign_in(fxa.email, fxa.password)
     assert home_page.sign_in_button_is_displayed() is False
 
 
 def test_web_ext_interaction(home_page, selenium, base_url):
-    home_page
-    # ext.wait_for_page_to_load()
+    """Add an entry and test it shows in the door hanger."""
     home_page.add_entry()
-    lists = home_page.extension.find_stuff()
+    lists = home_page.door_hanger.find_entrys()
     assert '(No Entry Name)' in lists[0].title
     entry = lists[0].click()
     assert '' in entry.title

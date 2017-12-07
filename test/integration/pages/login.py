@@ -1,6 +1,5 @@
 """Login page locators and functions."""
 
-from pypom import Page
 from selenium.webdriver.common.by import By
 
 from pages.base import Base
@@ -28,39 +27,7 @@ class Login(Base):
         return self
 
     def click_get_started(self):
+        """Click get started button."""
         self.find_element(*self._get_started_button_locator).click()
         self.selenium.switch_to.window(self.selenium.window_handles[-1])
         return Home(self.selenium, self.base_url).wait_for_page_to_load()
-
-    def _click_fxa_sign_in(self):
-        self.find_element(*self._fxa_sign_in_locator).click()
-        self.fxa_sign_in()        
-
-    def create_account(self, user, password):
-        current_windows = len(self.selenium.window_handles)
-        self.find_element(*self._create_account_locator).click()
-        from fxapom.pages.sign_in import SignIn
-        sign_in = SignIn(self.selenium)
-        self.wait.until(
-            lambda _: self.selenium.window_handles > current_windows)
-        self.selenium.switch_to.window(self.seleniun.window_handles[-1])
-        sign_in.email = email
-        sign_in.login_password = password
-        sign_in.click_sign_in()
-        self.wait.until(
-            lambda _: self.selenium.window_handles == current_windows)
-
-
-    def login(self, password):
-        """Login to lockbox."""
-        self.find_element(*self._password_locator).send_keys(password)
-        self.find_element(*self._confirm_password_locator).send_keys(password)
-        window_handles = self.selenium.window_handles
-        self.find_element(*self._continue_locator).click()
-        # FIXME: after logging in a new tab is opened with the home page. This
-        # waits for the new tab and then switches focus to the last handle.
-        # We should do something smarter here, or Lockbox should reuse the same
-        # tab (arguably a better user experience too).
-        self.wait.until(lambda s: len(s.window_handles) > len(window_handles))
-        self.selenium.switch_to.window(self.selenium.window_handles[-1])
-        return Home(self.selenium).wait_for_page_to_load()

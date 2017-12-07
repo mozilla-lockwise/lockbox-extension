@@ -33,7 +33,8 @@ class_names = [{
         'field-text',
     ],
     'webextension/widgets/panel.css': [
-        'panel-body',    
+        'panel-body',
+        'panel-footer',
     ],
     # Homepage Styles
     'webextension/list/manage/components/homepage.css': [

@@ -33,11 +33,13 @@ class Home(Base):
                         munged_class_name('puffy-size')))
 
     @property
-    def extension(self):
-        from pages.extension import Extension
-        return Extension(self)
+    def door_hanger(self):
+        """Interaction with the door hanger."""
+        from pages.door_hanger import DoorHanger
+        return DoorHanger(self)
 
     def wait_for_page_to_load(self):
+        """Wait for page to load."""
         self.wait.until(
             lambda s: s.find_element(*self._lockie_locator))
         return self
@@ -61,14 +63,16 @@ class Home(Base):
         self.wait.until(lambda _: len(self.entries) == 0)
 
     def sign_in(self, user, password):
-        els = self.find_elements(*self._sign_in_locator)
-        els[-1].click()
+        """Sign in with fxa."""
+        self.find_element(*self._sign_in_locator).click()
         self.fxa_sign_in(user, password)
-        self.wait.until(EC.invisibility_of_element_located(self._sign_in_locator))
+        self.wait.until(
+            EC.invisibility_of_element_located(self._sign_in_locator))
 
     def sign_in_button_is_displayed(self):
+        """Check if sign in button is displayed."""
         try:
-            button = self.find_elements(*self._sign_in_locator)[-1]
+            self.find_elements(*self._sign_in_locator)[-1]
         except Exception:
             return False
         return True
@@ -106,7 +110,7 @@ class Entry(Region):
         _delete_entry_modal_locator = (By.CSS_SELECTOR,
                                        '.ReactModal__Content--after-open '
                                        'menu button.{}'.format(
-                                       munged_class_name('button')))
+                                        munged_class_name('button')))
         _title_locator = (By.CLASS_NAME, '{}'.format(
                           munged_class_name('first-label')))
         _title_text_locator = (By.CLASS_NAME, '{}'.format(
@@ -114,6 +118,7 @@ class Entry(Region):
 
         @property
         def title(self):
+            """Entry title."""
             title = self.find_element(*self._title_locator)
             return title.find_element(*self._title_text_locator).text
 

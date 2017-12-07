@@ -2,8 +2,8 @@
 
 import os
 
-from fxapom.fxapom import DEV_URL, PROD_URL, FxATestAccount
 import pytest
+from fxapom.fxapom import PROD_URL, FxATestAccount
 
 from pages.login import Login
 
@@ -36,7 +36,6 @@ return WebExtensionPolicy.getByID("{}").mozExtensionHostname;""".format(_id))  #
 def login_page(base_url, selenium, hostname):
     """Launch Lockbox."""
     selenium.get('moz-extension://{}/firstrun/index.html'.format(hostname))
-    # selenium.switch_to.window(selenium.window_handles[-1])
     return Login(selenium, base_url).wait_for_page_to_load()
 
 
@@ -48,4 +47,5 @@ def home_page(login_page):
 
 @pytest.fixture(scope='session')
 def fxa_account(base_url):
+    """Create fxa account."""
     return FxATestAccount(PROD_URL)
