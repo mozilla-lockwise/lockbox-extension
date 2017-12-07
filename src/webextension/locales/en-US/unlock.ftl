@@ -1,5 +1,3 @@
-[[unlock]]
-
 unlock-title = { product-title }
 unlock-tagline = { product-tagline }
 

@@ -28,22 +28,24 @@ describe("background > accounts", () => {
 
   describe("loadAccount()", () => {
     it("with saved account", async () => {
-      const result = await accounts.loadAccount({get: async () => {
-        return {account: {
-          config: "dev-latest",
-          info: {
-            verified: true,
-            uid: "1234",
+      const result = await accounts.loadAccount({
+        get: async () => ({
+          account: {
+            config: "dev-latest",
+            info: {
+              verified: true,
+              uid: "1234",
+            },
           },
-        }};
-      }});
+        }),
+      });
       expect(result.info).to.deep.equal({verified: true, uid: "1234"});
     });
 
     it("without saved account", async () => {
-      const result = await accounts.loadAccount({get: async () => {
-        return {};
-      }});
+      const result = await accounts.loadAccount({
+        get: async () => ({}),
+      });
       expect(result.info).to.equal(undefined);
     });
   });
@@ -51,26 +53,22 @@ describe("background > accounts", () => {
   describe("openAccount()", () => {
     it("with saved account", async () => {
       const result = await accounts.openAccount({
-        get: async () => {
-          return {
-            account: {
-              config: "dev-latest",
-              info: {
-                verified: true,
-                uid: "1234",
-              },
+        get: async () => ({
+          account: {
+            config: "dev-latest",
+            info: {
+              verified: true,
+              uid: "1234",
             },
-          };
-        },
+          },
+        }),
       });
       expect(result.info).to.deep.equal({ verified: true, uid: "1234" });
     });
 
     it("without saved account", async () => {
       const result = await accounts.openAccount({
-        get: async () => {
-          return {};
-        },
+        get: async () => ({}),
       });
       expect(result.info).to.equal(undefined);
     });
@@ -112,12 +110,10 @@ describe("background > accounts", () => {
       id_token: "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBDWTBJb3RVVHBtWDFDbXJqMWNwcTB6aFBkd1NtalJSaWlJNzduMmMtMFkifQ.eyJ1aWQiOiIxMjM0IiwiaXNzIjoic2NvcGVkLWtleXMifQ.pX8I1LqCD849Gp0TzKcS6LM_fko0gc7wkSzBgPaxFDyF8AZrWn9-HTRoW-9YIuHujLzldbI1k34VeSHNM85vkPjm_AxbBKuXEiVJQdcCAxNjbSQmM1dOX6kZKwN4oDu8X4BB3CwQq5eXioYYiPur149O_I2bhFDuMBtQBoQosZtOScuKliXcURuWEwhYcnHe8axit0fQ0vd1FOJK3300hccqcZNoHGXrSVj42mdo_aSREOcwSUP4i0r0aCfJqnxai43uy1C5l54mSN1KzqGeasx60lWPU-Jm3gPm_2CXRWbfWxF3-OnxhMhSQiS90kefX81H03ZYVShDutsx55d0tQ",
     };
     const authedInfo = {
-      uid: "1234",
+      ...unauthedInfo,
       email: "eripley@wyutani.com",
-      access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
       refresh_token: "rmrBzLYi2zia4ExNBy7uXE4s_Da_HMS4d3tvr203OVTq1EMQqh-85m4Hejo3TKBKuont6QFIlLJ23rZR4xqZBA",
       expires_at: 1825884426240000,
-      id_token: "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBDWTBJb3RVVHBtWDFDbXJqMWNwcTB6aFBkd1NtalJSaWlJNzduMmMtMFkifQ.eyJ1aWQiOiIxMjM0IiwiaXNzIjoic2NvcGVkLWtleXMifQ.pX8I1LqCD849Gp0TzKcS6LM_fko0gc7wkSzBgPaxFDyF8AZrWn9-HTRoW-9YIuHujLzldbI1k34VeSHNM85vkPjm_AxbBKuXEiVJQdcCAxNjbSQmM1dOX6kZKwN4oDu8X4BB3CwQq5eXioYYiPur149O_I2bhFDuMBtQBoQosZtOScuKliXcURuWEwhYcnHe8axit0fQ0vd1FOJK3300hccqcZNoHGXrSVj42mdo_aSREOcwSUP4i0r0aCfJqnxai43uy1C5l54mSN1KzqGeasx60lWPU-Jm3gPm_2CXRWbfWxF3-OnxhMhSQiS90kefX81H03ZYVShDutsx55d0tQ",
       keys: new Map(),
     };
 
@@ -141,10 +137,8 @@ describe("background > accounts", () => {
       expected = {
         config: "production",
         info: {
-          uid: "1234",
-          access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
+          ...unauthedInfo,
           expires_at: undefined,
-          id_token: "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBDWTBJb3RVVHBtWDFDbXJqMWNwcTB6aFBkd1NtalJSaWlJNzduMmMtMFkifQ.eyJ1aWQiOiIxMjM0IiwiaXNzIjoic2NvcGVkLWtleXMifQ.pX8I1LqCD849Gp0TzKcS6LM_fko0gc7wkSzBgPaxFDyF8AZrWn9-HTRoW-9YIuHujLzldbI1k34VeSHNM85vkPjm_AxbBKuXEiVJQdcCAxNjbSQmM1dOX6kZKwN4oDu8X4BB3CwQq5eXioYYiPur149O_I2bhFDuMBtQBoQosZtOScuKliXcURuWEwhYcnHe8axit0fQ0vd1FOJK3300hccqcZNoHGXrSVj42mdo_aSREOcwSUP4i0r0aCfJqnxai43uy1C5l54mSN1KzqGeasx60lWPU-Jm3gPm_2CXRWbfWxF3-OnxhMhSQiS90kefX81H03ZYVShDutsx55d0tQ",
         },
       };
       expect(acct.toJSON()).to.deep.equal(expected);
@@ -154,10 +148,8 @@ describe("background > accounts", () => {
       expected = {
         config: "production",
         info: {
-          uid: "1234",
-          access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
+          ...unauthedInfo,
           expires_at: 1825884426240000,
-          id_token: "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBDWTBJb3RVVHBtWDFDbXJqMWNwcTB6aFBkd1NtalJSaWlJNzduMmMtMFkifQ.eyJ1aWQiOiIxMjM0IiwiaXNzIjoic2NvcGVkLWtleXMifQ.pX8I1LqCD849Gp0TzKcS6LM_fko0gc7wkSzBgPaxFDyF8AZrWn9-HTRoW-9YIuHujLzldbI1k34VeSHNM85vkPjm_AxbBKuXEiVJQdcCAxNjbSQmM1dOX6kZKwN4oDu8X4BB3CwQq5eXioYYiPur149O_I2bhFDuMBtQBoQosZtOScuKliXcURuWEwhYcnHe8axit0fQ0vd1FOJK3300hccqcZNoHGXrSVj42mdo_aSREOcwSUP4i0r0aCfJqnxai43uy1C5l54mSN1KzqGeasx60lWPU-Jm3gPm_2CXRWbfWxF3-OnxhMhSQiS90kefX81H03ZYVShDutsx55d0tQ",
         },
       };
       expect(acct.toJSON()).to.deep.equal(expected);
@@ -226,7 +218,10 @@ describe("background > accounts", () => {
           const responseParams = new URLSearchParams();
           responseParams.set("state", !badState ? state : "thisisabogusstatevalue");
           if (!missingCode) {
-            responseParams.set("code", "7scJCX3_Dhc5cfwA3iJ32k07dJEuf3pghu4cNsH5dBXXO9h0OAQ8tHjucatkh8qQVoUiDf04r0dlv4LqkxZ-7Q");
+            responseParams.set(
+              "code",
+              "7scJCX3_Dhc5cfwA3iJ32k07dJEuf3pghu4cNsH5dBXXO9h0OAQ8tHjucatkh8qQVoUiDf04r0dlv4LqkxZ-7Q"
+            );
           }
           const responseURL = new URL(`${redirect}?${responseParams}`);
           return responseURL.toString();
@@ -237,10 +232,9 @@ describe("background > accounts", () => {
           status: 200,
           body: {
             grant_type: "bearer",
-            access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
             expires_in: 1209600,
             auth_at: 1510734551,
-            refresh_token: "rmrBzLYi2zia4ExNBy7uXE4s_Da_HMS4d3tvr203OVTq1EMQqh-85m4Hejo3TKBKuont6QFIlLJ23rZR4xqZBA",
+            refresh_token: authedInfo.refresh_token,
             keys_jwe: await keys_jwe,
           },
         }));

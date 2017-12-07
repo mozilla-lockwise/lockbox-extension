@@ -33,7 +33,7 @@ describe("list > manage > containers > <AccountSummary/>", () => {
       </Provider>
     );
 
-    expect(wrapper.find("button")).to.have.text("eripley@wyutani.com");
+    expect(wrapper.find("span")).to.have.text("eripley@wyutani.com");
   });
   it("render empty in guest mode", () => {
     const store = mockStore(initialState);

@@ -71,7 +71,7 @@ homepage-greeting =
 
 homepage-linkaccount-title = Add Serious Security & Convenience
 homepage-linkaccount-description =
-    Creating a Firefox account - or adding { product-title } to an existing account - protects your logins
+    Creating a Firefox account – or adding { product-title } to an existing account – protects your logins
     with the strongest encryption available.
 
 homepage-linkaccount-action-create = Create Account
@@ -80,7 +80,7 @@ homepage-linkaccount-action-signin = { product-action-signin }
 homepage-accountlinked-title = Your logins are locked down tight!
 homepage-accountlinked-description =
     { product-title } uses the strongest encryption available to protect
-    your logins - even for banking and other critical sites.
+    your logins – even for banking and other critical sites.
 
 item-details-heading-view = Entry Details
 item-details-heading-new = Create a New Entry

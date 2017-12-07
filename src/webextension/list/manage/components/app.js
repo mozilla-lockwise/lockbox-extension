@@ -31,7 +31,7 @@ export default function App() {
               <AddItem/>
             </Toolbar>
             <Toolbar className={styles.mainToolbar}>
-              <GoHome />
+              <GoHome/>
               <ToolbarSpace/>
               <SendFeedback/>
               <AccountSummary/>

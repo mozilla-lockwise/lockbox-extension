@@ -5,17 +5,16 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import Button from "../../../widgets/button";
-
 export default function AccountSummaryLabel({email}) {
   if (!email) {
     return null;
   }
 
   return (
-    <Button theme="ghost">{email}</Button>
+    <span>{email}</span>
   );
 }
+
 AccountSummaryLabel.propTypes = {
   email: PropTypes.string,
 };

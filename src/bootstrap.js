@@ -22,7 +22,7 @@ const TELEMETRY_CATEGORY = "lockboxv1";
 
 class EventDispatcher {
   constructor() {
-    this.events = [];
+    this.pendingEvents = [];
   }
 
   record(event) {
@@ -31,15 +31,15 @@ class EventDispatcher {
       return true;
     }
 
-    this.events.push(event);
+    this.pendingEvents.push(event);
     return false;
   }
 
   connect(port) {
     this.port = port;
 
-    const events = this.events;
-    this.events = [];
+    const events = this.pendingEvents;
+    this.pendingEvents = [];
     for (let evt of events) {
       this.port.postMessage(evt);
     }

@@ -42,6 +42,7 @@ function AccountDetails({mode}) {
 
   return <div>{inner}</div>;
 }
+
 AccountDetails.propTypes = {
   mode: PropTypes.string.isRequired,
 };

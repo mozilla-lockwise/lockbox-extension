@@ -165,20 +165,20 @@ describe("bootstrap", () => {
     });
 
     it("constructs", () => {
-      expect(dispatcher).to.have.property("events").to.deep.equal([]);
+      expect(dispatcher).to.have.property("pendingEvents").to.deep.equal([]);
     });
 
     it("records event; saves for later", () => {
       dispatcher.record({
         type: "extension_installed",
       });
-      expect(dispatcher).to.have.property("events").to.deep.equal([{
+      expect(dispatcher).to.have.property("pendingEvents").to.deep.equal([{
         type: "extension_installed",
       }]);
 
       dispatcher.connect(port);
       expect(dispatcher).to.have.property("port").to.equal(port);
-      expect(dispatcher).to.have.property("events").to.deep.equal([]);
+      expect(dispatcher).to.have.property("pendingEvents").to.deep.equal([]);
       expect(port.postMessage).to.have.been.calledWith({
         type: "extension_installed",
       });
@@ -187,12 +187,12 @@ describe("bootstrap", () => {
     it("records event; posts immediately", () => {
       dispatcher.connect(port);
       expect(dispatcher).to.have.property("port").to.equal(port);
-      expect(dispatcher).to.have.property("events").to.deep.equal([]);
+      expect(dispatcher).to.have.property("pendingEvents").to.deep.equal([]);
 
       dispatcher.record({
         type: "extension_installed",
       });
-      expect(dispatcher).to.have.property("events").to.deep.equal([]);
+      expect(dispatcher).to.have.property("pendingEvents").to.deep.equal([]);
       expect(port.postMessage).to.have.been.calledWith({
         type: "extension_installed",
       });

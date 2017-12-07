@@ -39,6 +39,7 @@ body {
   text-align: center;
   margin: 0 0 .5em;
 }
+
 .unlock > .content > h2 {
   font-size: 1.5em;
   font-weight: normal;
@@ -60,13 +61,16 @@ body {
   width: 50%;
   flex-grow: 1;
 }
+
 .unlock > menu > * {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
 .unlock > menu > *:first-child {
   border-bottom-right-radius: 0;
 }
+
 .unlock > menu > *:last-child {
   border-bottom-left-radius: 0;
 }

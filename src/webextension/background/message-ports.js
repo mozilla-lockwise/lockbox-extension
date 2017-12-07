@@ -19,24 +19,25 @@ function broadcast(message, excludedSender) {
   }
 }
 
-let legacyPort;
+let addonPort;
 
 export default function initializeMessagePorts() {
-  legacyPort = browser.runtime.connect({ name: "webext-to-legacy" });
-  legacyPort.onMessage.addListener(async (message) => {
+  // setup port to receive messages from bootstrapped addon
+  addonPort = browser.runtime.connect({ name: "webext-to-legacy" });
+  addonPort.onMessage.addListener(async (message) => {
     switch (message.type) {
-      case "extension_installed":
-        openView("firstrun");
-        break;
-      case "extension_upgraded":
-        openDataStore().then(async (datastore) => {
-          if (!datastore.initialized) {
-            openView("firstrun");
-          }
-        });
-        break;
-      default:
-        break;
+    case "extension_installed":
+      openView("firstrun");
+      break;
+    case "extension_upgraded":
+      openDataStore().then(async (datastore) => {
+        if (!datastore.initialized) {
+          openView("firstrun");
+        }
+      });
+      break;
+    default:
+      break;
     }
   });
 
@@ -57,7 +58,7 @@ export default function initializeMessagePorts() {
     case "initialize":
       return openDataStore().then(async (datastore) => {
         await datastore.initialize();
-        // FIXME: be more implicit on saving account info
+        // TODO: be more implicit on saving account info
         await accounts.saveAccount(browser.storage.local);
         await updateBrowserAction({datastore});
         if (message.view) {

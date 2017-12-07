@@ -29,6 +29,7 @@
   flex-flow: row nowrap;
   align-items: center;
 }
+
 .link > menu > button {
   margin: 0 .5em;
 }
