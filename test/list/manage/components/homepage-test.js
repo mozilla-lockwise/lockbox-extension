@@ -20,8 +20,11 @@ const mockStore = configureStore(middlewares);
 
 describe("list > manage > components > <Homepage/>", () => {
   it("render homepage with welcome", () => {
+    const store = mockStore(initialState);
     const wrapper = mountWithL10n(
-      <Homepage/>
+      <Provider store={store}>
+        <Homepage/>
+      </Provider>
     );
 
     expect(wrapper.find("h1")).to.contain.text("tHe sIMPLe wAy tO sTORE...");
