@@ -23,7 +23,7 @@ export default function StartUsing() {
     });
   };
   const doReturning = async () => {
-    telemetry.recordEvent("fxaStart", "welcomeSignin");
+    telemetry.recordEvent("click", "welcomeSignin");
     browser.runtime.sendMessage({
       type: "upgrade_account",
       view: "manage",
