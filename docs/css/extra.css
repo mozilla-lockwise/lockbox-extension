@@ -24,3 +24,7 @@ div.right {
   width: 40%;
   padding-left: 2em;
 }
+
+.rst-content .admonition-title::before {
+    display: none; !important
+}

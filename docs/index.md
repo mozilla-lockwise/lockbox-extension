@@ -1,6 +1,6 @@
 # Lockbox for desktop
 
-!!! right "Get Started"
+!!! right "Install the extension"
     [Install Lockbox][install-link]{: .button-link }
     Have questions about how Lockbox works? [Check out the FAQs][faq-link]
 
@@ -20,7 +20,7 @@ security.
 Install it and sign in with your Firefox Account to take full advantage of cloud
 backup and next-generation encryption. Then [share feedback](feedback-link) here.
 
-## Install Lockbox
+## Get Started
 
 1. Install Lockbox, and it will automatically disable Firefox’s password manager.
 2. Create an entry with a website name, URL, username, and password.
