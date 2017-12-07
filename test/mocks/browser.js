@@ -114,13 +114,24 @@ window.browser = {
 
   identity: {
     async launchWebAuthFlow({url}) {
-      return url;
+      url = new URL(url);
+      const requestParams = url.searchParams;
+      const redirect = requestParams.get("redirect_uri");
+      const state = requestParams.get("state");
+
+      const responseParams = new URLSearchParams();
+      responseParams.set("state", state);
+      responseParams.set("code", "7scJCX3_Dhc5cfwA3iJ32k07dJEuf3pghu4cNsH5dBXXO9h0OAQ8tHjucatkh8qQVoUiDf04r0dlv4LqkxZ-7Q");
+      const responseURL = new URL(`${redirect}?${responseParams}`);
+      return responseURL.toString();
     },
   },
 
   runtime: {
     onMessage: new MockOnMessageListener(),
     onConnect: new MockListener(),
+
+    openOptionsPage: () => {},
 
     async sendMessage(msg) {
       return this.onMessage.mockFireListener(msg, primaryMessageSender);

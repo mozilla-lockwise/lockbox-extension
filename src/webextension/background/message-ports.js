@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import openDataStore from "./datastore";
-import getAuthorization, { saveAuthorization } from "./authorization/index";
+import getAccount, * as accounts from "./accounts";
 import updateBrowserAction from "./browser-action";
 import * as telemetry from "./telemetry";
 import { openView, closeView } from "./views";
@@ -19,54 +19,128 @@ function broadcast(message, excludedSender) {
   }
 }
 
+let legacyPort;
+
 export default function initializeMessagePorts() {
   browser.runtime.onConnect.addListener((port) => {
     ports.add(port);
     port.onDisconnect.addListener(() => ports.delete(port));
   });
 
+  legacyPort = browser.runtime.connect({name: "webext-to-legacy"});
+  legacyPort.onMessage.addListener(async (message) => {
+    switch (message.type) {
+    case "extension_installed":
+      openView("firstrun");
+      break;
+    case "extension_upgraded":
+      openDataStore().then(async (datastore) => {
+        if (!datastore.initialized) {
+          openView("firstrun");
+        }
+      });
+      break;
+    default:
+      break;
+    }
+  });
+
   browser.runtime.onMessage.addListener(async (message, sender) => {
     switch (message.type) {
+    case "get_account_details":
+      return {account: getAccount().details()};
     case "open_view":
       return openView(message.name).then(() => ({}));
     case "close_view":
       return closeView(message.name).then(() => ({}));
 
-    case "signin":
-      return getAuthorization().signIn(message.interactive);
     case "initialize":
-      return openDataStore().then(async (ds) => {
-        await ds.initialize({
-          password: message.password,
-        });
-        await saveAuthorization(browser.storage.local);
-        await updateBrowserAction(ds);
+      return openDataStore().then(async (datastore) => {
+        await datastore.initialize();
+        // FIXME: be more implicit on saving account info
+        await accounts.saveAccount(browser.storage.local);
+        await updateBrowserAction({datastore});
+        if (message.view) {
+          openView(message.view);
+        }
+
+        return {};
+      });
+    case "upgrade_account":
+      return openDataStore().then(async (datastore) => {
+        const account = await getAccount().signIn(message.action);
+        const appKey = account.keys.get("https://identity.mozilla.com/apps/lockbox");
+        const salt = account.uid;
+
+        try {
+          if (datastore.initialized && datastore.locked) {
+            await datastore.unlock();
+          }
+          await datastore.initialize({ appKey, salt, rebase: true });
+          // FIXME: be more implicit on saving account info
+          await accounts.saveAccount(browser.storage.local);
+          await updateBrowserAction({ account, datastore });
+          telemetry.recordEvent("fxaUpgrade", "accounts");
+        } catch (err) {
+          telemetry.recordEvent("fxaFailed", "accounts", err.message);
+          throw err;
+        }
+
+        broadcast({ type: "account_details_updated", account: account.details() });
+        if (message.view) {
+          openView(message.view);
+        }
+
         return {};
       });
     case "reset":
-      return openDataStore().then(async (ds) => {
+      return openDataStore().then(async (datastore) => {
+        const account = getAccount();
+
         await closeView();
 
-        await ds.reset();
+        await datastore.reset();
+        await account.signOut();
         // TODO: put other reset calls here
 
-        await updateBrowserAction(ds);
-        await openView("firstrun");
+        await updateBrowserAction({datastore});
+        broadcast({type: "account_details_updated", account: account.details()});
+        openView("firstrun");
 
         return {};
       });
 
 
-    case "unlock":
-      return openDataStore().then(async (ds) => {
-        await ds.unlock(message.password);
-        await updateBrowserAction(ds);
+    case "signin":
+      return openDataStore().then(async (datastore) => {
+        const account = getAccount();
+        let appKey;
+        try {
+          if (account.mode === accounts.UNAUTHENTICATED) {
+            await account.signIn();
+            appKey = account.keys.get(accounts.APP_KEY_NAME);
+          }
+          await datastore.unlock(appKey);
+          await updateBrowserAction({ datastore });
+          telemetry.recordEvent("fxaSignin", "accounts");
+        } catch (err) {
+          telemetry.recordEvent("fxaFailed", "accounts", err.message);
+          throw err;
+        }
+
+        broadcast({ type: "account_details_updated", account: account.details() });
+        if (message.view) {
+          openView(message.view);
+        }
+
         return {};
       });
-    case "lock":
-      return openDataStore().then(async (ds) => {
-        await ds.lock();
-        await updateBrowserAction(ds);
+    case "signout":
+      return openDataStore().then(async (datastore) => {
+        // TODO: perform (light) signout from FxA
+        await datastore.lock();
+        await updateBrowserAction({datastore});
+
         return {};
       });
 
@@ -75,7 +149,6 @@ export default function initializeMessagePorts() {
         return {items: Array.from((await ds.list()).values(),
                                   makeItemSummary)};
       });
-
     case "add_item":
       return openDataStore().then(async (ds) => {
         const item = await ds.add(message.item);

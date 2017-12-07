@@ -24,6 +24,47 @@ describe("list > actions", () => {
     browser.runtime.onMessage.mockClearListener();
   });
 
+  it("getAcountStatus() dispatched", async () => {
+    const account = {
+      mode: "guest",
+    };
+    browser.runtime.onMessage.addListener((msg) => {
+      if (msg.type === "get_account_details") {
+        return {account};
+      }
+      return null;
+    });
+
+    await store.dispatch(actions.getAccountDetails());
+    const dispatched = store.getActions();
+    expect(dispatched).to.deep.equal([
+      {
+        type: actions.GET_ACCOUNT_DETAILS_STARTING,
+        actionId: dispatched[0].actionId,
+      },
+      {
+        type: actions.GET_ACCOUNT_DETAILS_COMPLETED,
+        actionId: dispatched[0].actionId,
+        account,
+      },
+    ]);
+  });
+
+  it("accountDetailsUpdated() dispatched", async () => {
+    const account = {
+      mode: "guest",
+    };
+    await store.dispatch(actions.accountDetailsUpdated(account));
+    const dispatched = store.getActions();
+    expect(dispatched).to.deep.equal([
+      {
+        type: actions.GET_ACCOUNT_DETAILS_COMPLETED,
+        actionId: dispatched[0].actionId,
+        account,
+      },
+    ]);
+  });
+
   it("listItems() dispatched", async () => {
     const items = [
       {id: "1", title: "title 1"},

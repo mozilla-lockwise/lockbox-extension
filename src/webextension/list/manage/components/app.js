@@ -6,6 +6,7 @@ import { Localized } from "fluent-react";
 import React from "react";
 import DocumentTitle from "react-document-title";
 
+import AccountSummary from "../containers/account-summary";
 import AddItem from "../containers/add-item";
 import AllItems from "../containers/all-items";
 import CurrentSelection from "../containers/current-selection";
@@ -30,9 +31,10 @@ export default function App() {
               <AddItem/>
             </Toolbar>
             <Toolbar className={styles.mainToolbar}>
+              <GoHome />
               <ToolbarSpace/>
-              <GoHome/>
               <SendFeedback/>
+              <AccountSummary/>
             </Toolbar>
             <aside>
               <ItemFilter/>

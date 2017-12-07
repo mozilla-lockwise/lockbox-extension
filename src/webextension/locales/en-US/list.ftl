@@ -55,9 +55,9 @@ all-items-filtered = No results
 
 homepage-title =
   { $count ->
-     [0]     Welcome to Lockbox
-     [1]     You have { $count } entry in your Lockbox
-    *[other] You have { $count } entries in your Lockbox
+     [0]     Welcome to { product-title }
+     [1]     You have { $count } entry in your { product-title }
+    *[other] You have { $count } entries in your { product-title }
   }
 
 homepage-greeting =
@@ -68,6 +68,19 @@ homepage-greeting =
   Please be sure to let us know your thoughts using our feedback button above,
   including any issues you may find, things you like, and the things you’re
   looking forward to in the future.
+
+homepage-linkaccount-title = Add Serious Security & Convenience
+homepage-linkaccount-description =
+    Creating a Firefox account - or adding { product-title } to an existing account - protects your logins
+    with the strongest encryption available.
+
+homepage-linkaccount-action-create = Create Account
+homepage-linkaccount-action-signin = { product-action-signin }
+
+homepage-accountlinked-title = Your logins are locked down tight!
+homepage-accountlinked-description =
+    { product-title } uses the strongest encryption available to protect
+    your logins - even for banking and other critical sites.
 
 item-details-heading-view = Entry Details
 item-details-heading-new = Create a New Entry
