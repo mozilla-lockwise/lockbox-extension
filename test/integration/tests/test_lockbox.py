@@ -35,10 +35,10 @@ def test_sign_in_with_fxa_from_home(fxa_account, home_page):
 
 
 def test_web_ext_interaction(home_page, selenium, base_url):
-    from pages.extension import Extension
-    ext = home_page
-    ext.wait_for_page_to_load()
-    ext.extension.find_stuff
-    import time
-    time.sleep(60)
-    assert False
+    home_page
+    # ext.wait_for_page_to_load()
+    home_page.add_entry()
+    lists = home_page.extension.find_stuff()
+    assert '(No Entry Name)' in lists[0].title
+    entry = lists[0].click()
+    assert '' in entry.title

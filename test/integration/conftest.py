@@ -12,7 +12,9 @@ from pages.login import Login
 def firefox_options(firefox_options):
     """Configure Firefox preferences."""
     firefox_options.set_preference('extensions.legacy.enabled', True)
+    firefox_options.set_preference('ui.popup.disable_autohide', True)
     firefox_options.add_argument('-foreground')
+    firefox_options.add_argument('-marionette')
     firefox_options.log.level = 'trace'
     return firefox_options
 
@@ -33,7 +35,8 @@ return WebExtensionPolicy.getByID("{}").mozExtensionHostname;""".format(_id))  #
 @pytest.fixture
 def login_page(base_url, selenium, hostname):
     """Launch Lockbox."""
-    # selenium.get('moz-extension://{}/firstrun/index.html'.format(hostname))
+    selenium.get('moz-extension://{}/firstrun/index.html'.format(hostname))
+    # selenium.switch_to.window(selenium.window_handles[-1])
     return Login(selenium, base_url).wait_for_page_to_load()
 
 

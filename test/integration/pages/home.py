@@ -106,7 +106,16 @@ class Entry(Region):
         _delete_entry_modal_locator = (By.CSS_SELECTOR,
                                        '.ReactModal__Content--after-open '
                                        'menu button.{}'.format(
-                                           munged_class_name('button')))
+                                       munged_class_name('button')))
+        _title_locator = (By.CLASS_NAME, '{}'.format(
+                          munged_class_name('first-label')))
+        _title_text_locator = (By.CLASS_NAME, '{}'.format(
+                               munged_class_name('field-text')))
+
+        @property
+        def title(self):
+            title = self.find_element(*self._title_locator)
+            return title.find_element(*self._title_text_locator).text
 
         def delete(self):
             """Delete an entry from the lockbox."""
