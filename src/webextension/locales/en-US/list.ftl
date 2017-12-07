@@ -19,7 +19,7 @@ item-fields-copy-password = Copy
   .title = Copy the password to the clipboard
 item-fields-notes = Notes
 
-item-summary-new-title = New Entry
+item-summary-new-title = New entry
 item-summary-title =
   { $length ->
      [0]     (no site name)
@@ -42,7 +42,7 @@ toolbar-item-count =
     *[other] { $count } Entries
   }
 
-toolbar-add-item = New Entry
+toolbar-add-item = New entry
 toolbar-go-home = Home
 toolbar-send-feedback = Submit Feedback
 
