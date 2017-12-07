@@ -54,19 +54,11 @@ all-items-filtered = No results
 homepage-title =
   the simple way to store, retrieve, and manage website login info
 
-homepage-greeting =
-  You’ve successfully installed the Lockbox browser extension! This Alpha
-  prototype gives you the ability to create new entries, and then view, search,
-  edit, and delete those entries.
-  
-  Please be sure to let us know your thoughts using our feedback button above,
-  including any issues you may find, things you like, and the things you’re
-  looking forward to in the future.
-
 homepage-linkaccount-title = Add Serious Security & Convenience
 homepage-linkaccount-description =
-    Creating a Firefox account – or adding { product-title } to an existing account – protects your logins
-    with the strongest encryption available.
+    Now create a Firefox account – or add Lockbox to an existing
+    account – to protect your logins with the strongest encryption
+    available and sync your Lockbox info across devices.
 
 homepage-linkaccount-action-create = Create Account
 homepage-linkaccount-action-signin = { product-action-signin }
