@@ -36,7 +36,7 @@ def test_sign_in_with_fxa_from_home(fxa_account, home_page):
     assert home_page.sign_in_button_is_displayed() is False
 
 
-def test_web_ext_interaction(home_page, selenium, base_url):
+def test_door_hanger_interaction(home_page, selenium, base_url):
     """Add an entry and test it shows in the door hanger."""
     home_page.add_entry()
     lists = home_page.door_hanger.find_entrys()
