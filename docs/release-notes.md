@@ -6,9 +6,12 @@ _Date: 2017-12-11_
 
 ### What's New
 
-- Doorhanger:  ([#338](https://github.com/mozilla-lockbox/lockbox-extension/pull/362))
-- Firefox Accounts: ([#362](https://github.com/mozilla-lockbox/lockbox-extension/pull/362))
-- Improved Look: ([#351](https://github.com/mozilla-lockbox/lockbox-extension/pull/351))
+- Access your saved Lockbox entries from a doorhanger experience ([#338](https://github.com/mozilla-lockbox/lockbox-extension/pull/362))
+- Secure your Lockbox with a Firefox Account ([#362](https://github.com/mozilla-lockbox/lockbox-extension/pull/362))
+- See the visual design and polish come together for the entire experience([#351](https://github.com/mozilla-lockbox/lockbox-extension/pull/351))
+- Get help and instructions when you first get started ([#392](https://github.com/mozilla-lockbox/lockbox-extension/issues/392))
+- Get additional support from the updated [Lockbox website](https://mozilla-lockbox.github.io/lockbox-extension/), including the FAQ ([#345](https://github.com/mozilla-lockbox/lockbox-extension/issues/345))
+
 
 ### What's Fixed
 
