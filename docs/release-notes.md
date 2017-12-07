@@ -1,5 +1,22 @@
 # Lockbox Release Notes
 
+## 0.1.4-alpha
+
+_Date: 2017-12-11_
+
+### What's New
+
+- Doorhanger:  ([#338](https://github.com/mozilla-lockbox/lockbox-extension/pull/362))
+- Firefox Accounts: ([#362](https://github.com/mozilla-lockbox/lockbox-extension/pull/362))
+- Improved Look: ([#351](https://github.com/mozilla-lockbox/lockbox-extension/pull/351))
+
+### What's Fixed
+
+### Known Issues
+
+* **Any existing Lockbox entries from previous versions have been removed.** Previous versions were storing and encrypting data differently than we are now.s In order to add our new security features your old data can no longer be read/accessed and you'll see an empty state after you upgrade.
+* Firefox's default prompt to save logins is only disabled on new installs of this extension; updating Lockbox will not change your current Firefox preferences.
+
 ## 0.1.3-alpha
 
 _Date: 2017-11-29_
