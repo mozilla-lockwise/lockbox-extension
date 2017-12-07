@@ -56,9 +56,9 @@ homepage-title =
 
 homepage-linkaccount-title = Add Serious Security & Convenience
 homepage-linkaccount-description =
-    Now create a Firefox account – or add Lockbox to an existing
+    Now create a Firefox account – or add { product-title } to an existing
     account – to protect your logins with the strongest encryption
-    available and sync your Lockbox info across devices.
+    available and sync your { product-title } info across devices.
 
 homepage-linkaccount-action-create = Create Account
 homepage-linkaccount-action-signin = { product-action-signin }

@@ -11,9 +11,9 @@
   width: 500px;
 }
 
-.homepage h1,
-.homepage h2,
-.homepage p {
+.homepage > h1,
+.homepage > h2,
+.homepage > p {
   color: #0c0c0d;
   letter-spacing: 0.2px;
   line-height: 1.5;
