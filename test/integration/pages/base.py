@@ -1,9 +1,6 @@
 """Base class for common use locators and actions."""
 
 from pypom import Page
-from selenium.webdriver.common.by import By
-
-from pages.util.util import munged_class_name
 
 
 class Base(Page):

@@ -34,6 +34,7 @@ class Login(Base):
         return Home(self.selenium, self.base_url).wait_for_page_to_load()
 
     def sign_in(self, email, password):
+        """Fxa sign in."""
         self.find_element(*self._fxa_sign_in_locator).click()
         self.fxa_sign_in(email, password)
         self.selenium.switch_to.window(self.selenium.window_handles[-1])

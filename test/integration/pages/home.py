@@ -30,7 +30,7 @@ class Home(Base):
     _save_entry_locator = (By.CSS_SELECTOR, 'article div form menu '
                            'button.{}'.format(munged_class_name('button')))
     _sign_in_locator = (By.CSS_SELECTOR, '.{} .{}'.format(
-                        munged_class_name('link'), 
+                        munged_class_name('link'),
                         munged_class_name('puffy-size')))
 
     @property
