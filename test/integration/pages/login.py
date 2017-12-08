@@ -13,7 +13,7 @@ class Login(Base):
     _confirm_password_locator = (By.NAME, 'confirmPassword')
     _continue_locator = (By.CSS_SELECTOR, 'button.{}'.format(
                          munged_class_name('button')))
-    _create_account_locator = (By.ID, 'homepage-upgrade-action-create')
+    _create_account_locator = (By.ID, 'homepage-linkaccount-action-create')
     _get_started_button_locator = (By.CLASS_NAME, '{}'.format(
                                    munged_class_name('primary-theme')))
     _sign_in_button_locator = (By.ID, 'firstrun-using-returning-action')
