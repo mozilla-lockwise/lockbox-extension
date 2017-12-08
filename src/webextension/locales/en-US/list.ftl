@@ -46,6 +46,21 @@ all-items-empty =
 
 all-items-filtered = No results
 
+intro-page-step-1 =
+  Save username and password info to create a { product-title } entry.
+
+  .title = Add Login Info to { product-title }
+
+intro-page-step-2 =
+  Click the { product-title } icon to see all the entries you've saved.
+
+  .title = Go Straight to Your Logins
+
+intro-page-step-3 =
+  Copy an entry's info to sign in right from Firefox.
+
+  .title = Sign in From { product-title }
+
 homepage-title = { product-tagline }
 
 homepage-linkaccount-title = Add Serious Security & Convenience

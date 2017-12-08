@@ -11,11 +11,10 @@ from pages.util.util import munged_class_name
 class Home(Base):
     """Contain the locators and actions relating to the home page."""
 
+    _modal_portal_locator = (By.CLASS_NAME, 'ReactModalPortal')
     _entries_locator = (By.CSS_SELECTOR,
                         'ul li div.{}'.format(
                             munged_class_name('item-summary')))
-    _homepage_section_locator = (By.CSS_SELECTOR, '.{} h1'.format(
-                                 munged_class_name('homepage')))
     _delete_entry_locator = (By.CSS_SELECTOR,
                              'article div menu '
                              'button.{}'.format(munged_class_name('normal')))
@@ -42,7 +41,7 @@ class Home(Base):
     def wait_for_page_to_load(self):
         """Wait for page to load."""
         self.wait.until(
-            lambda s: s.find_element(*self._homepage_section_locator))
+            lambda s: s.find_element(*self._modal_portal_locator))
         return self
 
     @property
