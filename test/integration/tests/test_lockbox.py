@@ -11,7 +11,7 @@ def test_add_entry_as_guest(home_page):
     """Add a new entry."""
     home_page.add_entry()
     assert len(home_page.entries) == 1
-    assert '(No Entry Name)' in home_page.entries[0].name
+    assert '(no site name)' in home_page.entries[0].name
 
 
 def test_delete_entry_as_guest(home_page):
@@ -40,6 +40,6 @@ def test_door_hanger_interaction(home_page, selenium, base_url):
     """Add an entry and test it shows in the door hanger."""
     home_page.add_entry()
     lists = home_page.door_hanger.find_entrys()
-    assert '(No Entry Name)' in lists[0].title
+    assert '(no site name)' in lists[0].title
     entry = lists[0].click()
     assert '' in entry.title
