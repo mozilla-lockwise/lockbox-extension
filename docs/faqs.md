@@ -2,13 +2,13 @@
 
 Firefox password manager is the built-in feature that saves and autofills website login information. You can protect these logins with a master password. 
 
-Lockbox is a stand-alone password manager extension that you can secure with a Firefox Account for automatic cloud backup and newer encryption than what is offered with password manager. 
+Lockbox is a stand-alone password manager extension that you can secure with a Firefox Account for newer encryption than what is offered with password manager. 
 
-The alpha version of Lockbox lets you create, store and manage entries (a site’s username and password) and copy and paste login information. We realize managing passwords this way may feel very manual, but we plan to add features like autofill and password generation in future releases. We are also working to create a mobile app and support multiple browsers.
+The alpha version of Lockbox lets you create, store and manage entries (a site’s username and password) and copy and paste login information. We realize managing passwords this way may feel very manual, but we plan to add features like autofill and password generation in future releases. We are also working to build cloud backup, create a mobile app, and support multiple browsers.
 
 ## Can I use Lockbox and the Firefox password manager at the same time?
 
-No. When you install Lockbox, Firefox automatically disables the password manager. If you disable or delete Lockbox, Firefox re-enables password manager on the browser’s next restart
+No. When you install Lockbox, Firefox automatically disables the password manager. If you disable or delete Lockbox, Firefox re-enables password manager on the browser’s next restart.
 
 ## If I disable or delete Lockbox, will login information from my entries transfer into the password manager?
 
@@ -20,18 +20,17 @@ Not in the current alpha version.
 
 ## What security technology does Lockbox use?
 
-When you protect Lockbox with a Firefox Account, Lockbox uses AES256-GCM encryption, a next-generation block cipher technology that simultaneously protects your data and alerts us if it has been tampered with. Lockbox also uses a combination of PBKDF2 cryptography to protect against brute force attacks and SHA-256 to “hash” the data for additional security, even when Lockbox shares data across multiple installations.
+When you protect Lockbox with a Firefox Account, Lockbox uses [AES256-GCM](https://en.wikipedia.org/wiki/Galois/Counter_Mode) encryption, a tamper-resistent block cipher technology, to protect your data. Lockbox also uses [HMAC SHA-256](https://en.wikipedia.org/wiki/Hash-based_message_authentication_code) to “hash” searchable data for additional security. 
 
 ## How do I disable or delete Lockbox?
+
 1. Click the menu button ![menu](https://user-images.githubusercontent.com/49511/33676293-a3470a0c-da72-11e7-9f93-2f054bc16cb9.png)
  and choose Add-ons ![extensions](https://user-images.githubusercontent.com/49511/33676294-a35f8b5e-da72-11e7-8bfa-186708b20aab.png)
-2. Click the ![disable](https://user-images.githubusercontent.com/49511/33676295-a3732b32-da72-11e7-9920-43c8b6d25134.png) or ![remove](https://user-images.githubusercontent.com/49511/33676296-a38aa708-da72-11e7-9c15-7960d17422b7.png) buttons next to Lockbox
+2. ![disable](https://user-images.githubusercontent.com/49511/33676295-a3732b32-da72-11e7-9920-43c8b6d25134.png) or ![remove](https://user-images.githubusercontent.com/49511/33676296-a38aa708-da72-11e7-9c15-7960d17422b7.png) Lockbox
 
 ## If I delete Lockbox, what happens to the entries I’ve saved?
 
-If you added a Firefox Account to Lockbox, your entries (a site’s username and password) are saved securely in your account and will be re-added to Lockbox if you reinstall the extension.
-
-If you did not add a Firefox Account to Lockbox, your entries aren’t saved. You’ll need to re-add login information to Lockbox after installing it again.
+The alpha version of Lockbox doesn’t offer backup or synchronization. You’ll need to re-add login information to Lockbox after installing it again.
 
 ## What if I forget my Firefox Account password?
 
@@ -43,11 +42,11 @@ The alpha version of Lockbox hasn’t been tested widely with other password man
 
 ## Do Lockbox entries sync to other computers with Lockbox installed?
 
-Yes, if you secure Lockbox with a Firefox Account. 
+Yes, if you secure Lockbox with a Firefox Account.
 
 ## Can I try Lockbox if I don’t have a Mozilla.com email address?
 
-Sure. To get started, click the <a href="https://testpilot.firefox.com/files/lockbox@mozilla.com/latest">Install Lockbox</a> button on the Introduction page.
+Sure. To get started, click the <a href="https://testpilot.firefox.com/files/lockbox@mozilla.com/latest">Install Lockbox</a> button on the Introduction page. Note that this is an alpha version. Features and functionality will change as we continue developing Lockbox.
 
 ## If I already have a Firefox Account, can I create a separate Firefox Account to use only with Lockbox? 
 
