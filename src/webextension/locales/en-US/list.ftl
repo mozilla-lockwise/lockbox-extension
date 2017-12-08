@@ -79,6 +79,8 @@ manage-lockbox-button = Manage Lockbox
 
 item-details-panel-title = Entry Details
 
+navigate-panel-backwards = Go back
+
 [[dialogs]]
 
 modal-cancel-editing = Unsaved changes exist. Discard them?
