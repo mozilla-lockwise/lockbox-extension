@@ -16,7 +16,7 @@
   height: 30px;
   width: -moz-available;
   background-color: #f9f9fa;
-  border: 0.5px solid #d7d7db;
+  border: 1px solid rgba(12, 12, 13, 0.3);
   border-radius: 2px;
 }
 
@@ -90,7 +90,7 @@
 .field-text {
   /* This lines up our labels with the text in <input> elements. */
   min-height: 25px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: bold;
   -moz-user-select: text;
 }

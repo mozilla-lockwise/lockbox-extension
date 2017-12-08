@@ -13,8 +13,7 @@
   letter-spacing: 0.2px;
 }
 
-.item:nth-child(2n+1),
-.item:nth-child(2n) {
+.item {
   border-bottom: solid 0.5px #d7d7db;
   border-right: solid 0.5px #d7d7db;
 }

@@ -5,7 +5,7 @@
 .item-summary {
   border-bottom: 1px solid #d7d7db;
   padding: .5em;
-  font-size: 17px;
+  font-size: 15px;
 }
 
 .item-summary::before {
