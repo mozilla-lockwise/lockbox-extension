@@ -17,7 +17,7 @@ export default function Homepage() {
     <article className={styles.homepage}>
       <img src={imgSrc} alt=""/>
       <Localized id="homepage-title">
-        <h1>{"tHe sIMPLe wAy tO sTORE..."}</h1>
+        <h1>tHe sIMPLe wAy tO sTORE...</h1>
       </Localized>
       <AccountDetails />
     </article>
