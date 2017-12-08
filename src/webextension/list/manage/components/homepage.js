@@ -3,7 +3,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { Localized } from "fluent-react";
-import PropTypes from "prop-types";
 import React from "react";
 
 import AccountDetails from "../containers/account-details";
@@ -23,7 +22,3 @@ export default function Homepage() {
     </article>
   );
 }
-
-Homepage.propTypes = {
-  count: PropTypes.number.isRequired,
-};
