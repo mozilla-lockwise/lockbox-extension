@@ -8,7 +8,7 @@ _Date: 2017-12-11_
 
 - Access your saved Lockbox entries from a doorhanger experience ([#338](https://github.com/mozilla-lockbox/lockbox-extension/pull/362))
 - Secure your Lockbox with a Firefox Account ([#362](https://github.com/mozilla-lockbox/lockbox-extension/pull/362))
-- See the visual design and polish come together for the entire experience([#351](https://github.com/mozilla-lockbox/lockbox-extension/pull/351))
+- See the visual design and polish come together for the entire experience ([#351](https://github.com/mozilla-lockbox/lockbox-extension/pull/351))
 - Get help and instructions when you first get started ([#392](https://github.com/mozilla-lockbox/lockbox-extension/issues/392))
 - Get additional support from the updated [Lockbox website](https://mozilla-lockbox.github.io/lockbox-extension/), including the FAQ ([#345](https://github.com/mozilla-lockbox/lockbox-extension/issues/345))
 
@@ -17,7 +17,7 @@ _Date: 2017-12-11_
 
 ### Known Issues
 
-* **Any existing Lockbox entries from previous versions have been removed.** Previous versions were storing and encrypting data differently than we are now.s In order to add our new security features your old data can no longer be read/accessed and you'll see an empty state after you upgrade.
+* **Any existing Lockbox entries from previous versions have been removed.** Previous versions were storing and encrypting data differently than we are now. In order to add our new security features your old data can no longer be read/accessed and you'll see an empty state after you upgrade.
 * Once you link a Firefox Account to Lockbox, you cannot unlink it from that account.
 * Once you link a Firefox Account to Lockbox, signing in with a different account can render Lockbox unusable until you quit and restart Firefox.
 * Once you link a Firefox Account to Lockbox, resetting your Firefox Account password through "forgot your password" will render all your logins inaccessible; the only recourse is to reset Lockbox and start over.
