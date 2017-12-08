@@ -7,15 +7,15 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
-import Button from "../../../widgets/button";
+import { ExternalLink } from "../../../widgets/link";
 import { openFAQ } from "../../actions";
 
 function OpenFAQ({onOpenFAQ}) {
   return (
     <Localized id="toolbar-open-faq">
-      <Button theme="ghost" onClick={onOpenFAQ}>
+      <ExternalLink onClick={onOpenFAQ}>
         fAQs
-      </Button>
+      </ExternalLink>
     </Localized>
   );
 }
