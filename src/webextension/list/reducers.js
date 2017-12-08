@@ -27,6 +27,18 @@ function maybeRemoveCurrentItem(state, action) {
   return {};
 }
 
+export function accountReducer(state = { mode: "guest" }, action) {
+  switch (action.type) {
+    case actions.GET_ACCOUNT_DETAILS_COMPLETED:
+      return {
+        ...state,
+        ...action.account,
+      };
+    default:
+      return state;
+  }
+}
+
 export function cacheReducer(state = {items: [], currentItem: null}, action) {
   switch (action.type) {
   case actions.LIST_ITEMS_COMPLETED:

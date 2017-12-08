@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/* global ADDON_INSTALL, ADDON_UNINSTALL */
+/* global ADDON_INSTALL, ADDON_UPGRADE, ADDON_UNINSTALL */
 /* eslint-disable no-unused-vars */
 
 const { utils: Cu } = Components;
@@ -18,8 +18,35 @@ const ORIGINAL_REMEMBER_SIGNONS_PREF =
 // category name. In order to do this, every time we update the events in any
 // way, we must also give them a unique category name. If you're updating the
 // events, please increment the version number here by 1.
-const TELEMETRY_CATEGORY = "lockboxv0";
+const TELEMETRY_CATEGORY = "lockboxv1";
 
+class EventDispatcher {
+  constructor() {
+    this.pendingEvents = [];
+  }
+
+  record(event) {
+    if (this.port) {
+      this.port.postMessage(event);
+      return true;
+    }
+
+    this.pendingEvents.push(event);
+    return false;
+  }
+
+  connect(port) {
+    this.port = port;
+
+    const events = this.pendingEvents;
+    this.pendingEvents = [];
+    for (let evt of events) {
+      this.port.postMessage(evt);
+    }
+  }
+}
+
+const dispatcher = new EventDispatcher();
 function startup({webExtension}, reason) {
   try {
     Services.telemetry.registerEvents(TELEMETRY_CATEGORY, {
@@ -35,19 +62,6 @@ function startup({webExtension}, reason) {
       "displayView": {
         methods: ["render"],
         objects: ["firstrun", "popupUnlock", "manage", "doorhanger"],
-        extra_keys: ["fxauid"],
-      },
-      "fxaSignIn": {
-        methods: ["render"],
-        objects: ["signInPage"],
-      },
-      "confirmPW": {
-        methods: ["click"],
-        objects: ["confirmPWPage"],
-      },
-      "setupDone": {
-        methods: ["click"],
-        objects: ["setupDoneButton"],
         extra_keys: ["fxauid"],
       },
       "itemAdding": {
@@ -115,6 +129,24 @@ function startup({webExtension}, reason) {
         objects: ["settings"],
         extra_keys: ["fxauid"],
       },
+      "setupGuest": {
+        methods: ["click"],
+        objects: ["welcomeGuest"],
+      },
+      "fxaStart": {
+        methods: ["click"],
+        objects: ["welcomeSignin", "manageAcctCreate", "manageAcctSignin", "unlockSignin"],
+      },
+      "fxaAuth": {
+        methods: ["fxaUpgrade", "fxaSignin", "fxaSignout"],
+        objects: ["accounts"],
+        extra_keys: ["fxauid"],
+      },
+      "fxaFail": {
+        methods: ["fxaFailed"],
+        objects: ["accounts"],
+        extra_keys: ["message"],
+      },
     });
   } catch (e) {
     if (e.message === "Attempt to register event that is already registered.") {
@@ -138,6 +170,10 @@ function startup({webExtension}, reason) {
         respond({});
       }
     });
+
+    browser.runtime.onConnect.addListener((port) => {
+      dispatcher.connect(port);
+    });
   });
 }
 
@@ -153,6 +189,14 @@ function install(data, reason) {
       Services.prefs.getBoolPref(REMEMBER_SIGNONS_PREF)
     );
     Services.prefs.setBoolPref(REMEMBER_SIGNONS_PREF, false);
+
+    dispatcher.record({ type: "extension_installed" });
+  } else if (reason === ADDON_UPGRADE) {
+    dispatcher.record({
+      type: "extension_upgraded",
+      version: data.newVersion,
+      oldVersion: data.oldVersion,
+    });
   }
 }
 
@@ -175,3 +219,5 @@ startup;
 shutdown;
 install;
 uninstall;
+dispatcher;
+EventDispatcher;

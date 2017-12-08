@@ -2,6 +2,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+export const GET_ACCOUNT_DETAILS_STARTING = Symbol("GET_ACCOUNT_DETAILS_STARTING");
+export const GET_ACCOUNT_DETAILS_COMPLETED = Symbol("GET_ACCOUNT_DETAILS_COMPLETED");
+
 export const LIST_ITEMS_STARTING = Symbol("LIST_ITEMS_STARTING");
 export const LIST_ITEMS_COMPLETED = Symbol("LIST_ITEMS_COMPLETED");
 
@@ -36,6 +39,37 @@ export const SEND_FEEDBACK = Symbol("SEND_FEEDBACK");
 let nextActionId = 0;
 
 const FEEDBACK_URL = "https://qsurvey.mozilla.com/s3/Lockbox-Input";
+
+export function getAccountDetails() {
+  return async (dispatch) => {
+    const actionId = nextActionId++;
+    dispatch(getAccountDetailsStarting(actionId));
+
+    const response = await browser.runtime.sendMessage({
+      type: "get_account_details",
+    });
+    dispatch(getAccountDetailsCompleted(actionId, response.account));
+  };
+}
+
+function getAccountDetailsStarting(actionId) {
+  return {
+    type: GET_ACCOUNT_DETAILS_STARTING,
+    actionId,
+  };
+}
+
+function getAccountDetailsCompleted(actionId, account) {
+  return {
+    type: GET_ACCOUNT_DETAILS_COMPLETED,
+    actionId,
+    account,
+  };
+}
+
+export function accountDetailsUpdated(account) {
+  return getAccountDetailsCompleted(undefined, account);
+}
 
 export function listItems() {
   return async (dispatch) => {

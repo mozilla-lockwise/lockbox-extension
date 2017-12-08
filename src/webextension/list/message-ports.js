@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { addedItem, updatedItem, removedItem } from "./actions";
+import { accountDetailsUpdated, addedItem, updatedItem, removedItem } from "./actions";
 
 let messagePort;
 
@@ -12,6 +12,9 @@ export default function initializeMessagePorts(store) {
   messagePort = browser.runtime.connect();
   messagePort.onMessage.addListener((message) => {
     switch (message.type) {
+    case "account_details_updated":
+      store.dispatch(accountDetailsUpdated(message.account));
+      break;
     case "added_item":
       store.dispatch(addedItem(message.item));
       break;

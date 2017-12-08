@@ -3,24 +3,16 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import openDataStore from "./datastore";
-import { loadAuthorization } from "./authorization";
+import { openAccount, GUEST } from "./accounts";
 import initializeMessagePorts from "./message-ports";
 import updateBrowserAction from "./browser-action";
 
-// XXX: For now, initialize the datastore on startup and then hook up the
-// button. Eventually, we'll have UX to create new datastores (and persist
-// existing ones).
-openDataStore().then(async (ds) => {
-  try {
-    // attempt to load authorization (FxA) data
-    let authz = await loadAuthorization(browser.storage.local);
-    // eslint-disable-next-line no-console
-    console.log(`loaded authorization for '${authz.uid || ""}'`);
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error(`loading failed: ${err.message}`);
+openAccount(browser.storage.local).then(async (account) => {
+  let datastore = await openDataStore({ salt: account.uid });
+  if (datastore.initialized && account.mode === GUEST) {
+    await datastore.unlock();
   }
 
   initializeMessagePorts();
-  await updateBrowserAction(ds);
+  await updateBrowserAction({account, datastore});
 });

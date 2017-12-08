@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 window.ADDON_INSTALL = "ADDON_INSTALL";
+window.ADDON_UPGRADE = "ADDON_UPGRADE";
 window.ADDON_UNINSTALL = "ADDON_UNINSTALL";
 
 window.Components = {
