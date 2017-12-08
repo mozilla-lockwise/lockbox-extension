@@ -57,6 +57,22 @@
   width: 16px;
 }
 
+.link-theme:active {
+  color: #003eaa;
+  text-decoration: underline;
+}
+
+.link-theme:hover {
+  color: #0060df;
+  text-decoration: underline;
+  background-color: transparent;
+}
+
+.link-theme:focus {
+  color: #0060df;
+  border-color: #0a84ff
+}
+
 .primary-theme:not([disabled]):hover {
   background-color: #003eaa;
 }
@@ -73,20 +89,6 @@
 .normal-theme:not([disabled]):active:hover,
 .ghost-theme:not([disabled]):active:hover {
   background-color: rgba(12, 12, 13, 0.3);
-.link-theme:active {
-  color: #003eaa;
-  text-decoration: underline;
-}
-
-.link-theme:hover {
-  color: #0060df;
-  text-decoration: underline;
-  background-color: transparent;
-}
-
-.link-theme:focus {
-  color: #0060df;
-  border-color: #0a84ff
 }
 
 .puffy-size {
