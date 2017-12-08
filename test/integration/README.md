@@ -37,6 +37,12 @@ tox
 ```
 This will run the integration tests as well as [flake8][flake8].
 
+If you receive errors about "No module..." then run tox with the recreate flag:
+
+```sh
+tox -r
+```
+
 ## Changing or adding element selectors
 
 [Selenium] allows for multiple types of HTML/CSS selection methods. The documentation found
