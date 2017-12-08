@@ -22,7 +22,7 @@ body > main,
 .app-main {
   display: grid;
   height: 100%;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 2fr 6fr;
   grid-template-rows: auto 1fr;
 }
 
@@ -33,7 +33,7 @@ body > main,
 
 .app-main > aside {
   grid-column: 1;
-  min-width: 320px;
+  min-width: 150px;
   min-height: 0;
   background-color: rgba(215, 215, 219, 0.75);
   display: grid;
