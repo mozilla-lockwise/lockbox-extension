@@ -16,7 +16,7 @@
   float: right;
   height: 16px;
   width: 16px;
-  margin: 1rem 0;
+  margin: 14px 0;
 }
 
 [data-selected] .item-summary::before {
