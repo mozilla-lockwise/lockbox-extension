@@ -15,7 +15,7 @@ export function ExternalLink({onClick, children, className, ...props}) {
 }
 
 ExternalLink.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.node,
   className: PropTypes.string,
   onClick: PropTypes.func.isRequired,
 };
