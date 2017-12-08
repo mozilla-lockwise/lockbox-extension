@@ -17,15 +17,16 @@ with Firefox for desktop. It’s the first of several planned experiments
 designed to help us test and improve password management and online
 security.
 
-Install it and sign in with your Firefox Account to take full advantage of cloud
-backup and next-generation encryption. Then [share feedback](feedback-link) here.
+Install it and sign in with your Firefox Account to encrypt your data with
+tamper-resistant block cipher technology. Then [share feedback
+here](feedback-link).
 
 ## Get Started
 
 1. Install Lockbox, and it will automatically disable Firefox’s password manager.
 2. Create an entry with a website name, URL, username, and password.
 3. Search or browse in the toolbar menu or on the full tab to find the password you need.
-4. Sign up or sign in with a Firefox Account to encrypt and your entries and back them up.
+4. Sign up or sign in with a Firefox Account to encrypt and your entries.
 
 _This is just one component of the Lockbox product. Please see the [Lockbox
 website](website-link) for more documentation and context._
