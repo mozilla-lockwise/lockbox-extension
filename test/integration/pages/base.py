@@ -9,8 +9,9 @@ from pages.util.util import munged_class_name
 class Base(Page):
     """Contain the locators and actions that can be used anywhere."""
 
-    _fxa_sign_in_locator = (By.CLASS_NAME, '{}'.format(
-                            munged_class_name('link-theme')))
+    _fxa_sign_in_locator = (By.CSS_SELECTOR, '.{} .{}'.format(
+                            munged_class_name('link'), 
+                            munged_class_name('puffy-size')))
 
     def __init__(self, selenium, base_url, **kwargs):
         """Create the base class object."""
@@ -20,7 +21,8 @@ class Base(Page):
     def fxa_sign_in(self, user, password):
         """Sign in to fxa."""
         current_windows = len(self.selenium.window_handles)
-        self.find_element(*self._fxa_sign_in_locator).click()
+        els = self.find_elements(*self._fxa_sign_in_locator)
+        els[1].click()
         # TODO: Remove this sleep when this gets fixed:
         # https://github.com/mozilla/fxapom/issues/173
         import time
