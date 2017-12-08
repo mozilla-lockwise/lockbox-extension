@@ -16,7 +16,7 @@ export function PanelHeader({className, onBack, children}) {
   const imgAlt = <Localized id="navigate-panel-backwards">go bACk</Localized>;
   return (
     <header className={finalClassName}>
-      {onBack ? <Button theme="ghost" onClick={onBack}>
+      {onBack ? <Button theme="ghost" size="micro" onClick={onBack}>
         <img src={imgSrc} alt={imgAlt}/></Button> : null}
       <span>{children}</span>
     </header>
