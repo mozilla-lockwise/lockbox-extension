@@ -36,12 +36,6 @@ item-filter
 
 [[manage]]
 
-toolbar-item-count =
-  { $count ->
-     [one]   1 Entry
-    *[other] { $count } Entries
-  }
-
 toolbar-add-item = New entry
 toolbar-go-home = Home
 toolbar-send-feedback = Submit Feedback
