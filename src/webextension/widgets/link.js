@@ -7,13 +7,19 @@ import React from "react";
 
 import styles from "./link.css";
 
-export function ExternalLink({onClick, children}) {
+export function ExternalLink({onClick, children, className, ...props}) {
+  const finalClassName = `${styles.external} ${className}`.trimRight();
   return (
-    <a className={styles.external} onClick={onClick}>{children}</a>
+    <a {...props} className={finalClassName} onClick={onClick}>{children}</a>
   );
 }
 
 ExternalLink.propTypes = {
-  onClick: PropTypes.func.isRequired,
   children: PropTypes.any,
+  className: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
+};
+
+ExternalLink.defaultProps = {
+  className: "",
 };

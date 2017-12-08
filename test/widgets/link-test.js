@@ -25,6 +25,17 @@ describe("widgets > <ExternalLink/>", () => {
     );
   });
 
+  it("merge className", () => {
+    const wrapper = mount(
+      <ExternalLink onClick={() => {}}
+                    className="extra-extra">external link</ExternalLink>
+    );
+    expect(wrapper.find("a")).to.have.text("external link");
+    expect(wrapper.find("a")).prop("className").to.match(
+      /^\S+external\S+ extra-extra$/
+    );
+  });
+
   it("calls onClick handler", () => {
     const spyClick = sinon.spy();
     const wrapper = mount(
