@@ -11,6 +11,7 @@ class_names = [{
         'button',
         'minimal',
         'ghost-theme',
+        'link-theme',
         'primary-theme',
         'puffy-size',
     ],

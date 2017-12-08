@@ -10,7 +10,7 @@ class Base(Page):
     """Contain the locators and actions that can be used anywhere."""
 
     _fxa_sign_in_locator = (By.CLASS_NAME, '{}'.format(
-                            munged_class_name('ghost-theme')))
+                            munged_class_name('link-theme')))
 
     def __init__(self, selenium, base_url, **kwargs):
         """Create the base class object."""
