@@ -27,7 +27,7 @@ def test_delete_entry_as_guest(home_page):
 def test_sign_in_with_fxa(fxa_account, login_page):
     """Sign in with fxa from the login page."""
     fxa = fxa_account
-    home_page = login_page.fxa_sign_in(fxa.email, fxa.password)
+    home_page = login_page.sign_in(fxa.email, fxa.password)
     assert home_page.sign_in_button_is_displayed() is False
 
 
