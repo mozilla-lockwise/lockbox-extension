@@ -5,7 +5,7 @@
     Have questions about how Lockbox works? [Check out the FAQs][faq-link]
 
 !!! right "Contribute"
-    You can also contribute to Lockbox by:
+    You can also contribute by:
     
     - Developing code
     - Reporting bugs
@@ -32,7 +32,7 @@ here](feedback-link).
 3. Search or browse in the toolbar menu or on the full tab to find the password you need.
    ![search from doorhanger](./images/tour-03.doorhanger-search.png)
 
-4. Sign up or sign in with a Firefox Account to encrypt and your entries.
+4. Sign up or sign in with a Firefox Account to encrypt your entries.
    ![sinup for fxa](./images/tour-04.signup-fxa.png)
 
 _This is just one component of the Lockbox product. Please see the [Lockbox
