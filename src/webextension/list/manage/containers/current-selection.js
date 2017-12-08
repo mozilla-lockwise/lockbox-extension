@@ -14,6 +14,7 @@ import {
 import EditItemDetails from "../components/edit-item-details";
 import ItemDetails from "../components/item-details";
 import Homepage from "../components/homepage";
+import IntroPage from "../components/intro-page";
 
 const ConnectedEditItemDetails = connect(
   (state, ownProps) => ({
@@ -51,7 +52,7 @@ const ConnectedItemDetails = connect(
   })
 )(ItemDetails);
 
-function CurrentSelection({editing, item, hideHome}) {
+function CurrentSelection({editing, item, hideHome, numItems}) {
   let inner;
   if (editing) {
     inner = <ConnectedEditItemDetails item={item}/>;
@@ -60,8 +61,10 @@ function CurrentSelection({editing, item, hideHome}) {
   } else if (hideHome) {
     // Don't show anything since we're still loading the item details.
     inner = null;
-  } else {
+  } else if (numItems !== 0) {
     inner = <Homepage/>;
+  } else {
+    inner = <IntroPage/>;
   }
   return <div>{inner}</div>;
 }
@@ -70,6 +73,7 @@ CurrentSelection.propTypes = {
   editing: PropTypes.bool.isRequired,
   item: PropTypes.object,
   hideHome: PropTypes.bool.isRequired,
+  numItems: PropTypes.number.isRequired,
 };
 
 export default connect(
@@ -77,5 +81,6 @@ export default connect(
     editing: state.editor.editing,
     hideHome: state.editor.hideHome,
     item: state.cache.currentItem,
+    numItems: state.cache.items.length,
   })
 )(CurrentSelection);
