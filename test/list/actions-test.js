@@ -2,13 +2,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { expect } from "chai";
+import chai, { expect } from "chai";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
+import sinon from "sinon";
+import sinonChai from "sinon-chai";
 
 import "test/mocks/browser";
 import { initialState } from "./manage/mock-redux-state";
 import * as actions from "src/webextension/list/actions";
+
+chai.use(sinonChai);
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -316,6 +320,14 @@ describe("list > actions", () => {
     ]);
   });
 
+  it("copiedField() dispatched", () => {
+    store.dispatch(actions.copiedField("field"));
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.COPIED_FIELD,
+        field: "field" },
+    ]);
+  });
+
   it("startNewItem() dispatched", () => {
     store.dispatch(actions.startNewItem());
     expect(store.getActions()).to.deep.equal([
@@ -378,5 +390,15 @@ describe("list > actions", () => {
     expect(store.getActions()).to.deep.equal([
       { type: actions.HIDE_MODAL },
     ]);
+  });
+
+  it("sendFeedback() dispatched", () => {
+    const windowOpen = sinon.stub(window, "open");
+    store.dispatch(actions.sendFeedback());
+    expect(windowOpen).to.have.callCount(1);
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.SEND_FEEDBACK },
+    ]);
+    windowOpen.restore();
   });
 });

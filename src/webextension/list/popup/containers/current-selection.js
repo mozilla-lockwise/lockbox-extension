@@ -7,7 +7,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { flattenItem } from "../../common";
-import { selectItem } from "../../actions";
+import { selectItem, copiedField } from "../../actions";
 import ItemDetailsPanel from "../components/item-details-panel";
 import ItemListPanel from "../components/item-list-panel";
 
@@ -16,6 +16,7 @@ const ConnectedItemDetailsPanel = connect(
     fields: flattenItem(ownProps.item),
   }),
   (dispatch) => ({
+    onCopy: (field) => { dispatch(copiedField(field)); },
     onBack: () => { dispatch(selectItem(null)); },
   })
 )(ItemDetailsPanel);

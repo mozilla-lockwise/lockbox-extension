@@ -61,38 +61,48 @@ function startup({webExtension}, reason) {
       },
       "displayView": {
         methods: ["render"],
-        objects: ["firstrun", "manage", "popupUnlock"],
+        objects: ["firstrun", "popupUnlock", "manage", "doorhanger"],
         extra_keys: ["fxauid"],
       },
       "itemAdding": {
         methods: ["itemAdding"],
-        objects: ["addItemForm"],
+        objects: ["manage"],
         extra_keys: ["fxauid"],
       },
       "itemUpdating": {
         methods: ["itemUpdating"],
-        objects: ["updatingItemForm"],
+        objects: ["manage"],
         extra_keys: ["fxauid"],
       },
       "itemDeleting": {
         methods: ["itemDeleting"],
-        objects: ["updatingItemForm"],
-        extra_keys: ["fxauid"],
-      },
-      "itemSelected": {
-        methods: ["itemSelected"],
-        objects: ["itemList"],
-        extra_keys: ["fxauid"],
-      },
-      "addClick": {
-        methods: ["addClick"],
-        objects: ["addButton"],
+        objects: ["manage"],
         extra_keys: ["fxauid"],
       },
       "itemAdded": {
         methods: ["itemAdded"],
-        objects: ["addItemForm"],
+        objects: ["manage"],
         extra_keys: ["itemid", "fxauid"],
+      },
+      "itemUpdated": {
+        methods: ["itemUpdated"],
+        objects: ["manage"],
+        extra_keys: ["itemid", "fxauid"],
+      },
+      "itemDeleted": {
+        methods: ["itemDeleted"],
+        objects: ["manage"],
+        extra_keys: ["itemid", "fxauid"],
+      },
+      "itemSelected": {
+        methods: ["itemSelected"],
+        objects: ["manage", "doorhanger"],
+        extra_keys: ["fxauid"],
+      },
+      "addClick": {
+        methods: ["addClick"],
+        objects: ["manage"],
+        extra_keys: ["fxauid"],
       },
       "datastore": {
         methods: ["added", "updated", "deleted"],
@@ -106,7 +116,7 @@ function startup({webExtension}, reason) {
       },
       "itemCopied": {
         methods: ["usernameCopied", "passwordCopied"],
-        objects: ["itemDetails"],
+        objects: ["manage", "doorhanger"],
         extra_keys: ["fxauid"],
       },
       "resetRequested": {

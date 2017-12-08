@@ -4,22 +4,37 @@
 
 import chai, { expect } from "chai";
 import React from "react";
+import { Provider } from "react-redux";
+import configureStore from "redux-mock-store";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
+import { initialState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
+import { SEND_FEEDBACK } from "src/webextension/list/actions";
 import SendFeedback from
-       "src/webextension/list/manage/components/send-feedback";
+       "src/webextension/list/manage/containers/send-feedback";
 
 chai.use(sinonChai);
 
-describe("list > manage > components > <SendFeedback/>", () => {
+const middlewares = [];
+const mockStore = configureStore(middlewares);
+
+describe("list > manage > containers > <SendFeedback/>", () => {
   it("feedback link opened", () => {
     const windowOpen = sinon.stub(window, "open");
+    const store = mockStore(initialState);
     const wrapper = mountWithL10n(
-      <SendFeedback/>
+      <Provider store={store}>
+        <SendFeedback/>
+      </Provider>
     );
+
     wrapper.simulate("click");
     expect(windowOpen).to.have.callCount(1);
+    expect(store.getActions()).to.deep.equal([{
+      type: SEND_FEEDBACK,
+    }]);
+    windowOpen.restore();
   });
 });

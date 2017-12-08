@@ -8,6 +8,19 @@
   border: 0;
 }
 
+.button[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.button:focus {
+  box-shadow: inset 0 0 0 2px #0a84ff, 0 0 0 3px rgba(10, 132, 255, 0.3);
+}
+
+.button::-moz-focus-inner {
+  border: none;
+}
+
 .primary-theme {
   color: #ffffff;
   background-color: #0060df;
@@ -23,21 +36,21 @@
   background-color: transparent;
 }
 
-.primary-theme:hover {
+.primary-theme:not([disabled]):hover {
   background-color: #003eaa;
 }
 
-.normal-theme:hover,
-.ghost-theme:hover {
+.normal-theme:not([disabled]):hover,
+.ghost-theme:not([disabled]):hover {
   background-color: rgba(12, 12, 13, 0.2);
 }
 
-.primary-theme:active {
+.primary-theme:not([disabled]):active:hover {
   background-color: #002275;
 }
 
-.normal-theme:hover,
-.ghost-theme:hover {
+.normal-theme:not([disabled]):active:hover,
+.ghost-theme:not([disabled]):active:hover {
   background-color: rgba(12, 12, 13, 0.3);
 }
 
