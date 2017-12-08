@@ -18,6 +18,7 @@ _Date: 2017-12-11_
 ### Known Issues
 
 * **Any existing Lockbox entries from previous versions have been removed.** Previous versions were storing and encrypting data differently than we are now.s In order to add our new security features your old data can no longer be read/accessed and you'll see an empty state after you upgrade.
+* Once you link a Firefox Account to Lockbox, you cannot unlink it from that account.
 * Once you link a Firefox Account to Lockbox, signing in with a different account can render Lockbox unusable until you quit and restart Firefox.
 * Once you link a Firefox Account to Lockbox, resetting your Firefox Account password through "forgot your password" will render all your logins inaccessible; the only recourse is to reset Lockbox and start over.
 * Firefox's default prompt to save logins is only disabled on new installs of this extension; updating Lockbox will not change your current Firefox preferences.
