@@ -1,0 +1,36 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+.using {
+  margin: 2em 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.using h1,
+.using h2,
+.using p {
+  text-align: center;
+}
+.using > h1 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0 0 .5em;
+}
+
+.using > .actions {
+  margin: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+}
+.using > .actions > h2 {
+  margin: 1em 0 .5em;
+  font-size: 1.75em;
+  font-weight: normal;
+}
+.using > .actions > button {
+  margin: 0;
+}
