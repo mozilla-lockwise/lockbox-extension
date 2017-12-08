@@ -81,7 +81,7 @@ item-details-panel-title = Entry Details
 
 [[dialogs]]
 
-modal-cancel-editing = This entry has unsaved changes. Are you sure you want to discard them?
+modal-cancel-editing = Unsaved changes exist. Discard them?
   .confirmLabel = Discard Changes
   .cancelLabel = Go Back
 
