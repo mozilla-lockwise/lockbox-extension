@@ -18,14 +18,14 @@ class Home(Base):
                        munged_class_name('homepage')))
     _delete_entry_locator = (By.CSS_SELECTOR,
                              'article div menu '
-                             'button.{}'.format(munged_class_name('minimal')))
+                             'button.{}'.format(munged_class_name('normal')))
     _delete_entry_modal_locator = (By.CSS_SELECTOR,
                                    '.ReactModal__Content--after-open '
                                    'menu button.{}'.format(
                                        munged_class_name('button')))
     _new_entry_locator = (By.CSS_SELECTOR,
                           'section menu '
-                          'button.{}:nth-child(3)'.format(
+                          'button.{}:nth-child(1)'.format(
                             munged_class_name('button')))
     _save_entry_locator = (By.CSS_SELECTOR, 'article div form menu '
                            'button.{}'.format(munged_class_name('button')))
@@ -105,8 +105,8 @@ class Entry(Region):
 
         _delete_entry_locator = (By.CSS_SELECTOR,
                                  'article div menu '
-                                 'button.{}'.format(
-                                    munged_class_name('ghost-theme')))
+                                 'button.{}:nth-child(2)'.format(
+                                    munged_class_name('button')))
         _delete_entry_modal_locator = (By.CSS_SELECTOR,
                                        '.ReactModal__Content--after-open '
                                        'menu button.{}'.format(
