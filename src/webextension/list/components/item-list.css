@@ -12,16 +12,17 @@
   line-height: 1.5;
   letter-spacing: 0.2px;
 }
+
 .item:nth-child(2n+1),
 .item:nth-child(2n) {
-  border-bottom: solid 0.5px #c8c8c8;
-  border-right: solid 0.5px #c8c8c8;
+  border-bottom: solid 0.5px #d7d7db;
+  border-right: solid 0.5px #d7d7db;
 }
 
 .item:nth-child(2n+1) {
-  background-color: rgba(237, 237, 240, 0.75);
+  background-color: #ededf0;
 }
 
 .item:nth-child(2n) {
-  background-color: rgba(249, 249, 250, 0.75);
+  background-color: #f9f9fa;
 }
