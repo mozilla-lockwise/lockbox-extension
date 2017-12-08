@@ -3,7 +3,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .using {
-  margin: 2em 0;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -14,11 +13,6 @@
 .using p {
   text-align: center;
 }
-.using > h1 {
-  font-size: 1.5em;
-  font-weight: bold;
-  margin: 0 0 .5em;
-}
 
 .using > .actions {
   margin: 0;
@@ -26,11 +20,15 @@
   flex-flow: column nowrap;
   align-items: stretch;
 }
+
 .using > .actions > h2 {
   margin: 1em 0 .5em;
-  font-size: 1.75em;
-  font-weight: normal;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
 }
+
 .using > .actions > button {
   margin: 0;
 }

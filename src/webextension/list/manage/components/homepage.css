@@ -27,18 +27,6 @@
   margin: auto;
 }
 
-.homepage h2 {
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 1.32;
-}
-
-.homepage p {
-  font-size: 15px;
-  white-space: pre-line;
-  margin-top: 0;
-}
-
 .homepage > img {
   width: 279px;
 }
