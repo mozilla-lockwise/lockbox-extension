@@ -8,9 +8,8 @@ import React from "react";
 
 import mountWithL10n from "test/mocks/l10n";
 import App from "src/webextension/firstrun/components/app";
-import Welcome from "src/webextension/firstrun/components/welcome";
-import MasterPasswordSetup from
-       "src/webextension/firstrun/components/master-password-setup";
+import Intro from "src/webextension/firstrun/components/intro";
+import Using from "src/webextension/firstrun/components/using";
 
 chai.use(chaiEnzyme());
 
@@ -20,7 +19,7 @@ describe("firstrun > components > <App/>", () => {
       <App/>
     );
 
-    expect(wrapper).to.contain(Welcome);
-    expect(wrapper).to.contain(MasterPasswordSetup);
+    expect(wrapper).to.contain(Intro);
+    expect(wrapper).to.contain(Using);
   });
 });

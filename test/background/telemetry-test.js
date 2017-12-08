@@ -6,7 +6,7 @@ import chai, { expect } from "chai";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
-import getAuthorization from "src/webextension/background/authorization";
+import getAccount from "src/webextension/background/accounts";
 import * as telemetry from "src/webextension/background/telemetry";
 
 chai.use(sinonChai);
@@ -24,7 +24,7 @@ describe("background > telemetry", () => {
 
   describe("no fxa uid", () => {
     before(() => {
-      getAuthorization().info = undefined;
+      getAccount().info = undefined;
     });
 
     it("recordEvent()", async () => {
@@ -54,13 +54,13 @@ describe("background > telemetry", () => {
   describe("with fxa uid", () => {
     before(() => {
       // Pretend we're signed in.
-      getAuthorization().info = {
+      getAccount().info = {
         uid: "1234",
       };
     });
 
     after(() => {
-      getAuthorization().info = undefined;
+      getAccount().info = undefined;
     });
 
     it("recordEvent() (with fxa uid)", async () => {

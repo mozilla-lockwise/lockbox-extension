@@ -7,6 +7,7 @@ import chaiAsPromised from "chai-as-promised";
 import fetchMock from "fetch-mock";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
+import waitUntil from "async-wait-until";
 
 import "test/mocks/browser";
 import openDataStore from "src/webextension/background/datastore";
@@ -16,16 +17,39 @@ chai.use(chaiAsPromised);
 chai.use(sinonChai);
 
 describe("background > message ports", () => {
-  const password = "n0str0m0";
-
   let itemId, selfMessagePort, otherMessagePort, selfListener, otherListener;
+  let addonPort;
 
   before(async () => {
     await openDataStore();
+    // capture connect from message-ports
+    browser.runtime.onConnect.addListener((port) => {
+      addonPort = port;
+      browser.runtime.onConnect.mockClearListener();
+    });
     initializeMessagePorts();
 
     selfMessagePort = browser.runtime.connect();
     otherMessagePort = browser.runtime.connect(undefined, {mockPrimary: false});
+
+    // setup fake OAuth response
+    fetchMock.post("end:/v1/token", {
+      status: 200,
+      body: {
+        grant_type: "bearer",
+        access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
+        expires_in: 1209600,
+        auth_at: 1510734551,
+        refresh_token: "rmrBzLYi2zia4ExNBy7uXE4s_Da_HMS4d3tvr203OVTq1EMQqh-85m4Hejo3TKBKuont6QFIlLJ23rZR4xqZBA",
+      },
+    });
+    fetchMock.get("end:/v1/profile", {
+      status: 200,
+      body: {
+        uid: "1234",
+        email: "eripley@wyutani.com",
+      },
+    });
   });
 
   after(() => {
@@ -48,6 +72,50 @@ describe("background > message ports", () => {
 
   // Note: these tests are in a specific order since we modify the datastore as
   // we test. Each test assumes the previous has passed.
+  describe("from addon", () => {
+    let openView;
+
+    beforeEach(() => {
+      openView = sinon.spy();
+      initializeMessagePorts.__Rewire__("openView", openView);
+    });
+    afterEach(() => {
+      initializeMessagePorts.__ResetDependency__("openView");
+    });
+
+    it('handle (from addon) "extension_installed"', () => {
+      addonPort.postMessage({
+        type: "extension_installed",
+      });
+
+      expect(openView).to.have.callCount(1);
+    });
+
+    it('handle (from addon) "extension_upgraded"', async () => {
+      addonPort.postMessage({
+        type: "extension_upgraded",
+        oldVersion: "0.1.1",
+        version: "0.1.2",
+      });
+
+      await waitUntil(() => openView.callCount === 1);
+      expect(openView).to.have.callCount(1);
+    });
+  });
+
+  it('handle "get_account_details"', async () => {
+    const result = await browser.runtime.sendMessage({
+      type: "get_account_details",
+    });
+
+    expect(result).to.deep.equal({
+      account: {
+        mode: "guest",
+        uid: undefined,
+        email: undefined,
+      },
+    });
+  });
 
   it('handle "open_view"', async () => {
     const result = await browser.runtime.sendMessage({
@@ -67,33 +135,32 @@ describe("background > message ports", () => {
     expect(result).to.deep.equal({});
   });
 
-  it('handle "signin"', async () => {
-    const result = await browser.runtime.sendMessage({
-      type: "signin", interactive: true,
-    });
-
-    expect(result).to.have.property("uid").that.is.a("string");
-  });
-
   it('handle "initialize"', async () => {
     const result = await browser.runtime.sendMessage({
-      type: "initialize", password,
+      type: "initialize",
+    });
+
+    expect(result).to.deep.equal({});
+  });
+  it('handle "upgrade_account"', async () => {
+    const result = await browser.runtime.sendMessage({
+      type: "upgrade_account",
     });
 
     expect(result).to.deep.equal({});
   });
 
-  it('handle "lock"', async () => {
+  it('handle "signout"', async () => {
     const result = await browser.runtime.sendMessage({
-      type: "lock",
+      type: "signout",
     });
 
     expect(result).to.deep.equal({});
   });
 
-  it('handle "unlock"', async () => {
+  it('handle "signin"', async () => {
     const result = await browser.runtime.sendMessage({
-      type: "unlock", password,
+      type: "signin",
     });
 
     expect(result).to.deep.equal({});

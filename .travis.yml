@@ -29,7 +29,7 @@ jobs:
         - jwm &
         - sleep 10
         - npm install
-        - npm run package
+        - ENABLE_DOORHANGER=1 npm run package
       script: tox
       after_success: skip
       before_deploy: skip

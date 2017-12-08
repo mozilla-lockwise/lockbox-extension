@@ -6,6 +6,7 @@ import { Localized } from "fluent-react";
 import React from "react";
 import DocumentTitle from "react-document-title";
 
+import AccountSummary from "../containers/account-summary";
 import AddItem from "../containers/add-item";
 import AllItems from "../containers/all-items";
 import CurrentSelection from "../containers/current-selection";
@@ -13,7 +14,7 @@ import GoHome from "../containers/go-home";
 import ItemFilter from "../../containers/item-filter";
 import ItemCount from "../containers/item-count";
 import ModalRoot from "../containers/modals";
-import SendFeedback from "../components/send-feedback";
+import SendFeedback from "../containers/send-feedback";
 import Toolbar, { ToolbarSpace } from "../../../widgets/toolbar";
 
 import styles from "./app.css";
@@ -30,9 +31,10 @@ export default function App() {
               <AddItem/>
             </Toolbar>
             <Toolbar className={styles.mainToolbar}>
-              <ToolbarSpace/>
               <GoHome/>
+              <ToolbarSpace/>
               <SendFeedback/>
+              <AccountSummary/>
             </Toolbar>
             <aside>
               <ItemFilter/>

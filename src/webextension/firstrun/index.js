@@ -12,7 +12,7 @@ import * as telemetry from "../telemetry";
 telemetry.recordEvent("render", "firstrun");
 
 ReactDOM.render(
-  <AppLocalizationProvider bundles={["firstrun", "widgets"]}
+  <AppLocalizationProvider bundles={["firstrun", "widgets", "common"]}
                            userLocales={navigator.languages}>
     <App/>
   </AppLocalizationProvider>,

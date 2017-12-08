@@ -14,6 +14,7 @@ export default class FilterInput extends React.Component {
       className: PropTypes.string,
       onChange: PropTypes.func,
       value: PropTypes.string,
+      disabled: PropTypes.bool,
     };
   }
 
@@ -21,6 +22,7 @@ export default class FilterInput extends React.Component {
     return {
       className: "",
       value: "",
+      disabled: false,
     };
   }
 
@@ -43,15 +45,20 @@ export default class FilterInput extends React.Component {
 
   render() {
     // eslint-disable-next-line no-unused-vars
-    const {className, onChange, value, ...props} = this.props;
-    const finalClassName = `${styles.inputWrapper} ${className}`.trimRight();
+    const {className, onChange, value, disabled, ...props} = this.props;
+    const disabledClass = disabled ? ` ${styles.disabled}` : "";
+    const finalClassName = (
+      `${styles.inputWrapper}${disabledClass} ${className}`
+    ).trimRight();
 
     return (
       <div className={finalClassName}>
-        <input type="search" {...props} value={this.state.value}
+        <input type="search" {...props} disabled={disabled}
+               value={this.state.value}
                onChange={(e) => this.updateValue(e.target.value)}/>
         <Localized id="filter-input-clear">
-          <button type="button" onClick={() => this.updateValue("")}>
+          <button type="button" disabled={disabled}
+                  onClick={() => this.updateValue("")}>
             cLEAr
           </button>
         </Localized>

@@ -21,22 +21,28 @@
   border-radius: 2px;
 }
 
+.input[disabled],
+.input-wrapper.disabled {
+  background-color: #ededf0;
+  cursor: not-allowed;
+}
+
 .input {
   padding: 0 8px;
   font-size: 13px;
 }
 
-.input:hover,
-.input-wrapper:hover {
+.input:not([disabled]):hover,
+.input-wrapper:not(.disabled):hover {
   border-color: rgba(12, 12, 13, 0.5);
 }
 
 .input:focus,
 .input-wrapper:focus-within {
   border-color: #0a84ff;
-  /* Note: This is a best-guess from the screenshots for the Photon spec, since
-     the box shadow isn't actually specified. */
-  box-shadow: 0 0 3px rgba(10, 168, 255, 0.5);
+  /* Note: This is adapted from the Photon button spec, since the input fields
+     spec doesn't define this. */
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.3);
 }
 
 .input-wrapper {
@@ -51,6 +57,10 @@
   min-width: 0;
   border: 0;
   background-color: transparent;
+}
+
+.input-wrapper.disabled > input {
+  cursor: not-allowed;
 }
 
 .input-wrapper button {

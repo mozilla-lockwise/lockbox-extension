@@ -6,14 +6,12 @@ import { Localized } from "fluent-react";
 import React from "react";
 import DocumentTitle from "react-document-title";
 
-import Welcome from "./welcome";
-import MasterPasswordSetup from "./master-password-setup";
+import Intro from "./intro";
+import StartUsing from "./using";
 
 import styles from "./app.css";
 
 export default function App() {
-  // Eventually, we'll have a feedback button up top here, and maybe some other
-  // stuff.
   const imgSrc = browser.extension.getURL("/images/nessie_v2.svg");
 
   return (
@@ -21,8 +19,8 @@ export default function App() {
       <DocumentTitle title="wELCOMe to lOCKBOx">
         <article className={styles.firstrun}>
           <img src={imgSrc} alt=""/>
-          <Welcome />
-          <MasterPasswordSetup />
+          <Intro />
+          <StartUsing />
         </article>
       </DocumentTitle>
     </Localized>

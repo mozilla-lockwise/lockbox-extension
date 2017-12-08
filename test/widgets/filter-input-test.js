@@ -24,6 +24,17 @@ describe("widgets > <FilterInput/>", () => {
     );
   });
 
+  it("render disabled input", () => {
+    const wrapper = mountWithL10n(
+      <FilterInput value="some text" disabled={true}/>
+    );
+    expect(wrapper.find("input")).to.have.prop("disabled", true);
+    expect(wrapper.find("button")).to.have.prop("disabled", true);
+    expect(wrapper.childAt(0).prop("className")).to.match(
+      /^\S+input-wrapper\S+ \S+disabled\S+$/
+    );
+  });
+
   it("merge classNames", () => {
     const wrapper = mountWithL10n(
       <FilterInput className="foo" value="some text"/>

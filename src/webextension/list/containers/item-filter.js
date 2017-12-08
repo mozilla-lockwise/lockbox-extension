@@ -20,6 +20,7 @@ function ItemFilter(props) {
 export default connect(
   (state) => ({
     value: state.filter,
+    disabled: state.cache.items.length === 0,
   }),
   (dispatch) => ({
     onChange: (value) => { dispatch(filterItems(value)); },

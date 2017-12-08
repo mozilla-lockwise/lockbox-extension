@@ -11,17 +11,17 @@ import { ItemFields } from "../../components/item-fields";
 
 import styles from "./item-details-panel.css";
 
-export default function ItemDetailsPanel({fields, onBack}) {
+export default function ItemDetailsPanel({fields, onCopy, onBack}) {
   return (
     <Panel>
       <Localized id="item-details-panel-title">
-        <PanelHeader onBack={() => { onBack(); }}>
+        <PanelHeader onBack={onBack}>
           eNTRy dETAILs
         </PanelHeader>
       </Localized>
 
       <PanelBody className={styles.panelBody}>
-        <ItemFields fields={fields}/>
+        <ItemFields fields={fields} onCopy={onCopy}/>
       </PanelBody>
     </Panel>
   );
@@ -29,5 +29,6 @@ export default function ItemDetailsPanel({fields, onBack}) {
 
 ItemDetailsPanel.propTypes = {
   ...ItemFields.propTypes,
+  onCopy: PropTypes.func.isRequired,
   onBack: PropTypes.func.isRequired,
 };
