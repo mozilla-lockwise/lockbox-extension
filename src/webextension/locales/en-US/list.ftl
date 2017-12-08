@@ -46,7 +46,7 @@ all-items-empty =
 all-items-filtered = No results
 
 homepage-title =
-  the simple way to store, retrieve, and manage website login info
+  the simple way to store, retrieve and manage website login info
 
 homepage-linkaccount-title = Add Serious Security & Convenience
 homepage-linkaccount-description =
