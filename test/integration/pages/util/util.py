@@ -41,6 +41,10 @@ class_names = [{
     'webextension/list/manage/components/homepage.css': [
         'homepage'
     ],
+    # Link Account
+    'webextension/list/manage/components/link-account.css': [
+        'link',
+    ],
 }]
 
 
