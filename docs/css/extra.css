@@ -8,7 +8,7 @@ h1 {
 
 a.button-link {
   display: block;
-  margin: 0px auto;
+  margin: .5em auto;
   padding: 0.5em;
   width: 12em;
   color: white;
@@ -16,4 +16,15 @@ a.button-link {
   border: 1px solid #717171;
   border-radius: 4px;
   text-align: center;
+}
+
+div.right {
+  float: right;
+  clear: right;
+  width: 40%;
+  padding-left: 2em;
+}
+
+.rst-content .admonition-title::before {
+    display: none; !important
 }
