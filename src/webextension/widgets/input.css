@@ -82,8 +82,8 @@
 .field-text,
 .label-text {
   color: #0c0c0d;
-  text-align: left;
   letter-spacing: 0.2px;
+  line-height: 1.5;
 }
 
 .field-text {
@@ -98,5 +98,4 @@
 .label-text {
   margin: 10px 0 3px 0;
   font-size: 13px;
-  letter-spacing: 0.2px;
 }
