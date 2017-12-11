@@ -45,6 +45,7 @@ body {
   font-weight: normal;
   font-style: italic;
   text-align: center;
+  text-transform: lowercase;;
   margin: 0;
 }
 

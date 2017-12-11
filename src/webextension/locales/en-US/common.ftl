@@ -1,5 +1,5 @@
 product-title = Lockbox
-product-tagline = the simple way to store, retrieve and manage website login info
+product-tagline = The simple way to store, retrieve and manage website login info
 
 // when Kinto is supported, the above should be changed to:
 //    Creating a Firefox account - or adding Lockbox to an existing account - protects your logins

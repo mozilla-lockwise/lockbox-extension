@@ -4,7 +4,7 @@
   "id": "lockbox@mozilla.com",
   "version": "0.1.4-alpha",
   "main": "dist/bootstrap.js",
-  "description": "the simple way to store, retrieve and manage website login info",
+  "description": "The simple way to store, retrieve and manage website login info",
   "author": "Lockbox Team <lockbox-dev@mozilla.com>",
   "engines": {
     "firefox": ">=57"
