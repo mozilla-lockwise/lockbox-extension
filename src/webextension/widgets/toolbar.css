@@ -17,3 +17,7 @@
 .toolbar-space {
   flex: 1;
 }
+
+a {
+  font-size: 15px;
+}
