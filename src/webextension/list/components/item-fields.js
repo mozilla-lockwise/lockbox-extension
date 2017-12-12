@@ -47,7 +47,7 @@ export function ItemFields({fields, onCopy}) {
         <Localized id="item-fields-origin">
           <LabelText className={styles.firstLabel}>oRIGIn</LabelText>
         </Localized>
-        <FieldText monospace={true} data-name="origin">
+        <FieldText data-name="origin">
           {fields.origin}
         </FieldText>
       </div>
@@ -62,7 +62,7 @@ export function ItemFields({fields, onCopy}) {
           <LabelText>uSERNAMe</LabelText>
         </Localized>
         <div className={styles.inlineButton}>
-          <FieldText monospace={true} data-name="username">
+          <FieldText monospace data-name="username">
             {fields.username}
           </FieldText>
           <Localized id="item-fields-copy-username">
@@ -78,7 +78,7 @@ export function ItemFields({fields, onCopy}) {
           <LabelText>pASSWORd</LabelText>
         </Localized>
         <div className={styles.inlineButton}>
-          <FieldText monospace={true} data-name="password">
+          <FieldText monospace data-name="password">
             {PASSWORD_DOT.repeat(fields.password.length)}
           </FieldText>
           <Localized id="item-fields-copy-password">
@@ -131,7 +131,7 @@ export class EditItemFields extends React.Component {
             <LabelText className={styles.firstLabel}>oRIGIn</LabelText>
           </Localized>
           <Localized id="item-fields-origin-input">
-            <Input type="text" monospace={true}
+            <Input type="text"
                    placeholder="wWw.eXAMPLe.cOm"
                    ref={(element) => this._firstField = element}
                    {...controlledProps("origin")}/>
@@ -151,7 +151,7 @@ export class EditItemFields extends React.Component {
             <LabelText>uSERNAMe</LabelText>
           </Localized>
           <Localized id="item-fields-username-input">
-            <Input type="text" monospace={true}
+            <Input type="text" monospace
                    placeholder="nAMe@eXAMPLe.cOm"
                    {...controlledProps("username")}/>
           </Localized>
