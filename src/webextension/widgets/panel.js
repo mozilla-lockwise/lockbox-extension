@@ -2,6 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import { Localized } from "fluent-react";
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -12,12 +13,15 @@ import styles from "./panel.css";
 export function PanelHeader({className, onBack, children}) {
   const finalClassName = `${styles.panelHeader} ${className}`.trimRight();
   const imgSrc = browser.extension.getURL("/icons/arrowhead-left-16.svg");
-  // TODO: actually localize this string
-  const imgAlt = "gO bACk";
   return (
     <header className={finalClassName}>
-      {onBack ? <Button theme="ghost" size="micro" onClick={onBack}>
-        <img src={imgSrc} alt={imgAlt}/></Button> : null}
+      {onBack ? (
+        <Button theme="ghost" size="micro" onClick={onBack}>
+          <Localized id="panel-back-button">
+            <img src={imgSrc} alt="go bACk"/>
+          </Localized>
+        </Button>
+      ) : null}
       <span>{children}</span>
     </header>
   );

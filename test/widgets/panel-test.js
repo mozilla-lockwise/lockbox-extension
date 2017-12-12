@@ -9,6 +9,7 @@ import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
 import { mount } from "test/enzyme";
+import mountWithL10n from "test/mocks/l10n";
 import Panel, { PanelHeader, PanelBody, PanelFooter } from
        "src/webextension/widgets/panel";
 
@@ -35,7 +36,9 @@ describe("widgets > panel", () => {
 
     it("onBack fired", () => {
       const onBack = sinon.spy();
-      const wrapper = mount(<PanelHeader onBack={onBack}>header</PanelHeader>);
+      const wrapper = mountWithL10n(
+        <PanelHeader onBack={onBack}>header</PanelHeader>
+      );
       wrapper.find("button").simulate("click");
       expect(onBack).to.have.callCount(1);
     });
