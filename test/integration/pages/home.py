@@ -14,7 +14,7 @@ class Home(Base):
     _entries_locator = (By.CSS_SELECTOR,
                         'ul li div.{}'.format(
                             munged_class_name('item-summary')))
-    _homepage_section_locator = (By.CLASS_NAME, '{}'.format(
+    _homepage_section_locator = (By.CSS_SELECTOR, '.{} h1'.format(
                                  munged_class_name('homepage')))
     _delete_entry_locator = (By.CSS_SELECTOR,
                              'article div menu '

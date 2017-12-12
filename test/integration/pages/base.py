@@ -25,10 +25,7 @@ class Base(Page):
         sign_in.login_password = password
         sign_in.click_sign_in()
         self.wait.until(
-            lambda _: len(self.selenium.window_handles) == current_windows)
-        time.sleep(1)
+            lambda _: len(self.selenium.window_handles) == 2)
         self.selenium.switch_to.window(self.selenium.window_handles[-1])
-        time.sleep(1)
         from pages.home import Home
-        time.sleep(3)
         return Home(self.selenium, self.base_url).wait_for_page_to_load()
