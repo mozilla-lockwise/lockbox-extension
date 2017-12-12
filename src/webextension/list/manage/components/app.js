@@ -32,7 +32,7 @@ export default function App() {
               <AccountSummary/>
             </Toolbar>
             <aside>
-              <ItemFilter/>
+              <ItemFilter className={styles.filter}/>
               <AllItems/>
             </aside>
             <article>

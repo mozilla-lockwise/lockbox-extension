@@ -28,7 +28,6 @@ body > main,
 
 .navigation {
   background-color: #ededf0;
-  border-bottom: 1px solid #d1d1d2;
   grid-column-start: span 2;
 }
 
@@ -44,4 +43,16 @@ body > main,
 .app-main > article {
   grid-column: 2;
   background-color: #f9f9fa;
+  border-top: 1px solid #d1d1d2;
+}
+
+.filter {
+  border: 1px solid #d1d1d2;
+  border-inline-start: 0px;
+  border-radius: 0;
+}
+
+.filter:focus-within,
+.filter:focus-within:hover {
+  box-shadow: none;
 }
