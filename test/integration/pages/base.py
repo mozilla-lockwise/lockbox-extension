@@ -13,7 +13,6 @@ class Base(Page):
 
     def fxa_sign_in(self, user, password):
         """Sign in to fxa."""
-        current_windows = len(self.selenium.window_handles)
         # TODO: Remove this sleep when this gets fixed:
         # https://github.com/mozilla/fxapom/issues/173
         import time

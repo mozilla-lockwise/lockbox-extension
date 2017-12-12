@@ -1,7 +1,5 @@
 """Tests for lockbox extension."""
 
-import pytest
-
 
 def test_guest_login(login_page):
     """Log into Lockbox."""
