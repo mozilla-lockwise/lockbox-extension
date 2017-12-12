@@ -10,10 +10,12 @@ import { connect } from "react-redux";
 import { ExternalLink } from "../../../widgets/link";
 import { sendFeedback } from "../../actions";
 
+import styles from "./send-feedback.css";
+
 function SendFeedback({onSendFeedback}) {
   return (
     <Localized id="toolbar-send-feedback">
-      <ExternalLink onClick={onSendFeedback}>
+      <ExternalLink className={styles.sendFeedback} onClick={onSendFeedback}>
         fEEDBACk
       </ExternalLink>
     </Localized>
