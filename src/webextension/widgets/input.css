@@ -38,7 +38,9 @@
 }
 
 .input:focus,
-.input-wrapper:focus-within {
+.input:focus:hover,
+.input-wrapper:focus-within,
+.input-wrapper:focus-within:hover {
   border-color: #0a84ff;
   /* Note: This is adapted from the Photon button spec, since the input fields
      spec doesn't define this. */
