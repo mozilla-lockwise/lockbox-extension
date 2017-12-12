@@ -27,7 +27,7 @@ jobs:
         - pip install tox
       before_script:
         - npm install
-        - ENABLE_DOORHANGER=1 npm run package
+        - npm run package
       script: tox
       after_success: skip
       before_deploy: skip
