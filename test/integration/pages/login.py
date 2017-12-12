@@ -15,7 +15,7 @@ class Login(Base):
                          munged_class_name('button')))
     _create_account_locator = (By.ID, 'homepage-linkaccount-action-create')
     _fxa_sign_in_locator = (By.CLASS_NAME, '{}'.format(
-                            munged_class_name('link-theme')))
+                            munged_class_name('normal-theme')))
     _get_started_button_locator = (By.CLASS_NAME, '{}'.format(
                                    munged_class_name('primary-theme')))
     _welcome_locator = (By.CLASS_NAME, '{}'.format(
