@@ -5,7 +5,6 @@
 .toolbar {
   margin: 0;
   padding: 1ch;
-  grid-column-start: span 2;
   display: flex;
   align-items: baseline;
 }
