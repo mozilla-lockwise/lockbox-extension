@@ -11,7 +11,6 @@ const THEME_CLASS_NAME = {
   primary: `${styles.primaryTheme}`,
   normal: `${styles.normalTheme}`,
   ghost: `${styles.ghostTheme}`,
-  link: `${styles.linkTheme}`,
 };
 
 const SIZE_CLASS_NAME = {

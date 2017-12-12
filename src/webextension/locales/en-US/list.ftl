@@ -45,8 +45,7 @@ all-items-empty =
 
 all-items-filtered = No results
 
-homepage-title =
-  the simple way to store, retrieve and manage website login info
+homepage-title = { product-tagline }
 
 homepage-linkaccount-title = Add Serious Security & Convenience
 homepage-linkaccount-description =
@@ -59,8 +58,8 @@ homepage-linkaccount-action-signin = { product-action-signin }
 
 homepage-accountlinked-title = Your logins are locked down tight!
 homepage-accountlinked-description =
-    { product-title } uses the strongest encryption available to protect
-    your logins – even for banking and other critical sites.
+    { product-title } uses the strongest encryption available to
+    protect your logins – even for banking and other critical sites.
 
 item-details-heading-view = Entry Details
 item-details-heading-new = Create New Entry

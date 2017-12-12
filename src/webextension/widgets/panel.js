@@ -13,11 +13,15 @@ import styles from "./panel.css";
 export function PanelHeader({className, onBack, children}) {
   const finalClassName = `${styles.panelHeader} ${className}`.trimRight();
   const imgSrc = browser.extension.getURL("/icons/arrowhead-left-16.svg");
-  const imgAlt = <Localized id="navigate-panel-backwards">go bACk</Localized>;
   return (
     <header className={finalClassName}>
-      {onBack ? <Button theme="ghost" size="micro" onClick={onBack}>
-        <img src={imgSrc} alt={imgAlt}/></Button> : null}
+      {onBack ? (
+        <Button theme="ghost" size="micro" onClick={onBack}>
+          <Localized id="panel-back-button">
+            <img src={imgSrc} alt="go bACk"/>
+          </Localized>
+        </Button>
+      ) : null}
       <span>{children}</span>
     </header>
   );

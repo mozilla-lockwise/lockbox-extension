@@ -82,13 +82,13 @@
 .field-text,
 .label-text {
   color: #0c0c0d;
-  text-align: left;
-  line-height: 1.5;
   letter-spacing: 0.2px;
+  line-height: 1.5;
 }
 
 .field-text {
   /* This lines up our labels with the text in <input> elements. */
+  margin-top: 7px;
   min-height: 25px;
   font-size: 13px;
   font-weight: bold;
@@ -98,6 +98,4 @@
 .label-text {
   margin: 10px 0 3px 0;
   font-size: 13px;
-  line-height: 1.5;
-  letter-spacing: 0.2px;
 }

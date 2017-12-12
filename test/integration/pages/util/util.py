@@ -10,9 +10,9 @@ class_names = [{
     'webextension/widgets/button.css': [
         'button',
         'minimal',
-        'ghost-theme',
-        'link-theme',
         'primary-theme',
+        'normal-theme',
+        'ghost-theme',
         'puffy-size',
     ],
     # Item Summary Styles

@@ -6,8 +6,14 @@
   white-space: nowrap;
   text-align: center;
   letter-spacing: 0.2px;
-  line-height: 1.5;
+  line-height: 1;
   border: 0;
+}
+
+.button > img {
+  /* This should make sure that buttons with text *and* an icon are well-aligned
+     vertically. */
+  vertical-align: -33%;
 }
 
 .button[disabled] {
@@ -36,39 +42,6 @@
 .ghost-theme {
   color: #0c0c0d;
   background-color: transparent;
-}
-
-.link-theme {
-  color: #0060df;
-  background-color: transparent;
-}
-
-.link-theme:global(.external)::after {
-  background-image: url(/icons/external-link.svg);
-  background-repeat: no-repeat;
-  background-size: 16px 16px;
-  content: "";
-  display: inline-block;
-  height: 16px;
-  margin: -.3rem .15rem 0 .25rem;
-  vertical-align: middle;
-  width: 16px;
-}
-
-.link-theme:active {
-  color: #003eaa;
-  text-decoration: underline;
-}
-
-.link-theme:hover {
-  color: #0060df;
-  text-decoration: underline;
-  background-color: transparent;
-}
-
-.link-theme:focus {
-  color: #0060df;
-  border-color: #0a84ff
 }
 
 .primary-theme:not([disabled]):hover {

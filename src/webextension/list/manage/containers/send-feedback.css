@@ -2,17 +2,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-.toolbar {
-  margin: 0;
-  padding: 1ch;
-  display: flex;
-  align-items: baseline;
-}
-
-.toolbar > * + * {
-  margin-inline-start: 1ch;
-}
-
-.toolbar-space {
-  flex: 1;
+.send-feedback {
+  font-size: 15px;
 }

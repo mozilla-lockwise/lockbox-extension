@@ -29,6 +29,7 @@ body > main,
 .navigation {
   background-color: #ededf0;
   border-bottom: 1px solid #d1d1d2;
+  grid-column-start: span 2;
 }
 
 .app-main > aside {

@@ -28,6 +28,7 @@
   font-weight: 300;
   font-style: italic;
   margin: 0px;
+  text-transform: lowercase;
 }
 
 .intro > p {

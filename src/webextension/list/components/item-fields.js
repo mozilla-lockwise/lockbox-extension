@@ -21,7 +21,7 @@ const PASSWORD_DOT = "\u25cf";
 function CopyToClipboardButton({text, field, onCopy, ...props}) {
   return (
     <CopyToClipboard text={text} onCopy={() => onCopy(field)}>
-      <Button theme="link" {...props}/>
+      <Button theme="ghost" className={styles.copyButton} {...props}/>
     </CopyToClipboard>
   );
 }

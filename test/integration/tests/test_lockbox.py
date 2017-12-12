@@ -1,7 +1,5 @@
 """Tests for lockbox extension."""
 
-import pytest
-
 
 def test_guest_login(login_page):
     """Log into Lockbox."""
@@ -31,7 +29,6 @@ def test_sign_in_with_fxa(fxa_account, login_page):
     assert home_page.sign_in_button_is_displayed() is False
 
 
-@pytest.mark.xfail
 def test_sign_in_with_fxa_from_home(fxa_account, home_page):
     """Sign in with fxa from 'Home' page."""
     fxa = fxa_account
