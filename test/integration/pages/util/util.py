@@ -64,3 +64,6 @@ def munged_class_name(name):
                     name + '___' +
                     s[:5]
                 )
+    # If function does not return that means the requested class does not exist
+    # within the dictionary.
+    raise ValueError('Class named {} does not exist.'.format(name))
