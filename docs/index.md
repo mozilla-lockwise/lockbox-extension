@@ -36,7 +36,7 @@ here](feedback-link).
    ![sinup for fxa](./images/tour-04.signup-fxa.png)
 
 _This is just one component of the Lockbox product. Please see the [Lockbox
-website](website-link) for more documentation and context._
+website][website-link] for more documentation and context._
 
 [install-link]: https://testpilot.firefox.com/files/lockbox@mozilla.com/latest
 [faq-link]: /faqs/
