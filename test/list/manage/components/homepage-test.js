@@ -19,29 +19,15 @@ const middlewares = [];
 const mockStore = configureStore(middlewares);
 
 describe("list > manage > components > <Homepage/>", () => {
-  it("render with no items", () => {
+  it("render homepage with welcome", () => {
     const store = mockStore(initialState);
     const wrapper = mountWithL10n(
       <Provider store={store}>
-        <Homepage count={0}/>
+        <Homepage/>
       </Provider>
     );
 
-    expect(wrapper.find("h1").at(0)).to.contain.text("welcOMe to lOcKboX");
-    expect(wrapper).to.contain(AccountDetails);
-  });
-
-  it("render with 5 items", () => {
-    const store = mockStore(initialState);
-    const wrapper = mountWithL10n(
-      <Provider store={store}>
-        <Homepage count={5}/>
-      </Provider>
-    );
-
-    expect(wrapper.find("h1").at(0)).to.contain.text(
-      "YoU have X enTrieS in YoUr lOcKboX"
-    );
+    expect(wrapper.find("h1")).to.contain.text("tHe sIMPLe wAy tO sTORE...");
     expect(wrapper).to.contain(AccountDetails);
   });
 });

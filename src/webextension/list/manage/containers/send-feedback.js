@@ -7,15 +7,17 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
-import Button from "../../../widgets/button";
+import { ExternalLink } from "../../../widgets/link";
 import { sendFeedback } from "../../actions";
+
+import styles from "./send-feedback.css";
 
 function SendFeedback({onSendFeedback}) {
   return (
     <Localized id="toolbar-send-feedback">
-      <Button theme="ghost" onClick={onSendFeedback}>
+      <ExternalLink className={styles.sendFeedback} onClick={onSendFeedback}>
         fEEDBACk
-      </Button>
+      </ExternalLink>
     </Localized>
   );
 }

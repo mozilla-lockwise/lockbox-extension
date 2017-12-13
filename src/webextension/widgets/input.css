@@ -15,7 +15,6 @@
 .input-wrapper {
   height: 30px;
   width: -moz-available;
-  color: #0c0c0d;
   background-color: #f9f9fa;
   border: 1px solid rgba(12, 12, 13, 0.3);
   border-radius: 2px;
@@ -30,6 +29,7 @@
 .input {
   padding: 0 8px;
   font-size: 13px;
+  color: #0c0c0d;
 }
 
 .input:not([disabled]):hover,
@@ -38,7 +38,9 @@
 }
 
 .input:focus,
-.input-wrapper:focus-within {
+.input:focus:hover,
+.input-wrapper:focus-within,
+.input-wrapper:focus-within:hover {
   border-color: #0a84ff;
   /* Note: This is adapted from the Photon button spec, since the input fields
      spec doesn't define this. */
@@ -56,6 +58,7 @@
   width: 0;
   min-width: 0;
   border: 0;
+  color: #0c0c0d;
   background-color: transparent;
 }
 
@@ -78,17 +81,23 @@
   color: #003eaa;
 }
 
+.field-text,
+.label-text {
+  color: #0c0c0d;
+  letter-spacing: 0.2px;
+  line-height: 1.5;
+}
+
 .field-text {
   /* This lines up our labels with the text in <input> elements. */
   margin-top: 7px;
   min-height: 25px;
   font-size: 13px;
+  font-weight: bold;
   -moz-user-select: text;
 }
 
 .label-text {
-  margin-top: 10px;
-  margin-bottom: 3px;
-  color: #626262;
+  margin: 10px 0 3px 0;
   font-size: 13px;
 }

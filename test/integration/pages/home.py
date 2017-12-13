@@ -14,22 +14,23 @@ class Home(Base):
     _entries_locator = (By.CSS_SELECTOR,
                         'ul li div.{}'.format(
                             munged_class_name('item-summary')))
-    _lockie_locator = (By.CSS_SELECTOR, '.{} h1'.format(
-                       munged_class_name('homepage')))
+    _homepage_section_locator = (By.CSS_SELECTOR, '.{} h1'.format(
+                                 munged_class_name('homepage')))
     _delete_entry_locator = (By.CSS_SELECTOR,
                              'article div menu '
-                             'button.{}'.format(munged_class_name('minimal')))
+                             'button.{}'.format(munged_class_name('normal')))
     _delete_entry_modal_locator = (By.CSS_SELECTOR,
                                    '.ReactModal__Content--after-open '
                                    'menu button.{}'.format(
                                        munged_class_name('button')))
     _new_entry_locator = (By.CSS_SELECTOR,
                           'section menu '
-                          'button.{}:nth-child(3)'.format(
+                          'button.{}:nth-child(1)'.format(
                             munged_class_name('button')))
     _save_entry_locator = (By.CSS_SELECTOR, 'article div form menu '
                            'button.{}'.format(munged_class_name('button')))
-    _sign_in_locator = (By.CLASS_NAME, '{}'.format(
+    _sign_in_locator = (By.CSS_SELECTOR, '.{} .{}'.format(
+                        munged_class_name('link'),
                         munged_class_name('puffy-size')))
 
     @property
@@ -41,7 +42,7 @@ class Home(Base):
     def wait_for_page_to_load(self):
         """Wait for page to load."""
         self.wait.until(
-            lambda s: s.find_element(*self._lockie_locator))
+            lambda s: s.find_element(*self._homepage_section_locator))
         return self
 
     @property
@@ -64,7 +65,8 @@ class Home(Base):
 
     def sign_in(self, user, password):
         """Sign in with fxa."""
-        self.find_element(*self._sign_in_locator).click()
+        els = self.find_elements(*self._sign_in_locator)
+        els[1].click()
         self.fxa_sign_in(user, password)
         self.wait.until(
             EC.invisibility_of_element_located(self._sign_in_locator))
@@ -105,8 +107,8 @@ class Entry(Region):
 
         _delete_entry_locator = (By.CSS_SELECTOR,
                                  'article div menu '
-                                 'button.{}'.format(
-                                    munged_class_name('ghost-theme')))
+                                 'button.{}:nth-child(2)'.format(
+                                    munged_class_name('button')))
         _delete_entry_modal_locator = (By.CSS_SELECTOR,
                                        '.ReactModal__Content--after-open '
                                        'menu button.{}'.format(

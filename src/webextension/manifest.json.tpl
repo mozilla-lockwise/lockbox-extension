@@ -19,7 +19,8 @@
     "default_icon": {
       "32": "icons/lb_locked.svg"
     },
-    "default_title": "Lockbox"
+    "default_title": "Lockbox",
+    "browser_style": false
   },
 
   "commands": {
@@ -37,6 +38,7 @@
   ],
 
   "options_ui": {
-    "page": "settings/index.html"
+    "page": "settings/index.html",
+    "browser_style": false
   }
 }

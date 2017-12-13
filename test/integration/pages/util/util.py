@@ -10,8 +10,9 @@ class_names = [{
     'webextension/widgets/button.css': [
         'button',
         'minimal',
-        'ghost-theme',
         'primary-theme',
+        'normal-theme',
+        'ghost-theme',
         'puffy-size',
     ],
     # Item Summary Styles
@@ -39,6 +40,10 @@ class_names = [{
     # Homepage Styles
     'webextension/list/manage/components/homepage.css': [
         'homepage'
+    ],
+    # Link Account
+    'webextension/list/manage/components/link-account.css': [
+        'link',
     ],
 }]
 

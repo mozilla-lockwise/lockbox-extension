@@ -26,8 +26,6 @@ jobs:
         - nvm install node
         - pip install tox
       before_script:
-        - jwm &
-        - sleep 10
         - npm install
         - ENABLE_DOORHANGER=1 npm run package
       script: tox

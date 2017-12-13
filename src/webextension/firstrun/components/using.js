@@ -49,8 +49,7 @@ export default function StartUsing() {
           <h2>rETURNINg</h2>
         </Localized>
         <Localized id="firstrun-using-returning-action">
-          <Button theme="ghost"
-                  onClick={doReturning}>sIGn iN</Button>
+          <Button size="puffy" onClick={doReturning}>sIGn iN</Button>
         </Localized>
       </div>
     </section>

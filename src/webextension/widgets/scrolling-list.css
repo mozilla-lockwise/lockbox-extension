@@ -16,10 +16,15 @@
 
 .scrolling-list > li[data-selected] {
   color: #0c0c0d;
-  background-color: #b1b1b3;
+  background-color: #f9f9fa;
+  border-right: none;
 }
 
 .scrolling-list:focus > li[data-selected] {
   color: #ffffff;
   background-color: #0060df;
+}
+
+.scrolling-list > li[data-selected=false] {
+  border-right: #ff0000;
 }

@@ -13,17 +13,24 @@
 .intro > h2,
 .intro > p {
   text-align: center;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
 }
 
 .intro > h1 {
-  font-size: 2em;
-  font-weight: bold;
-  margin: 0 0 .5em;
+  font-size: 33px;
+  font-weight: 300;
+  margin: 0;
 }
 
 .intro > h2 {
-  font-size: 1.5em;
-  font-weight: normal;
+  font-size: 17px;
+  font-weight: 300;
   font-style: italic;
   margin: 0px;
+  text-transform: lowercase;
+}
+
+.intro > p {
+  font-size: 15px;
 }

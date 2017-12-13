@@ -5,13 +5,15 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import styles from "./account-summary-label.css";
+
 export default function AccountSummaryLabel({email}) {
   if (!email) {
     return null;
   }
 
   return (
-    <span>{email}</span>
+    <span className={styles.accountSummary}>{email}</span>
   );
 }
 

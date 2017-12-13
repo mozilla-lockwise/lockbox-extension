@@ -8,29 +8,26 @@
   flex-flow: column nowrap;
   justify-content: center;
   margin: 3em auto;
-  width: 701px;
+  width: 500px;
 }
 
 .homepage > h1,
+.homepage > h2,
 .homepage > p {
   color: #0c0c0d;
   letter-spacing: 0.2px;
-  line-height: 1.5;  
-}
-
-.homepage h1 {
-  font-size: 33px;
-  font-weight: 300;
-  margin: auto;
+  line-height: 1.5;
   text-align: center;
 }
 
-.homepage p {
-  font-size: 15px;
-  text-align: left;
-  white-space: pre-line;
+.homepage h1 {
+  font-size: 17px;
+  font-weight: 300;
+  font-style: italic;
+  margin: auto;
+  text-transform: lowercase;
 }
 
 .homepage > img {
-  width: 300px;
+  width: 279px;
 }
