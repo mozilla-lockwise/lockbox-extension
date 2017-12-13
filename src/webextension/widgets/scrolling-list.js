@@ -73,8 +73,14 @@ export default class ScrollingList extends React.Component {
     e.preventDefault();
   }
 
-  handleMouseDown(id) {
-    this.props.onChange(id);
+  handleMouseDown(e, id) {
+    if (e.button !== 0) {
+      return;
+    }
+
+    if (this.props.selected !== id) {
+      this.props.onChange(id);
+    }
     if (this.props.onClick) {
       this.props.onClick(id);
     }
@@ -117,7 +123,7 @@ export default class ScrollingList extends React.Component {
           onKeyDown={(e) => this.handleKeyDown(e)}>
         {data.map((item) => {
           let props = {
-            onMouseDown: () => this.handleMouseDown(item.id),
+            onMouseDown: (e) => this.handleMouseDown(e, item.id),
             className: itemClassName,
           };
           if (item.id === selected) {
