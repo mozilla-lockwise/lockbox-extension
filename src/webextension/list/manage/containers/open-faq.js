@@ -10,10 +10,12 @@ import { connect } from "react-redux";
 import { ExternalLink } from "../../../widgets/link";
 import { openFAQ } from "../../actions";
 
+import styles from "./open-faq.css";
+
 function OpenFAQ({onOpenFAQ}) {
   return (
     <Localized id="toolbar-open-faq">
-      <ExternalLink onClick={onOpenFAQ}>
+      <ExternalLink className={styles.faq} onClick={onOpenFAQ}>
         fAq
       </ExternalLink>
     </Localized>
