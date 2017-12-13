@@ -14,7 +14,7 @@ function OpenFAQ({onOpenFAQ}) {
   return (
     <Localized id="toolbar-open-faq">
       <ExternalLink onClick={onOpenFAQ}>
-        fAQs
+        fAq
       </ExternalLink>
     </Localized>
   );

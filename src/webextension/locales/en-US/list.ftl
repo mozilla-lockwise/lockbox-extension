@@ -39,7 +39,7 @@ item-filter
 toolbar-add-item = New entry
 toolbar-go-home = Home
 toolbar-send-feedback = Provide Feedback
-toolbar-open-faq = FAQs
+toolbar-open-faq = FAQ
 
 all-items-empty =
   When you add an Entry, it automatically shows up here.
