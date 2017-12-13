@@ -3,11 +3,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 2em 0;
   padding: 0;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
+  max-width: 500px;
 }
 
 .link > h2,
@@ -27,18 +28,17 @@
 
 .link > p {
   font-size: 15px;
-  white-space: pre-line;
-  margin-top: 0;
+  margin: 0 0 0.5em;
 }
 
 .link > menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
 }
 
 .link > menu > button {
-  margin: 0 .5em;
+  margin: 0.5em;
 }

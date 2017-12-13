@@ -3,12 +3,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .homepage {
-  align-items: center;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
-  margin: 3em auto;
-  width: 500px;
+  align-items: center;
+  margin: 3em;
 }
 
 .homepage > h1,
@@ -24,10 +22,9 @@
   font-size: 17px;
   font-weight: 300;
   font-style: italic;
-  margin: auto;
   text-transform: lowercase;
 }
 
 .homepage > img {
-  width: 279px;
+  max-width: 279px;
 }

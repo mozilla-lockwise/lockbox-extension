@@ -3,10 +3,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .empty {
+  text-align: center;
   white-space: pre-wrap;
   margin: 1em 1em;
   padding: 20px;
-  text-align: center;
+  overflow: hidden;
+  overflow-wrap: break-word;
   color: #737373;
   font-size: 15px;
   line-height: 1.5;
