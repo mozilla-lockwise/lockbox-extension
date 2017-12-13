@@ -39,7 +39,7 @@ item-filter
 toolbar-add-item = New entry
 toolbar-go-home = Home
 toolbar-send-feedback = Provide Feedback
-toolbar-open-faq = FAQs
+toolbar-open-faq = FAQ
 
 all-items-empty =
   When you add an Entry, it automatically shows up here.
@@ -49,17 +49,17 @@ all-items-filtered = No results
 intro-page-step-1 =
   Save username and password info to create a { product-title } entry.
 
-  .title = Add Login Info to { product-title }
+  .title = Add login info to { product-title }
 
 intro-page-step-2 =
   Click the { product-title } icon to see all the entries you've saved.
 
-  .title = Go Straight to Your Logins
+  .title = Go straight to your logins
 
 intro-page-step-3 =
   Copy an entry's info to sign in right from Firefox.
 
-  .title = Sign in From { product-title }
+  .title = Sign in from { product-title }
 
 homepage-title = { product-tagline }
 

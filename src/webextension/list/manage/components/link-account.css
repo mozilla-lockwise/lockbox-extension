@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2em 0;
+  margin: 2em auto;
   padding: 0;
   max-width: 500px;
 }
