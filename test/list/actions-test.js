@@ -401,4 +401,14 @@ describe("list > actions", () => {
     ]);
     windowOpen.restore();
   });
+
+  it("openFAQ() dispatched", () => {
+    const windowOpen = sinon.stub(window, "open");
+    store.dispatch(actions.openFAQ());
+    expect(windowOpen).to.have.callCount(1);
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.OPEN_FAQ },
+    ]);
+    windowOpen.restore();
+  });
 });
