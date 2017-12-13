@@ -39,10 +39,7 @@ function uninstallListener() {
 }
 
 function installEntriesAction() {
-  if (process.env.ENABLE_DOORHANGER) {
-    return installPopup("list/popup/index.html");
-  }
-  return installListener("manage");
+  return installPopup("list/popup/index.html");
 }
 
 export default async function updateBrowserAction({account = getAccount(), datastore}) {
