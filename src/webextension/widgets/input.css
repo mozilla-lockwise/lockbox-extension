@@ -95,6 +95,8 @@
   font-size: 13px;
   font-weight: bold;
   -moz-user-select: text;
+  overflow: hidden;
+  overflow-wrap: break-word;
 }
 
 .label-text {
