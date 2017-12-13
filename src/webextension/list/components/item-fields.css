@@ -31,6 +31,4 @@
 
 .inline-button > *:first-child {
   flex: 1;
-  overflow: hidden;
-  overflow-wrap: break-word;
 }
