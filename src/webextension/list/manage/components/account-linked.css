@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .linked {
-  margin: 2em 0;
+  margin: 2em auto;
   padding: 0;
   display: flex;
   flex-flow: column nowrap;
