@@ -9,7 +9,7 @@ class Base(Page):
     def __init__(self, selenium, base_url, **kwargs):
         """Create the base class object."""
         super(Base, self).__init__(
-            selenium, base_url, timeout=10, **kwargs)
+            selenium, base_url, timeout=30, **kwargs)
 
     def fxa_sign_in(self, user, password):
         """Sign in to fxa."""
