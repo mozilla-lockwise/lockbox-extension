@@ -15,19 +15,19 @@ import styles from "./item-details.css";
 // Note: ItemDetails doesn't directly interact with items from the Lockbox
 // datastore. For that, please consult <../containers/current-item.js>.
 
-export default function ItemDetails({fields, onEdit, onDelete}) {
+export default function ItemDetails({fields, onCopy, onEdit, onDelete}) {
   return (
     <div className={styles.itemDetails}>
       <Localized id={"item-details-heading-view"}>
         <h1>iTEm dETAILs</h1>
       </Localized>
-      <ItemFields fields={fields}/>
+      <ItemFields fields={fields} onCopy={onCopy}/>
       <Toolbar className={styles.buttons}>
         <Localized id="item-details-edit">
           <Button onClick={() => onEdit()}>eDIt</Button>
         </Localized>
         <Localized id="item-details-delete">
-          <Button theme="ghost" onClick={() => onDelete()}>dELETe</Button>
+          <Button onClick={() => onDelete()}>dELETe</Button>
         </Localized>
       </Toolbar>
     </div>
@@ -36,6 +36,7 @@ export default function ItemDetails({fields, onEdit, onDelete}) {
 
 ItemDetails.propTypes = {
   ...ItemFields.propTypes,
+  onCopy: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };

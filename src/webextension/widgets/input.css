@@ -15,28 +15,36 @@
 .input-wrapper {
   height: 30px;
   width: -moz-available;
-  color: #0c0c0d;
   background-color: #f9f9fa;
   border: 1px solid rgba(12, 12, 13, 0.3);
   border-radius: 2px;
 }
 
+.input[disabled],
+.input-wrapper.disabled {
+  background-color: #ededf0;
+  cursor: not-allowed;
+}
+
 .input {
   padding: 0 8px;
   font-size: 13px;
+  color: #0c0c0d;
 }
 
-.input:hover,
-.input-wrapper:hover {
+.input:not([disabled]):hover,
+.input-wrapper:not(.disabled):hover {
   border-color: rgba(12, 12, 13, 0.5);
 }
 
 .input:focus,
-.input-wrapper:focus-within {
+.input:focus:hover,
+.input-wrapper:focus-within,
+.input-wrapper:focus-within:hover {
   border-color: #0a84ff;
-  /* Note: This is a best-guess from the screenshots for the Photon spec, since
-     the box shadow isn't actually specified. */
-  box-shadow: 0 0 3px rgba(10, 168, 255, 0.5);
+  /* Note: This is adapted from the Photon button spec, since the input fields
+     spec doesn't define this. */
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.3);
 }
 
 .input-wrapper {
@@ -50,7 +58,12 @@
   width: 0;
   min-width: 0;
   border: 0;
+  color: #0c0c0d;
   background-color: transparent;
+}
+
+.input-wrapper.disabled > input {
+  cursor: not-allowed;
 }
 
 .input-wrapper button {
@@ -68,17 +81,25 @@
   color: #003eaa;
 }
 
+.field-text,
+.label-text {
+  color: #0c0c0d;
+  letter-spacing: 0.2px;
+  line-height: 1.5;
+}
+
 .field-text {
   /* This lines up our labels with the text in <input> elements. */
   margin-top: 7px;
   min-height: 25px;
   font-size: 13px;
+  font-weight: bold;
   -moz-user-select: text;
+  overflow: hidden;
+  overflow-wrap: break-word;
 }
 
 .label-text {
-  margin-top: 10px;
-  margin-bottom: 3px;
-  color: #626262;
+  margin: 10px 0 3px 0;
   font-size: 13px;
 }

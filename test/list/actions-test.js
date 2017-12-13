@@ -2,13 +2,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { expect } from "chai";
+import chai, { expect } from "chai";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
+import sinon from "sinon";
+import sinonChai from "sinon-chai";
 
 import "test/mocks/browser";
 import { initialState } from "./manage/mock-redux-state";
 import * as actions from "src/webextension/list/actions";
+
+chai.use(sinonChai);
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -22,6 +26,47 @@ describe("list > actions", () => {
 
   afterEach(() => {
     browser.runtime.onMessage.mockClearListener();
+  });
+
+  it("getAcountStatus() dispatched", async () => {
+    const account = {
+      mode: "guest",
+    };
+    browser.runtime.onMessage.addListener((msg) => {
+      if (msg.type === "get_account_details") {
+        return {account};
+      }
+      return null;
+    });
+
+    await store.dispatch(actions.getAccountDetails());
+    const dispatched = store.getActions();
+    expect(dispatched).to.deep.equal([
+      {
+        type: actions.GET_ACCOUNT_DETAILS_STARTING,
+        actionId: dispatched[0].actionId,
+      },
+      {
+        type: actions.GET_ACCOUNT_DETAILS_COMPLETED,
+        actionId: dispatched[0].actionId,
+        account,
+      },
+    ]);
+  });
+
+  it("accountDetailsUpdated() dispatched", async () => {
+    const account = {
+      mode: "guest",
+    };
+    await store.dispatch(actions.accountDetailsUpdated(account));
+    const dispatched = store.getActions();
+    expect(dispatched).to.deep.equal([
+      {
+        type: actions.GET_ACCOUNT_DETAILS_COMPLETED,
+        actionId: dispatched[0].actionId,
+        account,
+      },
+    ]);
   });
 
   it("listItems() dispatched", async () => {
@@ -275,6 +320,14 @@ describe("list > actions", () => {
     ]);
   });
 
+  it("copiedField() dispatched", () => {
+    store.dispatch(actions.copiedField("field"));
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.COPIED_FIELD,
+        field: "field" },
+    ]);
+  });
+
   it("startNewItem() dispatched", () => {
     store.dispatch(actions.startNewItem());
     expect(store.getActions()).to.deep.equal([
@@ -337,5 +390,25 @@ describe("list > actions", () => {
     expect(store.getActions()).to.deep.equal([
       { type: actions.HIDE_MODAL },
     ]);
+  });
+
+  it("sendFeedback() dispatched", () => {
+    const windowOpen = sinon.stub(window, "open");
+    store.dispatch(actions.sendFeedback());
+    expect(windowOpen).to.have.callCount(1);
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.SEND_FEEDBACK },
+    ]);
+    windowOpen.restore();
+  });
+
+  it("openFAQ() dispatched", () => {
+    const windowOpen = sinon.stub(window, "open");
+    store.dispatch(actions.openFAQ());
+    expect(windowOpen).to.have.callCount(1);
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.OPEN_FAQ },
+    ]);
+    windowOpen.restore();
   });
 });

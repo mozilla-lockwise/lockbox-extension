@@ -23,13 +23,6 @@ const NODE_ENV = (() => {
   return "development";
 })();
 
-// Enable the doorhanger by default on dev builds.
-const ENABLE_DOORHANGER = (
-  process.env.ENABLE_DOORHANGER ?
-    Boolean(parseInt(process.env.ENABLE_DOORHANGER)) :
-    NODE_ENV !== "production"
-);
-
 const cssLoader = {
   loader: "css-loader",
   query: {
@@ -104,7 +97,7 @@ export default {
     "webextension/list/manage/index": "./webextension/list/manage/index.js",
     "webextension/list/popup/index": "./webextension/list/popup/index.js",
     "webextension/firstrun/index": "./webextension/firstrun/index.js",
-    "webextension/popup/unlock/index": "./webextension/popup/unlock/index.js",
+    "webextension/unlock/index": "./webextension/unlock/index.js",
     "webextension/settings/index": "./webextension/settings/index.js",
   },
 
@@ -135,7 +128,6 @@ export default {
     new webpack.DefinePlugin({
       "process.env": {
         "NODE_ENV": JSON.stringify(NODE_ENV),
-        "ENABLE_DOORHANGER": JSON.stringify(ENABLE_DOORHANGER),
       },
     }),
     new HTMLWebpackPlugin({
@@ -163,8 +155,8 @@ export default {
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",
-      filename: "webextension/popup/unlock/index.html",
-      chunks: ["webextension/popup/unlock/index"],
+      filename: "webextension/unlock/index.html",
+      chunks: ["webextension/unlock/index"],
       inject: false,
       minify: htmlMinifyOptions,
     }),

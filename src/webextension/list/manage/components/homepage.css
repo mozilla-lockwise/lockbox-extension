@@ -3,34 +3,28 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .homepage {
-  align-items: center;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
-  margin: 3em auto;
-  width: 701px;
+  align-items: center;
+  margin: 3em;
 }
 
 .homepage > h1,
+.homepage > h2,
 .homepage > p {
   color: #0c0c0d;
   letter-spacing: 0.2px;
-  line-height: 1.5;  
-}
-
-.homepage h1 {
-  font-size: 33px;
-  font-weight: 300;
-  margin: auto;
+  line-height: 1.5;
   text-align: center;
 }
 
-.homepage p {
-  font-size: 15px;
-  text-align: left;
-  white-space: pre-line;
+.homepage h1 {
+  font-size: 17px;
+  font-weight: 300;
+  font-style: italic;
+  text-transform: lowercase;
 }
 
 .homepage > img {
-  width: 300px;
+  max-width: 279px;
 }

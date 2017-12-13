@@ -6,14 +6,15 @@ import { Localized } from "fluent-react";
 import React from "react";
 import DocumentTitle from "react-document-title";
 
+import AccountSummary from "../containers/account-summary";
 import AddItem from "../containers/add-item";
 import AllItems from "../containers/all-items";
 import CurrentSelection from "../containers/current-selection";
 import GoHome from "../containers/go-home";
 import ItemFilter from "../../containers/item-filter";
-import ItemCount from "../containers/item-count";
 import ModalRoot from "../containers/modals";
-import SendFeedback from "../components/send-feedback";
+import SendFeedback from "../containers/send-feedback";
+import OpenFAQ from "../containers/open-faq";
 import Toolbar, { ToolbarSpace } from "../../../widgets/toolbar";
 
 import styles from "./app.css";
@@ -24,18 +25,16 @@ export default function App() {
       <DocumentTitle title="lOCKBOx eNTRIEs">
         <div className={styles.app}>
           <section className={styles.appMain}>
-            <Toolbar className={styles.sideToolbar}>
-              <ItemCount/>
-              <ToolbarSpace/>
+            <Toolbar className={styles.navigation}>
               <AddItem/>
-            </Toolbar>
-            <Toolbar className={styles.mainToolbar}>
-              <ToolbarSpace/>
               <GoHome/>
+              <ToolbarSpace/>
+              <OpenFAQ/>
               <SendFeedback/>
+              <AccountSummary/>
             </Toolbar>
             <aside>
-              <ItemFilter/>
+              <ItemFilter className={styles.filter}/>
               <AllItems/>
             </aside>
             <article>

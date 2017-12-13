@@ -1,0 +1,36 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+.external {
+  color: #0060df;
+  background-color: transparent;
+}
+
+.external::after {
+  background-image: url(/icons/external-link.svg);
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  content: "";
+  display: inline-block;
+  height: 16px;
+  margin: -.3rem .15rem 0 .25rem;
+  vertical-align: middle;
+  width: 16px;
+}
+
+.external:active {
+  color: #003eaa;
+  text-decoration: underline;
+}
+
+.external:hover {
+  color: #0060df;
+  text-decoration: underline;
+  background-color: transparent;
+}
+
+.external:focus {
+  color: #0060df;
+  border-color: #0a84ff;
+}

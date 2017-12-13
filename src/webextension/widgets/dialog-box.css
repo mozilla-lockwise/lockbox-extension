@@ -4,6 +4,9 @@
 
 .modal-dialog {
   padding: 1em;
+  font-size: 17px;
+  font-weight: 300;
+  text-align: center;
 }
 
 .modal-dialog > menu {

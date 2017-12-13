@@ -2,7 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import * as telemetry from "../telemetry";
+export const GET_ACCOUNT_DETAILS_STARTING = Symbol("GET_ACCOUNT_DETAILS_STARTING");
+export const GET_ACCOUNT_DETAILS_COMPLETED = Symbol("GET_ACCOUNT_DETAILS_COMPLETED");
 
 export const LIST_ITEMS_STARTING = Symbol("LIST_ITEMS_STARTING");
 export const LIST_ITEMS_COMPLETED = Symbol("LIST_ITEMS_COMPLETED");
@@ -19,6 +20,8 @@ export const REMOVE_ITEM_COMPLETED = Symbol("REMOVE_ITEM_COMPLETED");
 export const SELECT_ITEM_STARTING = Symbol("SELECT_ITEM_STARTING");
 export const SELECT_ITEM_COMPLETED = Symbol("SELECT_ITEM_COMPLETED");
 
+export const COPIED_FIELD = Symbol("COPIED_FIELD");
+
 export const START_NEW_ITEM = Symbol("START_NEW_ITEM");
 export const EDIT_CURRENT_ITEM = Symbol("EDIT_CURRENT_ITEM");
 export const EDITOR_CHANGED = Symbol("EDITOR_CHANGED");
@@ -29,9 +32,46 @@ export const FILTER_ITEMS = Symbol("FILTER_ITEMS");
 export const SHOW_MODAL = Symbol("SHOW_MODAL");
 export const HIDE_MODAL = Symbol("HIDE_MODAL");
 
+export const SEND_FEEDBACK = Symbol("SEND_FEEDBACK");
+export const OPEN_FAQ = Symbol("OPEN_FAQ");
+
 // The action ID is used for debugging to correlate async actions with each
 // other (i.e. FOO_STARTING and FOO_COMPLETED).
 let nextActionId = 0;
+
+const FEEDBACK_URL = "https://qsurvey.mozilla.com/s3/Lockbox-Input";
+const FAQ_URL = "https://mozilla-lockbox.github.io/lockbox-extension/faqs/";
+
+export function getAccountDetails() {
+  return async (dispatch) => {
+    const actionId = nextActionId++;
+    dispatch(getAccountDetailsStarting(actionId));
+
+    const response = await browser.runtime.sendMessage({
+      type: "get_account_details",
+    });
+    dispatch(getAccountDetailsCompleted(actionId, response.account));
+  };
+}
+
+function getAccountDetailsStarting(actionId) {
+  return {
+    type: GET_ACCOUNT_DETAILS_STARTING,
+    actionId,
+  };
+}
+
+function getAccountDetailsCompleted(actionId, account) {
+  return {
+    type: GET_ACCOUNT_DETAILS_COMPLETED,
+    actionId,
+    account,
+  };
+}
+
+export function accountDetailsUpdated(account) {
+  return getAccountDetailsCompleted(undefined, account);
+}
 
 export function listItems() {
   return async (dispatch) => {
@@ -64,14 +104,12 @@ export function addItem(details) {
   return async (dispatch) => {
     const actionId = nextActionId++;
     dispatch(addItemStarting(actionId, details));
-    telemetry.recordEvent("itemAdding", "addItemForm");
 
     const response = await browser.runtime.sendMessage({
       type: "add_item",
       item: details,
     });
     dispatch(addItemCompleted(actionId, response.item, true));
-    telemetry.recordEvent("itemAdded", "addItemForm");
   };
 }
 
@@ -103,7 +141,6 @@ export function updateItem(item) {
   return async (dispatch) => {
     const actionId = nextActionId++;
     dispatch(updateItemStarting(actionId, item));
-    telemetry.recordEvent("itemUpdating", "updatingItemForm");
 
     const response = await browser.runtime.sendMessage({
       type: "update_item",
@@ -145,7 +182,6 @@ export function removeItem(id) {
   return async (dispatch) => {
     const actionId = nextActionId++;
     dispatch(removeItemStarting(actionId, id));
-    telemetry.recordEvent("itemDeleting", "updatingItemForm");
 
     await browser.runtime.sendMessage({
       type: "remove_item",
@@ -201,7 +237,6 @@ export function selectItem(id) {
       id,
     });
     dispatch(selectItemCompleted(actionId, response.item));
-    telemetry.recordEvent("itemSelected", "itemList");
   };
 }
 
@@ -218,6 +253,13 @@ function selectItemCompleted(actionId, item) {
     type: SELECT_ITEM_COMPLETED,
     actionId,
     item,
+  };
+}
+
+export function copiedField(field) {
+  return {
+    type: COPIED_FIELD,
+    field,
   };
 }
 
@@ -274,5 +316,19 @@ function showModal(id, props = {}) {
 export function hideModal() {
   return {
     type: HIDE_MODAL,
+  };
+}
+
+export function sendFeedback() {
+  window.open(FEEDBACK_URL, "_blank");
+  return {
+    type: SEND_FEEDBACK,
+  };
+}
+
+export function openFAQ() {
+  window.open(FAQ_URL, "_blank");
+  return {
+    type: OPEN_FAQ,
   };
 }

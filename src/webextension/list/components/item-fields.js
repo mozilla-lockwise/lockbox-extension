@@ -16,16 +16,12 @@ import TextArea from "../../widgets/text-area";
 
 import styles from "./item-fields.css";
 
-import * as telemetry from "../../telemetry";
-
 const PASSWORD_DOT = "\u25cf";
 
-function CopyToClipboardButton({text, field, ...props}) {
+function CopyToClipboardButton({text, field, onCopy, ...props}) {
   return (
-    <CopyToClipboard text={text} onCopy={() => {
-      telemetry.recordEvent(`${field}Copied`, "itemDetails");
-    }}>
-      <Button {...props}/>
+    <CopyToClipboard text={text} onCopy={() => onCopy(field)}>
+      <Button theme="ghost" className={styles.copyButton} {...props}/>
     </CopyToClipboard>
   );
 }
@@ -33,43 +29,45 @@ function CopyToClipboardButton({text, field, ...props}) {
 CopyToClipboardButton.propTypes = {
   text: PropTypes.string.isRequired,
   field: PropTypes.oneOf(["username", "password"]).isRequired,
+  onCopy: PropTypes.func.isRequired,
 };
 
 const fieldsPropTypes = PropTypes.shape({
-  title: PropTypes.string.isRequired,
   origin: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   notes: PropTypes.string.isRequired,
 });
 
-export function ItemFields({fields}) {
+export function ItemFields({fields, onCopy}) {
   return (
     <div className={styles.itemFields}>
       <div className={styles.field}>
-        <Localized id="item-fields-title">
-          <LabelText className={styles.firstLabel}>tITLe</LabelText>
-        </Localized>
-        <FieldText data-name="title">{fields.title}</FieldText>
-      </div>
-      <div className={styles.field}>
         <Localized id="item-fields-origin">
-          <LabelText>oRIGIn</LabelText>
+          <LabelText className={styles.firstLabel}>oRIGIn</LabelText>
         </Localized>
-        <FieldText monospace={true} data-name="origin">
+        <FieldText data-name="origin">
           {fields.origin}
         </FieldText>
+      </div>
+      <div className={styles.field}>
+        <Localized id="item-fields-title">
+          <LabelText>tITLe</LabelText>
+        </Localized>
+        <FieldText data-name="title">{fields.title}</FieldText>
       </div>
       <div className={styles.field}>
         <Localized id="item-fields-username">
           <LabelText>uSERNAMe</LabelText>
         </Localized>
         <div className={styles.inlineButton}>
-          <FieldText monospace={true} data-name="username">
+          <FieldText monospace data-name="username">
             {fields.username}
           </FieldText>
           <Localized id="item-fields-copy-username">
-            <CopyToClipboardButton text={fields.username} field="username">
+            <CopyToClipboardButton text={fields.username} field="username"
+                                   onCopy={onCopy}>
               cOPy
             </CopyToClipboardButton>
           </Localized>
@@ -80,11 +78,12 @@ export function ItemFields({fields}) {
           <LabelText>pASSWORd</LabelText>
         </Localized>
         <div className={styles.inlineButton}>
-          <FieldText monospace={true} data-name="password">
+          <FieldText monospace data-name="password">
             {PASSWORD_DOT.repeat(fields.password.length)}
           </FieldText>
           <Localized id="item-fields-copy-password">
-            <CopyToClipboardButton text={fields.password} field="password">
+            <CopyToClipboardButton text={fields.password} field="password"
+                                   onCopy={onCopy}>
               cOPy
             </CopyToClipboardButton>
           </Localized>
@@ -102,6 +101,7 @@ export function ItemFields({fields}) {
 
 ItemFields.propTypes = {
   fields: fieldsPropTypes,
+  onCopy: PropTypes.func.isRequired,
 };
 
 export class EditItemFields extends React.Component {
@@ -127,23 +127,23 @@ export class EditItemFields extends React.Component {
     return (
       <div className={styles.itemFields}>
         <label>
-          <Localized id="item-fields-title">
-            <LabelText className={styles.firstLabel}>tITLe</LabelText>
+          <Localized id="item-fields-origin">
+            <LabelText className={styles.firstLabel}>oRIGIn</LabelText>
           </Localized>
-          <Localized id="item-fields-title-input">
-            <Input type="text" {...controlledProps("title")}
-                   placeholder="eNTRy nAMe"
-                   ref={(element) => this._firstField = element}/>
+          <Localized id="item-fields-origin-input">
+            <Input type="text"
+                   placeholder="wWw.eXAMPLe.cOm"
+                   ref={(element) => this._firstField = element}
+                   {...controlledProps("origin")}/>
           </Localized>
         </label>
         <label>
-          <Localized id="item-fields-origin">
-            <LabelText>oRIGIn</LabelText>
+          <Localized id="item-fields-title">
+            <LabelText>tITLe</LabelText>
           </Localized>
-          <Localized id="item-fields-origin-input">
-            <Input type="text" monospace={true}
-                   placeholder="wWw.eXAMPLe.cOm"
-                   {...controlledProps("origin")}/>
+          <Localized id="item-fields-title-input">
+            <Input type="text" {...controlledProps("title")}
+                   placeholder="eNTRy nAMe"/>
           </Localized>
         </label>
         <label>
@@ -151,7 +151,7 @@ export class EditItemFields extends React.Component {
             <LabelText>uSERNAMe</LabelText>
           </Localized>
           <Localized id="item-fields-username-input">
-            <Input type="text" monospace={true}
+            <Input type="text" monospace
                    placeholder="nAMe@eXAMPLe.cOm"
                    {...controlledProps("username")}/>
           </Localized>
@@ -167,8 +167,7 @@ export class EditItemFields extends React.Component {
             <LabelText>nOTEs</LabelText>
           </Localized>
           <Localized id="item-fields-notes-input">
-            <TextArea placeholder="aNSWERs to sECURITy..."
-                      {...controlledProps("notes", 10000)}/>
+            <TextArea {...controlledProps("notes", 10000)}/>
           </Localized>
         </label>
       </div>

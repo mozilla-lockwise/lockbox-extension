@@ -21,13 +21,14 @@
   margin-top: 0;
 }
 
+.copy-button {
+  color: #0060df;
+}
+
 .inline-button {
   display: flex;
-  overflow: hidden;
 }
 
 .inline-button > *:first-child {
   flex: 1;
-  overflow: hidden;
-  overflow-wrap: break-word;
 }

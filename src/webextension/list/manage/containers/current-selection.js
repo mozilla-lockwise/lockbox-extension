@@ -9,11 +9,12 @@ import { connect } from "react-redux";
 import { flattenItem, unflattenItem } from "../../common";
 import {
   addItem, updateItem, requestRemoveItem, editCurrentItem, requestCancelEditing,
-  editorChanged,
+  editorChanged, copiedField,
 } from "../../actions";
 import EditItemDetails from "../components/edit-item-details";
 import ItemDetails from "../components/item-details";
 import Homepage from "../components/homepage";
+import IntroPage from "../components/intro-page";
 
 const ConnectedEditItemDetails = connect(
   (state, ownProps) => ({
@@ -45,6 +46,7 @@ const ConnectedItemDetails = connect(
     fields: flattenItem(ownProps.item),
   }),
   (dispatch, ownProps) => ({
+    onCopy: (field) => { dispatch(copiedField(field)); },
     onEdit: () => { dispatch(editCurrentItem()); },
     onDelete: () => { dispatch(requestRemoveItem(ownProps.item.id)); },
   })
@@ -59,8 +61,10 @@ function CurrentSelection({editing, item, hideHome, numItems}) {
   } else if (hideHome) {
     // Don't show anything since we're still loading the item details.
     inner = null;
+  } else if (numItems !== 0) {
+    inner = <Homepage/>;
   } else {
-    inner = <Homepage count={numItems}/>;
+    inner = <IntroPage/>;
   }
   return <div>{inner}</div>;
 }

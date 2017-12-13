@@ -10,7 +10,7 @@ import thunk from "redux-thunk";
 
 import { simulateTyping } from "test/common";
 import mountWithL10n from "test/mocks/l10n";
-import { initialState } from "../manage/mock-redux-state";
+import { filledState } from "../manage/mock-redux-state";
 import { FILTER_ITEMS } from "src/webextension/list/actions";
 import ItemFilter from "src/webextension/list/containers/item-filter";
 
@@ -21,7 +21,7 @@ describe("list > containers > <ItemFilter/>", () => {
   let store, wrapper;
 
   beforeEach(() => {
-    store = mockStore(initialState);
+    store = mockStore(filledState);
     wrapper = mountWithL10n(
       <Provider store={store}>
         <ItemFilter/>

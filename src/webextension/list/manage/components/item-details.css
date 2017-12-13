@@ -3,7 +3,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .item-details {
-  margin: 2em;
+  padding: 2em;
+  background-color: #f9f9fa;
 }
 
 .item-details > h1 {
@@ -12,7 +13,6 @@
 }
 
 .buttons {
-  border-top: 1px solid #d6d6d6;
   margin-top: 1em;
   padding: 1em 0;
 }

@@ -10,7 +10,7 @@
 }
 
 .toolbar > * + * {
-  margin-inline-start: 1ch;
+  margin-inline-start: 2ch;
 }
 
 .toolbar-space {

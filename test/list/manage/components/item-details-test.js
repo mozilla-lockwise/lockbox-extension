@@ -29,7 +29,8 @@ describe("list > manage > components > <ItemDetails/>", () => {
     onEdit = sinon.spy();
     onDelete = sinon.spy();
     wrapper = mountWithL10n(
-      <ItemDetails fields={fields} onEdit={onEdit} onDelete={onDelete}/>
+      <ItemDetails fields={fields} onCopy={() => {}} onEdit={onEdit}
+                   onDelete={onDelete}/>
     );
   });
 

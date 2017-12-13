@@ -10,16 +10,40 @@ class_names = [{
     'webextension/widgets/button.css': [
         'button',
         'minimal',
-        'ghost-theme'
+        'primary-theme',
+        'normal-theme',
+        'ghost-theme',
+        'puffy-size',
     ],
     # Item Summary Styles
     'webextension/list/components/item-summary.css': [
         'item-summary',
-        'title'
+        'title',
+        'subtitle',
+    ],
+    # Item Field
+    'webextension/list/components/item-fields.css': [
+        'first-label',
+    ],
+    # Intro
+    'webextension/firstrun/components/intro.css': [
+        'intro',
+    ],
+    # Inputs
+    'webextension/widgets/input.css': [
+        'field-text',
+    ],
+    'webextension/widgets/panel.css': [
+        'panel-body',
+        'panel-footer',
     ],
     # Homepage Styles
     'webextension/list/manage/components/homepage.css': [
         'homepage'
+    ],
+    # Link Account
+    'webextension/list/manage/components/link-account.css': [
+        'link',
     ],
 }]
 

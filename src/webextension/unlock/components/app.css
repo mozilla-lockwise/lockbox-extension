@@ -1,0 +1,77 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+body {
+  padding: 0;
+  margin: 0;
+  width: 344px;
+  color: #0c0c0d;
+  background-color: #f9f9fa;
+  font: caption;
+  font-size: 13px;
+  -moz-user-select: none;
+}
+
+.unlock {
+  margin: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.unlock > img {
+  margin: 2em auto;
+  width: 229px;
+}
+
+.unlock > .content {
+  margin: 2em auto;
+  width: 229px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.unlock > .content > h1 {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 0 .5em;
+}
+
+.unlock > .content > h2 {
+  font-size: 1.5em;
+  font-weight: normal;
+  font-style: italic;
+  text-align: center;
+  text-transform: lowercase;;
+  margin: 0;
+}
+
+.unlock > menu {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+}
+
+.unlock > menu > * {
+  width: 50%;
+  flex-grow: 1;
+}
+
+.unlock > menu > * {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.unlock > menu > *:first-child {
+  border-bottom-right-radius: 0;
+}
+
+.unlock > menu > *:last-child {
+  border-bottom-left-radius: 0;
+}
