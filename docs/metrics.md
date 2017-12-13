@@ -144,9 +144,11 @@ All events are currently implemented under the **category: lockboxV0**. The `ext
 
 9. `feedbackClick` fires when the user clicks the "Send Feedback" button. **objects**: manage
 
-10. `resetRequested` fires when the user clicks the "Reset" button in the Lockbox settings. **objects**: settings
+10. `faqClick` fires when the user clicks the "FAQs" button. **objects**: manage
 
-11. `resetCompleted` fires when the user completes a reset of their Lockbox data in the Lockbox settings. **objects**: settings
+11. `resetRequested` fires when the user clicks the "Reset" button in the Lockbox settings. **objects**: settings
+
+12. `resetCompleted` fires when the user completes a reset of their Lockbox data in the Lockbox settings. **objects**: settings
 
 ## List of Planned Events
 
