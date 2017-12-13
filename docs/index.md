@@ -19,7 +19,7 @@ security.
 
 Install it and sign in with your Firefox Account to encrypt your data with
 tamper-resistant block cipher technology. Then [share feedback
-here](feedback-link).
+here][feedback-link].
 
 ## Get Started
 
