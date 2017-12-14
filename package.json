@@ -55,7 +55,7 @@
     "fluent-langneg": "^0.1.0",
     "fluent-react": "^0.4.1",
     "intl-pluralrules": "^0.1.0",
-    "lockbox-datastore": "git+https://github.com/linuxwolf/lockbox-datastore.git#binkey",
+    "lockbox-datastore": "https://github.com/mozilla-lockbox/lockbox-datastore/archive/0.1.0.tar.gz",
     "node-jose": "^0.10.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
