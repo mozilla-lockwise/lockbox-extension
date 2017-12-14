@@ -14,7 +14,7 @@ const skippedSrc = [
   "./webextension/settings/index.js",
 ];
 
-const src = require.context("../src/", true, /\.js$/);
+const src = require.context("src", true, /\.js$/);
 src.keys().filter((x) => {
   return !skippedSrc.includes(x);
 }).forEach(src);
