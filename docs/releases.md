@@ -34,19 +34,20 @@ To generate the next release binary:
     - Open the pull request so we can show the changes, CI status, and approvals
       - Request an approval from the P.I. and Product representatives
     - Once the release has been reviewed, tested, and approved to go live, merge and close the pull request
-    - Test Pilot's Jenkins will then build and sign the extension (see ["Extension Signing"](#extension-signing))
+    - Test Pilot's Jenkins will then build, sign and deploy the extension (see ["Extension Signing"](#extension-signing))
 4. Tag the latest commit on `production` branch with an annotated version and push the tag:
     - `git tag -a -m "Release 0.1.0" 0.1.0`
     - `git push upstream 0.1.0`
-    - Travis-CI will build and generate a GitHub Release
+    - Travis-CI will build and generate a [GitHub Release][releases]
 7. Edit the resulting GitHub Release
-    - Set the GitHub Release title to match the version
+    - Set the [GitHub Release][releases] title to match the version
     - Set the GitHub Release notes to match the `docs/release-notes.md`
     - Download the signed add-on: `wget -O signed-addon.xpi https://testpilot.firefox.com/files/lockbox@mozilla.com/latest`
     - Attach to the GitHub Release the downloaded signed add-on
 8. Send an announcement to the team (e.g., via Slack team channel)
 
 [production-compare]: https://github.com/mozilla-lockbox/lockbox-extension/compare/production...master
+[releases]: https://github.com/mozilla-lockbox/lockbox-extension/releases
 
 ## Extension Signing
 
