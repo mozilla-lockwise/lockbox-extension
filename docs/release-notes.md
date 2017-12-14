@@ -2,7 +2,7 @@
 
 ## 0.1.4-alpha
 
-_Date: 2017-12-11_
+_Date: 2017-12-13_
 
 ### What's New
 
@@ -11,9 +11,6 @@ _Date: 2017-12-11_
 - See the visual design and polish come together for the entire experience ([#351](https://github.com/mozilla-lockbox/lockbox-extension/pull/351))
 - Get help and instructions when you first get started ([#392](https://github.com/mozilla-lockbox/lockbox-extension/issues/392))
 - Get additional support from the updated [Lockbox website](https://mozilla-lockbox.github.io/lockbox-extension/), including the FAQ ([#345](https://github.com/mozilla-lockbox/lockbox-extension/issues/345))
-
-
-### What's Fixed
 
 ### Known Issues
 
