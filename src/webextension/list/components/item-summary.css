@@ -3,7 +3,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .item-summary {
-  border-bottom: 1px solid #d7d7db;
   padding: .5em;
   font-size: 15px;
 }
@@ -26,7 +25,6 @@
 .title, .subtitle {
   line-height: 1.5;
   letter-spacing: 0.2px;
-  color: #0c0c0d;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

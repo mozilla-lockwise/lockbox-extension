@@ -12,6 +12,7 @@ export default class ScrollingList extends React.Component {
     return {
       className: PropTypes.string,
       itemClassName: PropTypes.string,
+      styledItems: PropTypes.boolean,
       children: PropTypes.func.isRequired,
       data: PropTypes.arrayOf(
         PropTypes.shape({
@@ -29,6 +30,7 @@ export default class ScrollingList extends React.Component {
     return {
       className: "",
       itemClassName: "",
+      styledItems: true,
       tabIndex: "0",
       selected: null,
     };
@@ -112,10 +114,12 @@ export default class ScrollingList extends React.Component {
   }
 
   render() {
-    const { className, itemClassName, children, data, tabIndex,
+    const { className, itemClassName, styledItems, children, data, tabIndex,
             selected } = this.props;
-    const finalClassName = `${styles.scrollingList} ${className}`
-                           .trimRight();
+    const finalClassName = `${styles.scrollingList} ${className}`.trimRight();
+    const finalItemClassName = styledItems ?
+          `${styles.styledItem} ${itemClassName}`.trimRight() :
+          itemClassName;
 
     return (
       <ul tabIndex={tabIndex} className={finalClassName}
@@ -124,7 +128,7 @@ export default class ScrollingList extends React.Component {
         {data.map((item) => {
           let props = {
             onMouseDown: (e) => this.handleMouseDown(e, item.id),
-            className: itemClassName,
+            className: finalItemClassName,
           };
           if (item.id === selected) {
             Object.assign(props, {
