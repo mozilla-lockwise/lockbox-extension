@@ -14,6 +14,8 @@ import ItemList, { ItemListPlaceholder } from "../../components/item-list";
 
 const collator = new Intl.Collator();
 
+import styles from "./all-items.css";
+
 function AllItems({totalItemCount, ...props}) {
   if (props.items.length === 0) {
     return (
@@ -24,7 +26,10 @@ function AllItems({totalItemCount, ...props}) {
       </Localized>
     );
   }
-  return <ItemList {...props}/>;
+  return (
+    <ItemList styledItems={false} className={styles.allItems}
+              itemClassName={styles.item} {...props}/>
+  );
 }
 
 AllItems.propTypes = {
