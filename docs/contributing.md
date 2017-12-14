@@ -14,13 +14,13 @@ Please refer to installation and build instructions in the [install documentatio
 
 ## How to Report Bugs
 
-Please open [a new issue in the GitHub repository](https://github.com/mozilla-lockbox/lockbox-extension/issues/new) with steps to reproduce the problem you're experiencing.
+Please open [a new issue in the appropriate GitHub repository](https://github.com/mozilla-lockbox/lockbox-extension/issues/new) with steps to reproduce the problem you're experiencing.
 
 Be sure to include as much information including screenshots, text output, and both your expected and actual results.
 
 ## How to Request Enhancements
 
-First, please refer to the applicable [GitHub project](https://github.com/orgs/mozilla-lockbox/projects) and search [the repository's GitHub issues](https://github.com/mozilla-lockbox/lockbox-extension/issues) to make sure your idea has not been (or is not still) considered.
+First, please refer to the applicable [GitHub repository](https://github.com/orgs/mozilla-lockbox/) and search [the repository's GitHub issues](https://github.com/mozilla-lockbox/lockbox-extension/issues) to make sure your idea has not been (or is not still) considered. It may also be easier to see and search across all projects combined on our [Waffle.io planning board](https://waffle.io/mozilla-lockbox/lockbox-extension).
 
 Then, please [create a new issue in the GitHub repository](https://github.com/mozilla-lockbox/lockbox-extension/issues/new) describing your enhancement.
 
