@@ -32,6 +32,7 @@ To generate the next release binary:
 2. Commit and ultimately merge to `master` branch
 3. Create a pull request on GitHub [comparing changes from the `master` branch against/to `production`][production-compare]
     - Open the pull request so we can show the changes, CI status, and approvals
+      - Request an approval from the P.I. and Product representatives
     - Once the release has been reviewed, tested, and approved to go live, merge and close the pull request
     - Test Pilot's Jenkins will then build and sign the extension (see ["Extension Signing"](#extension-signing))
 4. Tag the latest commit on `production` branch with an annotated version and push the tag:
