@@ -30,7 +30,7 @@ To generate the next release binary:
     - each release includes the sub headings "What's New", "What's Fixed", and "Known Issues"
     - consult with Product Management on wording if needed
 2. Commit and ultimately merge to `master` branch
-3. Create a pull request comparing the `master` branch and `production` branch on GitHub
+3. Create a pull request on GitHub [comparing changes from the `master` branch against/to `production`][production-compare]
     - Open the pull request so we can show the changes, CI status, and approvals
     - Once the release has been reviewed, tested, and approved to go live, merge and close the pull request
     - Test Pilot's Jenkins will then build and sign the extension (see ["Extension Signing"](#extension-signing))
@@ -45,6 +45,7 @@ To generate the next release binary:
     - Attach to the GitHub Release the downloaded signed add-on
 8. Send an announcement to the team (e.g., via Slack team channel)
 
+[production-compare]: https://github.com/mozilla-lockbox/lockbox-extension/compare/production...master
 
 ## Extension Signing
 
