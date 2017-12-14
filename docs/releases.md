@@ -30,14 +30,10 @@ To generate the next release binary:
     - each release includes the sub headings "What's New", "What's Fixed", and "Known Issues"
     - consult with Product Management on wording if needed
 2. Commit and ultimately merge to `master` branch
-3. Merge the `master` branch into `production` branch and push to GitHub:
-    - `git checkout master`
-    - `git pull upstream master` (to make sure you have the latest)
-    - `git checkout production`
-    - `git pull upstream production` (to make sure you have the latest)
-    - `git merge master`
-    - `git push upstream production`
-    - Test Pilot's Jenkins will now build and sign the extension (see ["Extension Signing"](#extension-signing))
+3. Create a pull request comparing the `master` branch and `production` branch on GitHub
+    - Open the pull request so we can show the changes, CI status, and approvals
+    - Once the release has been reviewed, tested, and approved to go live, merge and close the pull request
+    - Test Pilot's Jenkins will then build and sign the extension (see ["Extension Signing"](#extension-signing))
 4. Tag the latest commit on `production` branch with an annotated version and push the tag:
     - `git tag -a -m "Release 0.1.0" 0.1.0`
     - `git push upstream 0.1.0`
