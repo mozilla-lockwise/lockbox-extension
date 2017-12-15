@@ -182,7 +182,7 @@ export class Account {
       uid: userInfo.uid,
       email: userInfo.email,
       access_token: oauthInfo.access_token,
-      expires_at: (Date.now / 1000) + oauthInfo.expires_in,
+      expires_at: (Date.now() / 1000) + oauthInfo.expires_in,
       refresh_token: oauthInfo.refresh_token,
       id_token: oauthInfo.id_token,
       keys,
