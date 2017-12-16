@@ -2,6 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import { version } from "../../../package";
+
 export const GET_ACCOUNT_DETAILS_STARTING = Symbol("GET_ACCOUNT_DETAILS_STARTING");
 export const GET_ACCOUNT_DETAILS_COMPLETED = Symbol("GET_ACCOUNT_DETAILS_COMPLETED");
 
@@ -39,7 +41,7 @@ export const OPEN_FAQ = Symbol("OPEN_FAQ");
 // other (i.e. FOO_STARTING and FOO_COMPLETED).
 let nextActionId = 0;
 
-const FEEDBACK_URL = "https://qsurvey.mozilla.com/s3/Lockbox-Input";
+const FEEDBACK_URL = "https://qsurvey.mozilla.com/s3/Lockbox-Input?ver=" + version;
 const FAQ_URL = "https://mozilla-lockbox.github.io/lockbox-extension/faqs/";
 
 export function getAccountDetails() {
