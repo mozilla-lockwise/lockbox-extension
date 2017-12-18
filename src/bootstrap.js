@@ -168,11 +168,16 @@ function startup({webExtension}, reason) {
     browser.runtime.onMessage.addListener((message, sender, respond) => {
       switch (message.type) {
       case "telemetry_event":
-        Services.telemetry.recordEvent(
-          TELEMETRY_CATEGORY, message.method, message.object, null,
-          message.extra || null
-        );
-        respond({});
+        try {
+          Services.telemetry.recordEvent(
+            TELEMETRY_CATEGORY, message.method, message.object, null,
+            message.extra || null
+          );
+          respond({});
+        } catch (err) {
+          // eslint-disable-next-line no-console
+          console.error(`lockbox (bootstrap): failed to record telemetry (${err.message})`);
+        }
       }
     });
 
