@@ -164,7 +164,7 @@ function startup({webExtension}, reason) {
 
   webExtension.startup().then(({browser}) => {
     Services.telemetry.recordEvent(TELEMETRY_CATEGORY, "startup",
-                                   "webextension");
+                                   "addon");
     browser.runtime.onMessage.addListener((message, sender, respond) => {
       switch (message.type) {
       case "telemetry_event":

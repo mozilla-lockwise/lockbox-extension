@@ -14,6 +14,7 @@ function installPopup(path) {
   browser.browserAction.setPopup({
     popup,
   });
+  console.log(`lockbox (background/browser-action): popup "${path}" installed`);
 }
 
 function uninstallPopup() {
@@ -29,6 +30,7 @@ function installListener(name) {
     openView(name);
   };
   browser.browserAction.onClicked.addListener(listener);
+  console.log(`lockbox (background/browser-action): action listener "${name}" installed`);
 }
 
 function uninstallListener() {
@@ -44,6 +46,7 @@ function installEntriesAction() {
 
 export default async function updateBrowserAction({account = getAccount(), datastore}) {
   try {
+    console.log("lockbox (background/browser-action): updating ...");
     // clear listener
     // XXXX: be more efficient with this?
     uninstallListener();

@@ -7,14 +7,24 @@ import { openAccount, GUEST } from "./accounts";
 import initializeMessagePorts from "./message-ports";
 import updateBrowserAction from "./browser-action";
 
+console.log("lockbox (background/index): initializing webextension");
 openAccount(browser.storage.local).then(async (account) => {
-  let datastore = await openDataStore({ salt: account.uid });
-  if (datastore.initialized && account.mode === GUEST) {
-    await datastore.unlock();
+  let datastore;
+
+  try {
+    let datastore = await openDataStore({ salt: account.uid });
+    if (datastore.initialized && account.mode === GUEST) {
+      await datastore.unlock();
+    }
+  } catch (err) {
+    console.error(`lockbox (background/index): failed to open datastore (${err.message})`);
+    throw err;
   }
 
-  initializeMessagePorts();
-  console.log("lockbox (background/index): updating browser-action");
-  await updateBrowserAction({account, datastore});
-  console.log("lockbox (background/index): browser-action updated!");
+  try {
+    initializeMessagePorts();
+    await updateBrowserAction({ account, datastore });
+  } catch (err) {
+    console.error(`lockbox (background/index"): failed to initialize ports and browser-action (${err.message})`);
+  }
 });

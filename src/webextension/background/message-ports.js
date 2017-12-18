@@ -22,6 +22,8 @@ function broadcast(message, excludedSender) {
 let addonPort;
 
 export default function initializeMessagePorts() {
+  console.log("lockbox (background/message-ports): initializing ...");
+
   // setup port to receive messages from bootstrapped addon
   addonPort = browser.runtime.connect({ name: "webext-to-legacy" });
   addonPort.onMessage.addListener(async (message) => {
@@ -180,4 +182,6 @@ export default function initializeMessagePorts() {
       return null;
     }
   });
+
+  console.log("lockbox (background/message-ports): ... initialized!");
 }
