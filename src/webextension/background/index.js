@@ -14,5 +14,7 @@ openAccount(browser.storage.local).then(async (account) => {
   }
 
   initializeMessagePorts();
+  console.log("lockbox (background/index): updating browser-action");
   await updateBrowserAction({account, datastore});
+  console.log("lockbox (background/index): browser-action updated!");
 });

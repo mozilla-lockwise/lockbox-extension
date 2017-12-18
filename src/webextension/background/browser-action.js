@@ -43,28 +43,33 @@ function installEntriesAction() {
 }
 
 export default async function updateBrowserAction({account = getAccount(), datastore}) {
-  // clear listener
-  // XXXX: be more efficient with this?
-  uninstallListener();
-  uninstallPopup();
+  try {
+    // clear listener
+    // XXXX: be more efficient with this?
+    uninstallListener();
+    uninstallPopup();
 
-  const iconpath = datastore.locked ? "icons/lb_locked.svg" : "icons/lb_unlocked.svg";
-  browser.browserAction.setIcon({ path: iconpath });
+    const iconpath = datastore.locked ? "icons/lb_locked.svg" : "icons/lb_unlocked.svg";
+    browser.browserAction.setIcon({ path: iconpath });
 
-  if (!datastore.initialized) {
-    // setup first-run popup
-    return installListener("firstrun");
-  }
-  if (datastore.locked) {
-    if (account.mode === accounts.GUEST) {
-      // unlock on user's behalf ...
-      // XXXX: is this a bad idea or terrible idea?
-      await datastore.unlock();
-      return installEntriesAction();
+    if (!datastore.initialized) {
+      // setup first-run popup
+      return installListener("firstrun");
     }
-    // setup unlock popup
-    return installPopup("unlock/index.html");
-  }
+    if (datastore.locked) {
+      if (account.mode === accounts.GUEST) {
+        // unlock on user's behalf ...
+        // XXXX: is this a bad idea or terrible idea?
+        await datastore.unlock();
+        return installEntriesAction();
+      }
+      // setup unlock popup
+      return installPopup("unlock/index.html");
+    }
 
-  return installEntriesAction();
+    return installEntriesAction();
+  } catch (err) {
+    console.error(`lockbox (background/browser-action): could not update browser action (${err.message})`);
+    throw err;
+  }
 }
