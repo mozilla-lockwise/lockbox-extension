@@ -112,6 +112,8 @@ describe("background > accounts", () => {
     const authedInfo = {
       ...unauthedInfo,
       email: "eripley@wyutani.com",
+      displayName: "Ellen Ripley",
+      avatar: "https://avatars.example/92397b7d8b9e510f4266ab9751030c73b3b12cfc.png",
       refresh_token: "rmrBzLYi2zia4ExNBy7uXE4s_Da_HMS4d3tvr203OVTq1EMQqh-85m4Hejo3TKBKuont6QFIlLJ23rZR4xqZBA",
       expires_at: 1825884426240000,
       keys: new Map(),
@@ -181,6 +183,42 @@ describe("background > accounts", () => {
       expect(acct.email).to.equal("eripley@wyutani.com");
     });
 
+    it("displayName", () => {
+      expect(acct.displayName).to.equal(undefined);
+      acct.info = { ...authedInfo };
+      expect(acct.displayName).to.equal("Ellen Ripley");
+      delete acct.info.displayName;
+      expect(acct.displayName).to.equal("eripley@wyutani.com");
+    });
+
+    it("avatar", () => {
+      expect(acct.avatar).to.equal(undefined);
+      acct.info = authedInfo;
+      expect(acct.avatar).to.equal("https://avatars.example/92397b7d8b9e510f4266ab9751030c73b3b12cfc.png");
+    });
+
+    it("details", () => {
+      let actual;
+
+      actual = acct.details();
+      expect(actual).to.deep.equal({
+        mode: accounts.GUEST,
+        uid: undefined,
+        email: undefined,
+        displayName: undefined,
+        avatar: undefined,
+      });
+      acct.info = authedInfo;
+      actual = acct.details();
+      expect(actual).to.deep.equal({
+        mode: accounts.AUTHENTICATED,
+        uid: "1234",
+        email: "eripley@wyutani.com",
+        displayName: "Ellen Ripley",
+        avatar: "https://avatars.example/92397b7d8b9e510f4266ab9751030c73b3b12cfc.png",
+      });
+    });
+
     describe("signin/out", () => {
       let stubWAF;
 
@@ -245,6 +283,8 @@ describe("background > accounts", () => {
           body: {
             uid: "1234",
             email: "eripley@wyutani.com",
+            displayName: "Ellen Ripley",
+            avatar: "https://avatars.example/92397b7d8b9e510f4266ab9751030c73b3b12cfc.png",
           },
         });
 

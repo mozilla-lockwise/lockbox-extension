@@ -121,6 +121,8 @@ describe("background > message ports", () => {
         mode: "guest",
         uid: undefined,
         email: undefined,
+        displayName: undefined,
+        avatar: undefined,
       },
     });
   });
