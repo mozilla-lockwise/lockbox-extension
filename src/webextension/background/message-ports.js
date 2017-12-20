@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import openDataStore from "./datastore";
+import openDataStore, { DEFAULT_APP_KEY } from "./datastore";
 import getAccount, * as accounts from "./accounts";
 import updateBrowserAction from "./browser-action";
 import * as telemetry from "./telemetry";
@@ -57,7 +57,9 @@ export default function initializeMessagePorts() {
 
     case "initialize":
       return openDataStore().then(async (datastore) => {
-        await datastore.initialize();
+        await datastore.initialize({
+          appKey: DEFAULT_APP_KEY,
+        });
         // TODO: be more implicit on saving account info
         await accounts.saveAccount(browser.storage.local);
         await updateBrowserAction({datastore});
@@ -75,7 +77,7 @@ export default function initializeMessagePorts() {
 
         try {
           if (datastore.initialized && datastore.locked) {
-            await datastore.unlock();
+            await datastore.unlock(DEFAULT_APP_KEY);
           }
           await datastore.initialize({ appKey, salt, rebase: true });
           // FIXME: be more implicit on saving account info
