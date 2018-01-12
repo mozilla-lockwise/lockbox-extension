@@ -41,8 +41,8 @@ describe("list > components > <ItemList/>", () => {
   });
 
   it("onChange() and onClick() called", () => {
-    wrapper.find(ItemSummary).at(0).simulate("mousedown");
-    expect(onChange).to.have.been.calledWith(items[0].id);
-    expect(onClick).to.have.been.calledWith(items[0].id);
+    wrapper.find(ItemSummary).at(1).simulate("mousedown", {button: 0});
+    expect(onChange).to.have.been.calledWith(items[1].id);
+    expect(onClick).to.have.been.calledWith(items[1].id);
   });
 });

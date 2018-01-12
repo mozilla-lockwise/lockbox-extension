@@ -36,6 +36,8 @@
     "run": "jpm run --addon-dir dist/ ${npm_config_jpm_runflags} --prefs jpm-prefs.json",
     "pretest": "npm run-script autolint",
     "test": "cross-env NODE_ENV=test karma start",
+    "preintegration": "npm run package",
+    "integration": "tox -r",
     "nsp": "nsp check",
     "codecov": "codecov",
     "clean": "git clean -fX ./dist ./*.xpi ./addon.env && npm run :clean:doc ",

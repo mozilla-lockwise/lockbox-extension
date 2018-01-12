@@ -12,6 +12,7 @@ export default class ScrollingList extends React.Component {
     return {
       className: PropTypes.string,
       itemClassName: PropTypes.string,
+      styledItems: PropTypes.boolean,
       children: PropTypes.func.isRequired,
       data: PropTypes.arrayOf(
         PropTypes.shape({
@@ -29,6 +30,7 @@ export default class ScrollingList extends React.Component {
     return {
       className: "",
       itemClassName: "",
+      styledItems: true,
       tabIndex: "0",
       selected: null,
     };
@@ -73,8 +75,14 @@ export default class ScrollingList extends React.Component {
     e.preventDefault();
   }
 
-  handleMouseDown(id) {
-    this.props.onChange(id);
+  handleMouseDown(e, id) {
+    if (e.button !== 0) {
+      return;
+    }
+
+    if (this.props.selected !== id) {
+      this.props.onChange(id);
+    }
     if (this.props.onClick) {
       this.props.onClick(id);
     }
@@ -106,10 +114,12 @@ export default class ScrollingList extends React.Component {
   }
 
   render() {
-    const { className, itemClassName, children, data, tabIndex,
+    const { className, itemClassName, styledItems, children, data, tabIndex,
             selected } = this.props;
-    const finalClassName = `${styles.scrollingList} ${className}`
-                           .trimRight();
+    const finalClassName = `${styles.scrollingList} ${className}`.trimRight();
+    const finalItemClassName = styledItems ?
+          `${styles.styledItem} ${itemClassName}`.trimRight() :
+          itemClassName;
 
     return (
       <ul tabIndex={tabIndex} className={finalClassName}
@@ -117,8 +127,8 @@ export default class ScrollingList extends React.Component {
           onKeyDown={(e) => this.handleKeyDown(e)}>
         {data.map((item) => {
           let props = {
-            onMouseDown: () => this.handleMouseDown(item.id),
-            className: itemClassName,
+            onMouseDown: (e) => this.handleMouseDown(e, item.id),
+            className: finalItemClassName,
           };
           if (item.id === selected) {
             Object.assign(props, {

@@ -75,7 +75,7 @@ describe("widgets > <ScrollingList/>", () => {
         expect(onClick).to.have.callCount(0);
       });
 
-      it("not dispatched on spce", () => {
+      it("not dispatched on space", () => {
         wrapper.simulate("keydown", {key: "Space"});
         expect(onClick).to.have.callCount(0);
       });
@@ -100,8 +100,19 @@ describe("widgets > <ScrollingList/>", () => {
 
     describe("onChange()", () => {
       it("dispatched on clicking item", () => {
-        wrapper.find("li").first().simulate("mousedown");
+        wrapper.find("li").first().simulate("mousedown", {button: 0});
         expect(onChange).to.have.been.calledWith("1");
+      });
+
+      it("not dispatched on clicking selected item", () => {
+        wrapper.setProps({selected: "1"});
+        wrapper.find("li").first().simulate("mousedown", {button: 0});
+        expect(onChange).to.have.callCount(0);
+      });
+
+      it("not dispatched on right-clicking item", () => {
+        wrapper.find("li").first().simulate("mousedown", {button: 1});
+        expect(onChange).to.have.callCount(0);
       });
 
       it("dispatched on arrow down", () => {
@@ -146,7 +157,13 @@ describe("widgets > <ScrollingList/>", () => {
 
     describe("onClick()", () => {
       it("dispatched on clicking item", () => {
-        wrapper.find("li").first().simulate("mousedown");
+        wrapper.find("li").first().simulate("mousedown", {button: 0});
+        expect(onClick).to.have.been.calledWith("1");
+      });
+
+      it("dispatched on clicking selected item", () => {
+        wrapper.setProps({selected: "1"});
+        wrapper.find("li").first().simulate("mousedown", {button: 0});
         expect(onClick).to.have.been.calledWith("1");
       });
 
