@@ -121,6 +121,8 @@ export default function initializeMessagePorts() {
         try {
           if (account.mode === accounts.UNAUTHENTICATED) {
             await account.signIn();
+          }
+          if (account.mode === accounts.AUTHENTICATED) {
             appKey = account.keys.get(accounts.APP_KEY_NAME);
           }
           await datastore.unlock(appKey);

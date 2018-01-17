@@ -4,7 +4,6 @@
 
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import fetchMock from "fetch-mock";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 import waitUntil from "async-wait-until";
@@ -12,15 +11,42 @@ import waitUntil from "async-wait-until";
 import "test/mocks/browser";
 import openDataStore from "src/webextension/background/datastore";
 import initializeMessagePorts from "src/webextension/background/message-ports";
+import getAccount, * as accounts from "src/webextension/background/accounts";
 
 chai.use(chaiAsPromised);
 chai.use(sinonChai);
 
 describe("background > message ports", () => {
+  const appKey = {
+    "kty": "oct",
+    "kid": "tdQscbxFxx-GpHZ_xTmow-gxbrU8EhhO4QGEnhhI5os",
+    "k": "Hkt_LYLJzQg4pzW0sIG8nAbOVY9kVr9h5ffmELWttYk",
+  };
+
   let itemId, selfMessagePort, otherMessagePort, selfListener, otherListener;
   let addonPort;
 
   before(async () => {
+    // rewire Accounts
+    let keys = new Map();
+    keys.set("https://identity.mozilla.com/apps/lockbox", appKey);
+
+    getAccount.__Rewire__("Account", class MockAccount extends accounts.Account {
+      async signIn() {
+        this.info = {
+          uid: "1234",
+          email: "eripley@wyutani.com",
+          access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
+          expires_at: (Date.now() / 1000) + 1209600,
+          refresh_token: "rmrBzLYi2zia4ExNBy7uXE4s_Da_HMS4d3tvr203OVTq1EMQqh-85m4Hejo3TKBKuont6QFIlLJ23rZR4xqZBA",
+          keys,
+        };
+
+        return this;
+      }
+    });
+    accounts.setAccount();
+
     await openDataStore();
     // capture connect from message-ports
     browser.runtime.onConnect.addListener((port) => {
@@ -31,33 +57,15 @@ describe("background > message ports", () => {
 
     selfMessagePort = browser.runtime.connect();
     otherMessagePort = browser.runtime.connect(undefined, {mockPrimary: false});
-
-    // setup fake OAuth response
-    fetchMock.post("end:/v1/token", {
-      status: 200,
-      body: {
-        grant_type: "bearer",
-        access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
-        expires_in: 1209600,
-        auth_at: 1510734551,
-        refresh_token: "rmrBzLYi2zia4ExNBy7uXE4s_Da_HMS4d3tvr203OVTq1EMQqh-85m4Hejo3TKBKuont6QFIlLJ23rZR4xqZBA",
-      },
-    });
-    fetchMock.get("end:/v1/profile", {
-      status: 200,
-      body: {
-        uid: "1234",
-        email: "eripley@wyutani.com",
-      },
-    });
   });
 
   after(() => {
+    getAccount.__ResetDependency__("Account");
+    accounts.setAccount();
+
     // Clear the listeners set in <src/webextension/background/messagePorts.js>.
     browser.runtime.onConnect.mockClearListener();
     browser.runtime.onMessage.mockClearListener();
-
-    fetchMock.restore();
   });
 
   beforeEach(() => {
