@@ -21,8 +21,8 @@ describe("list > manage > components > <LinkAccount/>", () => {
   });
 
   afterEach(() => {
-    spyOnCreate.reset();
-    spyOnSignin.reset();
+    spyOnCreate.resetHistory();
+    spyOnSignin.resetHistory();
   });
 
   it("render in guest mode", () => {

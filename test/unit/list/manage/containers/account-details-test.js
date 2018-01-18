@@ -68,7 +68,7 @@ describe("list > manage > containers > <AccountDetails/>", () => {
     });
     afterEach(() => {
       browser.runtime.onMessage.mockClearListener();
-      spy.reset();
+      spy.resetHistory();
     });
 
     it('click on "create account"', async () => {
