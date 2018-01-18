@@ -52,7 +52,7 @@ describe("list > manage > components > <EditItemDetails/>", () => {
   describe("new item", () => {
     beforeEach(() => {
       wrapper = mountWithL10n(
-        <EditItemDetails newItem={true} {...{onChange, onSave, onCancel}}/>
+        <EditItemDetails {...{onChange, onSave, onCancel}}/>
       );
     });
 
@@ -92,7 +92,7 @@ describe("list > manage > components > <EditItemDetails/>", () => {
   describe("existing item", () => {
     beforeEach(() => {
       wrapper = mountWithL10n(
-        <EditItemDetails fields={originalFields}
+        <EditItemDetails itemId="1" fields={originalFields}
                          {...{onChange, onSave, onCancel}}/>
       );
     });
@@ -102,6 +102,15 @@ describe("list > manage > components > <EditItemDetails/>", () => {
         expect(wrapper.find(`[name="${i}"]`).filterWhere((x) => {
           return typeof x.type() !== "string";
         })).to.have.prop("value", originalFields[i]);
+      }
+    });
+
+    it("form fields updated", () => {
+      wrapper.setProps({itemId: "2", fields: updatedFields});
+      for (let i in updatedFields) {
+        expect(wrapper.find(`[name="${i}"]`).filterWhere((x) => {
+          return typeof x.type() !== "string";
+        })).to.have.prop("value", updatedFields[i]);
       }
     });
 

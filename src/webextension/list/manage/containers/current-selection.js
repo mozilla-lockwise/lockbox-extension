@@ -18,7 +18,7 @@ import IntroPage from "../components/intro-page";
 
 const ConnectedEditItemDetails = connect(
   (state, ownProps) => ({
-    newItem: !ownProps.item,
+    itemId: ownProps.item ? ownProps.item.id : undefined,
     fields: ownProps.item ? flattenItem(ownProps.item) : undefined,
   }),
   (dispatch, ownProps) => {
