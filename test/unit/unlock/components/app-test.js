@@ -26,8 +26,8 @@ describe("unlock > components > <App/>", () => {
     browser.runtime.onMessage.mockClearListener();
     browser.runtime.openOptionsPage.restore();
 
-    spyMessage.reset();
-    spyOptions.reset();
+    spyMessage.resetHistory();
+    spyOptions.resetHistory();
   });
 
   it("render app", () => {

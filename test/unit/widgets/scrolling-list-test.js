@@ -227,7 +227,7 @@ describe("widgets > <ScrollingList/>", () => {
       wrapper.find("ul").instance().scrollTop = -42;
       wrapper.find("li").at(2).instance().scrollIntoView = scrollIntoView;
       wrapper.setProps({selected: "3"});
-      scrollIntoView.reset();
+      scrollIntoView.resetHistory();
       wrapper.setProps({selected: "3"});
 
       expect(scrollIntoView).to.have.callCount(0);
