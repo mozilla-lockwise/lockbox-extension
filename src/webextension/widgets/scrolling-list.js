@@ -12,7 +12,7 @@ export default class ScrollingList extends React.Component {
     return {
       className: PropTypes.string,
       itemClassName: PropTypes.string,
-      styledItems: PropTypes.boolean,
+      styledItems: PropTypes.bool,
       children: PropTypes.func.isRequired,
       data: PropTypes.arrayOf(
         PropTypes.shape({
