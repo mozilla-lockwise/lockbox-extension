@@ -25,6 +25,8 @@ describe("list > manage > containers > <AccountSummary/>", () => {
         mode: "authenticated",
         uid: "1234",
         email: "eripley@wyutani.com",
+        displayName: "Ellen Ripley",
+        avatar: "https://avatar.example/c49fd653afb7010bd47d5ef81a95d3977803517d.png",
       },
     });
     const wrapper = mountWithL10n(
@@ -33,7 +35,8 @@ describe("list > manage > containers > <AccountSummary/>", () => {
       </Provider>
     );
 
-    expect(wrapper.find("span")).to.have.text("eripley@wyutani.com");
+    expect(wrapper.find("span")).to.have.text(" Ellen Ripley");
+    expect(wrapper.find("img")).to.have.prop("src").to.equal("https://avatar.example/c49fd653afb7010bd47d5ef81a95d3977803517d.png");
   });
   it("render empty in guest mode", () => {
     const store = mockStore(initialState);

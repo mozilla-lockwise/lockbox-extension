@@ -14,10 +14,12 @@ chai.use(chaiEnzyme());
 describe("list > manage > components > <AccountSummaryLabel />", () => {
   it("render <AccountSummaryLabel/>", () => {
     const wrapper = mountWithL10n(
-      <AccountSummaryLabel email="eripley@wyutani.com"/>
+      <AccountSummaryLabel displayName="Ellen Ripley"
+        avatar="https://avatar.example/c49fd653afb7010bd47d5ef81a95d3977803517d.png"/>
     );
 
-    expect(wrapper.find("span")).to.have.text("eripley@wyutani.com");
+    expect(wrapper.find("span")).to.have.text(" Ellen Ripley");
+    expect(wrapper.find("img")).to.have.prop("src").to.equal("https://avatar.example/c49fd653afb7010bd47d5ef81a95d3977803517d.png");
   });
 
   it("render nothing", () => {

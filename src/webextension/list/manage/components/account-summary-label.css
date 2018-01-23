@@ -5,3 +5,8 @@
 .account-summary {
   font-size: 15px;
 }
+
+.account-summary img {
+  height: 40px;
+  vertical-align: middle;
+}
