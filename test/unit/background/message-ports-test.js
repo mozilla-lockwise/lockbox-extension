@@ -122,7 +122,7 @@ describe("background > message ports", () => {
         uid: undefined,
         email: undefined,
         displayName: undefined,
-        avatar: undefined,
+        avatar: browser.extension.getURL(accounts.DEFAULT_AVATAR_PATH),
       },
     });
   });

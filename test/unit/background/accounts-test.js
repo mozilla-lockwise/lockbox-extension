@@ -192,7 +192,7 @@ describe("background > accounts", () => {
     });
 
     it("avatar", () => {
-      expect(acct.avatar).to.equal(undefined);
+      expect(acct.avatar).to.equal(browser.extension.getURL(accounts.DEFAULT_AVATAR_PATH));
       acct.info = authedInfo;
       expect(acct.avatar).to.equal("https://avatars.example/92397b7d8b9e510f4266ab9751030c73b3b12cfc.png");
     });
@@ -206,7 +206,7 @@ describe("background > accounts", () => {
         uid: undefined,
         email: undefined,
         displayName: undefined,
-        avatar: undefined,
+        avatar: browser.extension.getURL(accounts.DEFAULT_AVATAR_PATH),
       });
       acct.info = authedInfo;
       actual = acct.details();

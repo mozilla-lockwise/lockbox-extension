@@ -72,6 +72,8 @@ export const AUTHENTICATED = "authenticated";
 
 export const APP_KEY_NAME = "https://identity.mozilla.com/apps/lockbox";
 
+export const DEFAULT_AVATAR_PATH = "icons/default-avatar.svg";
+
 export class Account {
   constructor({config = DEFAULT_CONFIG, info}) {
     // TODO: verify configuration (when there is one)
@@ -113,7 +115,11 @@ export class Account {
   get uid() { return (this.info && this.info.uid) || undefined; }
   get email() { return (this.info && this.info.email) || undefined; }
   get displayName() { return (this.info && this.info.displayName) || this.email; }
-  get avatar() { return (this.info && this.info.avatar) || undefined; }
+  get avatar() {
+    return (this.info && this.info.avatar) ||
+           browser.extension.getURL(DEFAULT_AVATAR_PATH);
+  }
+
   get keys() { return (this.info && this.info.keys) || new Map(); }
 
   async signIn(action = "signin") {
