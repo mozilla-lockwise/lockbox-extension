@@ -5,9 +5,8 @@
 import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
-import CopyToClipboard from "react-copy-to-clipboard";
 
-import Button from "../../widgets/button";
+import CopyToClipboardButton from "../../widgets/copy-to-clipboard-button";
 import FieldText from "../../widgets/field-text";
 import Input from "../../widgets/input";
 import LabelText from "../../widgets/label-text";
@@ -17,20 +16,6 @@ import TextArea from "../../widgets/text-area";
 import styles from "./item-fields.css";
 
 const PASSWORD_DOT = "\u25cf";
-
-function CopyToClipboardButton({text, field, onCopy, ...props}) {
-  return (
-    <CopyToClipboard text={text} onCopy={() => onCopy(field)}>
-      <Button theme="ghost" className={styles.copyButton} {...props}/>
-    </CopyToClipboard>
-  );
-}
-
-CopyToClipboardButton.propTypes = {
-  text: PropTypes.string.isRequired,
-  field: PropTypes.oneOf(["username", "password"]).isRequired,
-  onCopy: PropTypes.func.isRequired,
-};
 
 const fieldsPropTypes = PropTypes.shape({
   origin: PropTypes.string.isRequired,
@@ -66,10 +51,8 @@ export function ItemFields({fields, onCopy}) {
             {fields.username}
           </FieldText>
           <Localized id="item-fields-copy-username">
-            <CopyToClipboardButton text={fields.username} field="username"
-                                   onCopy={onCopy}>
-              cOPy
-            </CopyToClipboardButton>
+            <CopyToClipboardButton value={fields.username}
+                                   onCopy={() => onCopy("username")}/>
           </Localized>
         </div>
       </div>
@@ -82,10 +65,8 @@ export function ItemFields({fields, onCopy}) {
             {PASSWORD_DOT.repeat(fields.password.length)}
           </FieldText>
           <Localized id="item-fields-copy-password">
-            <CopyToClipboardButton text={fields.password} field="password"
-                                   onCopy={onCopy}>
-              cOPy
-            </CopyToClipboardButton>
+            <CopyToClipboardButton value={fields.password}
+                                   onCopy={() => onCopy("password")}/>
           </Localized>
         </div>
       </div>
