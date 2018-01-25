@@ -54,6 +54,7 @@ describe("widgets > <CopyToClipboardButton/>", () => {
     const wrapper = mountWithL10n(<CopyToClipboardButton value="hi there"/>);
     wrapper.find("button").simulate("click");
     expect(mockCopy).to.have.callCount(1);
+    expect(wrapper.find(ButtonStack).prop("selectedIndex")).to.equal(1);
   });
 
   it("onCopy fired", () => {
@@ -64,5 +65,19 @@ describe("widgets > <CopyToClipboardButton/>", () => {
     wrapper.find("button").simulate("click");
     expect(mockCopy).to.have.callCount(1);
     expect(onCopy).to.have.callCount(1);
+  });
+
+  it("timeout fired", () => {
+    // We don't use sinon's useFakeTimers() here since it doesn't work with our
+    // test setup.
+    const realSetTimeout = window.setTimeout;
+    window.setTimeout = (f) => f();
+
+    const wrapper = mountWithL10n(<CopyToClipboardButton value="hi there"/>);
+    wrapper.find("button").simulate("click");
+    expect(mockCopy).to.have.callCount(1);
+    expect(wrapper.find(ButtonStack).prop("selectedIndex")).to.equal(0);
+
+    window.setTimeout = realSetTimeout;
   });
 });
