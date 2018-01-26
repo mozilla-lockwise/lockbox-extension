@@ -13,7 +13,10 @@ export default function AccountSummaryLabel({displayName, avatar}) {
   }
 
   return (
-    <span className={styles.accountSummary}><img src={avatar} /> {displayName}</span>
+    <div className={styles.accountSummary}>
+      <span className={styles.avatar}><img src={avatar} /></span>
+      <span className={styles.displayName}>{displayName}</span>
+    </div>
   );
 }
 

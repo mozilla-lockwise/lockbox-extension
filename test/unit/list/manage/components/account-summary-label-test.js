@@ -18,7 +18,7 @@ describe("list > manage > components > <AccountSummaryLabel />", () => {
         avatar="https://avatar.example/c49fd653afb7010bd47d5ef81a95d3977803517d.png"/>
     );
 
-    expect(wrapper.find("span")).to.have.text(" Ellen Ripley");
+    expect(wrapper.find("span").at(1)).to.have.text("Ellen Ripley");
     expect(wrapper.find("img")).to.have.prop("src").to.equal("https://avatar.example/c49fd653afb7010bd47d5ef81a95d3977803517d.png");
   });
 

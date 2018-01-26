@@ -10,7 +10,6 @@ export default connect(
   (state) => {
     if (state.account.mode === "authenticated") {
       return {
-        email: state.account.email,
         displayName: state.account.displayName,
         avatar: state.account.avatar,
       };
