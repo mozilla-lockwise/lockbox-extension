@@ -6,7 +6,14 @@ _Date: 2018-01-30_
 
 ### What's New
 
+* There is a version query param to the SurveyGizmo link for better feedback tracking ([#388](https://github.com/mozilla-lockbox/lockbox-extension/issues/388))
+* We're now using greenkeeper to help keep up dependencies ([#276](https://github.com/mozilla-lockbox/lockbox-extension/issues/276))
+
 ### What's Fixed
+
+* Addressed a syntax error causing warnings in the build around the prop type:ScrollingList ([#451](https://github.com/mozilla-lockbox/lockbox-extension/issues/451))
+* Clicking "New entry" button while editing an entry no longer duplicates the entry ([#438](https://github.com/mozilla-lockbox/lockbox-extension/issues/438))
+* Added stylelint CSS linter to better catch programming errors ([#352](https://github.com/mozilla-lockbox/lockbox-extension/issues/352))
 
 ### Known Issues
 
