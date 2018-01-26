@@ -14,6 +14,10 @@ _Date: 2018-01-30_
 * Addressed a syntax error causing warnings in the build around the prop type:ScrollingList ([#451](https://github.com/mozilla-lockbox/lockbox-extension/issues/451))
 * Clicking "New entry" button while editing an entry no longer duplicates the entry ([#438](https://github.com/mozilla-lockbox/lockbox-extension/issues/438))
 * Added stylelint CSS linter to better catch programming errors ([#352](https://github.com/mozilla-lockbox/lockbox-extension/issues/352))
+* The `expires_at` value during FxA login is now valid ([#430](https://github.com/mozilla-lockbox/lockbox-extension/issues/430))
+* The "guest mode" key is now defined in the extension and not the shared datastore module ([#435](https://github.com/mozilla-lockbox/lockbox-extension/issues/435))
+* There is no longer an odd blue background when selecting items from left side list ([#414](https://github.com/mozilla-lockbox/lockbox-extension/issues/414))
+
 
 ### Known Issues
 
