@@ -2,7 +2,7 @@
   "title": "Lockbox",
   "name": "lockbox",
   "id": "lockbox@mozilla.com",
-  "version": "0.1.4-alpha",
+  "version": "0.1.5-alpha",
   "main": "dist/bootstrap.js",
   "description": "The simple way to store, retrieve and manage website login info",
   "author": "Lockbox Team <lockbox-dev@mozilla.com>",
