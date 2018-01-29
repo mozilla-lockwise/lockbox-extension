@@ -30,25 +30,21 @@ To generate the next release binary:
     - each release includes the sub headings "What's New", "What's Fixed", and "Known Issues"
     - consult with Product Management on wording if needed
 2. Commit and ultimately merge to `master` branch
-3. Merge the `master` branch into `production` branch and push to GitHub:
-    - `git checkout master`
-    - `git pull upstream master` (to make sure you have the latest)
-    - `git checkout production`
-    - `git pull upstream production` (to make sure you have the latest)
-    - `git merge master`
-    - `git push upstream production`
-    - Test Pilot's Jenkins will now build and sign the extension (see ["Extension Signing"](#extension-signing))
+3. Create a pull request on GitHub [comparing changes from the `master` branch against/to `production`][production-compare]
+    - Open the pull request so we can show the changes, CI status, and approvals
+      - Request an approval from the P.I. and Product representatives
+    - Once the release has been reviewed, tested, and approved to go live, merge and close the pull request
+    - Test Pilot's Jenkins will then build, sign, and deploy the extension (see ["Extension Signing"](#extension-signing))
 4. Tag the latest commit on `production` branch with an annotated version and push the tag:
     - `git tag -a -m "Release 0.1.0" 0.1.0`
     - `git push upstream 0.1.0`
-    - Travis-CI will build and generate a GitHub Release
+    - Travis-CI will build and generate a [GitHub Release][releases]
 7. Edit the resulting GitHub Release
-    - Set the GitHub Release title to match the version
+    - Set the [GitHub Release][releases] title to match the version
     - Set the GitHub Release notes to match the `docs/release-notes.md`
     - Download the signed add-on: `wget -O signed-addon.xpi https://testpilot.firefox.com/files/lockbox@mozilla.com/latest`
     - Attach to the GitHub Release the downloaded signed add-on
 8. Send an announcement to the team (e.g., via Slack team channel)
-
 
 ## Extension Signing
 
@@ -65,3 +61,6 @@ The resulting files deployed are:
 - Latest version of the signed extension XPI: [https://testpilot.firefox.com/files/lockbox@mozilla.com/latest](https://testpilot.firefox.com/files/lockbox@mozilla.com/latest)
 
 **IMPORTANT:** Test Pilot reports the status of build, signing, and deployment of its artifacts on the IRC channel **#testpilot-bots**.  Be sure to join the channel prior to pushing the `production` branch to GitHub in order to receive the status updates.
+
+[production-compare]: https://github.com/mozilla-lockbox/lockbox-extension/compare/production...master
+[releases]: https://github.com/mozilla-lockbox/lockbox-extension/releases

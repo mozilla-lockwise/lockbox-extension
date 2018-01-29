@@ -4,6 +4,7 @@
 
 import { openView } from "./views";
 import getAccount, * as accounts from "./accounts";
+import { DEFAULT_APP_KEY } from "./datastore";
 import * as telemetry from "./telemetry";
 
 let listener;
@@ -59,7 +60,7 @@ export default async function updateBrowserAction({account = getAccount(), datas
     if (account.mode === accounts.GUEST) {
       // unlock on user's behalf ...
       // XXXX: is this a bad idea or terrible idea?
-      await datastore.unlock();
+      await datastore.unlock(DEFAULT_APP_KEY);
       return installEntriesAction();
     }
     // setup unlock popup

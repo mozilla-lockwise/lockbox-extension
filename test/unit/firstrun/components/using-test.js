@@ -26,7 +26,7 @@ describe("firstrun > components > <Using/>", () => {
   });
   afterEach(() => {
     browser.runtime.onMessage.mockClearListener();
-    spyMessage.reset();
+    spyMessage.resetHistory();
   });
 
   it("render <StartUsing/>", () => {
