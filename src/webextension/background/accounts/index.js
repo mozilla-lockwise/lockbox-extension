@@ -183,17 +183,29 @@ export class Account {
       email: userInfo.email,
       access_token: oauthInfo.access_token,
       expires_at: (Date.now() / 1000) + oauthInfo.expires_in,
-      refresh_token: oauthInfo.refresh_token,
       id_token: oauthInfo.id_token,
+      refresh_token: oauthInfo.refresh_token,
       keys,
     };
     return this;
   }
 
-  async signOut() {
-    // TODO: implement a complete signout/forget
-    // TODO: something server side?
-    this.info = undefined;
+  async signOut(full = false) {
+    if (full) {
+      // forget everything
+      this.info = undefined;
+    } else if (this.info) {
+      // light touch -- whitelist
+      const info = this.info;
+      this.info = {
+        uid: info.uid,
+        access_token: info.access_token,
+        expires_at: info.expires_at,
+        id_token: info.id_token,
+      };
+    }
+    // XXXX: something server side?
+
     return this;
   }
 
