@@ -45,7 +45,7 @@ body {
   font-weight: normal;
   font-style: italic;
   text-align: center;
-  text-transform: lowercase;;
+  text-transform: lowercase;
   margin: 0;
 }
 
@@ -61,9 +61,6 @@ body {
 .unlock > menu > * {
   width: 50%;
   flex-grow: 1;
-}
-
-.unlock > menu > * {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }

@@ -65,7 +65,7 @@ describe("list > popup > containers > <AllItems/>", () => {
     });
 
     it("selectItem() dispatched", () => {
-      wrapper.find(ItemSummary).at(0).simulate("mousedown");
+      wrapper.find(ItemSummary).at(0).simulate("mousedown", {button: 0});
       expect(store.getActions()[0].type).to.equal(SELECT_ITEM_STARTING);
     });
   });

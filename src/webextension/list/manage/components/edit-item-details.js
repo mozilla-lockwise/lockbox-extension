@@ -19,7 +19,7 @@ export default class EditItemDetails extends React.Component {
   static get propTypes() {
     return {
       ...EditItemFields.propTypes,
-      newItem: PropTypes.bool,
+      itemId: PropTypes.string,
       onSave: PropTypes.func.isRequired,
       onCancel: PropTypes.func.isRequired,
     };
@@ -27,7 +27,7 @@ export default class EditItemDetails extends React.Component {
 
   static get defaultProps() {
     return {
-      newItem: false,
+      itemId: null,
       fields: {
         title: "",
         origin: "",
@@ -43,13 +43,22 @@ export default class EditItemDetails extends React.Component {
     this.state = {...props.fields};
   }
 
+  componentWillReceiveProps(nextProps) {
+    // If we've changed the item we're editing, reset the form fields to their
+    // (new) initial state.
+    if (nextProps.itemId !== this.props.itemId) {
+      this.setState(nextProps.fields);
+    }
+  }
+
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
     this.props.onChange();
   }
 
   render() {
-    const {newItem, onSave, onCancel} = this.props;
+    const {itemId, onSave, onCancel} = this.props;
+    const newItem = itemId === null;
 
     return (
       <form className={`${styles.itemDetails} ${styles.editing}`}

@@ -9,7 +9,6 @@ import { connect } from "react-redux";
 
 import Button from "../../../widgets/button";
 import { startNewItem } from "../../actions";
-import { NEW_ITEM_ID } from "../../common";
 
 function AddItem({disabled, onAddItem}) {
   return (
@@ -29,7 +28,7 @@ AddItem.propTypes = {
 
 export default connect(
   (state) => ({
-    disabled: state.list.selectedItemId === NEW_ITEM_ID,
+    disabled: state.editor.editing,
   }),
   (dispatch) => ({
     onAddItem: () => { dispatch(startNewItem()); },

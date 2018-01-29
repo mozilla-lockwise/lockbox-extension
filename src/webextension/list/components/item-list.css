@@ -16,11 +16,11 @@
 }
 
 .item {
-  border-bottom: solid 0.5px #d7d7db;
-  border-right: solid 0.5px #d7d7db;
+  color: #0c0c0d;
+  border-bottom: 1px solid #d7d7db;
 }
 
-.item:nth-child(2n+1) {
+.item:nth-child(2n + 1) {
   background-color: #ededf0;
 }
 

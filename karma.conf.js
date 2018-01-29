@@ -16,11 +16,11 @@ module.exports = function(config) {
 
     basePath: "",
     files: [
-      "test/index.js",
+      "test/unit/index.js",
     ],
     exclude: [],
     preprocessors: {
-      "test/index.js": ["webpack", "sourcemap"],
+      "test/unit/index.js": ["webpack", "sourcemap"],
     },
 
     frameworks: ["mocha"],

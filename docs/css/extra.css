@@ -26,5 +26,5 @@ div.right {
 }
 
 .rst-content .admonition-title::before {
-    display: none; !important
+  display: none !important;
 }

@@ -17,7 +17,8 @@ class Home(Base):
                             munged_class_name('item-summary')))
     _delete_entry_locator = (By.CSS_SELECTOR,
                              'article div menu '
-                             'button.{}'.format(munged_class_name('normal')))
+                             'button.{}'.format(munged_class_name(
+                                                'normal-theme')))
     _delete_entry_modal_locator = (By.CSS_SELECTOR,
                                    '.ReactModal__Content--after-open '
                                    'menu button.{}'.format(
