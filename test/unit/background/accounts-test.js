@@ -332,8 +332,20 @@ describe("background > accounts", () => {
         expect(acct.signIn()).to.be.rejectedWith(Error, "invalid oauth authorization code");
       });
 
-      it("signOut()", async () => {
+      it("light signOut()", async () => {
+        acct.info = { ...authedInfo };
         await acct.signOut();
+        const expected = {
+          uid: authedInfo.uid,
+          expires_at: authedInfo.expires_at,
+          access_token: authedInfo.access_token,
+          id_token: authedInfo.id_token,
+        };
+        expect(acct.info).to.deep.equal(expected);
+      });
+      it("full signOut()", async () => {
+        acct.info = { ...authedInfo };
+        await acct.signOut(true);
         expect(acct.info).to.equal(undefined);
       });
     });
