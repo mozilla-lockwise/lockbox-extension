@@ -1,5 +1,32 @@
 # Lockbox Release Notes
 
+## 0.1.5-alpha
+
+_Date: 2018-01-30_
+
+### What's New
+
+* There is a version query param to the SurveyGizmo link for better feedback tracking ([#388](https://github.com/mozilla-lockbox/lockbox-extension/issues/388))
+* We're now using greenkeeper to help keep up dependencies ([#276](https://github.com/mozilla-lockbox/lockbox-extension/issues/276))
+
+### What's Fixed
+
+* Addressed a syntax error causing warnings in the build around the prop type:ScrollingList ([#451](https://github.com/mozilla-lockbox/lockbox-extension/issues/451))
+* Clicking "New entry" button while editing an entry no longer duplicates the entry ([#438](https://github.com/mozilla-lockbox/lockbox-extension/issues/438))
+* Added stylelint CSS linter to better catch programming errors ([#352](https://github.com/mozilla-lockbox/lockbox-extension/issues/352))
+* The `expires_at` value during FxA login is now valid ([#430](https://github.com/mozilla-lockbox/lockbox-extension/issues/430))
+* The "guest mode" key is now defined in the extension and not the shared datastore module ([#435](https://github.com/mozilla-lockbox/lockbox-extension/issues/435))
+* There is no longer an odd blue background when selecting items from left side list ([#414](https://github.com/mozilla-lockbox/lockbox-extension/issues/414))
+
+
+### Known Issues
+
+* Once you link a Firefox Account to Lockbox, you cannot unlink it from that account.
+* Once you link a Firefox Account to Lockbox, signing in with a different account can render Lockbox unusable until you quit and restart Firefox.
+* Once you link a Firefox Account to Lockbox, resetting your Firefox Account password through "forgot your password" will render all your logins inaccessible; the only recourse is to reset Lockbox and start over.
+* Firefox's default prompt to save logins is only disabled on new installs of this extension; updating Lockbox will not change your current Firefox preferences.
+
+
 ## 0.1.4-alpha
 
 _Date: 2017-12-13_
