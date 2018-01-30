@@ -6,7 +6,7 @@
   margin: 0;
   padding: 1ch;
   display: flex;
-  align-items: baseline;
+  align-items: center;
 }
 
 .toolbar > * + * {
