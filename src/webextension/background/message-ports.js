@@ -143,9 +143,12 @@ export default function initializeMessagePorts() {
     case "signout":
       return openDataStore().then(async (datastore) => {
         // TODO: perform (light) signout from FxA
-        await getAccount().signOut();
+        const account = await getAccount();
+        await account.signOut();
         await datastore.lock();
         await updateBrowserAction({datastore});
+        telemetry.recordEvent("fxaSignout", "accounts");
+        broadcast({ type: "account_details_updated", account: account.details() });
 
         return {};
       });
