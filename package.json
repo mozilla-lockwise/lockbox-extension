@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "copy-to-clipboard": "^3.0.8",
-    "fluent": "^0.4.2",
+    "fluent": "^0.6.0",
     "fluent-intl-polyfill": "^0.1.0",
     "fluent-langneg": "^0.1.0",
     "fluent-react": "^0.4.1",
