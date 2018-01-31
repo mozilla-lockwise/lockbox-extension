@@ -3,5 +3,23 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .account-summary {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
   font-size: 15px;
+  height: 40px;
+}
+
+.account-summary .avatar {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-inline-end: 1ch;
+}
+
+.account-summary .avatar img {
+  height: 100%;
 }

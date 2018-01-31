@@ -7,16 +7,20 @@ import React from "react";
 
 import styles from "./account-summary-label.css";
 
-export default function AccountSummaryLabel({email}) {
-  if (!email) {
+export default function AccountSummaryLabel({displayName, avatar}) {
+  if (!displayName) {
     return null;
   }
 
   return (
-    <span className={styles.accountSummary}>{email}</span>
+    <div className={styles.accountSummary}>
+      <span className={styles.avatar}><img src={avatar} /></span>
+      <span className={styles.displayName}>{displayName}</span>
+    </div>
   );
 }
 
 AccountSummaryLabel.propTypes = {
-  email: PropTypes.string,
+  displayName: PropTypes.string,
+  avatar: PropTypes.string,
 };

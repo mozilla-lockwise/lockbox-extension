@@ -121,6 +121,8 @@ describe("background > message ports", () => {
         mode: "guest",
         uid: undefined,
         email: undefined,
+        displayName: undefined,
+        avatar: browser.extension.getURL(accounts.DEFAULT_AVATAR_PATH),
       },
     });
   });

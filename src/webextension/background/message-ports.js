@@ -103,8 +103,8 @@ export default function initializeMessagePorts() {
         await closeView();
 
         await datastore.reset();
-        await account.signOut();
-        // TODO: put other reset calls here
+        await account.signOut(true);
+        // XXXX: put other reset calls here
 
         await updateBrowserAction({datastore});
         broadcast({type: "account_details_updated", account: account.details()});
@@ -143,8 +143,12 @@ export default function initializeMessagePorts() {
     case "signout":
       return openDataStore().then(async (datastore) => {
         // TODO: perform (light) signout from FxA
+        const account = await getAccount();
+        await account.signOut();
         await datastore.lock();
         await updateBrowserAction({datastore});
+        telemetry.recordEvent("fxaSignout", "accounts");
+        broadcast({ type: "account_details_updated", account: account.details() });
 
         return {};
       });
