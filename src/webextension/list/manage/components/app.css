@@ -2,7 +2,24 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/* The rules on `html` and `body` ensure that the body is always the full height
+   of the viewport at minimum, but that it can grow if the content is too long.
+   This ensures that absolutely-positioned elements can cover the entire
+   document (necessary for our dropdowns). */
+
+html,
 body {
+  display: flex;
+  min-height: 100%;
+}
+
+body,
+body > main {
+  flex: 1;
+}
+
+body {
+  position: relative;
   padding: 0;
   margin: 0;
   color: #0c0c0d;
@@ -12,8 +29,6 @@ body {
   -moz-user-select: none;
 }
 
-html,
-body,
 body > main,
 .app {
   height: 100%;
