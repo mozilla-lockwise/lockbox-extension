@@ -25,8 +25,8 @@ for (let [Component, classRegExp] of [
       const wrapper = mount(
         <Component onClick={() => {}}>link text</Component>
       );
-      expect(wrapper.find("a")).to.have.text("link text");
-      expect(wrapper.find("a")).prop("className").to.match(new RegExp(
+      expect(wrapper.find("button")).to.have.text("link text");
+      expect(wrapper.find("button")).prop("className").to.match(new RegExp(
         "^" + classRegExp + "$"
       ));
     });
@@ -36,8 +36,8 @@ for (let [Component, classRegExp] of [
         <Component onClick={() => {}}
           className="extra-extra">link text</Component>
       );
-      expect(wrapper.find("a")).to.have.text("link text");
-      expect(wrapper.find("a")).prop("className").to.match(new RegExp(
+      expect(wrapper.find("button")).to.have.text("link text");
+      expect(wrapper.find("button")).prop("className").to.match(new RegExp(
         "^" + classRegExp + " extra-extra$"
       ));
     });
@@ -48,7 +48,7 @@ for (let [Component, classRegExp] of [
         <Component onClick={onClick}>link text</Component>
       );
 
-      wrapper.find("a").simulate("click");
+      wrapper.find("button").simulate("click");
       expect(onClick).to.have.callCount(1);
     });
 
@@ -57,7 +57,7 @@ for (let [Component, classRegExp] of [
         <Component onClick={() => {}}>link text</Component>
       );
       wrapper.instance().focus();
-      expect(wrapper.find("a")).to.be.focused(document);
+      expect(wrapper.find("button")).to.be.focused(document);
     });
   });
 }

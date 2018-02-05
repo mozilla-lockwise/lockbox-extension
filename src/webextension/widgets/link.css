@@ -3,9 +3,16 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .link {
-  color: #0060df;
+  border: 0;
+  padding: 0;
   text-decoration: none;
+  color: #0060df;
+  background: transparent;
   border-radius: 2px;
+}
+
+.link::-moz-focus-inner {
+  border: none;
 }
 
 .link:hover {
