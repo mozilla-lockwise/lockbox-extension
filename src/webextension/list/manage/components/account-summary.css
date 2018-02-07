@@ -1,0 +1,141 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+.button {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  font-size: 15px;
+  height: 40px;
+  border: 0;
+  padding: 0;
+  margin-inline-end: 12px;
+  background: transparent;
+}
+
+.button::-moz-focus-inner {
+  border: none;
+}
+
+.display-name {
+  border-radius: 2px;
+}
+
+.display-name::after {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url(/icons/arrowhead-down-16.svg);
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  margin-inline-start: 1ch;
+  vertical-align: middle;
+}
+
+.button:focus > .display-name {
+  box-shadow: 0 0 0 2px #0a84ff, 0 0 0 6px rgba(10, 132, 255, 0.3);
+}
+
+.button > .avatar {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-inline-end: 1ch;
+}
+
+.button > .avatar > img {
+  height: 100%;
+}
+
+.dropdown-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.dropdown {
+  position: absolute;
+  /* XXX: This positioning is a hack and assumes that the <AccountSummary/> ends
+     up in a particular spot in the UI. It would be nice if we could make this
+     more flexible in the future. */
+  top: 50px;
+  right: 2px;
+  min-width: 130px;
+  padding: 8px 12px;
+  border: 1px solid #b1b1b3;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(12, 12, 13, 0.1);
+  background-color: #ffffff;
+  outline: none;
+}
+
+/* The outer border of the "speech bubble" arrow. */
+.dropdown::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  /* XXX: As above, this positioning is a hack. */
+  right: 17px;
+  border-width: 0 8px 8px;
+  border-style: solid;
+  border-color: #b1b1b3 transparent;
+}
+
+/* The inner part of the "speech bubble" arrow, designed to look like it's part
+   of the main body of the element. This is 1px smaller than the outer border
+   so that it overlays it correctly. */
+.dropdown::after {
+  content: "";
+  position: absolute;
+  top: -7px;
+  /* XXX: As above, this positioning is a hack. */
+  right: 18px;
+  border-width: 0 7px 7px;
+  border-style: solid;
+  /* This color should match the background of the dropdown. */
+  border-color: #ffffff transparent;
+}
+
+.dropdown > ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.dropdown > ul > li {
+  padding: 8px;
+}
+
+.dropdown-link {
+  color: #0c0c0d;
+}
+
+.dropdown-link::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  margin-inline-end: 1ch;
+  vertical-align: middle;
+}
+
+.dropdown-link.account::before {
+  background-image: url(/icons/account.svg);
+}
+
+.dropdown-link.options::before {
+  background-image: url(/icons/options.svg);
+}
+
+.dropdown-link.signout::before {
+  background-image: url(/icons/signout.svg);
+}
