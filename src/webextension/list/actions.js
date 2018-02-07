@@ -7,6 +7,12 @@ import { version } from "../../../package";
 export const GET_ACCOUNT_DETAILS_STARTING = Symbol("GET_ACCOUNT_DETAILS_STARTING");
 export const GET_ACCOUNT_DETAILS_COMPLETED = Symbol("GET_ACCOUNT_DETAILS_COMPLETED");
 
+export const OPEN_ACCOUNT_PAGE = Symbol("OPEN_ACCOUNT_PAGE");
+export const OPEN_OPTIONS = Symbol("OPEN_OPTIONS");
+
+export const SIGNOUT_STARTING = Symbol("SIGNOUT_STARTING");
+export const SIGNOUT_COMPLETED = Symbol("SIGNOUT_COMPLETED");
+
 export const LIST_ITEMS_STARTING = Symbol("LIST_ITEMS_STARTING");
 export const LIST_ITEMS_COMPLETED = Symbol("LIST_ITEMS_COMPLETED");
 
@@ -41,6 +47,7 @@ export const OPEN_FAQ = Symbol("OPEN_FAQ");
 // other (i.e. FOO_STARTING and FOO_COMPLETED).
 let nextActionId = 0;
 
+const ACCOUNT_URL = "https://accounts.firefox.com/settings";
 const FEEDBACK_URL = "https://qsurvey.mozilla.com/s3/Lockbox-Input?ver=" + version;
 const FAQ_URL = "https://mozilla-lockbox.github.io/lockbox-extension/faqs/";
 
@@ -73,6 +80,44 @@ function getAccountDetailsCompleted(actionId, account) {
 
 export function accountDetailsUpdated(account) {
   return getAccountDetailsCompleted(undefined, account);
+}
+
+export function openAccountPage() {
+  window.open(ACCOUNT_URL, "_blank");
+  return {
+    type: OPEN_ACCOUNT_PAGE,
+  };
+}
+
+export function openOptions() {
+  browser.runtime.openOptionsPage();
+  return {
+    type: OPEN_OPTIONS,
+  };
+}
+
+export function signout() {
+  return async (dispatch) => {
+    const actionId = nextActionId++;
+    dispatch(signoutStarting(actionId));
+
+    await browser.runtime.sendMessage({type: "signout"});
+    dispatch(signoutCompleted(actionId));
+  };
+}
+
+function signoutStarting(actionId) {
+  return {
+    type: SIGNOUT_STARTING,
+    actionId,
+  };
+}
+
+function signoutCompleted(actionId) {
+  return {
+    type: SIGNOUT_COMPLETED,
+    actionId,
+  };
 }
 
 export function listItems() {

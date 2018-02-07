@@ -39,7 +39,7 @@ describe("widgets > <Button/>", () => {
     expect(onClick).to.have.callCount(1);
   });
 
-  it("focus() focuses button", async () => {
+  it("focus() focuses button", () => {
     const wrapper = mountIntoDOM(<Button>click me</Button>);
     wrapper.instance().focus();
     expect(wrapper.find("button")).to.be.focused(document);

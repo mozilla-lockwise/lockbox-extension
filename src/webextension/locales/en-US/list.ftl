@@ -41,6 +41,10 @@ toolbar-go-home = Home
 toolbar-send-feedback = Provide Feedback
 toolbar-open-faq = FAQ
 
+account-summary-account = Account
+account-summary-options = Preferences
+account-summary-signout = Sign Out
+
 all-items-empty =
   When you add an Entry, it automatically shows up here.
 
