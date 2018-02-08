@@ -1,5 +1,30 @@
 # Lockbox Release Notes
 
+## 0.1.6-alpha
+
+_Date: 2018-02-08_
+
+### What's New
+
+* When you copy a username or password from the doorhanger to the clipboard, you now get confirmation of that action ([#318](https://github.com/mozilla-lockbox/lockbox-extension/issues/318))
+* When signed in with the full editor view open, it displays additional profile information you have set on Firefox Accounts to better personalize your experience ([#417](https://github.com/mozilla-lockbox/lockbox-extension/issues/417))
+* When signed in with the full editor view open, you can better manage your Firefox Account ([#442](https://github.com/mozilla-lockbox/lockbox-extension/issues/442))
+* You can now sign out of Lockbox, locking down your entries without quitting Firefox ([#149](https://github.com/mozilla-lockbox/lockbox-extension/issues/149))
+
+### What's Fixed
+
+* Cleaned up obsolete or erroneous localization usage ([#240](https://github.com/mozilla-lockbox/lockbox-extension/issues/240))
+* Activated Greenkeeper to mitigate stale dependencies ([#276](https://github.com/mozilla-lockbox/lockbox-extension/issues/276))
+    * Updated `style-loader` dependency ([#502](https://github.com/mozilla-lockbox/lockbox-extension/pull/502))
+
+### Known Issues
+
+* Once you link a Firefox Account to Lockbox, you cannot unlink it from that account.
+* Once you link a Firefox Account to Lockbox, signing in with a different account can render Lockbox unusable until you quit and restart Firefox.
+* Once you link a Firefox Account to Lockbox, resetting your Firefox Account password through "forgot your password" will render all your logins inaccessible; the only recourse is to reset Lockbox and start over.
+* Firefox's default prompt to save logins is only disabled on new installs of this extension; updating Lockbox will not change your current Firefox preferences.
+
+
 ## 0.1.5-alpha
 
 _Date: 2018-01-30_
