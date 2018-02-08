@@ -8,41 +8,56 @@ import React from "react";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
-import { mount } from "test/enzyme";
-import { ExternalLink } from "src/webextension/widgets/link";
+import chaiFocus from "test/chai-focus";
+import { mount, mountIntoDOM } from "test/enzyme";
+import { Link, ExternalLink } from "src/webextension/widgets/link";
 
 chai.use(chaiEnzyme());
 chai.use(sinonChai);
+chai.use(chaiFocus);
 
-describe("widgets > <ExternalLink/>", () => {
-  it("render", () => {
-    const wrapper = mount(
-      <ExternalLink onClick={() => {}}>external link</ExternalLink>
-    );
-    expect(wrapper.find("a")).to.have.text("external link");
-    expect(wrapper.find("a")).prop("className").to.match(
-      /^\S+external\S+$/
-    );
+for (let [Component, classRegExp] of [
+  [Link, "\\S+link\\S+"],
+  [ExternalLink, "\\S+link\\S+ \\S+external\\S+"],
+]) {
+  describe(`widgets > <${Component.name}/>`, () => {
+    it("render", () => {
+      const wrapper = mount(
+        <Component onClick={() => {}}>link text</Component>
+      );
+      expect(wrapper.find("button")).to.have.text("link text");
+      expect(wrapper.find("button")).prop("className").to.match(new RegExp(
+        "^" + classRegExp + "$"
+      ));
+    });
+
+    it("merge classNames", () => {
+      const wrapper = mount(
+        <Component onClick={() => {}}
+          className="extra-extra">link text</Component>
+      );
+      expect(wrapper.find("button")).to.have.text("link text");
+      expect(wrapper.find("button")).prop("className").to.match(new RegExp(
+        "^" + classRegExp + " extra-extra$"
+      ));
+    });
+
+    it("onClick fired", () => {
+      const onClick = sinon.spy();
+      const wrapper = mount(
+        <Component onClick={onClick}>link text</Component>
+      );
+
+      wrapper.find("button").simulate("click");
+      expect(onClick).to.have.callCount(1);
+    });
+
+    it("focus() focuses link", () => {
+      const wrapper = mountIntoDOM(
+        <Component onClick={() => {}}>link text</Component>
+      );
+      wrapper.instance().focus();
+      expect(wrapper.find("button")).to.be.focused(document);
+    });
   });
-
-  it("merge className", () => {
-    const wrapper = mount(
-      <ExternalLink onClick={() => {}}
-                    className="extra-extra">external link</ExternalLink>
-    );
-    expect(wrapper.find("a")).to.have.text("external link");
-    expect(wrapper.find("a")).prop("className").to.match(
-      /^\S+external\S+ extra-extra$/
-    );
-  });
-
-  it("calls onClick handler", () => {
-    const spyClick = sinon.spy();
-    const wrapper = mount(
-      <ExternalLink onClick={spyClick}>external link</ExternalLink>
-    );
-    wrapper.find("a").simulate("click");
-
-    expect(spyClick).to.have.callCount(1);
-  });
-});
+}

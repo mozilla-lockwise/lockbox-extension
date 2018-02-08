@@ -6,9 +6,9 @@ import { Localized } from "fluent-react";
 import React from "react";
 import DocumentTitle from "react-document-title";
 
-import AccountSummary from "../containers/account-summary";
 import AddItem from "../containers/add-item";
 import AllItems from "../containers/all-items";
+import CurrentAccountSummary from "../containers/current-account-summary";
 import CurrentSelection from "../containers/current-selection";
 import GoHome from "../containers/go-home";
 import ItemFilter from "../../containers/item-filter";
@@ -31,7 +31,7 @@ export default function App() {
               <ToolbarSpace/>
               <OpenFAQ/>
               <SendFeedback/>
-              <AccountSummary/>
+              <CurrentAccountSummary/>
             </Toolbar>
             <aside>
               <ItemFilter className={styles.filter}/>
