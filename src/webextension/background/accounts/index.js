@@ -72,6 +72,8 @@ export const AUTHENTICATED = "authenticated";
 
 export const APP_KEY_NAME = "https://identity.mozilla.com/apps/lockbox";
 
+export const DEFAULT_AVATAR_PATH = "icons/default-avatar.svg";
+
 export class Account {
   constructor({config = DEFAULT_CONFIG, info}) {
     // TODO: verify configuration (when there is one)
@@ -112,6 +114,12 @@ export class Account {
 
   get uid() { return (this.info && this.info.uid) || undefined; }
   get email() { return (this.info && this.info.email) || undefined; }
+  get displayName() { return (this.info && this.info.displayName) || this.email; }
+  get avatar() {
+    return (this.info && this.info.avatar) ||
+           browser.extension.getURL(DEFAULT_AVATAR_PATH);
+  }
+
   get keys() { return (this.info && this.info.keys) || new Map(); }
 
   async signIn(action = "signin") {
@@ -181,19 +189,33 @@ export class Account {
     this.info = {
       uid: userInfo.uid,
       email: userInfo.email,
+      displayName: userInfo.displayName,
+      avatar: userInfo.avatar,
       access_token: oauthInfo.access_token,
       expires_at: (Date.now() / 1000) + oauthInfo.expires_in,
-      refresh_token: oauthInfo.refresh_token,
       id_token: oauthInfo.id_token,
+      refresh_token: oauthInfo.refresh_token,
       keys,
     };
     return this;
   }
 
-  async signOut() {
-    // TODO: implement a complete signout/forget
-    // TODO: something server side?
-    this.info = undefined;
+  async signOut(full = false) {
+    if (full) {
+      // forget everything
+      this.info = undefined;
+    } else if (this.info) {
+      // light touch -- whitelist
+      const info = this.info;
+      this.info = {
+        uid: info.uid,
+        access_token: info.access_token,
+        expires_at: info.expires_at,
+        id_token: info.id_token,
+      };
+    }
+    // XXXX: something server side?
+
     return this;
   }
 
@@ -202,6 +224,8 @@ export class Account {
       mode: this.mode,
       uid: this.uid,
       email: this.email,
+      displayName: this.displayName,
+      avatar: this.avatar,
     };
   }
 }

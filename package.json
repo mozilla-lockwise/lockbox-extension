@@ -2,7 +2,7 @@
   "title": "Lockbox",
   "name": "lockbox",
   "id": "lockbox@mozilla.com",
-  "version": "0.1.5-alpha",
+  "version": "0.1.6-alpha",
   "main": "dist/bootstrap.js",
   "description": "The simple way to store, retrieve and manage website login info",
   "author": "Lockbox Team <lockbox-dev@mozilla.com>",
@@ -54,6 +54,7 @@
     ]
   },
   "dependencies": {
+    "copy-to-clipboard": "^3.0.8",
     "fluent": "^0.4.2",
     "fluent-intl-polyfill": "^0.1.0",
     "fluent-langneg": "^0.1.0",
@@ -63,7 +64,6 @@
     "node-jose": "^0.11.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
-    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.2.0",
     "react-modal": "^3.1.11",
     "react-redux": "^5.0.6",
@@ -127,7 +127,7 @@
     "sinon": "^4.1.6",
     "sinon-chai": "^2.14.0",
     "source-map-support": "^0.5.1",
-    "style-loader": "^0.19.1",
+    "style-loader": "^0.20.1",
     "stylelint": "8.4.0",
     "stylelint-config-recommended": "2.0.1",
     "webpack": "^3.10.0",

@@ -40,14 +40,11 @@ describe("widgets > <ButtonStack/>", () => {
       </ButtonStack>
     );
 
-    expect(wrapper.instance().selectedIndex).to.equal(0);
     expect(wrapper.find("span").at(0)).to.have.prop("data-selected");
     expect(wrapper.find("span").at(1)).to.not.have.prop("data-selected");
 
-    wrapper.instance().selectedIndex = 1;
-    wrapper.update();
+    wrapper.setProps({selectedIndex: 1});
 
-    expect(wrapper.instance().selectedIndex).to.equal(1);
     expect(wrapper.find("span").at(0)).to.not.have.prop("data-selected");
     expect(wrapper.find("span").at(1)).to.have.prop("data-selected");
   });

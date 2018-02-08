@@ -12,10 +12,10 @@ item-fields-origin-input
 item-fields-username = Username
 item-fields-username-input
   .placeholder = name@example.com
-item-fields-copy-username = Copy
+item-fields-copy-username
   .title = Copy the username to the clipboard
 item-fields-password = Password
-item-fields-copy-password = Copy
+item-fields-copy-password
   .title = Copy the password to the clipboard
 item-fields-notes = Notes
 
@@ -40,6 +40,10 @@ toolbar-add-item = New entry
 toolbar-go-home = Home
 toolbar-send-feedback = Provide Feedback
 toolbar-open-faq = FAQ
+
+account-summary-account = Account
+account-summary-options = Preferences
+account-summary-signout = Sign Out
 
 all-items-empty =
   When you add an Entry, it automatically shows up here.

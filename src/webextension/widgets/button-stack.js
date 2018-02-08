@@ -11,29 +11,18 @@ export default class ButtonStack extends React.Component {
   static get propTypes() {
     return {
       children: PropTypes.node,
+      selectedIndex: PropTypes.number,
     };
   }
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
+  static get defaultProps() {
+    return {
       selectedIndex: 0,
     };
   }
 
-  get selectedIndex() {
-    return this.state.selectedIndex;
-  }
-
-  set selectedIndex(value) {
-    this.setState({selectedIndex: value});
-    return value;
-  }
-
   render() {
-    const { children } = this.props;
-    const { selectedIndex } = this.state;
+    const { children, selectedIndex } = this.props;
 
     return (
       <div className={styles.stack}>
