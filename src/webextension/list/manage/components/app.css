@@ -10,6 +10,7 @@ body {
   font: caption;
   font-size: 13px;
   -moz-user-select: none;
+  overflow: hidden;
 }
 
 html,
@@ -44,6 +45,7 @@ body > main,
   grid-column: 2;
   background-color: #f9f9fa;
   border-top: 1px solid #d1d1d2;
+  overflow: auto;
 }
 
 .filter {

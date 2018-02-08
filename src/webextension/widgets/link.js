@@ -7,19 +7,50 @@ import React from "react";
 
 import styles from "./link.css";
 
-export function ExternalLink({onClick, children, className, ...props}) {
-  const finalClassName = `${styles.external} ${className}`.trimRight();
-  return (
-    <a {...props} className={finalClassName} onClick={onClick}>{children}</a>
-  );
+export class Link extends React.Component {
+  static get propTypes() {
+    return {
+      children: PropTypes.node,
+      className: PropTypes.string,
+      role: PropTypes.string,
+      onClick: PropTypes.func.isRequired,
+    };
+  }
+
+  static get defaultProps() {
+    return {
+      className: "",
+      role: "link",
+    };
+  }
+
+  get baseClassName() {
+    return `${styles.link}`;
+  }
+
+  focus() {
+    this.linkElement.focus();
+  }
+
+  render() {
+    const {className, role, onClick, children, ...props} = this.props;
+    const finalClassName = `${this.baseClassName} ${className}`.trimRight();
+    return (
+      <button ref={(element) => this.linkElement = element}
+              {...props} className={finalClassName} role={role}
+              onClick={onClick}>
+        {children}
+      </button>
+    );
+  }
 }
 
-ExternalLink.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
-};
+// XXX: External links go to a real URL, and we should probably indicate that to
+// the user (by Firefox showing the URL in the bottom of the window), even if
+// the actual loading of the URL happens in a Redux action.
 
-ExternalLink.defaultProps = {
-  className: "",
-};
+export class ExternalLink extends Link {
+  get baseClassName() {
+    return `${styles.link} ${styles.external}`;
+  }
+}
