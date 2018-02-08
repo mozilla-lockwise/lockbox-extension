@@ -5,9 +5,7 @@
 /* global ADDON_INSTALL, ADDON_UPGRADE, ADDON_UNINSTALL */
 /* eslint-disable no-unused-vars */
 
-const { utils: Cu } = Components;
-
-Cu.import("resource://gre/modules/Services.jsm");
+ChromeUtils.import("resource://gre/modules/Services.jsm");
 
 const REMEMBER_SIGNONS_PREF = "signon.rememberSignons";
 const ORIGINAL_REMEMBER_SIGNONS_PREF =
