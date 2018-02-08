@@ -22,7 +22,7 @@
 }
 
 .button:focus {
-  box-shadow: inset 0 0 0 2px #0a84ff, 0 0 0 3px rgba(10, 132, 255, 0.3);
+  box-shadow: 0 0 0 1px #0a84ff inset, 0 0 0 1px #0a84ff, 0 0 0 4px rgba(10, 132, 255, 0.3);
 }
 
 .button::-moz-focus-inner {

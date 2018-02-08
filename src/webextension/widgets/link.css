@@ -2,9 +2,30 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-.external {
+.link {
+  border: 0;
+  padding: 0;
+  text-decoration: none;
   color: #0060df;
-  background-color: transparent;
+  background: transparent;
+  border-radius: 2px;
+}
+
+.link::-moz-focus-inner {
+  border: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.link:active {
+  color: #003eaa;
+  text-decoration: underline;
+}
+
+.link:focus {
+  box-shadow: 0 0 0 2px #0a84ff, 0 0 0 6px rgba(10, 132, 255, 0.3);
 }
 
 .external::after {
@@ -17,20 +38,4 @@
   margin: -.3rem .15rem 0 .25rem;
   vertical-align: middle;
   width: 16px;
-}
-
-.external:active {
-  color: #003eaa;
-  text-decoration: underline;
-}
-
-.external:hover {
-  color: #0060df;
-  text-decoration: underline;
-  background-color: transparent;
-}
-
-.external:focus {
-  color: #0060df;
-  border-color: #0a84ff;
 }
