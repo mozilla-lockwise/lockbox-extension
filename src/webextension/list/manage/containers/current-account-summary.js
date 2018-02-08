@@ -4,7 +4,8 @@
 
 import { connect } from "react-redux";
 
-import AccountSummaryLabel from "../components/account-summary-label";
+import AccountSummary from "../components/account-summary";
+import { openAccountPage, openOptions, signout } from "../../actions";
 
 export default connect(
   (state) => {
@@ -15,5 +16,10 @@ export default connect(
       };
     }
     return {};
-  }
-)(AccountSummaryLabel);
+  },
+  (dispatch) => ({
+    onClickAccount: () => { dispatch(openAccountPage()); },
+    onClickOptions: () => { dispatch(openOptions()); },
+    onClickSignout: () => { dispatch(signout()); },
+  }),
+)(AccountSummary);
