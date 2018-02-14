@@ -6,8 +6,10 @@ window.ADDON_INSTALL = "ADDON_INSTALL";
 window.ADDON_UPGRADE = "ADDON_UPGRADE";
 window.ADDON_UNINSTALL = "ADDON_UNINSTALL";
 
-window.ChromeUtils = {
-  "import": function() {},
+window.Components = {
+  utils: {
+    "import": () => { },
+  },
 };
 
 window.Services = {
