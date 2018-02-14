@@ -53,6 +53,11 @@
       "src"
     ]
   },
+  "greenkeeper": {
+    "ignore": [
+      "eslint-plugin-mozilla"
+    ]
+  },
   "dependencies": {
     "copy-to-clipboard": "^3.0.8",
     "fluent": "^0.4.2",
@@ -97,7 +102,7 @@
     "eslint": "^4.15.0",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-mozilla": "^0.7.0",
+    "eslint-plugin-mozilla": "0.6.0",
     "eslint-plugin-no-unsanitized": "^2.0.2",
     "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-only-warn": "^1.0.1",
