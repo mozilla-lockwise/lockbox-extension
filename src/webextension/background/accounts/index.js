@@ -66,6 +66,52 @@ async function fetchFromEndPoint(name, url, request) {
   return body;
 }
 
+async function fetchAccessToken(url, params) {
+  const request = {
+    method: "post",
+    headers: {
+      "content-type": "application/json",
+    },
+    cache: "no-cache",
+    body: JSON.stringify(params),
+  };
+  return fetchFromEndPoint("token", url, request);
+}
+
+async function validateAccessToken(acct) {
+  const cfg = configs[acct.config];
+
+  const { access_token, expires_at } = this.info || {};
+  if (!access_token || !expires_at || Date.now() > (expires_at * 1000)) {
+    // needs a new access token
+    return null;
+  }
+
+  const url = cfg.token_endpoint;
+  const request = {
+    method: "get",
+    headers: {
+      "authorization": `Bearer ${access_token}`,
+    },
+    cache: "no-cache",
+  };
+  try {
+    const userInfo = await fetchFromEndPoint("userinfo", url, request);
+    // update user info
+    acct.info = {
+      ...acct.info,
+      uid: userInfo.uid,
+      email: userInfo.email,
+      displayName: userInfo.displayName,
+      avatar: userInfo.avatar,
+    };
+  } catch (err) {
+    return null;
+  }
+
+  return access_token;
+}
+
 export const GUEST = "guest";
 export const UNAUTHENTICATED = "unauthenticated";
 export const AUTHENTICATED = "authenticated";
@@ -152,16 +198,7 @@ export class Account {
       tokenParams.client_secret = cfg.client_secret;
     }
     url = cfg.token_endpoint;
-    request = {
-      method: "post",
-      headers: {
-        "content-type": "application/json",
-      },
-      cache: "no-cache",
-      body: JSON.stringify(tokenParams),
-    };
-    const oauthInfo = await fetchFromEndPoint("token", url, request);
-    // console.log(`oauth info == ${JSON.stringify(oauthInfo)}`);
+    const oauthInfo = await fetchAccessToken(url, tokenParams);
 
     const keys = new Map();
     if (oauthInfo.keys_jwe) {
@@ -227,6 +264,41 @@ export class Account {
       displayName: this.displayName,
       avatar: this.avatar,
     };
+  }
+
+  async token() {
+    const cfg = configs[this.config];
+
+    // check if token present / unexpired / valid
+    let access_token = validateAccessToken(this);
+    if (!access_token) {
+      // refresh
+      const { refresh_token } = this.info || {};
+      if (!refresh_token) {
+        throw new Error("AUTH: cannot refresh token");
+      }
+
+      const params = {
+        grant_type: "refresh",
+        refresh_token,
+        client_id: cfg.client_id,
+      };
+      const oauthInfo = await fetchAccessToken(cfg.token_endpoint, params);
+      this.info = {
+        ...this.info,
+        access_token: oauthInfo.access_token,
+        expires_at: (Date.now() / 1000) + (oauthInfo.expires_in || 0),
+        id_token: oauthInfo.id_token,
+        refresh_token: oauthInfo.refresh_token || refresh_token,
+      };
+      access_token = validateAccessToken(this);
+    }
+
+    if (!access_token) {
+      throw new Error("AUTH: no access token");
+    }
+
+    return access_token;
   }
 }
 
