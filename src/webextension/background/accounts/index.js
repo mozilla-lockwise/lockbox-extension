@@ -66,52 +66,6 @@ async function fetchFromEndPoint(name, url, request) {
   return body;
 }
 
-async function fetchAccessToken(url, params) {
-  const request = {
-    method: "post",
-    headers: {
-      "content-type": "application/json",
-    },
-    cache: "no-cache",
-    body: JSON.stringify(params),
-  };
-  return fetchFromEndPoint("token", url, request);
-}
-
-async function validateAccessToken(acct) {
-  const cfg = configs[acct.config];
-
-  const { access_token, expires_at } = this.info || {};
-  if (!access_token || !expires_at || Date.now() > (expires_at * 1000)) {
-    // needs a new access token
-    return null;
-  }
-
-  const url = cfg.token_endpoint;
-  const request = {
-    method: "get",
-    headers: {
-      "authorization": `Bearer ${access_token}`,
-    },
-    cache: "no-cache",
-  };
-  try {
-    const userInfo = await fetchFromEndPoint("userinfo", url, request);
-    // update user info
-    acct.info = {
-      ...acct.info,
-      uid: userInfo.uid,
-      email: userInfo.email,
-      displayName: userInfo.displayName,
-      avatar: userInfo.avatar,
-    };
-  } catch (err) {
-    return null;
-  }
-
-  return access_token;
-}
-
 export const GUEST = "guest";
 export const UNAUTHENTICATED = "unauthenticated";
 export const AUTHENTICATED = "authenticated";
@@ -172,7 +126,7 @@ export class Account {
     let cfg = configs[this.config];
 
     const props = {};
-    let url, request;
+    let url;
 
     // request authorization
     cfg = {
@@ -197,43 +151,11 @@ export class Account {
     } else {
       tokenParams.client_secret = cfg.client_secret;
     }
-    url = cfg.token_endpoint;
-    const oauthInfo = await fetchAccessToken(url, tokenParams);
+    await this.updateAccessToken(tokenParams, props.appKey);
 
-    const keys = new Map();
-    if (oauthInfo.keys_jwe) {
-      let bundle = await jose.JWE.createDecrypt(props.appKey).decrypt(oauthInfo.keys_jwe);
-      bundle = JSON.parse(new TextDecoder().decode(bundle.payload));
-      const pending = Object.keys(bundle).map(async (name) => {
-        let key = bundle[name];
-        key = await jose.JWK.asKey(key);
-        keys.set(name, key);
-      });
-      await Promise.all(pending);
-    }
+    // update user info
+    await this.updateUserInfo();
 
-    // retrieve user info
-    url = cfg.userinfo_endpoint;
-    request = {
-      method: "get",
-      headers: {
-        authorization: `Bearer ${oauthInfo.access_token}`,
-      },
-      cache: "no-cache",
-    };
-    const userInfo = await fetchFromEndPoint("userinfo", url, request);
-
-    this.info = {
-      uid: userInfo.uid,
-      email: userInfo.email,
-      displayName: userInfo.displayName,
-      avatar: userInfo.avatar,
-      access_token: oauthInfo.access_token,
-      expires_at: (Date.now() / 1000) + oauthInfo.expires_in,
-      id_token: oauthInfo.id_token,
-      refresh_token: oauthInfo.refresh_token,
-      keys,
-    };
     return this;
   }
 
@@ -267,39 +189,120 @@ export class Account {
   }
 
   async token() {
-    const cfg = configs[this.config];
+    // always return null if user is GUEST
+    if (this.mode() === GUEST) {
+      return null;
+    }
 
     // check if token present / unexpired / valid
-    let access_token = validateAccessToken(this);
-    if (!access_token) {
+    await this.updateUserInfo();
+    if (!this.info || !this.info.access_token) {
       // refresh
       const { refresh_token } = this.info || {};
       if (!refresh_token) {
         throw new Error("AUTH: cannot refresh token");
       }
 
-      const params = {
-        grant_type: "refresh",
-        refresh_token,
-        client_id: cfg.client_id,
-      };
-      const oauthInfo = await fetchAccessToken(cfg.token_endpoint, params);
-      this.info = {
-        ...this.info,
-        access_token: oauthInfo.access_token,
-        expires_at: (Date.now() / 1000) + (oauthInfo.expires_in || 0),
-        id_token: oauthInfo.id_token,
-        refresh_token: oauthInfo.refresh_token || refresh_token,
-      };
-      access_token = validateAccessToken(this);
+      await this.updateAccessToken();
+      await this.updateUserInfo();
     }
 
-    if (!access_token) {
+    if (!this.info || !this.info.access_token) {
+      // XXXX: use DataStoreError
       throw new Error("AUTH: no access token");
     }
 
-    return access_token;
+    return this.info.access_token;
   }
+
+
+  async updateAccessToken(params, appKey) {
+    const cfg = configs[this.config];
+    let info = this.info || {};
+
+    if (!params) {
+      // assume "refresh_token" exchange
+      if (!info.refresh_token) {
+        // TODO: use categorized DataStoreErrors
+        throw new Error("AUTH: refresh token required");
+      }
+
+      params = {
+        grant_type: "refresh_token",
+        refresh_token: info.refresh_token,
+        client_id: cfg.client_id,
+      };
+    }
+
+    const request = {
+      method: "post",
+      headers: {
+        "content-type": "application/json",
+      },
+      cache: "no-cache",
+      body: JSON.stringify(params),
+    };
+    const oauthInfo = await fetchFromEndPoint("token", cfg.token_endpoint, request);
+    let keys = info.keys || new Map();
+    if (oauthInfo.keys_jwe && appKey) {
+      // forget previous keys before decrypting new bundle
+      keys.clear();
+
+      let bundle = await jose.JWE.createDecrypt(appKey).decrypt(oauthInfo.keys_jwe);
+      bundle = JSON.parse(new TextDecoder().decode(bundle.payload));
+      const pending = Object.keys(bundle).map(async (name) => {
+        let key = bundle[name];
+        key = await jose.JWK.asKey(key);
+        keys.set(name, key);
+      });
+      await Promise.all(pending);
+    }
+
+    this.info = info = {
+      ...info,
+      access_token: oauthInfo.access_token,
+      expires_at: 0 | (Date.now() / 1000) + oauthInfo.expires_in,
+      id_token: oauthInfo.id_token,
+      refresh_token: oauthInfo.refresh_token,
+      keys,
+    };
+
+    return info;
+  }
+
+  async updateUserInfo() {
+    let info = this.info || {};
+    const { access_token, expires_at } = info;
+    if (!access_token || !expires_at || Date.now() > (expires_at * 1000)) {
+      // need a new access token
+      return null;
+    }
+
+    const url = configs[this.config].userinfo_endpoint;
+    const request = {
+      method: "get",
+      headers: {
+        "authorization": `Bearer ${access_token}`,
+      },
+      cache: "no-cache",
+    };
+    try {
+      const userInfo = await fetchFromEndPoint("userinfo", url, request);
+      // since it's present ... update user info
+      this.info = info = {
+        ...info,
+        uid: userInfo.uid,
+        email: userInfo.email,
+        displayName: userInfo.displayName,
+        avatar: userInfo.avatar,
+      };
+    } catch (err) {
+      return null;
+    }
+
+    return info;
+  }
+
 }
 
 

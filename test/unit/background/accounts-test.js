@@ -270,6 +270,7 @@ describe("background > accounts", () => {
           status: 200,
           body: {
             grant_type: "bearer",
+            access_token: "epxOD3rxbcq6PudPUiMdMnYE4CQToOeHbSFl67iFtFk",
             expires_in: 1209600,
             auth_at: 1510734551,
             refresh_token: authedInfo.refresh_token,
