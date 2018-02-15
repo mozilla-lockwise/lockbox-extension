@@ -83,15 +83,6 @@ describe("background > accounts", () => {
     });
   });
 
-  it("saveAccount()", async () => {
-    const set = sinon.stub().resolves({});
-    await accounts.saveAccount({set});
-    expect(set).to.have.been.calledWith({account: {
-      config: "production",
-      info: undefined,
-    }});
-  });
-
   it("setAccount()", () => {
     accounts.setAccount("dev-latest");
     expect(getAccount.__GetDependency__("account").config)
@@ -103,7 +94,7 @@ describe("background > accounts", () => {
   });
 
   describe("Account", () => {
-    let acct;
+    let acct, storage;
     const unauthedInfo = {
       uid: "1234",
       access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
@@ -120,7 +111,10 @@ describe("background > accounts", () => {
     };
 
     beforeEach(() => {
-      acct = new accounts.Account({});
+      storage = {
+        set: sinon.spy(),
+      };
+      acct = new accounts.Account({ storage });
     });
 
     it("toJSON()", () => {
@@ -309,6 +303,7 @@ describe("background > accounts", () => {
         const result = await acct.signIn();
 
         expect(result).to.have.property("uid").that.is.a("string");
+        expect(storage.set).to.have.been.calledWith({ account: acct.toJSON() });
       });
 
       it("signIn() with keys", async () => {
@@ -318,6 +313,7 @@ describe("background > accounts", () => {
         expect(result).to.have.property("uid").that.is.a("string");
         expect(result).to.have.property("keys").to.have.all.keys(...expectedKeys.keys());
         expect(acct).to.have.property("keys").to.have.all.keys(...expectedKeys.keys());
+        expect(storage.set).to.have.been.calledWith({ account: acct.toJSON() });
       });
 
       it("signIn() fails with invalid state", async () => {
@@ -342,11 +338,13 @@ describe("background > accounts", () => {
           id_token: authedInfo.id_token,
         };
         expect(acct.info).to.deep.equal(expected);
+        expect(storage.set).to.have.been.calledWith({ account: acct.toJSON() });
       });
       it("full signOut()", async () => {
         acct.info = { ...authedInfo };
         await acct.signOut(true);
         expect(acct.info).to.equal(undefined);
+        expect(storage.set).to.have.been.calledWith({ account: acct.toJSON() });
       });
     });
     describe("token retrieval", () => {

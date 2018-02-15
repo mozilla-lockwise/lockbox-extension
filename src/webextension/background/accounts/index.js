@@ -75,10 +75,11 @@ export const APP_KEY_NAME = "https://identity.mozilla.com/apps/lockbox";
 export const DEFAULT_AVATAR_PATH = "icons/default-avatar.svg";
 
 export class Account {
-  constructor({config = DEFAULT_CONFIG, info}) {
+  constructor({config = DEFAULT_CONFIG, info, storage}) {
     // TODO: verify configuration (when there is one)
     this.config = config;
     this.info = info || undefined;
+    this.storage = storage;
   }
 
   toJSON() {
@@ -97,6 +98,14 @@ export class Account {
       config,
       info,
     };
+  }
+  async save() {
+    if (this.storage) {
+      const account = this.toJSON();
+      await this.storage.set({ account });
+    }
+
+    return this;
   }
 
   get mode() {
@@ -156,6 +165,9 @@ export class Account {
     // update user info
     await this.updateUserInfo();
 
+    // retain it all
+    await this.save();
+
     return this;
   }
 
@@ -174,6 +186,8 @@ export class Account {
       };
     }
     // XXXX: something server side?
+
+    await this.save();
 
     return this;
   }
@@ -202,6 +216,7 @@ export class Account {
       await this.updateAccessToken();
       info = await this.updateUserInfo();
     }
+    await this.save();
 
     if (!info || !info.access_token) {
       // XXXX: use DataStoreError
@@ -310,21 +325,19 @@ export default function getAccount() {
   return account;
 }
 
+export function setAccount(config, info) {
+  account = config ? new Account({ config, info }) : undefined;
+}
+
 export async function loadAccount(storage) {
   const stored = await storage.get("account");
   if (stored && stored.account) {
-    account = new Account(stored.account);
+    account = new Account({
+      ...stored.account,
+      storage,
+    });
   }
   return getAccount();
-}
-
-export async function saveAccount(storage) {
-  const account = getAccount().toJSON();
-  await storage.set({ account });
-}
-
-export function setAccount(config, info) {
-  account = config ? new Account({config, info}) : undefined;
 }
 
 export async function openAccount(storage) {
