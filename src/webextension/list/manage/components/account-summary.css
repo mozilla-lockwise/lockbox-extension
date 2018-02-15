@@ -65,13 +65,13 @@
   /* XXX: This positioning is a hack and assumes that the <AccountSummary/> ends
      up in a particular spot in the UI. It would be nice if we could make this
      more flexible in the future. */
-  top: 50px;
-  right: 2px;
-  min-width: 130px;
-  padding: 8px 12px;
-  border: 1px solid #b1b1b3;
+  top: 60px;
+  right: 16px;
+  min-width: 150px;
+  padding: 8px 0;
+  border: 1px solid #D4D4D5;
   border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(12, 12, 13, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
   outline: none;
 }
@@ -85,7 +85,7 @@
   right: 17px;
   border-width: 0 8px 8px;
   border-style: solid;
-  border-color: #b1b1b3 transparent;
+  border-color: #D4D4D5 transparent;
 }
 
 /* The inner part of the "speech bubble" arrow, designed to look like it's part
@@ -109,12 +109,33 @@
   list-style-type: none;
 }
 
-.dropdown > ul > li {
-  padding: 8px;
-}
-
 .dropdown-link {
   color: #0c0c0d;
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 16px;
+  border-radius: 0;
+  transition: background .15s ease;
+  cursor: pointer;
+}
+
+.dropdown-link:hover,
+.dropdown-link:active {
+  text-decoration: none;
+}
+
+.dropdown-link:hover {
+  background-color: #E5EFFA;
+}
+
+.dropdown-link:active {
+  background-color: #0060DF;
+  color: #fff;
+}
+
+.dropdown-link:active::before {
+  background-color: #fff;
 }
 
 .dropdown-link::before {
@@ -124,18 +145,20 @@
   height: 16px;
   background-repeat: no-repeat;
   background-size: 16px 16px;
-  margin-inline-end: 1ch;
+  margin-right: 8px;
   vertical-align: middle;
+  margin-top: -2px;
+  background-color: #38383D;
 }
 
 .dropdown-link.account::before {
-  background-image: url(/icons/account.svg);
+  mask-image: url(/icons/account.svg);
 }
 
 .dropdown-link.options::before {
-  background-image: url(/icons/options.svg);
+  mask-image: url(/icons/options.svg);
 }
 
 .dropdown-link.signout::before {
-  background-image: url(/icons/signout.svg);
+  mask-image: url(/icons/signout.svg);
 }
