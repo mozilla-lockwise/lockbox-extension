@@ -236,7 +236,7 @@ export class Account {
         "content-type": "application/json",
       },
       cache: "no-cache",
-      body: params,
+      body: JSON.stringify(params),
     };
     const oauthInfo = await fetchFromEndPoint("token", cfg.token_endpoint, request);
     let keys = info.keys || new Map();

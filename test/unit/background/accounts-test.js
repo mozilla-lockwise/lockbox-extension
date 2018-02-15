@@ -406,7 +406,8 @@ describe("background > accounts", () => {
         expect(actual).to.equal(authedInfo.access_token);
         const [url, request] = fetchMock.lastCall("end:/v1/token");
         expect(url).to.match(/\/v1\/token$/);
-        expect(request).to.have.property("body").with.property("grant_type").equal("refresh_token");
+        const reqBody = JSON.parse(request.body);
+        expect(reqBody).to.have.property("grant_type").equal("refresh_token");
       });
 
       it("fails to refresh while UNAUTHENTICATED", async () => {
