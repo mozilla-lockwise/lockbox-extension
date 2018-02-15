@@ -190,29 +190,25 @@ export class Account {
 
   async token() {
     // always return null if user is GUEST
-    if (this.mode() === GUEST) {
-      return null;
+    if (this.mode === GUEST) {
+      // XXXX: use DataStoreError
+      throw new Error("AUTH: requires FxA");
     }
 
     // check if token present / unexpired / valid
-    await this.updateUserInfo();
-    if (!this.info || !this.info.access_token) {
+    let info = await this.updateUserInfo();
+    if (!info || !info.access_token) {
       // refresh
-      const { refresh_token } = this.info || {};
-      if (!refresh_token) {
-        throw new Error("AUTH: cannot refresh token");
-      }
-
       await this.updateAccessToken();
-      await this.updateUserInfo();
+      info = await this.updateUserInfo();
     }
 
-    if (!this.info || !this.info.access_token) {
+    if (!info || !info.access_token) {
       // XXXX: use DataStoreError
       throw new Error("AUTH: no access token");
     }
 
-    return this.info.access_token;
+    return info.access_token;
   }
 
 
@@ -223,8 +219,8 @@ export class Account {
     if (!params) {
       // assume "refresh_token" exchange
       if (!info.refresh_token) {
-        // TODO: use categorized DataStoreErrors
-        throw new Error("AUTH: refresh token required");
+        // XXXX: use DataStoreError
+        throw new Error("AUTH: no refresh token");
       }
 
       params = {
@@ -240,7 +236,7 @@ export class Account {
         "content-type": "application/json",
       },
       cache: "no-cache",
-      body: JSON.stringify(params),
+      body: params,
     };
     const oauthInfo = await fetchFromEndPoint("token", cfg.token_endpoint, request);
     let keys = info.keys || new Map();
