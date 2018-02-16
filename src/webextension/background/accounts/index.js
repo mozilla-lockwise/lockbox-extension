@@ -272,7 +272,7 @@ export class Account {
     this.info = info = {
       ...info,
       access_token: oauthInfo.access_token,
-      expires_at: 0 | (Date.now() / 1000) + oauthInfo.expires_in,
+      expires_at: Math.floor(Date.now() / 1000) + oauthInfo.expires_in,
       id_token: oauthInfo.id_token,
       refresh_token: oauthInfo.refresh_token,
       keys,

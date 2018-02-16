@@ -99,7 +99,7 @@ describe("background > accounts", () => {
       uid: "1234",
       access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
       id_token: "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBDWTBJb3RVVHBtWDFDbXJqMWNwcTB6aFBkd1NtalJSaWlJNzduMmMtMFkifQ.eyJ1aWQiOiIxMjM0IiwiaXNzIjoic2NvcGVkLWtleXMifQ.pX8I1LqCD849Gp0TzKcS6LM_fko0gc7wkSzBgPaxFDyF8AZrWn9-HTRoW-9YIuHujLzldbI1k34VeSHNM85vkPjm_AxbBKuXEiVJQdcCAxNjbSQmM1dOX6kZKwN4oDu8X4BB3CwQq5eXioYYiPur149O_I2bhFDuMBtQBoQosZtOScuKliXcURuWEwhYcnHe8axit0fQ0vd1FOJK3300hccqcZNoHGXrSVj42mdo_aSREOcwSUP4i0r0aCfJqnxai43uy1C5l54mSN1KzqGeasx60lWPU-Jm3gPm_2CXRWbfWxF3-OnxhMhSQiS90kefX81H03ZYVShDutsx55d0tQ",
-      expires_at: 0 | (Date.now() / 1000) + 1209600,
+      expires_at: Math.floor(Date.now() / 1000) + 1209600,
     };
     const authedInfo = {
       ...unauthedInfo,
@@ -398,7 +398,7 @@ describe("background > accounts", () => {
         acct.info = {
           ...authedInfo,
           access_token: "G9aXls99oZnPOHfXq944vy4XL4vhkmUV9RWM1KJg6Z4",
-          expires_at: 0 | (Date.now() / 1000) - 3600,
+          expires_at: Math.floor(Date.now() / 1000) - 3600,
         };
         const actual = await acct.token();
         expect(actual).to.equal(authedInfo.access_token);
@@ -411,7 +411,7 @@ describe("background > accounts", () => {
       it("fails to refresh while UNAUTHENTICATED", async () => {
         acct.info = {
           ...unauthedInfo,
-          expires_at: 0 | (Date.now() / 1000) - 3600,
+          expires_at: Math.floor(Date.now() / 1000) - 3600,
         };
         try {
           await acct.token();
