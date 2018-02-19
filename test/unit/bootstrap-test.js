@@ -59,6 +59,18 @@ describe("bootstrap", () => {
       await waitUntil(() => webextStartup.callCount === 1);
     });
 
+    it("re-registering scalar doesn't throw", async () => {
+      sinon.stub(Services.telemetry, "registerScalars").throws(new Error(
+        "Attempt to register scalar that is already registered."
+      ));
+      expect(() => startup({webExtension: {
+        startup: webextStartup,
+      }})).to.not.throw();
+      Services.telemetry.registerScalars.restore();
+
+      await waitUntil(() => webextStartup.callCount === 1);
+    });
+
     it("other errors do throw", () => {
       sinon.stub(Services.telemetry, "registerEvents").throws(new Error(
         "something else"
