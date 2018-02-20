@@ -41,8 +41,14 @@ describe("bootstrap", () => {
       }});
 
       await waitUntil(() => webextStartup.callCount === 1);
-      const result = await browser.runtime.sendMessage(
+      let result;
+      result = await browser.runtime.sendMessage(
         {type: "telemetry_event"}
+      );
+      expect(result).to.deep.equal({});
+
+      result = await browser.runtime.sendMessage(
+        {type: "telemetry_scalar"}
       );
       expect(result).to.deep.equal({});
     });
