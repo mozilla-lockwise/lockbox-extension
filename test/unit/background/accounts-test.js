@@ -83,15 +83,6 @@ describe("background > accounts", () => {
     });
   });
 
-  it("saveAccount()", async () => {
-    const set = sinon.stub().resolves({});
-    await accounts.saveAccount({set});
-    expect(set).to.have.been.calledWith({account: {
-      config: "production",
-      info: undefined,
-    }});
-  });
-
   it("setAccount()", () => {
     accounts.setAccount("dev-latest");
     expect(getAccount.__GetDependency__("account").config)
@@ -103,11 +94,12 @@ describe("background > accounts", () => {
   });
 
   describe("Account", () => {
-    let acct;
+    let acct, storage;
     const unauthedInfo = {
       uid: "1234",
       access_token: "KhDtmS0a98vx6fe0HB0XhrtXEuYtB6nDF6aC-rwbufnYvQDgTnvxzZlFyHjB5fcF95AGi2TysUUyXBbprHIQ9g",
       id_token: "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBDWTBJb3RVVHBtWDFDbXJqMWNwcTB6aFBkd1NtalJSaWlJNzduMmMtMFkifQ.eyJ1aWQiOiIxMjM0IiwiaXNzIjoic2NvcGVkLWtleXMifQ.pX8I1LqCD849Gp0TzKcS6LM_fko0gc7wkSzBgPaxFDyF8AZrWn9-HTRoW-9YIuHujLzldbI1k34VeSHNM85vkPjm_AxbBKuXEiVJQdcCAxNjbSQmM1dOX6kZKwN4oDu8X4BB3CwQq5eXioYYiPur149O_I2bhFDuMBtQBoQosZtOScuKliXcURuWEwhYcnHe8axit0fQ0vd1FOJK3300hccqcZNoHGXrSVj42mdo_aSREOcwSUP4i0r0aCfJqnxai43uy1C5l54mSN1KzqGeasx60lWPU-Jm3gPm_2CXRWbfWxF3-OnxhMhSQiS90kefX81H03ZYVShDutsx55d0tQ",
+      expires_at: Math.floor(Date.now() / 1000) + 1209600,
     };
     const authedInfo = {
       ...unauthedInfo,
@@ -115,12 +107,14 @@ describe("background > accounts", () => {
       displayName: "Ellen Ripley",
       avatar: "https://avatars.example/92397b7d8b9e510f4266ab9751030c73b3b12cfc.png",
       refresh_token: "rmrBzLYi2zia4ExNBy7uXE4s_Da_HMS4d3tvr203OVTq1EMQqh-85m4Hejo3TKBKuont6QFIlLJ23rZR4xqZBA",
-      expires_at: 1825884426240000,
       keys: new Map(),
     };
 
     beforeEach(() => {
-      acct = new accounts.Account({});
+      storage = {
+        set: sinon.spy(),
+      };
+      acct = new accounts.Account({ storage });
     });
 
     it("toJSON()", () => {
@@ -140,7 +134,6 @@ describe("background > accounts", () => {
         config: "production",
         info: {
           ...unauthedInfo,
-          expires_at: undefined,
         },
       };
       expect(acct.toJSON()).to.deep.equal(expected);
@@ -151,7 +144,7 @@ describe("background > accounts", () => {
         config: "production",
         info: {
           ...unauthedInfo,
-          expires_at: 1825884426240000,
+          expires_at: authedInfo.expires_at,
         },
       };
       expect(acct.toJSON()).to.deep.equal(expected);
@@ -270,6 +263,7 @@ describe("background > accounts", () => {
           status: 200,
           body: {
             grant_type: "bearer",
+            access_token: authedInfo.access_token,
             expires_in: 1209600,
             auth_at: 1510734551,
             refresh_token: authedInfo.refresh_token,
@@ -309,6 +303,7 @@ describe("background > accounts", () => {
         const result = await acct.signIn();
 
         expect(result).to.have.property("uid").that.is.a("string");
+        expect(storage.set).to.have.been.calledWith({ account: acct.toJSON() });
       });
 
       it("signIn() with keys", async () => {
@@ -318,6 +313,7 @@ describe("background > accounts", () => {
         expect(result).to.have.property("uid").that.is.a("string");
         expect(result).to.have.property("keys").to.have.all.keys(...expectedKeys.keys());
         expect(acct).to.have.property("keys").to.have.all.keys(...expectedKeys.keys());
+        expect(storage.set).to.have.been.calledWith({ account: acct.toJSON() });
       });
 
       it("signIn() fails with invalid state", async () => {
@@ -342,11 +338,96 @@ describe("background > accounts", () => {
           id_token: authedInfo.id_token,
         };
         expect(acct.info).to.deep.equal(expected);
+        expect(storage.set).to.have.been.calledWith({ account: acct.toJSON() });
       });
       it("full signOut()", async () => {
         acct.info = { ...authedInfo };
         await acct.signOut(true);
         expect(acct.info).to.equal(undefined);
+        expect(storage.set).to.have.been.calledWith({ account: acct.toJSON() });
+      });
+    });
+    describe("token retrieval", () => {
+      beforeEach(async () => {
+        // setup fake OAuth token response
+        fetchMock.post("end:/v1/token", {
+          status: 200,
+          body: {
+            grant_type: "bearer",
+            access_token: authedInfo.access_token,
+            expires_in: 1209600,
+            auth_at: 1510734551,
+            refresh_token: authedInfo.refresh_token,
+          },
+        });
+
+        // setup fake profile response
+        fetchMock.get("end:/v1/profile", {
+          status: 200,
+          body: {
+            uid: "1234",
+            email: "eripley@wyutani.com",
+            displayName: "Ellen Ripley",
+            avatar: "https://avatars.example/92397b7d8b9e510f4266ab9751030c73b3b12cfc.png",
+          },
+        });
+      });
+      afterEach(fetchMock.restore);
+
+      it("returns the current token", async () => {
+        const expected = "G9aXls99oZnPOHfXq944vy4XL4vhkmUV9RWM1KJg6Z4";
+        acct.info = {
+          ...authedInfo,
+          access_token: expected,
+        };
+        const actual = await acct.token();
+        expect(acct.mode).to.equal(accounts.AUTHENTICATED);
+        expect(actual).to.equal(expected);
+      });
+      it("returns the current token while UNAUTHENTICATED", async () => {
+        const expected = "G9aXls99oZnPOHfXq944vy4XL4vhkmUV9RWM1KJg6Z4";
+        acct.info = {
+          ...unauthedInfo,
+          access_token: expected,
+        };
+        const actual = await acct.token();
+        expect(acct.mode).to.equal(accounts.UNAUTHENTICATED);
+        expect(actual).to.equal(expected);
+      });
+      it("retrieves a new token when expired", async () => {
+        acct.info = {
+          ...authedInfo,
+          access_token: "G9aXls99oZnPOHfXq944vy4XL4vhkmUV9RWM1KJg6Z4",
+          expires_at: Math.floor(Date.now() / 1000) - 3600,
+        };
+        const actual = await acct.token();
+        expect(actual).to.equal(authedInfo.access_token);
+        const [url, request] = fetchMock.lastCall("end:/v1/token");
+        expect(url).to.match(/\/v1\/token$/);
+        const reqBody = JSON.parse(request.body);
+        expect(reqBody).to.have.property("grant_type").equal("refresh_token");
+      });
+
+      it("fails to refresh while UNAUTHENTICATED", async () => {
+        acct.info = {
+          ...unauthedInfo,
+          expires_at: Math.floor(Date.now() / 1000) - 3600,
+        };
+        try {
+          await acct.token();
+          expect(false, "unexpected success").to.be.ok;
+        } catch (err) {
+          expect(err.message).to.match(/: no refresh token$/);
+        }
+      });
+      it("fails while GUEST", async () => {
+        acct.info = {};
+        try {
+          await acct.token();
+          expect(false, "unexpected success").to.be.ok;
+        } catch (err) {
+          expect(err.message).to.match(/: requires FxA$/);
+        }
       });
     });
   });
