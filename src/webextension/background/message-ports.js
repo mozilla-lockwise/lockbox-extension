@@ -159,7 +159,7 @@ export default function initializeMessagePorts() {
       return openDataStore().then(async (ds) => {
         var entries = Array.from((await ds.list()).values(),
                                   makeItemSummary);
-        telemetry.setScalar(".datastoreCount", entries.length);
+        telemetry.setScalar("datastoreCount", entries.length);
         return {items: entries};
       });
     case "add_item":

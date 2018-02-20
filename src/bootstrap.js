@@ -194,7 +194,7 @@ function startup({webExtension}, reason) {
         break;
       case "telemetry_scalar":
         Services.telemetry.scalarSet(
-          TELEMETRY_CATEGORY + message.name, message.value
+          `${TELEMETRY_CATEGORY}.${message.name}`, message.value
         );
         respond({});
       }
