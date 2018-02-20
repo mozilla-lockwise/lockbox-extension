@@ -36,7 +36,7 @@ body > main,
   grid-column: 1;
   min-width: 150px;
   min-height: 0;
-  background-color: rgba(215, 215, 219, 0.75);
+  background-color: #ededf0;
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
@@ -50,6 +50,7 @@ body > main,
 
 .filter {
   border: 1px solid #d1d1d2;
+  border-bottom: 0;
   border-inline-start: 0px;
   border-radius: 0;
 }

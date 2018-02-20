@@ -3,23 +3,19 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .item-summary {
-  padding: 0.5em;
+  padding: 1em 1.3em;
   font-size: 15px;
 }
 
 .item-summary::before {
-  background-image: url(/icons/arrowhead-right-16.svg);
+  background-image: url(/icons/chevron-right.svg);
   background-repeat: no-repeat;
-  background-size: 16px 16px;
+  background-size: 5px 10px;
   content: "";
   float: right;
-  height: 16px;
-  width: 16px;
-  margin: 14px 0;
-}
-
-[data-selected] .item-summary::before {
-  display: none;
+  height: 10px;
+  width: 5px;
+  margin: 16px 0;
 }
 
 .title,
