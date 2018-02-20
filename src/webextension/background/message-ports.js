@@ -188,9 +188,7 @@ export default function initializeMessagePorts() {
     case "proxy_telemetry_event":
       return telemetry.recordEvent(message.method, message.object,
                                    message.extra);
-    case "proxy_telemetry_scalar":
-      return telemetry.setScalar(message.name, message.value);
-
+                                   
     default:
       return null;
     }

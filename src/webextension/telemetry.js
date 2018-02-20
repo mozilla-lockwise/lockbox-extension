@@ -7,9 +7,3 @@ export async function recordEvent(method, object, extra) {
     type: "proxy_telemetry_event", method, object, extra,
   });
 }
-
-export async function setScalar(name, value) {
-  return browser.runtime.sendMessage({
-    type: "proxy_telemetry_scalar", name, value,
-  });
-}
