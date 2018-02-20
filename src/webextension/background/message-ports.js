@@ -184,11 +184,9 @@ export default function initializeMessagePorts() {
       return openDataStore().then(async (ds) => {
         return {item: await ds.get(message.id)};
       });
-
     case "proxy_telemetry_event":
       return telemetry.recordEvent(message.method, message.object,
                                    message.extra);
-                                   
     default:
       return null;
     }
