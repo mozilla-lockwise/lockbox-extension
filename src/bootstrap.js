@@ -183,7 +183,6 @@ function startup({webExtension}, reason) {
   webExtension.startup().then(({browser}) => {
     Services.telemetry.recordEvent(TELEMETRY_CATEGORY, "startup",
                                    "webextension");
-    // Services.telemetry.scalarSet(TELEMETRY_CATEGORY + ".datastoreCount", 50);
     browser.runtime.onMessage.addListener((message, sender, respond) => {
       switch (message.type) {
       case "telemetry_event":
