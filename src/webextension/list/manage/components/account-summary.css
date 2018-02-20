@@ -12,6 +12,7 @@
   padding: 0;
   margin-inline-end: 12px;
   background: transparent;
+  cursor: pointer;
 }
 
 .button::-moz-focus-inner {
@@ -20,18 +21,7 @@
 
 .display-name {
   border-radius: 2px;
-}
-
-.display-name::after {
-  content: "";
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  background-image: url(/icons/arrowhead-down-16.svg);
-  background-repeat: no-repeat;
-  background-size: 16px 16px;
-  margin-inline-start: 1ch;
-  vertical-align: middle;
+  font-weight: 500;
 }
 
 .button:focus > .display-name {
@@ -45,7 +35,18 @@
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  margin-inline-end: 1ch;
+  margin-inline-start: 1ch;
+}
+
+.button:active > .avatar:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  content: '';
+  border-radius: 50%;
+  background: rgba(0,0,0,.1);
 }
 
 .button > .avatar > img {
@@ -66,12 +67,12 @@
      up in a particular spot in the UI. It would be nice if we could make this
      more flexible in the future. */
   top: 60px;
-  right: 16px;
+  right: 14px;
   min-width: 150px;
   padding: 8px 0;
-  border: 1px solid #D4D4D5;
+  border: 1px solid #d4d4d5;
   border-radius: 6px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(12, 12, 13, 0.1);
   background-color: #ffffff;
   outline: none;
 }
@@ -85,7 +86,7 @@
   right: 17px;
   border-width: 0 8px 8px;
   border-style: solid;
-  border-color: #D4D4D5 transparent;
+  border-color: #d4d4d5 transparent;
 }
 
 /* The inner part of the "speech bubble" arrow, designed to look like it's part
@@ -116,8 +117,12 @@
   text-align: left;
   padding: 8px 16px;
   border-radius: 0;
-  transition: background .15s ease;
-  cursor: pointer;
+  cursor: default;
+}
+
+.dropdown-link:hover,
+.dropdown-link:focus {
+  background-color: #e5effa;
 }
 
 .dropdown-link:hover,
@@ -125,17 +130,13 @@
   text-decoration: none;
 }
 
-.dropdown-link:hover {
-  background-color: #E5EFFA;
+.dropdown-link:focus {
+  box-shadow: none;
 }
 
 .dropdown-link:active {
-  background-color: #0060DF;
-  color: #fff;
-}
-
-.dropdown-link:active::before {
-  background-color: #fff;
+  background-color: #cce0f4;
+  color: #0c0c0d;
 }
 
 .dropdown-link::before {
@@ -145,20 +146,19 @@
   height: 16px;
   background-repeat: no-repeat;
   background-size: 16px 16px;
-  margin-right: 8px;
+  margin-right: 1ch;
   vertical-align: middle;
   margin-top: -2px;
-  background-color: #38383D;
 }
 
 .dropdown-link.account::before {
-  mask-image: url(/icons/account.svg);
+  background-image: url(/icons/account.svg);
 }
 
 .dropdown-link.options::before {
-  mask-image: url(/icons/options.svg);
+  background-image: url(/icons/options.svg);
 }
 
 .dropdown-link.signout::before {
-  mask-image: url(/icons/signout.svg);
+  background-image: url(/icons/signout.svg);
 }
