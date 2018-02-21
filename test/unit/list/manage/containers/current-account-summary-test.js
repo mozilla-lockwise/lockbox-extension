@@ -44,7 +44,7 @@ describe("list > manage > containers > <CurrentAccountSummary/>", () => {
     });
 
     it("render account summary", () => {
-      expect(wrapper.find("span").at(1)).to.have.text("Ellen Ripley");
+      expect(wrapper.find("span").at(0)).to.have.text("Ellen Ripley");
       expect(wrapper.find("img")).to.have.prop("src").to.equal(avatar);
     });
 
