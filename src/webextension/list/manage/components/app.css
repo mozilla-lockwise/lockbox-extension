@@ -82,3 +82,22 @@ body > main,
   font-weight: 400;
   color: #9e9e9e;
 }
+
+.filter button {
+  text-indent: -9999px;
+  padding: 0;
+  width: 32px;
+  height: 100%;
+}
+
+.filter button:before {
+  background-image: url(/icons/clear.svg);
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  content: "";
+  float: right;
+  height: 16px;
+  width: 16px;
+  margin-right: 8px;
+}
+

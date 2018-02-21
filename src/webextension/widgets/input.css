@@ -22,7 +22,7 @@
 
 .input[disabled],
 .input-wrapper.disabled {
-  background-color: #ededf0;
+  opacity: .7;
   cursor: not-allowed;
 }
 
