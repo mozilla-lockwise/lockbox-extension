@@ -134,7 +134,7 @@ We can also use `scalarAdd` to increment a scalar value by some amount.
 
 These are the metrics we currently collect regarding the state of user datastores.
 
-- `datastoreCount` (integer). Current count of the number of items in the user's datastore.
+- `datastoreCount` (integer). Current count of the number of items in the user's datastore. Note that this scalar is only updated when the user renders their full item list, either in the management view or in the doorhanger. So when testing whether this scalar is accurately updated, please re-render the item list.
 
 ## List of Events Currently Recorded
 
