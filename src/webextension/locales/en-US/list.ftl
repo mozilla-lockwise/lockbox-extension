@@ -32,7 +32,7 @@ item-summary-username =
   }
 
 item-filter
-  .placeholder = Search Lockbox Entries
+  .placeholder = Search Lockbox
 
 [[manage]]
 
