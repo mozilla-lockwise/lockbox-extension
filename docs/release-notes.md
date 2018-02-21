@@ -6,7 +6,7 @@ _Date: 2018-02-22_
 
 ### What's New
 
-* To provide you with a closer brand experience with Firefox, the visual design and interaction of the account actions dropdown in the full editor view better aligns with Firefox's [Photon visual design standards](https://design.firefox.com/photon) ([#524](https://github.com/mozilla-lockbox/lockbox-extension/issues/524))
+* To provide you with a closer brand experience with Firefox, the visual design and interaction of the account actions dropdown in the full editor view better aligns with Firefox's [Photon design](https://design.firefox.com/photon) ([#524](https://github.com/mozilla-lockbox/lockbox-extension/issues/524))
 
 ### What's Fixed
 
