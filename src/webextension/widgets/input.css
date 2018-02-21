@@ -17,7 +17,7 @@
   width: -moz-available;
   background-color: #f9f9fa;
   border: 1px solid rgba(12, 12, 13, 0.3);
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 .input[disabled],
@@ -30,6 +30,10 @@
   padding: 0 8px;
   font-size: 13px;
   color: #0c0c0d;
+}
+
+input::placeholder {
+  color: #737373;
 }
 
 .input:not([disabled]):hover,

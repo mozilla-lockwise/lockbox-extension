@@ -75,12 +75,6 @@ body > main,
 .filter input {
   position: relative;
   padding-left: 32px;
-  font-weight: 500;
-}
-
-.filter input::placeholder {
-  font-weight: 400;
-  color: #9e9e9e;
 }
 
 .filter button {
