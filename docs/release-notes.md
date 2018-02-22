@@ -1,5 +1,31 @@
 # Lockbox Release Notes
 
+## 0.1.7-alpha
+
+_Date: 2018-02-22_
+
+### What's New
+
+* To provide you with a closer brand experience with Firefox, the visual design and interaction of the account actions dropdown in the full editor view better aligns with Firefox's [Photon design](https://design.firefox.com/photon) ([#524](https://github.com/mozilla-lockbox/lockbox-extension/issues/524))
+
+### What's Fixed
+
+* If you use Lockbox in "Guest" mode (not linked to a Firefox Account), it can be unusable when Firefox is next restarted ([#542](https://github.com/mozilla-lockbox/lockbox-extension/issues/542)) 
+* Via Greenkeeper:
+    * Updated `events` dependency ([#509](https://github.com/mozilla-lockbox/lockbox-extension/pull/509))
+    * Updated `babel-minify-webpack-plugin` dependency ([#525](https://github.com/mozilla-lockbox/lockbox-extension/pull/525))
+    * Updated `eslint-plugin-node` dependency ([#518](https://github.com/mozilla-lockbox/lockbox-extension/pull/518))
+    * Updated `eslint-plugin-mozilla` dependency ([#546](https://github.com/mozilla-lockbox/lockbox-extension/pull/546))
+
+### Known Issues
+
+* Profile information about you is only fetched and updated when you sign in; any changes made to your Firefox Accounts display name or avatar will not be displayed in Lockbox until you sign in again.
+* Once you link a Firefox Account to Lockbox, you cannot unlink it from that account.
+* Once you link a Firefox Account to Lockbox, signing in with a different account can render Lockbox unusable until you quit and restart Firefox.
+* Once you link a Firefox Account to Lockbox, resetting your Firefox Account password through "forgot your password" will render all your logins inaccessible; the only recourse is to reset Lockbox and start over.
+* Firefox's default prompt to save logins is only disabled on new installs of this extension; updating Lockbox will not change your current Firefox preferences.
+
+
 ## 0.1.6-alpha
 
 _Date: 2018-02-08_
