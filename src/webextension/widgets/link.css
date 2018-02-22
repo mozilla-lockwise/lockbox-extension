@@ -9,6 +9,7 @@
   color: #0060df;
   background: transparent;
   border-radius: 2px;
+  cursor: pointer;
 }
 
 .link::-moz-focus-inner {

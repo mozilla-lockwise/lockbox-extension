@@ -23,7 +23,7 @@ describe("list > manage > components > <AccountSummaryButton/>", () => {
       <AccountSummaryButton displayName="Ellen Ripley" avatar={avatar}/>
     );
 
-    expect(wrapper.find("span").at(1)).to.have.text("Ellen Ripley");
+    expect(wrapper.find("span").at(0)).to.have.text("Ellen Ripley");
     expect(wrapper.find("img")).to.have.prop("src").to.equal(avatar);
   });
 
@@ -112,7 +112,7 @@ describe("list > manage > components > <AccountSummary/>", () => {
                       onClickSignout={() => {}}/>
     );
 
-    expect(wrapper.find("span").at(1)).to.have.text("Ellen Ripley");
+    expect(wrapper.find("span").at(0)).to.have.text("Ellen Ripley");
     expect(wrapper.find("img")).to.have.prop("src").to.equal(avatar);
     expect(wrapper).not.to.have.descendants("ul");
   });
