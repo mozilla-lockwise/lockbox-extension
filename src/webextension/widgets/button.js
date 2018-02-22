@@ -10,11 +10,13 @@ import styles from "./button.css";
 const THEME_CLASS_NAME = {
   primary: `${styles.primaryTheme}`,
   normal: `${styles.normalTheme}`,
+  light: `${styles.lightTheme}`,
   ghost: `${styles.ghostTheme}`,
 };
 
 const SIZE_CLASS_NAME = {
   puffy: `${styles.puffySize}`,
+  large: `${styles.largeSize}`,
   normal: `${styles.normalSize}`,
   micro: `${styles.microSize}`,
 };
