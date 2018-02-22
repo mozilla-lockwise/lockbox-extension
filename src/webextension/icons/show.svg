@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon / Custom / Eye</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-/-Custom-/-Eye">
+            <g id="ic_remove_red_eye">
+                <rect id="bounding-box" x="0" y="0" width="16" height="16"></rect>
+                <g id="Icon-24px" transform="translate(0.000000, 2.000000)">
+                    <path d="M1,5.95041322 C1,8.20254695 4.73761678,10.9008264 8,10.9008264 C11.2623832,10.9008264 15,8.20254695 15,5.95041322 C15,3.6982795 11.2623832,1 8,1 C4.73761678,1 1,3.6982795 1,5.95041322 Z" id="Shape" stroke-opacity="0.6" stroke="#0C0C0D" stroke-width="2"></path>
+                    <circle id="Oval" fill-opacity="0.6" fill="#0C0C0D" cx="8" cy="6" r="3"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

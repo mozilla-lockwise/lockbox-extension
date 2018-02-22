@@ -3,10 +3,10 @@
 document
   .title = Lockbox Entries
 
-item-fields-title = Site Name
+item-fields-title = Name
 item-fields-title-input
-  .placeholder = Primary Bank
-item-fields-origin = Site Address
+  .placeholder = e.g. primary bank
+item-fields-origin = Website Address
 item-fields-origin-input
   .placeholder = www.example.com
 item-fields-username = Username

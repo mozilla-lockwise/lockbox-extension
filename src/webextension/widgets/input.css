@@ -13,11 +13,12 @@
 
 .input,
 .input-wrapper {
-  height: 30px;
+  height: 32px;
   width: -moz-available;
-  background-color: #f9f9fa;
+  background-color: #ffffff;
   border: 1px solid rgba(12, 12, 13, 0.3);
   border-radius: 2px;
+  max-width: 260px;
 }
 
 .input[disabled],
@@ -28,7 +29,7 @@
 
 .input {
   padding: 0 8px;
-  font-size: 13px;
+  font-size: 15px;
   color: #0c0c0d;
 }
 
@@ -69,7 +70,7 @@
 .input-wrapper button {
   white-space: nowrap;
   text-align: center;
-  height: 28px;
+  height: 30px;
   font-size: 13px;
   border: 0;
   color: #0060df;
@@ -100,6 +101,6 @@
 }
 
 .label-text {
-  margin: 10px 0 3px 0;
+  margin: 16px 0 4px 0;
   font-size: 13px;
 }

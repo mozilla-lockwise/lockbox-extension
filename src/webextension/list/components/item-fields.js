@@ -29,25 +29,25 @@ export function ItemFields({fields, onCopy}) {
   return (
     <div className={styles.itemFields}>
       <div className={styles.field}>
+        <Localized id="item-fields-title">
+          <LabelText className={styles.firstLabel}>tITLe</LabelText>
+        </Localized>
+        <FieldText data-name="title">{fields.title}</FieldText>
+      </div>
+      <div className={styles.field}>
         <Localized id="item-fields-origin">
-          <LabelText className={styles.firstLabel}>oRIGIn</LabelText>
+          <LabelText>oRIGIn</LabelText>
         </Localized>
         <FieldText data-name="origin">
           {fields.origin}
         </FieldText>
       </div>
       <div className={styles.field}>
-        <Localized id="item-fields-title">
-          <LabelText>tITLe</LabelText>
-        </Localized>
-        <FieldText data-name="title">{fields.title}</FieldText>
-      </div>
-      <div className={styles.field}>
         <Localized id="item-fields-username">
           <LabelText>uSERNAMe</LabelText>
         </Localized>
         <div className={styles.inlineButton}>
-          <FieldText monospace data-name="username">
+          <FieldText data-name="username">
             {fields.username}
           </FieldText>
           <Localized id="item-fields-copy-username">
@@ -108,23 +108,23 @@ export class EditItemFields extends React.Component {
     return (
       <div className={styles.itemFields}>
         <label>
+          <Localized id="item-fields-title">
+            <LabelText className={styles.firstLabel}>tITLe</LabelText>
+          </Localized>
+          <Localized id="item-fields-title-input">
+            <Input type="text" {...controlledProps("title")}
+                   placeholder="eNTRy nAMe"
+                   ref={(element) => this._firstField = element} />
+          </Localized>
+        </label>
+        <label>
           <Localized id="item-fields-origin">
-            <LabelText className={styles.firstLabel}>oRIGIn</LabelText>
+            <LabelText>oRIGIn</LabelText>
           </Localized>
           <Localized id="item-fields-origin-input">
             <Input type="text"
                    placeholder="wWw.eXAMPLe.cOm"
-                   ref={(element) => this._firstField = element}
                    {...controlledProps("origin")}/>
-          </Localized>
-        </label>
-        <label>
-          <Localized id="item-fields-title">
-            <LabelText>tITLe</LabelText>
-          </Localized>
-          <Localized id="item-fields-title-input">
-            <Input type="text" {...controlledProps("title")}
-                   placeholder="eNTRy nAMe"/>
           </Localized>
         </label>
         <label>
@@ -132,7 +132,7 @@ export class EditItemFields extends React.Component {
             <LabelText>uSERNAMe</LabelText>
           </Localized>
           <Localized id="item-fields-username-input">
-            <Input type="text" monospace
+            <Input type="text"
                    placeholder="nAMe@eXAMPLe.cOm"
                    {...controlledProps("username")}/>
           </Localized>
