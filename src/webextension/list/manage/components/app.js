@@ -34,7 +34,7 @@ export default function App() {
               <CurrentAccountSummary/>
             </Toolbar>
             <aside>
-              <ItemFilter className={styles.filter}/>
+              <ItemFilter/>
               <AllItems/>
             </aside>
             <article>

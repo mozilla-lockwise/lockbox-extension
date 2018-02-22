@@ -1,0 +1,47 @@
+.filter {
+  border: 1px solid #b6b6b6;
+  position: relative;
+  margin: 12px;
+}
+
+.filter:focus-within,
+.filter:focus-within:hover {
+  box-shadow: none;
+}
+
+.filter:before {
+  content: "";
+  display: block;
+  background-image: url(/icons/search.svg);
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  top: 7px;
+  left: 8px;
+}
+
+.filter input {
+  position: relative;
+  padding-left: 32px;
+}
+
+.filter button {
+  text-indent: -9999px;
+  padding: 0;
+  width: 32px;
+  height: 100%;
+}
+
+.filter button:before {
+  background-image: url(/icons/clear.svg);
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  content: "";
+  float: right;
+  height: 16px;
+  width: 16px;
+  margin-right: 8px;
+}
+

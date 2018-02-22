@@ -8,11 +8,12 @@ import { connect } from "react-redux";
 
 import { filterItems } from "../actions";
 import FilterInput from "../../widgets/filter-input";
+import styles from "./item-filter.css";
 
 function ItemFilter(props) {
   return (
     <Localized id="item-filter">
-      <FilterInput placeholder="fILTEr…" {...props}/>
+      <FilterInput placeholder="fILTEr…" className={styles.filter} {...props}/>
     </Localized>
   );
 }
