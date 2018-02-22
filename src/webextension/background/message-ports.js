@@ -60,8 +60,6 @@ export default function initializeMessagePorts() {
         await datastore.initialize({
           appKey: DEFAULT_APP_KEY,
         });
-        // TODO: be more implicit on saving account info
-        await accounts.saveAccount(browser.storage.local);
         await updateBrowserAction({datastore});
         if (message.view) {
           openView(message.view);
@@ -80,8 +78,6 @@ export default function initializeMessagePorts() {
             await datastore.unlock(DEFAULT_APP_KEY);
           }
           await datastore.initialize({ appKey, salt, rebase: true });
-          // FIXME: be more implicit on saving account info
-          await accounts.saveAccount(browser.storage.local);
           await updateBrowserAction({ account, datastore });
           telemetry.recordEvent("fxaUpgrade", "accounts");
         } catch (err) {
