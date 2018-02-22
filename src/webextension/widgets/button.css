@@ -54,6 +54,10 @@
   background-color: #003eaa;
 }
 
+.light-theme:not([disabled]):hover {
+  background-color: #d7d7db;
+}
+
 .normal-theme:not([disabled]):hover,
 .ghost-theme:not([disabled]):hover {
   background-color: rgba(12, 12, 13, 0.2);
@@ -76,7 +80,7 @@
 }
 
 .large-size {
-  height: 41px;
+  height: 40px;
   padding: 0 16px;
   font-size: 13px;
   border-radius: 4px;
