@@ -25,6 +25,10 @@
   box-shadow: 0 0 0 1px #0a84ff inset, 0 0 0 1px #0a84ff, 0 0 0 4px rgba(10, 132, 255, 0.3);
 }
 
+.button.critical-theme:focus {
+  box-shadow: 0 0 0 1px #ff0039 inset, 0 0 0 1px #ff0039, 0 0 0 4px rgba(215, 0, 34, 0.3);
+}
+
 .button::-moz-focus-inner {
   border: none;
 }
@@ -42,6 +46,11 @@
 .ghost-theme {
   color: #0c0c0d;
   background-color: transparent;
+}
+
+.critical-theme {
+  color: #ffffff;
+  background-color: #d70022;
 }
 
 .primary-theme:not([disabled]):hover {

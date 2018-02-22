@@ -3,17 +3,17 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .modal-dialog {
-  padding: 1em;
-  font-size: 17px;
+  padding: 1.5em 1.5em 1em;
+  font-size: 22px;
   font-weight: 300;
   text-align: center;
 }
 
 .modal-dialog > menu {
-  margin: 1em 0 0 0;
+  margin: 1.5em 0 0 0;
   padding: 0;
 }
 
 .modal-dialog > menu > button + button {
-  margin-inline-start: 1ch;
+  margin-inline-start: 2.5ch;
 }

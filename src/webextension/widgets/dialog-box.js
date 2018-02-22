@@ -21,7 +21,7 @@ export default class DialogBox extends React.Component {
   }
 
   componentDidMount() {
-    this._primaryButton.focus();
+    this._criticalButton.focus();
   }
 
   render() {
@@ -36,8 +36,8 @@ export default class DialogBox extends React.Component {
             let primaryProps = {};
             if (i === 0) {
               primaryProps = {
-                theme: "primary",
-                ref: (element) => this._primaryButton = element,
+                theme: "critical",
+                ref: (element) => this._criticalButton = element,
               };
             }
 

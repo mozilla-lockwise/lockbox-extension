@@ -11,6 +11,7 @@ const THEME_CLASS_NAME = {
   primary: `${styles.primaryTheme}`,
   normal: `${styles.normalTheme}`,
   ghost: `${styles.ghostTheme}`,
+  critical: `${styles.criticalTheme}`,
 };
 
 const SIZE_CLASS_NAME = {
