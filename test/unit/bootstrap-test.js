@@ -41,8 +41,14 @@ describe("bootstrap", () => {
       }});
 
       await waitUntil(() => webextStartup.callCount === 1);
-      const result = await browser.runtime.sendMessage(
+      let result;
+      result = await browser.runtime.sendMessage(
         {type: "telemetry_event"}
+      );
+      expect(result).to.deep.equal({});
+
+      result = await browser.runtime.sendMessage(
+        {type: "telemetry_scalar"}
       );
       expect(result).to.deep.equal({});
     });
@@ -55,6 +61,18 @@ describe("bootstrap", () => {
         startup: webextStartup,
       }})).to.not.throw();
       Services.telemetry.registerEvents.restore();
+
+      await waitUntil(() => webextStartup.callCount === 1);
+    });
+
+    it("re-registering scalar doesn't throw", async () => {
+      sinon.stub(Services.telemetry, "registerScalars").throws(new Error(
+        "Attempt to register scalar that is already registered."
+      ));
+      expect(() => startup({webExtension: {
+        startup: webextStartup,
+      }})).to.not.throw();
+      Services.telemetry.registerScalars.restore();
 
       await waitUntil(() => webextStartup.callCount === 1);
     });
