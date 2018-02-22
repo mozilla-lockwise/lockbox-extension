@@ -67,6 +67,10 @@
   background-color: #002275;
 }
 
+.light-theme:not([disabled]):active:hover {
+  background-color: #b1b1b3;
+}
+
 .normal-theme:not([disabled]):active:hover,
 .ghost-theme:not([disabled]):active:hover {
   background-color: rgba(12, 12, 13, 0.3);
