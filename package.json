@@ -2,7 +2,7 @@
   "title": "Lockbox",
   "name": "lockbox",
   "id": "lockbox@mozilla.com",
-  "version": "0.1.6-alpha",
+  "version": "0.1.7-alpha",
   "main": "dist/bootstrap.js",
   "description": "The simple way to store, retrieve and manage website login info",
   "author": "Lockbox Team <lockbox-dev@mozilla.com>",
@@ -53,6 +53,11 @@
       "src"
     ]
   },
+  "greenkeeper": {
+    "ignore": [
+      "eslint-plugin-mozilla"
+    ]
+  },
   "dependencies": {
     "copy-to-clipboard": "^3.0.8",
     "fluent": "^0.4.2",
@@ -75,7 +80,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
-    "babel-minify-webpack-plugin": "^0.2.0",
+    "babel-minify-webpack-plugin": "^0.3.0",
     "babel-plugin-istanbul": "^4.1.5",
     "babel-plugin-rewire": "^1.1.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -97,14 +102,14 @@
     "eslint": "^4.15.0",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-mozilla": "^0.5.0",
+    "eslint-plugin-mozilla": "0.6.0",
     "eslint-plugin-no-unsanitized": "^2.0.2",
-    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-only-warn": "^1.0.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.5.1",
     "eslint-plugin-standard": "^3.0.1",
-    "events": "^1.1.1",
+    "events": "^2.0.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "fetch-mock": "^6.0.0-beta.9",
     "html-minifier": "^3.5.8",
