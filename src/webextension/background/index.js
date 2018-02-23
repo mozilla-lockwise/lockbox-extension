@@ -10,7 +10,12 @@ import updateBrowserAction from "./browser-action";
 openAccount(browser.storage.local).then(async (account) => {
   let datastore = await openDataStore({ salt: account.uid });
   if (datastore.initialized && account.mode === GUEST) {
-    await datastore.unlock(DEFAULT_APP_KEY);
+    try {
+      await datastore.unlock(DEFAULT_APP_KEY);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(`WARNING: datastore is in an inconsistent state.`);
+    }
   }
 
   initializeMessagePorts();

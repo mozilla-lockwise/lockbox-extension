@@ -320,6 +320,8 @@ export class Account {
 let account;
 export default function getAccount() {
   if (!account) {
+    // eslint-disable-next-line no-console
+    console.warn("creating a default un-stored account instance!");
     account = new Account({});
   }
   return account;
@@ -336,6 +338,10 @@ export async function loadAccount(storage) {
       ...stored.account,
       storage,
     });
+  } else {
+    account = new Account({
+      storage,
+    });
   }
   return getAccount();
 }
@@ -350,8 +356,8 @@ export async function openAccount(storage) {
     console.log(`loaded account for (${account.mode.toString()}) '${account.uid || ""}'`);
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.error(`loading account failed (fallback to empty GUEST): ${err.message}`);
-    account = getAccount();
+    console.error(`loading account failed: ${err.message}`);
+    throw err;
   }
 
   return account;
