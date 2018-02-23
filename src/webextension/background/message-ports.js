@@ -81,7 +81,7 @@ export default function initializeMessagePorts() {
           await updateBrowserAction({ account, datastore });
           telemetry.recordEvent("fxaUpgrade", "accounts");
         } catch (err) {
-          telemetry.recordEvent("fxaFailed", "accounts", err.message);
+          telemetry.recordEvent("fxaFailed", "accounts", { message: err.message });
           throw err;
         }
 
@@ -107,15 +107,19 @@ export default function initializeMessagePorts() {
         openView("firstrun");
 
         return {};
+      }).catch((err) => {
+        // eslint-disable-next-line no-console
+        console.log(`failed to reset: ${err.message}`);
+        throw err;
       });
 
 
     case "signin":
       return openDataStore().then(async (datastore) => {
         const account = getAccount();
-        let appKey;
+        let appKey = DEFAULT_APP_KEY;
         try {
-          if (account.mode === accounts.UNAUTHENTICATED) {
+          if (account.mode !== accounts.AUTHENTICATED) {
             await account.signIn();
           }
           if (account.mode === accounts.AUTHENTICATED) {
@@ -125,7 +129,8 @@ export default function initializeMessagePorts() {
           await updateBrowserAction({ datastore });
           telemetry.recordEvent("fxaSignin", "accounts");
         } catch (err) {
-          telemetry.recordEvent("fxaFailed", "accounts", err.message);
+          console.log(`signin failed: ${err.message}`);
+          telemetry.recordEvent("fxaFailed", "accounts", { message: err.message });
           throw err;
         }
 

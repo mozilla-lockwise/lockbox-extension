@@ -60,8 +60,13 @@ export default async function updateBrowserAction({account = getAccount(), datas
     if (account.mode === accounts.GUEST) {
       // unlock on user's behalf ...
       // XXXX: is this a bad idea or terrible idea?
-      await datastore.unlock(DEFAULT_APP_KEY);
-      return installEntriesAction();
+      try {
+        await datastore.unlock(DEFAULT_APP_KEY);
+        return installEntriesAction();
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log(`WARNING: datastore is in an inconsistent state.  Please reset and start again`);
+      }
     }
     // setup unlock popup
     return installPopup("unlock/index.html");
