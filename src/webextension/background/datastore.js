@@ -26,6 +26,10 @@ export const DEFAULT_APP_KEY = {
   "k": "WsTdZ2tjji2W36JN9vk9s2AYsvp8eYy1pBbKPgcSLL4",
 };
 
+export function clearDataStore() {
+  datastore = undefined;
+}
+
 export default async function openDataStore(cfg = {}) {
   if (!datastore) {
     datastore = await DataStore.open({
