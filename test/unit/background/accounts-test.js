@@ -28,7 +28,7 @@ describe("background > accounts", () => {
 
   describe("loadAccount()", () => {
     it("with saved account", async () => {
-      const result = await accounts.loadAccount({
+      const mockStorage = {
         get: async () => ({
           account: {
             config: "dev-latest",
@@ -38,21 +38,25 @@ describe("background > accounts", () => {
             },
           },
         }),
-      });
+      };
+      const result = await accounts.loadAccount(mockStorage);
       expect(result.info).to.deep.equal({verified: true, uid: "1234"});
+      expect(result.storage).to.equal(mockStorage);
     });
 
     it("without saved account", async () => {
-      const result = await accounts.loadAccount({
+      const mockStorage = {
         get: async () => ({}),
-      });
+      };
+      const result = await accounts.loadAccount(mockStorage);
       expect(result.info).to.equal(undefined);
+      expect(result.storage).to.equal(mockStorage);
     });
   });
 
   describe("openAccount()", () => {
     it("with saved account", async () => {
-      const result = await accounts.openAccount({
+      const mockStorage = {
         get: async () => ({
           account: {
             config: "dev-latest",
@@ -62,24 +66,34 @@ describe("background > accounts", () => {
             },
           },
         }),
-      });
+      };
+      const result = await accounts.openAccount(mockStorage);
       expect(result.info).to.deep.equal({ verified: true, uid: "1234" });
+      expect(result.storage).to.equal(mockStorage);
     });
 
     it("without saved account", async () => {
-      const result = await accounts.openAccount({
+      const mockStorage = {
         get: async () => ({}),
-      });
+      };
+      const result = await accounts.openAccount(mockStorage);
       expect(result.info).to.equal(undefined);
+      expect(result.storage).to.equal(mockStorage);
     });
 
     it("with error", async () => {
-      const result = await accounts.openAccount({
+      const mockStorage = {
         get: async () => {
           throw new Error("test for failure");
         },
-      });
-      expect(result.info).to.equal(undefined);
+      };
+
+      try {
+        await accounts.openAccount(mockStorage);
+        expect(false, "unexpected success").to.be.ok;
+      } catch (err) {
+        expect(err.message).to.equal("test for failure");
+      }
     });
   });
 
