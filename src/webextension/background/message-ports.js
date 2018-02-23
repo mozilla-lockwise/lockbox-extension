@@ -153,8 +153,10 @@ export default function initializeMessagePorts() {
 
     case "list_items":
       return openDataStore().then(async (ds) => {
-        return {items: Array.from((await ds.list()).values(),
-                                  makeItemSummary)};
+        var entries = Array.from((await ds.list()).values(),
+                                  makeItemSummary);
+        telemetry.setScalar("datastoreCount", entries.length);
+        return {items: entries};
       });
     case "add_item":
       return openDataStore().then(async (ds) => {
@@ -178,7 +180,6 @@ export default function initializeMessagePorts() {
       return openDataStore().then(async (ds) => {
         return {item: await ds.get(message.id)};
       });
-
     case "proxy_telemetry_event":
       return telemetry.recordEvent(message.method, message.object,
                                    message.extra);
