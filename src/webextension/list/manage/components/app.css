@@ -47,3 +47,7 @@ body > main,
   border-top: 1px solid #d1d1d2;
   overflow: auto;
 }
+
+.filter-bar {
+  padding: 1.5ch;
+}

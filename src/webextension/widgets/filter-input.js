@@ -48,7 +48,7 @@ export default class FilterInput extends React.Component {
     const {className, onChange, value, disabled, ...props} = this.props;
     const disabledClass = disabled ? ` ${styles.disabled}` : "";
     const finalClassName = (
-      `${styles.inputWrapper}${disabledClass} ${className}`
+      `${styles.filter} ${styles.inputWrapper}${disabledClass} ${className}`
     ).trimRight();
 
     return (
@@ -57,7 +57,7 @@ export default class FilterInput extends React.Component {
                value={this.state.value}
                onChange={(e) => this.updateValue(e.target.value)}/>
         <Localized id="filter-input-clear">
-          <button type="button" disabled={disabled}
+          <button type="button" title="clear" disabled={disabled}
                   onClick={() => this.updateValue("")}>
             cLEAr
           </button>
