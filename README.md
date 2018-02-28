@@ -3,7 +3,7 @@
 [![Waffle Board][waffle-image]][waffle-link]
 [![Greenkeeper badge][greenkeeper-image]][greenkeeper-link]
 
-# Lockbox for Firefox
+# Lockbox for Firefox (Devin's Fork)
 
 Lockbox for Firefox is a work-in-progress extension for Firefox to improve upon
 Firefox's built-in password management. If you're interested, you should
