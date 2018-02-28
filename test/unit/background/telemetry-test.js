@@ -38,6 +38,16 @@ describe("background > telemetry", () => {
       });
     });
 
+    it("setScalar()", async () => {
+      const result = await telemetry.setScalar("name", "value");
+      expect(result).to.deep.equal({});
+      expect(onMessage).to.have.been.calledWith({
+        type: "telemetry_scalar",
+        name: "name",
+        value: "value",
+      });
+    });
+
     it("recordEvent() with extra", async () => {
       const result = await telemetry.recordEvent("method", "object",
                                                  {extra: "value"});
