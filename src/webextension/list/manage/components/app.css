@@ -50,7 +50,6 @@ body > main,
 
 .filter {
   border: 1px solid #d1d1d2;
-  border-bottom: 0;
   border-inline-start: 0px;
   border-radius: 0;
 }
