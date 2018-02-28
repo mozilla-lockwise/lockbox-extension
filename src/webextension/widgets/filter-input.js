@@ -2,7 +2,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -56,12 +55,9 @@ export default class FilterInput extends React.Component {
         <input type="search" {...props} disabled={disabled}
                value={this.state.value}
                onChange={(e) => this.updateValue(e.target.value)}/>
-        <Localized id="filter-input-clear">
-          <button type="button" title="clear" disabled={disabled}
-                  onClick={() => this.updateValue("")}>
-            cLEAr
-          </button>
-        </Localized>
+        <button type="button" title="Clear" disabled={disabled}
+                onClick={() => this.updateValue("")}>
+        </button>
       </div>
     );
   }
