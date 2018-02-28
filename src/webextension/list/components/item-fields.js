@@ -74,7 +74,7 @@ export function ItemFields({fields, onCopy}) {
         <Localized id="item-fields-notes">
           <LabelText>nOTEs</LabelText>
         </Localized>
-        <FieldText data-name="notes">{fields.notes}</FieldText>
+        <FieldText className={styles.notes} data-name="notes">{fields.notes}</FieldText>
       </div>
     </div>
   );
@@ -148,7 +148,7 @@ export class EditItemFields extends React.Component {
             <LabelText>nOTEs</LabelText>
           </Localized>
           <Localized id="item-fields-notes-input">
-            <TextArea {...controlledProps("notes", 10000)}/>
+            <TextArea className={styles.notes} {...controlledProps("notes", 10000)}/>
           </Localized>
         </label>
       </div>

@@ -28,3 +28,7 @@
 .inline-button > *:first-child {
   flex: 1;
 }
+
+.notes {
+  min-height: 60px;
+}

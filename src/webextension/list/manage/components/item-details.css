@@ -19,31 +19,3 @@
   margin-top: 1em;
   padding: 1em 0;
 }
-
-input[name="password"] + div > span > button {
-	text-indent: -9999px;
-	padding: 0;
-	width: 32px;
-}
-
-input[name="password"] + div > span > button:before {
-	background-repeat: no-repeat;
-	background-size: 16px 16px;
-	content: "";
-	float: right;
-	height: 16px;
-	width: 16px;
-	margin-right: 8px;
-}
-
-input[name="password"] + div > span:first-child > button:before {
-	background-image: url(/icons/show.svg);
-}
-
-input[name="password"] + div > span:last-child > button:before {
-	background-image: url(/icons/hide.svg);
-}
-
-textarea {
-	min-height: 76px;
-}

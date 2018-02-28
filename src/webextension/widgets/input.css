@@ -13,7 +13,7 @@
 
 .input,
 .input-wrapper {
-  height: 32px;
+  height: 30px;
   width: -moz-available;
   background-color: #ffffff;
   border: 1px solid rgba(12, 12, 13, 0.3);
@@ -103,4 +103,21 @@
 .label-text {
   margin: 16px 0 4px 0;
   font-size: 13px;
+}
+
+.password button::before {
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  content: "";
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+}
+
+.show-btn::before {
+  background-image: url(/icons/show.svg);
+}
+
+.hide-btn::before {
+  background-image: url(/icons/hide.svg);
 }
