@@ -162,6 +162,24 @@ function startup({webExtension}, reason) {
     }
   }
 
+  try {
+    Services.telemetry.registerScalars(TELEMETRY_CATEGORY, {
+      "datastoreCount": {
+        kind: Services.telemetry.SCALAR_TYPE_COUNT,
+        keyed: false,
+        record_on_release: false,
+        expired: false,
+      },
+    });
+  } catch (e) {
+    if (e.message === "Attempt to register scalar that is already registered.") {
+      // eslint-disable-next-line no-console
+      console.log("telemetry scalar already registered; skipping registration");
+    } else {
+      throw e;
+    }
+  }
+
   webExtension.startup().then(({browser}) => {
     Services.telemetry.recordEvent(TELEMETRY_CATEGORY, "startup",
                                    "webextension");
@@ -171,6 +189,12 @@ function startup({webExtension}, reason) {
         Services.telemetry.recordEvent(
           TELEMETRY_CATEGORY, message.method, message.object, null,
           message.extra || null
+        );
+        respond({});
+        break;
+      case "telemetry_scalar":
+        Services.telemetry.scalarSet(
+          `${TELEMETRY_CATEGORY}.${message.name}`, message.value
         );
         respond({});
       }

@@ -40,5 +40,7 @@ window.Services = {
   telemetry: {
     registerEvents() {},
     recordEvent() {},
+    registerScalars() {},
+    scalarSet() {},
   },
 };
