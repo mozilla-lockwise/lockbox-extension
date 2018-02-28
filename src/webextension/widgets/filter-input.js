@@ -55,7 +55,8 @@ export default class FilterInput extends React.Component {
       <div className={finalClassName}>
         <input type="search" {...props} disabled={disabled}
                value={this.state.value}
-               onChange={(e) => this.updateValue(e.target.value)}/>
+               onChange={(e) => this.updateValue(e.target.value)}
+               autoFocus/>
         <Localized id="filter-input-clear">
           <button type="button" disabled={disabled}
                   onClick={() => this.updateValue("")}>
