@@ -1,0 +1,33 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+.linked {
+  margin: 2em auto;
+  padding: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.linked > h2,
+.linked > p {
+  text-align: center;
+  letter-spacing: 0.2px;
+  line-height: 1.5;
+}
+
+.linked > h2 {
+  margin: 0 0 .5em;
+  padding: 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.32;
+  color: #058b00;
+}
+
+.linked > p {
+  margin-top: 0;
+  font-size: 15px;
+  white-space: pre-line;
+}

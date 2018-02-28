@@ -1,25 +1,57 @@
+[![Build Status][travis-image]][travis-link]
+[![Coverage Status][codecov-image]][codecov-link]
+[![Waffle Board][waffle-image]][waffle-link]
+[![Greenkeeper badge][greenkeeper-image]][greenkeeper-link]
+
 # Lockbox for Firefox
 
 Lockbox for Firefox is a work-in-progress extension for Firefox to improve upon
 Firefox's built-in password management. If you're interested, you should
 probably come back later when we have more to show!
 
-## Building
+:warning: **Note: This is a rapidly evolving prototype that will change. Any
+data stored here is not guaranteed to be retained in future updates.**
 
-If you'd like to build the .xpi from the latest master, simply run the
-following:
+## [Quick Installation][install-link]
+
+If you'd like to quickly **start up a new Firefox profile on Nightly** with
+Lockbox installed for development/testing, you can run:
 
 ```sh
-$ make package
+npm install
+npm run-script run -- -b nightly
 ```
 
-Note of course that the resulting add-on is unsigned, and likely won't work on
-release versions of Firefox. You can flip the `xpinstall.signatures.required`
-preference on other channels accordingly.
+## [Documentation][docs-link]
 
-## License
+*This is just one component of the Lockbox product. Please see the
+[Lockbox website][org-website] for more context.*
 
-This add-on is [licensed][license-link] under the Mozilla Public License,
-version 2.0.
+For detailed documentation and installation instructions about this component,
+please see the [`docs` directory][docs-link].
 
-[license-link]: https://github.com/jimporter/gesticulate/blob/master/LICENSE
+## Contributing ##
+
+See the [guidelines][contributing-link] for contributing to this project.
+
+This project is governed by a [Code Of Conduct][coc-link].
+
+## [License][license-link]
+
+This extension is licensed under the [Mozilla Public License,
+version 2.0][license-link].
+
+[travis-image]: https://travis-ci.org/mozilla-lockbox/lockbox-extension.svg?branch=master
+[travis-link]: https://travis-ci.org/mozilla-lockbox/lockbox-extension
+[codecov-image]: https://img.shields.io/codecov/c/github/mozilla-lockbox/lockbox-extension.svg
+[codecov-link]: https://codecov.io/gh/mozilla-lockbox/lockbox-extension
+[waffle-image]: https://badge.waffle.io/mozilla-lockbox/lockbox-extension.svg?columns=In%20Progress
+[waffle-link]: https://waffle.io/mozilla-lockbox/lockbox-extension
+[greenkeeper-image]: https://badges.greenkeeper.io/mozilla-lockbox/lockbox-extension.svg
+[greenkeeper-link]: https://greenkeeper.io/
+[install-link]: /docs/install.md
+[org-website]: https://mozilla-lockbox.github.io/
+[docs-link]: /docs
+[contributing-link]: docs/contributing.md
+[coc-link]: docs/code_of_conduct.md
+[license-link]: /LICENSE

@@ -1,0 +1,64 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+body {
+  padding: 0;
+  margin: 0;
+  color: #0c0c0d;
+  background-color: #f9f9fa;
+  font: caption;
+  font-size: 13px;
+  -moz-user-select: none;
+  overflow: hidden;
+}
+
+html,
+body,
+body > main,
+.app {
+  height: 100%;
+}
+
+.app-main {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: auto 1fr;
+}
+
+.navigation {
+  background-color: #ededf0;
+  grid-column-start: span 2;
+}
+
+.navigation > * + * {
+  margin-inline-start: 40px;
+}
+
+.app-main > aside {
+  grid-column: 1;
+  min-width: 150px;
+  min-height: 0;
+  background-color: rgba(215, 215, 219, 0.75);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.app-main > article {
+  grid-column: 2;
+  background-color: #f9f9fa;
+  border-top: 1px solid #d1d1d2;
+  overflow: auto;
+}
+
+.filter {
+  border: 1px solid #d1d1d2;
+  border-inline-start: 0px;
+  border-radius: 0;
+}
+
+.filter:focus-within,
+.filter:focus-within:hover {
+  box-shadow: none;
+}

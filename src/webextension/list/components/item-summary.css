@@ -1,0 +1,41 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+.item-summary {
+  padding: 0.5em;
+  font-size: 15px;
+}
+
+.item-summary::before {
+  background-image: url(/icons/arrowhead-right-16.svg);
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  content: "";
+  float: right;
+  height: 16px;
+  width: 16px;
+  margin: 14px 0;
+}
+
+[data-selected] .item-summary::before {
+  display: none;
+}
+
+.title,
+.subtitle {
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 13px;
+  font-weight: 400;
+}

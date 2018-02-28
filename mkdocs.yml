@@ -1,0 +1,19 @@
+site_name: Lockbox Extension
+site_description: Documentation for the Firefox extension
+theme: readthedocs
+repo_url: https://github.com/mozilla-lockbox/lockbox-extension
+
+extra_css:
+- css/extra.css
+
+markdown_extensions:
+- attr_list
+- admonition
+
+pages:
+- 'Introduction': 'index.md'
+- 'Release Notes': 'release-notes.md'
+- 'FAQs': 'faqs.md'
+- 'Contribute': 'contributing.md'
+- 'Source Code': 'install.md'
+- 'Metrics': 'metrics.md'
