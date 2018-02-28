@@ -4,7 +4,7 @@
 
 .toolbar {
   margin: 0;
-  padding: 1ch;
+  padding: 10px;
   display: flex;
   align-items: center;
 }
