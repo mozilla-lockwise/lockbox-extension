@@ -75,10 +75,11 @@ export const APP_KEY_NAME = "https://identity.mozilla.com/apps/lockbox";
 export const DEFAULT_AVATAR_PATH = "icons/default-avatar.svg";
 
 export class Account {
-  constructor({config = DEFAULT_CONFIG, info}) {
+  constructor({config = DEFAULT_CONFIG, info, storage}) {
     // TODO: verify configuration (when there is one)
     this.config = config;
     this.info = info || undefined;
+    this.storage = storage;
   }
 
   toJSON() {
@@ -97,6 +98,14 @@ export class Account {
       config,
       info,
     };
+  }
+  async save() {
+    if (this.storage) {
+      const account = this.toJSON();
+      await this.storage.set({ account });
+    }
+
+    return this;
   }
 
   get mode() {
@@ -126,7 +135,7 @@ export class Account {
     let cfg = configs[this.config];
 
     const props = {};
-    let url, request;
+    let url;
 
     // request authorization
     cfg = {
@@ -151,52 +160,14 @@ export class Account {
     } else {
       tokenParams.client_secret = cfg.client_secret;
     }
-    url = cfg.token_endpoint;
-    request = {
-      method: "post",
-      headers: {
-        "content-type": "application/json",
-      },
-      cache: "no-cache",
-      body: JSON.stringify(tokenParams),
-    };
-    const oauthInfo = await fetchFromEndPoint("token", url, request);
-    // console.log(`oauth info == ${JSON.stringify(oauthInfo)}`);
+    await this.updateAccessToken(tokenParams, props.appKey);
 
-    const keys = new Map();
-    if (oauthInfo.keys_jwe) {
-      let bundle = await jose.JWE.createDecrypt(props.appKey).decrypt(oauthInfo.keys_jwe);
-      bundle = JSON.parse(new TextDecoder().decode(bundle.payload));
-      const pending = Object.keys(bundle).map(async (name) => {
-        let key = bundle[name];
-        key = await jose.JWK.asKey(key);
-        keys.set(name, key);
-      });
-      await Promise.all(pending);
-    }
+    // update user info
+    await this.updateUserInfo();
 
-    // retrieve user info
-    url = cfg.userinfo_endpoint;
-    request = {
-      method: "get",
-      headers: {
-        authorization: `Bearer ${oauthInfo.access_token}`,
-      },
-      cache: "no-cache",
-    };
-    const userInfo = await fetchFromEndPoint("userinfo", url, request);
+    // retain it all
+    await this.save();
 
-    this.info = {
-      uid: userInfo.uid,
-      email: userInfo.email,
-      displayName: userInfo.displayName,
-      avatar: userInfo.avatar,
-      access_token: oauthInfo.access_token,
-      expires_at: (Date.now() / 1000) + oauthInfo.expires_in,
-      id_token: oauthInfo.id_token,
-      refresh_token: oauthInfo.refresh_token,
-      keys,
-    };
     return this;
   }
 
@@ -216,6 +187,8 @@ export class Account {
     }
     // XXXX: something server side?
 
+    await this.save();
+
     return this;
   }
 
@@ -228,32 +201,149 @@ export class Account {
       avatar: this.avatar,
     };
   }
+
+  async token() {
+    // always return null if user is GUEST
+    if (this.mode === GUEST) {
+      // XXXX: use DataStoreError
+      throw new Error("AUTH: requires FxA");
+    }
+
+    // check if token present / unexpired / valid
+    let info = await this.updateUserInfo();
+    if (!info || !info.access_token) {
+      // refresh
+      await this.updateAccessToken();
+      info = await this.updateUserInfo();
+    }
+    await this.save();
+
+    if (!info || !info.access_token) {
+      // XXXX: use DataStoreError
+      throw new Error("AUTH: no access token");
+    }
+
+    return info.access_token;
+  }
+
+
+  async updateAccessToken(params, appKey) {
+    const cfg = configs[this.config];
+    let info = this.info || {};
+
+    if (!params) {
+      // assume "refresh_token" exchange
+      if (!info.refresh_token) {
+        // XXXX: use DataStoreError
+        throw new Error("AUTH: no refresh token");
+      }
+
+      params = {
+        grant_type: "refresh_token",
+        refresh_token: info.refresh_token,
+        client_id: cfg.client_id,
+      };
+    }
+
+    const request = {
+      method: "post",
+      headers: {
+        "content-type": "application/json",
+      },
+      cache: "no-cache",
+      body: JSON.stringify(params),
+    };
+    const oauthInfo = await fetchFromEndPoint("token", cfg.token_endpoint, request);
+    let keys = info.keys || new Map();
+    if (oauthInfo.keys_jwe && appKey) {
+      // forget previous keys before decrypting new bundle
+      keys.clear();
+
+      let bundle = await jose.JWE.createDecrypt(appKey).decrypt(oauthInfo.keys_jwe);
+      bundle = JSON.parse(new TextDecoder().decode(bundle.payload));
+      const pending = Object.keys(bundle).map(async (name) => {
+        let key = bundle[name];
+        key = await jose.JWK.asKey(key);
+        keys.set(name, key);
+      });
+      await Promise.all(pending);
+    }
+
+    this.info = info = {
+      ...info,
+      access_token: oauthInfo.access_token,
+      expires_at: Math.floor(Date.now() / 1000) + oauthInfo.expires_in,
+      id_token: oauthInfo.id_token,
+      refresh_token: oauthInfo.refresh_token,
+      keys,
+    };
+
+    return info;
+  }
+
+  async updateUserInfo() {
+    let info = this.info || {};
+    const { access_token, expires_at } = info;
+    if (!access_token || !expires_at || Date.now() > (expires_at * 1000)) {
+      // need a new access token
+      return null;
+    }
+
+    const url = configs[this.config].userinfo_endpoint;
+    const request = {
+      method: "get",
+      headers: {
+        "authorization": `Bearer ${access_token}`,
+      },
+      cache: "no-cache",
+    };
+    try {
+      const userInfo = await fetchFromEndPoint("userinfo", url, request);
+      // since it's present ... update user info
+      this.info = info = {
+        ...info,
+        uid: userInfo.uid,
+        email: userInfo.email,
+        displayName: userInfo.displayName,
+        avatar: userInfo.avatar,
+      };
+    } catch (err) {
+      return null;
+    }
+
+    return info;
+  }
+
 }
 
 
 let account;
 export default function getAccount() {
   if (!account) {
+    // eslint-disable-next-line no-console
+    console.warn("creating a default un-stored account instance!");
     account = new Account({});
   }
   return account;
 }
 
+export function setAccount(config, info) {
+  account = config ? new Account({ config, info }) : undefined;
+}
+
 export async function loadAccount(storage) {
   const stored = await storage.get("account");
   if (stored && stored.account) {
-    account = new Account(stored.account);
+    account = new Account({
+      ...stored.account,
+      storage,
+    });
+  } else {
+    account = new Account({
+      storage,
+    });
   }
   return getAccount();
-}
-
-export async function saveAccount(storage) {
-  const account = getAccount().toJSON();
-  await storage.set({ account });
-}
-
-export function setAccount(config, info) {
-  account = config ? new Account({config, info}) : undefined;
 }
 
 export async function openAccount(storage) {
@@ -266,8 +356,8 @@ export async function openAccount(storage) {
     console.log(`loaded account for (${account.mode.toString()}) '${account.uid || ""}'`);
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.error(`loading account failed (fallback to empty GUEST): ${err.message}`);
-    account = getAccount();
+    console.error(`loading account failed: ${err.message}`);
+    throw err;
   }
 
   return account;

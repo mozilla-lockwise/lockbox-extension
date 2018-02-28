@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import openDataStore, { DEFAULT_APP_KEY } from "./datastore";
+import openDataStore, { clearDataStore, DEFAULT_APP_KEY } from "./datastore";
 import getAccount, * as accounts from "./accounts";
 import updateBrowserAction from "./browser-action";
 import * as telemetry from "./telemetry";
@@ -60,8 +60,6 @@ export default function initializeMessagePorts() {
         await datastore.initialize({
           appKey: DEFAULT_APP_KEY,
         });
-        // TODO: be more implicit on saving account info
-        await accounts.saveAccount(browser.storage.local);
         await updateBrowserAction({datastore});
         if (message.view) {
           openView(message.view);
@@ -80,12 +78,10 @@ export default function initializeMessagePorts() {
             await datastore.unlock(DEFAULT_APP_KEY);
           }
           await datastore.initialize({ appKey, salt, rebase: true });
-          // FIXME: be more implicit on saving account info
-          await accounts.saveAccount(browser.storage.local);
           await updateBrowserAction({ account, datastore });
           telemetry.recordEvent("fxaUpgrade", "accounts");
         } catch (err) {
-          telemetry.recordEvent("fxaFailed", "accounts", err.message);
+          telemetry.recordEvent("fxaFailed", "accounts", { message: err.message });
           throw err;
         }
 
@@ -111,25 +107,33 @@ export default function initializeMessagePorts() {
         openView("firstrun");
 
         return {};
+      }).catch((err) => {
+        // eslint-disable-next-line no-console
+        console.log(`failed to reset: ${err.message}`);
+        throw err;
       });
 
 
     case "signin":
-      return openDataStore().then(async (datastore) => {
-        const account = getAccount();
-        let appKey;
+      return Promise.resolve(getAccount()).then(async (account) => {
+        let appKey = DEFAULT_APP_KEY;
         try {
-          if (account.mode === accounts.UNAUTHENTICATED) {
+          if (account.mode !== accounts.AUTHENTICATED) {
             await account.signIn();
           }
           if (account.mode === accounts.AUTHENTICATED) {
             appKey = account.keys.get(accounts.APP_KEY_NAME);
           }
+
+          // XXXX: Find a better way to affect recovery
+          clearDataStore();
+          const datastore = await openDataStore({ salt: account.uid });
+
           await datastore.unlock(appKey);
           await updateBrowserAction({ datastore });
           telemetry.recordEvent("fxaSignin", "accounts");
         } catch (err) {
-          telemetry.recordEvent("fxaFailed", "accounts", err.message);
+          telemetry.recordEvent("fxaFailed", "accounts", { message: err.message });
           throw err;
         }
 
@@ -157,8 +161,10 @@ export default function initializeMessagePorts() {
 
     case "list_items":
       return openDataStore().then(async (ds) => {
-        return {items: Array.from((await ds.list()).values(),
-                                  makeItemSummary)};
+        var entries = Array.from((await ds.list()).values(),
+                                  makeItemSummary);
+        telemetry.setScalar("datastoreCount", entries.length);
+        return {items: entries};
       });
     case "add_item":
       return openDataStore().then(async (ds) => {
@@ -182,7 +188,6 @@ export default function initializeMessagePorts() {
       return openDataStore().then(async (ds) => {
         return {item: await ds.get(message.id)};
       });
-
     case "proxy_telemetry_event":
       return telemetry.recordEvent(message.method, message.object,
                                    message.extra);
