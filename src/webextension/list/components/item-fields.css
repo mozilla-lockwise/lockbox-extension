@@ -6,6 +6,7 @@
   display: grid;
   grid-template-columns: minmax(200px, 1fr);
   max-width: 320px;
+  white-space: pre-wrap;
 }
 
 .item-fields > label,
