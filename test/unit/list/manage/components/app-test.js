@@ -9,8 +9,9 @@ import React from "react";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 
-import { initialState } from "../mock-redux-state";
-import mountWithL10n from "test/mocks/l10n";
+import { initialState, filledState } from "../mock-redux-state";
+import chaiFocus from "test/chai-focus";
+import mountWithL10n, { mountWithL10nIntoDOM } from "test/mocks/l10n";
 import App from "src/webextension/list/manage/components/app";
 import AddItem from "src/webextension/list/manage/containers/add-item";
 import AllItems from "src/webextension/list/manage/containers/all-items";
@@ -19,6 +20,7 @@ import CurrentSelection from
 import ModalRootWidget from "src/webextension/widgets/modal-root";
 
 chai.use(chaiEnzyme());
+chai.use(chaiFocus);
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -57,5 +59,16 @@ describe("list > manage > components > <App/>", () => {
     expect(wrapper).to.contain(<AddItem/>);
     expect(wrapper).to.contain(<AllItems/>);
     expect(wrapper).to.contain(<CurrentSelection/>);
+  });
+
+  it("filter input focused", () => {
+    const store = mockStore(filledState);
+    const wrapper = mountWithL10nIntoDOM(
+      <Provider store={store}>
+        <App/>
+      </Provider>
+    );
+
+    expect(wrapper.find("input")).to.be.focused();
   });
 });
