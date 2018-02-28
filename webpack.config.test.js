@@ -13,10 +13,12 @@ export default {
     loaders: [{
       test: /\.js$/,
       exclude: /node_modules/,
+      // this has to change to "use:" for webpack 4
       loader: "babel-loader",
     }, {
       test: /\.css$/,
       exclude: /node_modules/,
+      // I think this is broken though
       loader: combineLoaders([{
         loader: "style-loader",
       }, {
