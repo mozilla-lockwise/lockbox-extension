@@ -32,6 +32,10 @@ body > main,
   grid-column-start: span 2;
 }
 
+.navigation > * + * {
+  margin-inline-start: 40px;
+}
+
 .app-main > aside {
   grid-column: 1;
   min-width: 150px;
