@@ -25,6 +25,7 @@ item-summary-title =
      [0]     (no site name)
     *[other] { $title }
   }
+item-summary-new-username = (enter your login details)
 item-summary-username =
   { $length ->
      [0]     (no username)

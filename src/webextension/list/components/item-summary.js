@@ -13,13 +13,15 @@ export default function ItemSummary({id, title, username}) {
   title = title.trim();
   username = username.trim();
 
-  const titleId = `item-summary-${id === NEW_ITEM_ID ? "new-title" : "title"}`;
+  const idPrefix = `${id === NEW_ITEM_ID ? "new-" : ""}`;
+  const titleId = `item-summary-${idPrefix}title`;
+  const usernameId = `item-summary-${idPrefix}username`;
   return (
     <div className={styles.itemSummary}>
       <Localized id={titleId} $title={title} $length={title.length}>
         <div className={styles.title}>no tITLe</div>
       </Localized>
-      <Localized id="item-summary-username" $username={username}
+      <Localized id={usernameId} $username={username}
                  $length={username.length}>
         <div className={styles.subtitle}>no uSERNAMe</div>
       </Localized>
