@@ -34,7 +34,7 @@ describe("list > components > <ItemSummary/>", () => {
       "id", "item-summary-new-title"
     );
     expect(wrapper.find(Localized).at(1)).to.have.prop(
-      "id", "item-summary-username"
+      "id", "item-summary-new-username"
     );
   });
 });
