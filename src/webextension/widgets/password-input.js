@@ -2,6 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -57,10 +58,14 @@ export default class PasswordInput extends React.Component {
                type={showPassword ? "text" : "password"}
                ref={(element) => this.inputElement = element} {...props}/>
         <ButtonStack selectedIndex={selectedIndex}>
-          <button className={styles.showBtn} type="button" title="Show" disabled={disabled}
-                  onClick={() => this.showPassword(true)}></button>
-          <button className={styles.hideBtn} type="button" title="Hide" disabled={disabled}
-                  onClick={() => this.showPassword(false)}></button>
+          <Localized id="password-input-show">
+            <button className={styles.showBtn} type="button" title="sHOw" disabled={disabled}
+              onClick={() => this.showPassword(true)}></button>
+          </Localized>
+          <Localized id="password-input-hide">
+            <button className={styles.hideBtn} type="button" title="hIDe" disabled={disabled}
+              onClick={() => this.showPassword(false)}></button>
+          </Localized>
         </ButtonStack>
       </div>
     );
