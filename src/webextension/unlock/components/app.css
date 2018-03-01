@@ -5,9 +5,9 @@
 body {
   padding: 0;
   margin: 0;
-  width: 344px;
+  width: 320px;
   color: #0c0c0d;
-  background-color: #f9f9fa;
+  background-color: #ededf0;
   font: caption;
   font-size: 13px;
   -moz-user-select: none;
@@ -21,28 +21,28 @@ body {
 }
 
 .unlock > img {
-  margin: 2em auto;
-  width: 229px;
+  margin: 3em auto 0;
+  width: 200px;
 }
 
 .unlock > .content {
-  margin: 2em auto;
-  width: 229px;
+  margin: 1em auto 3em;
+  width: 250px;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
 }
 
 .unlock > .content > h1 {
-  font-size: 2em;
-  font-weight: bold;
+  font-size: 2.5em;
+  font-weight: 300;
   text-align: center;
-  margin: 0 0 .5em;
+  margin: 0 0 .25em;
 }
 
 .unlock > .content > h2 {
-  font-size: 1.5em;
-  font-weight: normal;
+  font-size: 1.3em;
+  font-weight: 300;
   font-style: italic;
   text-align: center;
   text-transform: lowercase;
@@ -71,4 +71,5 @@ body {
 
 .unlock > menu > *:last-child {
   border-bottom-left-radius: 0;
+  border-width: 1px 0 0 0;
 }
