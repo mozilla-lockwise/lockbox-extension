@@ -13,9 +13,9 @@ export default function ItemSummary({id, title, username}) {
   title = title.trim();
   username = username.trim();
 
-  const idPrefix = `${id === NEW_ITEM_ID ? "new-" : ""}`;
-  const titleId = `item-summary-${idPrefix}title`;
-  const usernameId = `item-summary-${idPrefix}username`;
+  const idModifier = id === NEW_ITEM_ID ? "new-" : "";
+  const titleId = `item-summary-${idModifier}title`;
+  const usernameId = `item-summary-${idModifier}username`;
   return (
     <div className={styles.itemSummary}>
       <Localized id={titleId} $title={title} $length={title.length}>
