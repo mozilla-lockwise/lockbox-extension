@@ -319,16 +319,11 @@ export class Account {
 
 let account;
 export default function getAccount() {
-  if (!account) {
-    // eslint-disable-next-line no-console
-    console.warn("creating a default un-stored account instance!");
-    account = new Account({});
-  }
   return account;
 }
 
-export function setAccount(config, info) {
-  account = config ? new Account({ config, info }) : undefined;
+export function setAccount(acct) {
+  account = acct || undefined;
 }
 
 export async function loadAccount(storage) {

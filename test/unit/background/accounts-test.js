@@ -20,10 +20,9 @@ describe("background > accounts", () => {
     accounts.setAccount();
   });
 
-  it("getAccount()", () => {
+  it("getAccount() without a load/open/set", () => {
     const acct = getAccount();
-    expect(acct).to.be.an.instanceof(accounts.Account);
-    expect(getAccount()).to.equal(acct);
+    expect(acct).to.be.undefined;
   });
 
   describe("loadAccount()", () => {
@@ -42,6 +41,7 @@ describe("background > accounts", () => {
       const result = await accounts.loadAccount(mockStorage);
       expect(result.info).to.deep.equal({verified: true, uid: "1234"});
       expect(result.storage).to.equal(mockStorage);
+      expect(getAccount()).to.equal(result);
     });
 
     it("without saved account", async () => {
@@ -51,6 +51,7 @@ describe("background > accounts", () => {
       const result = await accounts.loadAccount(mockStorage);
       expect(result.info).to.equal(undefined);
       expect(result.storage).to.equal(mockStorage);
+      expect(getAccount()).to.equal(result);
     });
   });
 
@@ -70,6 +71,7 @@ describe("background > accounts", () => {
       const result = await accounts.openAccount(mockStorage);
       expect(result.info).to.deep.equal({ verified: true, uid: "1234" });
       expect(result.storage).to.equal(mockStorage);
+      expect(getAccount()).to.equal(result);
     });
 
     it("without saved account", async () => {
@@ -79,6 +81,7 @@ describe("background > accounts", () => {
       const result = await accounts.openAccount(mockStorage);
       expect(result.info).to.equal(undefined);
       expect(result.storage).to.equal(mockStorage);
+      expect(getAccount()).to.equal(result);
     });
 
     it("with error", async () => {
@@ -94,13 +97,16 @@ describe("background > accounts", () => {
       } catch (err) {
         expect(err.message).to.equal("test for failure");
       }
+      expect(getAccount()).to.be.undefined;
     });
   });
 
-  it("setAccount()", () => {
-    accounts.setAccount("dev-latest");
-    expect(getAccount.__GetDependency__("account").config)
-          .to.equal("dev-latest");
+  it("setAccount()", async () => {
+    const mockStorage = {
+      get: async () => ({}),
+    };
+    const result = await accounts.openAccount(mockStorage);
+    expect(getAccount()).to.equal(result);
 
     accounts.setAccount();
     expect(getAccount.__GetDependency__("account"))
