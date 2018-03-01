@@ -110,7 +110,6 @@ input::placeholder {
 }
 
 .filter {
-  border: 1px solid #b6b6b6;
   position: relative;
 }
 
@@ -128,12 +127,10 @@ input::placeholder {
 }
 
 .filter input {
-  position: relative;
   padding-left: 32px;
 }
 
 .filter button {
-  text-indent: -9999px;
   padding: 0;
   width: 32px;
   height: 100%;
