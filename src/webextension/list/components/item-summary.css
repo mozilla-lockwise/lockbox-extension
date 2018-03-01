@@ -10,10 +10,10 @@
 .item-summary::before {
   background-image: url(/icons/chevron-right.svg);
   background-repeat: no-repeat;
-  background-size: 5px 10px;
+  background-size: 5px 9px;
   content: "";
   float: right;
-  height: 10px;
+  height: 9px;
   width: 5px;
   margin: 16px 0;
 }
