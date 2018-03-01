@@ -20,7 +20,7 @@ describe("widgets > <FilterInput/>", () => {
     const wrapper = mountWithL10n(<FilterInput value="some text"/>);
     expect(wrapper.find("input")).to.have.prop("value", "some text");
     expect(wrapper.childAt(0).prop("className")).to.match(
-      /^\S+input-wrapper\S+$/
+      /^input.*input-wrapper\S+$/
     );
   });
 
@@ -31,7 +31,7 @@ describe("widgets > <FilterInput/>", () => {
     expect(wrapper.find("input")).to.have.prop("disabled", true);
     expect(wrapper.find("button")).to.have.prop("disabled", true);
     expect(wrapper.childAt(0).prop("className")).to.match(
-      /^\S+input-wrapper\S+ \S+disabled\S+$/
+      /^input.*input-wrapper\S+ \S+disabled\S+$/
     );
   });
 
@@ -40,7 +40,7 @@ describe("widgets > <FilterInput/>", () => {
       <FilterInput className="foo" value="some text"/>
     );
     expect(wrapper.childAt(0).prop("className")).to.match(
-      /^\S+input-wrapper\S+ foo$/
+      /^input.*input-wrapper\S+ foo$/
     );
   });
 
@@ -77,4 +77,3 @@ describe("widgets > <FilterInput/>", () => {
     expect(onChange).to.have.callCount(0);
   });
 });
-
