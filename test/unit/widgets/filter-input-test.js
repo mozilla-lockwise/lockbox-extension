@@ -8,11 +8,13 @@ import React from "react";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
+import chaiFocus from "test/chai-focus";
 import { simulateTyping } from "test/common";
-import mountWithL10n from "test/mocks/l10n";
+import mountWithL10n, { mountWithL10nIntoDOM } from "test/mocks/l10n";
 import FilterInput from "src/webextension/widgets/filter-input";
 
 chai.use(chaiEnzyme());
+chai.use(chaiFocus);
 chai.use(sinonChai);
 
 describe("widgets > <FilterInput/>", () => {
@@ -75,5 +77,13 @@ describe("widgets > <FilterInput/>", () => {
     wrapper.find("button").simulate("click");
 
     expect(onChange).to.have.callCount(0);
+  });
+
+  it("focus() focuses input", () => {
+    const wrapper = mountWithL10nIntoDOM(
+      <FilterInput onChange={() => {}}/>
+    );
+    wrapper.instance().focus();
+    expect(wrapper.find("input")).to.be.focused();
   });
 });

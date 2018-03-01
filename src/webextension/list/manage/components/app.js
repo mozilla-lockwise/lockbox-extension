@@ -19,33 +19,42 @@ import Toolbar, { ToolbarSpace } from "../../../widgets/toolbar";
 
 import styles from "./app.css";
 
-export default function App() {
-  return (
-    <Localized id="document">
-      <DocumentTitle title="lOCKBOx eNTRIEs">
-        <div className={styles.app}>
-          <section className={styles.appMain}>
-            <Toolbar className={styles.navigation}>
-              <AddItem/>
-              <GoHome/>
-              <ToolbarSpace/>
-              <OpenFAQ/>
-              <SendFeedback/>
-              <CurrentAccountSummary/>
-            </Toolbar>
-            <aside>
-              <Toolbar className={styles.filterBar}>
-                <ItemFilter/>
+export default class App extends React.Component {
+  componentDidMount() {
+    this._filterField.focus();
+  }
+
+  render() {
+    return (
+      <Localized id="document">
+        <DocumentTitle title="lOCKBOx eNTRIEs">
+          <div className={styles.app}>
+            <section className={styles.appMain}>
+              <Toolbar className={styles.navigation}>
+                <AddItem/>
+                <GoHome/>
+                <ToolbarSpace/>
+                <OpenFAQ/>
+                <SendFeedback/>
+                <CurrentAccountSummary/>
               </Toolbar>
-              <AllItems/>
-            </aside>
-            <article>
-              <CurrentSelection/>
-            </article>
-          </section>
-          <ModalRoot/>
-        </div>
-      </DocumentTitle>
-    </Localized>
-  );
+              <aside>
+                <Toolbar className={styles.filterBar}>
+                  <ItemFilter className={styles.filter}
+                              inputRef={(element) => {
+                                this._filterField = element;
+                              }}/>
+                </Toolbar>
+                <AllItems/>
+              </aside>
+              <article>
+                <CurrentSelection/>
+              </article>
+            </section>
+            <ModalRoot/>
+          </div>
+        </DocumentTitle>
+      </Localized>
+    );
+  }
 }

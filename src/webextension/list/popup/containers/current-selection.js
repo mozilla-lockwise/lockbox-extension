@@ -21,15 +21,16 @@ const ConnectedItemDetailsPanel = connect(
   })
 )(ItemDetailsPanel);
 
-function CurrentSelection({item}) {
+function CurrentSelection({item, inputRef}) {
   if (item) {
     return <ConnectedItemDetailsPanel item={item}/>;
   }
-  return <ItemListPanel/>;
+  return <ItemListPanel inputRef={inputRef}/>;
 }
 
 CurrentSelection.propTypes = {
   item: PropTypes.object,
+  inputRef: PropTypes.func,
 };
 
 export default connect(

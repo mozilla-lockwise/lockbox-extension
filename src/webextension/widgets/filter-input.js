@@ -43,6 +43,10 @@ export default class FilterInput extends React.Component {
     }
   }
 
+  focus() {
+    this.inputElement.focus();
+  }
+
   render() {
     // eslint-disable-next-line no-unused-vars
     const {className, onChange, value, disabled, ...props} = this.props;
@@ -53,13 +57,12 @@ export default class FilterInput extends React.Component {
 
     return (
       <div className={finalClassName}>
-        <input type="search" {...props} disabled={disabled}
-               value={this.state.value}
-               onChange={(e) => this.updateValue(e.target.value)}/>
-       <Localized id="filter-input-clear">
+        <input type="search" disabled={disabled} value={this.state.value}
+               onChange={(e) => this.updateValue(e.target.value)}
+               ref={(element) => this.inputElement = element} {...props}/>
+        <Localized id="filter-input-clear">
           <button type="button" title="cLEAr" disabled={disabled}
-            onClick={() => this.updateValue("")}>
-          </button>
+                  onClick={() => this.updateValue("")}/>
         </Localized>
       </div>
     );
