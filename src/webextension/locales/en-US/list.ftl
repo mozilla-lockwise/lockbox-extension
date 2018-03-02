@@ -25,6 +25,7 @@ item-summary-title =
      [0]     (no site name)
     *[other] { $title }
   }
+item-summary-new-username = (enter your login details)
 item-summary-username =
   { $length ->
      [0]     (no username)
@@ -46,7 +47,7 @@ account-summary-options = Preferences
 account-summary-signout = Sign Out
 
 all-items-empty =
-  When you add an Entry, it automatically shows up here.
+  When you add an entry, it automatically shows up here.
 
 all-items-filtered = No results
 
