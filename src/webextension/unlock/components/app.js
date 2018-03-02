@@ -4,8 +4,10 @@
 
 import { Localized } from "fluent-react";
 import React from "react";
+import DocumentTitle from "react-document-title";
 
-import Button from "../../widgets/button";
+import Panel, { PanelBody, PanelFooter, PanelFooterButton }
+       from "../../widgets/panel";
 import * as telemetry from "../../telemetry";
 
 import styles from "./app.css";
@@ -26,27 +28,35 @@ export default function App() {
   };
 
   return (
-    <article className={styles.unlock}>
-      <img src={imgSrc} alt="" />
-      <section className={styles.content}>
-        <Localized id="unlock-title">
-          <h1>lOCKBOx</h1>
-        </Localized>
-        <Localized id="unlock-tagline">
-          <h2>lOCKBOx tAGLINe</h2>
-        </Localized>
-      </section>
-      <menu>
-        <Localized id="unlock-action-signin">
-          <Button size="puffy"
-                  theme="primary"
-                  onClick={doSignIn}>sIGn iN</Button>
-        </Localized>
-        <Localized id="unlock-action-prefs">
-          <Button size="puffy"
-                  onClick={doPrefs}>pREFs</Button>
-        </Localized>
-      </menu>
-    </article>
+    <Localized id="document">
+      <DocumentTitle title="lOCKBOx eNTRIEs">
+        <Panel>
+          <PanelBody>
+            <img className={styles.lockie} src={imgSrc} alt=""/>
+            <section className={styles.unlockContent}>
+              <Localized id="unlock-title">
+                <h1>lOCKBOx</h1>
+              </Localized>
+              <Localized id="unlock-tagline">
+                <h2>lOCKBOx tAGLINe</h2>
+              </Localized>
+            </section>
+          </PanelBody>
+
+          <PanelFooter>
+            <Localized id="unlock-action-signin">
+              <PanelFooterButton theme="primary" onClick={doSignIn}>
+                sIGn iN
+              </PanelFooterButton>
+            </Localized>
+            <Localized id="unlock-action-prefs">
+              <PanelFooterButton onClick={doPrefs}>
+                pREFs
+              </PanelFooterButton>
+            </Localized>
+          </PanelFooter>
+        </Panel>
+      </DocumentTitle>
+    </Localized>
   );
 }
