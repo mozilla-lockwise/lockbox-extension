@@ -5,8 +5,7 @@
 .empty {
   text-align: center;
   white-space: pre-wrap;
-  margin: 1em 1em;
-  padding: 20px;
+  padding: 40px;
   overflow: hidden;
   overflow-wrap: break-word;
   color: #4a4a4f;
@@ -18,12 +17,5 @@
 .item {
   color: #0c0c0d;
   border-bottom: 1px solid #d7d7db;
-}
-
-.item:nth-child(2n + 1) {
-  background-color: #ededf0;
-}
-
-.item:nth-child(2n) {
-  background-color: #f9f9fa;
+  background-color: #ffffff;
 }

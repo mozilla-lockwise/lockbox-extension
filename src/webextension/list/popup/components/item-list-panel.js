@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { Localized } from "fluent-react";
+import PropTypes from "prop-types";
 import React from "react";
 
 import Button from "../../../widgets/button";
@@ -11,7 +12,7 @@ import Panel, { PanelHeader, PanelBody, PanelFooter } from
 import ItemFilter from "../../containers/item-filter";
 import AllItems from "../containers/all-items";
 
-export default function ItemListPanel() {
+export default function ItemListPanel({inputRef}) {
   const openManager = () => {
     browser.runtime.sendMessage({
       type: "open_view",
@@ -23,7 +24,7 @@ export default function ItemListPanel() {
   return (
     <Panel>
       <PanelHeader>
-        <ItemFilter/>
+        <ItemFilter inputRef={inputRef}/>
       </PanelHeader>
 
       <PanelBody>
@@ -40,3 +41,7 @@ export default function ItemListPanel() {
     </Panel>
   );
 }
+
+ItemListPanel.propTypes = {
+  inputRef: PropTypes.func,
+};

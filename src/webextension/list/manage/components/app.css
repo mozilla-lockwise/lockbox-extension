@@ -32,11 +32,15 @@ body > main,
   grid-column-start: span 2;
 }
 
+.navigation > * + * {
+  margin-inline-start: 40px;
+}
+
 .app-main > aside {
   grid-column: 1;
   min-width: 150px;
   min-height: 0;
-  background-color: rgba(215, 215, 219, 0.75);
+  background-color: #ededf0;
   display: grid;
   grid-template-rows: auto 1fr auto;
 }

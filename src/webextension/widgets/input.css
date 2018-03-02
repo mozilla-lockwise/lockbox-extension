@@ -97,6 +97,7 @@
   -moz-user-select: text;
   overflow: hidden;
   overflow-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .label-text {
