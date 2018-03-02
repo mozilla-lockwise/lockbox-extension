@@ -13,6 +13,7 @@
   display: flex;
   align-items: center;
   font-weight: 500;
+  background: #f9f9fa;
   height: 32px;
   padding: 2px 5px;
   /* Ensure the box shadow overlays the body. */

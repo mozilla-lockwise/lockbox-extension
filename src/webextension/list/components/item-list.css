@@ -19,3 +19,21 @@
   border-bottom: 1px solid #d7d7db;
   background-color: #ffffff;
 }
+
+.item:hover {
+  background-color: #ededf0;
+}
+
+.item:active {
+  background-color: #d7d7db;
+}
+
+.item[data-selected] {
+  background-color: #ebF5ff;
+  border-bottom-color: #99bff2;
+  box-shadow: 0 -1px 0 #99bff2;
+}
+
+.item:first-child[data-selected] {
+  border-top-color: #99bff2;
+}

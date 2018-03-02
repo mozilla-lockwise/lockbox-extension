@@ -2,17 +2,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-body {
-  padding: 0;
-  margin: 0;
-  color: #0c0c0d;
-  background-color: #f9f9fa;
-  font: caption;
-  font-size: 13px;
-  -moz-user-select: none;
+.filter-bar {
+  padding: 12px;
 }
 
-.app {
-  width: 320px;
-  height: 400px;
+.search-header {
+  height: auto;
+  background: #ededf0;
+  padding: 0;
 }

@@ -52,6 +52,10 @@ body > main,
   overflow: auto;
 }
 
+.filter-bar {
+  padding: 12px;
+}
+
 .filter {
   border: 1px solid #d1d1d2;
   border-inline-start: 0px;
