@@ -15,7 +15,7 @@ import TextArea from "../../widgets/text-area";
 
 import styles from "./item-fields.css";
 
-const PASSWORD_DOT = "\u25cf";
+const PASSWORD_DOT = "\u2022";
 
 const fieldsPropTypes = PropTypes.shape({
   origin: PropTypes.string.isRequired,
@@ -61,7 +61,7 @@ export function ItemFields({fields, onCopy}) {
           <LabelText>pASSWORd</LabelText>
         </Localized>
         <div className={styles.inlineButton}>
-          <FieldText monospace data-name="password">
+          <FieldText className={styles.password} monospace data-name="password">
             {PASSWORD_DOT.repeat(fields.password.length)}
           </FieldText>
           <Localized id="item-fields-copy-password">
@@ -74,7 +74,7 @@ export function ItemFields({fields, onCopy}) {
         <Localized id="item-fields-notes">
           <LabelText>nOTEs</LabelText>
         </Localized>
-        <FieldText className={styles.notes} data-name="notes">{fields.notes}</FieldText>
+        <FieldText className={styles.notesReadOnly} data-name="notes">{fields.notes}</FieldText>
       </div>
     </div>
   );

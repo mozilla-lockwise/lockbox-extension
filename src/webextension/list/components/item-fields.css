@@ -29,6 +29,10 @@
   min-height: 60px;
 }
 
+.notes-read-only {
+  min-height: 73px;
+}
+
 .first-label {
   margin-top: 0;
 }
@@ -39,4 +43,8 @@
 
 .inline-button > *:first-child {
   flex: 1;
+}
+
+.password {
+  font-weight: normal;
 }
