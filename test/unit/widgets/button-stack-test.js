@@ -10,7 +10,7 @@ import { mount } from "enzyme";
 import React from "react";
 import sinon from "sinon";
 
-chai.use(chaiEnzyme);
+chai.use(chaiEnzyme());
 
 import ButtonStack from "src/webextension/widgets/button-stack";
 
