@@ -86,13 +86,13 @@
   min-width: 80px;
 }
 
-.primary-theme.normal-size {
-  min-width: 132px;
-}
-
 .micro-size {
   height: 24px;
   padding: 0 8px;
   font-size: 11px;
   border-radius: 2px;
+}
+
+.wide-size {
+  min-width: 132px;
 }

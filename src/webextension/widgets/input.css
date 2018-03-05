@@ -30,7 +30,6 @@
   padding: 0 8px;
   font-size: 15px;
   color: #0c0c0d;
-  max-width: 242px;
 }
 
 .input:not([disabled]):hover,
@@ -104,10 +103,6 @@
 .label-text {
   margin: 16px 0 4px 0;
   font-size: 13px;
-}
-
-.password {
-  max-width: 258px;
 }
 
 .password button::before {

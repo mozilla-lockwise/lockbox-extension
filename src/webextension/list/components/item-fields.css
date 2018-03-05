@@ -17,6 +17,18 @@
   resize: none;
 }
 
+.item-fields input {
+  max-width: 242px;
+}
+
+.item-fields .password {
+  max-width: 258px;
+}
+
+.notes {
+  min-height: 60px;
+}
+
 .first-label {
   margin-top: 0;
 }
@@ -27,8 +39,4 @@
 
 .inline-button > *:first-child {
   flex: 1;
-}
-
-.notes {
-  min-height: 60px;
 }
