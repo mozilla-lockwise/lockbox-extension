@@ -60,11 +60,11 @@ export default class PasswordInput extends React.Component {
         <ButtonStack selectedIndex={selectedIndex}>
           <Localized id="password-input-show">
             <button className={styles.showBtn} type="button" title="sHOw" disabled={disabled}
-              onClick={() => this.showPassword(true)}></button>
+                    onClick={() => this.showPassword(true)}></button>
           </Localized>
           <Localized id="password-input-hide">
             <button className={styles.hideBtn} type="button" title="hIDe" disabled={disabled}
-              onClick={() => this.showPassword(false)}></button>
+                    onClick={() => this.showPassword(false)}></button>
           </Localized>
         </ButtonStack>
       </div>
