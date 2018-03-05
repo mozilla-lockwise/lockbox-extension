@@ -8,7 +8,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto auto auto;
   grid-column-gap: 4em;
-  margin: 4em auto;
+  margin: 8em auto 4em;
   padding: 0 4em;
   max-width: 880px;
 }
@@ -25,9 +25,9 @@
 
 .intro-image > img {
   width: 100%;
-  border: 1px solid rgba(12, 12, 13, 0.3);
+  border: 1px solid #d7d7db;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(12, 12, 13, 0.3);
+  box-shadow: 0 1px 4px rgba(12, 12, 13, 0.1);
 }
 
 .intro-image > h1 {
@@ -37,4 +37,5 @@
 
 .intro-image > p {
   font-size: 15px;
+  line-height: 1.5;
 }
