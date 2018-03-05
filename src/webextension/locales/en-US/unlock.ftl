@@ -1,3 +1,6 @@
+document
+  .title = Unlock Lockbox
+
 unlock-title = { product-title }
 unlock-tagline = { product-tagline }
 
