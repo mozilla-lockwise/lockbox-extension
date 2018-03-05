@@ -15,7 +15,7 @@ import TextArea from "../../widgets/text-area";
 
 import styles from "./item-fields.css";
 
-const PASSWORD_DOT = "\u2022";
+const PASSWORD_DOT = "\u25cf";
 
 const fieldsPropTypes = PropTypes.shape({
   origin: PropTypes.string.isRequired,
