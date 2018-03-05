@@ -17,11 +17,11 @@
   resize: none;
 }
 
-.item-fields input {
+.input {
   max-width: 242px;
 }
 
-.item-fields .password {
+.password {
   max-width: 258px;
 }
 

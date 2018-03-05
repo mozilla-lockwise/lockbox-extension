@@ -112,7 +112,7 @@ export class EditItemFields extends React.Component {
             <LabelText className={styles.firstLabel}>tITLe</LabelText>
           </Localized>
           <Localized id="item-fields-title-input">
-            <Input type="text" {...controlledProps("title")}
+            <Input className={styles.input} type="text" {...controlledProps("title")}
                    placeholder="eNTRy nAMe"
                    ref={(element) => this._firstField = element} />
           </Localized>
@@ -122,7 +122,7 @@ export class EditItemFields extends React.Component {
             <LabelText>oRIGIn</LabelText>
           </Localized>
           <Localized id="item-fields-origin-input">
-            <Input type="text"
+            <Input className={styles.input} type="text"
                    placeholder="wWw.eXAMPLe.cOm"
                    {...controlledProps("origin")}/>
           </Localized>
@@ -132,7 +132,7 @@ export class EditItemFields extends React.Component {
             <LabelText>uSERNAMe</LabelText>
           </Localized>
           <Localized id="item-fields-username-input">
-            <Input type="text"
+            <Input className={styles.input} type="text"
                    placeholder="nAMe@eXAMPLe.cOm"
                    {...controlledProps("username")}/>
           </Localized>
