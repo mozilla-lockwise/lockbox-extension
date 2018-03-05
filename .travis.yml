@@ -52,6 +52,7 @@ jobs:
         provider: pages
         on:
           branch: master
+          python: '3.6'
         skip_cleanup: true
         local_dir: site
         github_token: $GITHUB_TOKEN
