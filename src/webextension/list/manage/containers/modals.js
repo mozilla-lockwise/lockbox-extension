@@ -12,6 +12,7 @@ import { hideModal, removeItem, cancelEditing, selectItem } from
 export const DeleteItemModal = connect(
   (state) => ({
     l10nId: "modal-delete",
+    theme: "danger",
   }),
   (dispatch, {itemId}) => ({
     onConfirm: () => { dispatch(removeItem(itemId)); },
