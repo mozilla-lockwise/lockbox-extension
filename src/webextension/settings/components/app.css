@@ -9,6 +9,7 @@ html {
 body {
   padding: 0;
   margin: 5px;
+  min-height: 150px;
   color: #0c0c0d;
   background-color: #f9f9fa;
   font: caption;
