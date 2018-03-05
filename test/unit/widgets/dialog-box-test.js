@@ -20,7 +20,11 @@ describe("widgets > <DialogBox/>", () => {
     onClick = sinon.spy();
     onClose = sinon.spy();
     wrapper = mount(
-      <DialogBox buttonLabels={["ok", "cancel"]} {...{onClick, onClose}}>
+      <DialogBox buttons={[
+                   {label: "ok"},
+                   {label: "cancel"},
+                 ]}
+                 {...{onClick, onClose}}>
         message
       </DialogBox>
     );
@@ -28,6 +32,21 @@ describe("widgets > <DialogBox/>", () => {
 
   it("render dialog box", () => {
     expect(wrapper.find("div")).to.have.text("message");
+  });
+
+  it("render dialog box with custom theme", () => {
+    wrapper = mount(
+      <DialogBox buttons={[
+                   {label: "ok", theme: "danger"},
+                   {label: "cancel"},
+                 ]}
+                 {...{onClick, onClose}}>
+        message
+      </DialogBox>
+    );
+    expect(wrapper.find("button").at(0).prop("className")).to.match(
+      /danger-theme/
+    );
   });
 
   it("onClick + onClose fired for first button", () => {
@@ -50,7 +69,7 @@ describe("widgets > <ConfirmDialog/>", () => {
     onClose = sinon.spy();
     wrapper = mount(
       <ConfirmDialog confirmLabel="ok" cancelLabel="cancel"
-                 {...{onConfirm, onClose}}>
+                     {...{onConfirm, onClose}}>
         message
       </ConfirmDialog>
     );
@@ -58,6 +77,18 @@ describe("widgets > <ConfirmDialog/>", () => {
 
   it("render confirm dialog", () => {
     expect(wrapper.find("div")).to.have.text("message");
+  });
+
+  it("render confirm dialog with custom theme", () => {
+    wrapper = mount(
+      <ConfirmDialog confirmLabel="ok" cancelLabel="cancel" theme="danger"
+                     {...{onConfirm, onClose}}>
+        message
+      </ConfirmDialog>
+    );
+    expect(wrapper.find("button").at(0).prop("className")).to.match(
+      /danger-theme/
+    );
   });
 
   it("onConfirm + onClose fired for first button", () => {

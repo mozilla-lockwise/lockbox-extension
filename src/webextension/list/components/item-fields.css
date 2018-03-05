@@ -5,7 +5,7 @@
 .item-fields {
   display: grid;
   grid-template-columns: minmax(200px, 1fr);
-  max-width: 320px;
+  max-width: 360px;
 }
 
 .item-fields > label,
@@ -15,6 +15,18 @@
 
 .item-fields textarea {
   resize: none;
+}
+
+.input {
+  max-width: 242px;
+}
+
+.password {
+  max-width: 258px;
+}
+
+.notes {
+  min-height: 60px;
 }
 
 .first-label {
