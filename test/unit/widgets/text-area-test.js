@@ -30,9 +30,19 @@ describe("widgets > <TextArea/>", () => {
 
   it("focus() focuses textarea", () => {
     const wrapper = mountIntoDOM(
-      <TextArea value="text" onChange={() => {}}/>
+      <TextArea value="some text" onChange={() => {}}/>
     );
     wrapper.instance().focus();
     expect(wrapper.find("textarea")).to.be.focused();
+    expect(wrapper.find("textarea")).to.have.selection(0, 0);
+  });
+
+  it("focus(true) focuses/selects textarea", () => {
+    const wrapper = mountIntoDOM(
+      <TextArea value="some text" onChange={() => {}}/>
+    );
+    wrapper.instance().focus(true);
+    expect(wrapper.find("textarea")).to.be.focused();
+    expect(wrapper.find("textarea")).to.have.selection();
   });
 });

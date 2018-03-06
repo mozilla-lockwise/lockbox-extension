@@ -81,9 +81,19 @@ describe("widgets > <FilterInput/>", () => {
 
   it("focus() focuses input", () => {
     const wrapper = mountWithL10nIntoDOM(
-      <FilterInput onChange={() => {}}/>
+      <FilterInput value="filter text" onChange={() => {}}/>
     );
     wrapper.instance().focus();
     expect(wrapper.find("input")).to.be.focused();
+    expect(wrapper.find("input")).to.have.selection(0, 0);
+  });
+
+  it("focus(true) focuses/selects input", () => {
+    const wrapper = mountWithL10nIntoDOM(
+      <FilterInput value="filter text" onChange={() => {}}/>
+    );
+    wrapper.instance().focus(true);
+    expect(wrapper.find("input")).to.be.focused();
+    expect(wrapper.find("input")).to.have.selection();
   });
 });
