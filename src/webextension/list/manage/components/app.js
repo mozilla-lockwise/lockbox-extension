@@ -39,10 +39,12 @@ export default class App extends React.Component {
                 <CurrentAccountSummary/>
               </Toolbar>
               <aside>
-                <ItemFilter className={styles.filter}
-                            inputRef={(element) => {
-                              this._filterField = element;
-                            }}/>
+                <Toolbar className={styles.filterBar}>
+                  <ItemFilter className={styles.filter}
+                              inputRef={(element) => {
+                                this._filterField = element;
+                              }}/>
+                </Toolbar>
                 <AllItems/>
               </aside>
               <article>

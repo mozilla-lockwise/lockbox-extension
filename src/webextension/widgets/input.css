@@ -15,21 +15,25 @@
 .input-wrapper {
   height: 30px;
   width: -moz-available;
-  background-color: #f9f9fa;
+  background-color: #ffffff;
   border: 1px solid rgba(12, 12, 13, 0.3);
   border-radius: 2px;
 }
 
 .input[disabled],
 .input-wrapper.disabled {
-  background-color: #ededf0;
+  opacity: 0.7;
   cursor: not-allowed;
 }
 
 .input {
   padding: 0 8px;
-  font-size: 13px;
+  font-size: 15px;
   color: #0c0c0d;
+}
+
+input::placeholder {
+  color: #737373;
 }
 
 .input:not([disabled]):hover,
@@ -69,7 +73,7 @@
 .input-wrapper button {
   white-space: nowrap;
   text-align: center;
-  height: 28px;
+  height: 30px;
   font-size: 13px;
   border: 0;
   color: #0060df;
@@ -101,6 +105,61 @@
 }
 
 .label-text {
-  margin: 10px 0 3px 0;
+  margin: 16px 0 4px 0;
   font-size: 13px;
+}
+
+.password button::before {
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  content: "";
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+}
+
+.show-btn::before {
+  background-image: url(/icons/show.svg);
+}
+
+.hide-btn::before {
+  background-image: url(/icons/hide.svg);
+}
+
+.filter {
+  position: relative;
+}
+
+.filter::before {
+  content: "";
+  display: block;
+  background-image: url(/icons/search.svg);
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  top: 7px;
+  left: 8px;
+}
+
+.filter input {
+  padding-left: 32px;
+}
+
+.filter button {
+  padding: 0;
+  width: 32px;
+  height: 100%;
+}
+
+.filter button::before {
+  background-image: url(/icons/clear.svg);
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  content: "";
+  float: right;
+  height: 16px;
+  width: 16px;
+  margin-right: 8px;
 }

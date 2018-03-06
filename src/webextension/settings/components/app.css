@@ -4,10 +4,11 @@
 
 body {
   padding: 0;
-  margin: 0;
+  margin: 1em;
   color: #0c0c0d;
   background-color: #f9f9fa;
   font: caption;
   font-size: 13px;
   -moz-user-select: none;
+  display: flex;
 }

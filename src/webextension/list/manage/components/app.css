@@ -55,14 +55,3 @@ body > main,
 .filter-bar {
   padding: 12px;
 }
-
-.filter {
-  border: 1px solid #d1d1d2;
-  border-inline-start: 0px;
-  border-radius: 0;
-}
-
-.filter:focus-within,
-.filter:focus-within:hover {
-  box-shadow: none;
-}
