@@ -44,7 +44,3 @@
 .inline-button > *:first-child {
   flex: 1;
 }
-
-.password {
-  font-weight: normal;
-}
