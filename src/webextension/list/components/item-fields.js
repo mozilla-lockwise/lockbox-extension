@@ -61,7 +61,7 @@ export function ItemFields({fields, onCopy}) {
           <LabelText>pASSWORd</LabelText>
         </Localized>
         <div className={styles.inlineButton}>
-          <FieldText className={styles.password} monospace data-name="password">
+          <FieldText monospace data-name="password">
             {PASSWORD_DOT.repeat(fields.password.length)}
           </FieldText>
           <Localized id="item-fields-copy-password">
