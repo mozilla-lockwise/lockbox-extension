@@ -125,3 +125,41 @@ input::placeholder {
 .hide-btn::before {
   background-image: url(/icons/hide.svg);
 }
+
+.filter {
+  position: relative;
+}
+
+.filter::before {
+  content: "";
+  display: block;
+  background-image: url(/icons/search.svg);
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  top: 7px;
+  left: 8px;
+}
+
+.filter input {
+  padding-left: 32px;
+}
+
+.filter button {
+  padding: 0;
+  width: 32px;
+  height: 100%;
+}
+
+.filter button::before {
+  background-image: url(/icons/clear.svg);
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  content: "";
+  float: right;
+  height: 16px;
+  width: 16px;
+  margin-right: 8px;
+}
