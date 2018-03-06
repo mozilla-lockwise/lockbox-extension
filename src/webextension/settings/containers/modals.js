@@ -11,6 +11,7 @@ import { hideModal, localReset } from "../actions";
 export const LocalResetModal = connect(
   (state) => ({
     l10nId: "modal-local-reset",
+    theme: "danger",
   }),
   (dispatch) => ({
     onConfirm: () => { dispatch(localReset()); },

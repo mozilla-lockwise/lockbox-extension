@@ -20,7 +20,7 @@ describe("widgets > <PasswordInput/>", () => {
     );
     expect(wrapper.find("input")).to.have.prop("value", "my password");
     expect(wrapper.childAt(0).prop("className")).to.match(
-      /^\S+input-wrapper\S+$/
+      /^\S+password\S+ \S+input-wrapper\S+$/
     );
     expect(wrapper.find("input").prop("className")).to.match(
       /^\S+monospace\S+$/
@@ -32,7 +32,7 @@ describe("widgets > <PasswordInput/>", () => {
       <PasswordInput className="foo" value="some text" onChange={() => {}}/>
     );
     expect(wrapper.childAt(0).prop("className")).to.match(
-      /^\S+input-wrapper\S+ foo$/
+      /^\S+password\S+ \S+input-wrapper\S+ foo$/
     );
   });
 
