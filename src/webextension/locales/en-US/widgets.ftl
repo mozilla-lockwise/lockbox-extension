@@ -7,8 +7,10 @@ filter-input-clear
 modal-root
   .contentLabel = Modal dialog
 
-password-input-show = Show
-password-input-hide = Hide
+password-input-show
+  .title = Show
+password-input-hide 
+  .title = Hide
 
 panel-back-button
   .alt = Go Back
