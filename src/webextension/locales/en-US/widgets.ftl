@@ -1,7 +1,8 @@
 copy-to-clipboard-button = Copy
 copy-to-clipboard-copied = ✔ Copied
 
-filter-input-clear = Clear
+filter-input-clear
+  .title = Clear
 
 modal-root
   .contentLabel = Modal dialog
