@@ -11,21 +11,29 @@ import CopyToClipboardButton from "../../widgets/copy-to-clipboard-button";
 
 import styles from "./item-summary.css";
 
-function ItemSummaryCopyButtons() {
+function ItemSummaryCopyButtons({id, username}) {
+  async function getPassword() {
+    const response = await browser.runtime.sendMessage({
+      type: "get_item",
+      id,
+    });
+    return response.item.entry.password;
+  }
+
   return (
     <div className={styles.verbose}
          onMouseDown={(e) => e.stopPropagation()}>
       <Localized id="item-summary-copy-username">
         <CopyToClipboardButton className={styles.copyButton}
                                buttonClassName={styles.copyButtonInner}
-                               value="later">
+                               value={username}>
           cOPy uSERNAMe
         </CopyToClipboardButton>
       </Localized>
       <Localized id="item-summary-copy-password">
         <CopyToClipboardButton className={styles.copyButton}
                                buttonClassName={styles.copyButtonInner}
-                               value="sorry">
+                               value={getPassword}>
           cOPy pASSWORd
         </CopyToClipboardButton>
       </Localized>
@@ -33,9 +41,18 @@ function ItemSummaryCopyButtons() {
   );
 }
 
+ItemSummaryCopyButtons.propTypes = {
+  id: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+};
+
 export default function ItemSummary({id, title, username, verbose}) {
-  title = title.trim();
-  username = username.trim();
+  if (id === NEW_ITEM_ID && verbose) {
+    throw new Error("verbose <ItemSummary/> cannot be used with new items");
+  }
+
+  const trimmedTitle = title.trim();
+  const trimmedUsername = username.trim();
 
   const idModifier = id === NEW_ITEM_ID ? "new-" : "";
   const titleId = `item-summary-${idModifier}title`;
@@ -43,15 +60,16 @@ export default function ItemSummary({id, title, username, verbose}) {
   return (
     <div>
       <div className={styles.itemSummary}>
-        <Localized id={titleId} $title={title} $length={title.length}>
+        <Localized id={titleId} $title={trimmedTitle}
+                   $length={trimmedTitle.length}>
           <div className={styles.title}>no tITLe</div>
         </Localized>
-        <Localized id={usernameId} $username={username}
-                   $length={username.length}>
+        <Localized id={usernameId} $username={trimmedUsername}
+                   $length={trimmedUsername.length}>
           <div className={styles.subtitle}>no uSERNAMe</div>
         </Localized>
       </div>
-      {verbose && <ItemSummaryCopyButtons/>}
+      {verbose && <ItemSummaryCopyButtons id={id} username={username}/>}
     </div>
   );
 }
