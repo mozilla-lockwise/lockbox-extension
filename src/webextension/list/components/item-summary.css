@@ -35,3 +35,21 @@
   font-size: 13px;
   font-weight: 400;
 }
+
+.verbose {
+  border-top: 1px solid #d7d7db;
+  display: flex;
+}
+
+.copy-button {
+  flex: 1;
+}
+
+.copy-button + .copy-button {
+  border-inline-start: 1px solid #d7d7db;
+}
+
+.copy-button-inner:focus {
+  border-radius: 0;
+  box-shadow: inset 0 0 0 2px #0a84ff;
+}

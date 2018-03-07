@@ -25,12 +25,18 @@ item-summary-title =
      [0]     (no site name)
     *[other] { $title }
   }
+
 item-summary-new-username = (enter your login details)
 item-summary-username =
   { $length ->
      [0]     (no username)
     *[other] { $username }
   }
+
+item-summary-copy-username = Copy Username
+  .title = Copy the username to the clipboard
+item-summary-copy-password = Copy Password
+  .title = Copy the password to the clipboard
 
 item-filter
   .placeholder = Search Lockbox
