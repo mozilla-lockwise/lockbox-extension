@@ -24,6 +24,7 @@ describe("list > components > <ItemSummary/>", () => {
     expect(wrapper.find(Localized).at(1)).to.have.prop(
       "id", "item-summary-username"
     );
+    expect(wrapper.find("button")).to.have.length(0);
   });
 
   it("render new item", () => {
@@ -36,5 +37,19 @@ describe("list > components > <ItemSummary/>", () => {
     expect(wrapper.find(Localized).at(1)).to.have.prop(
       "id", "item-summary-new-username"
     );
+    expect(wrapper.find("button")).to.have.length(0);
+  });
+
+  it("render item verbosely", () => {
+    const wrapper = mountWithL10n(
+      <ItemSummary verbose title="title" username="username"/>
+    );
+    expect(wrapper.find(Localized).at(0)).to.have.prop(
+      "id", "item-summary-title"
+    );
+    expect(wrapper.find(Localized).at(1)).to.have.prop(
+      "id", "item-summary-username"
+    );
+    expect(wrapper.find("button")).to.have.length(2);
   });
 });
