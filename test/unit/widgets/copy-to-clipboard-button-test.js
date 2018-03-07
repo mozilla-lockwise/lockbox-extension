@@ -50,6 +50,15 @@ describe("widgets > <CopyToClipboardButton/>", () => {
     expect(wrapper.find(Stack).prop("selectedIndex")).to.equal(1);
   });
 
+  it("render button with custom label", () => {
+    const wrapper = mountWithL10n(
+      <CopyToClipboardButton value="hi there">
+        custom label
+      </CopyToClipboardButton>
+    );
+    expect(wrapper.find("button")).to.have.text("custom label");
+  });
+
   it("copy fired", () => {
     const wrapper = mountWithL10n(<CopyToClipboardButton value="hi there"/>);
     wrapper.find("button").simulate("click");
@@ -79,5 +88,17 @@ describe("widgets > <CopyToClipboardButton/>", () => {
     expect(wrapper.find(Stack).prop("selectedIndex")).to.equal(0);
 
     window.setTimeout = realSetTimeout;
+  });
+
+  it("merge classNames", () => {
+    const wrapper = mountWithL10n(
+      <CopyToClipboardButton className="foo" buttonClassName="bar"
+                             value="hi there"/>
+    );
+    expect(wrapper.find("section")).to.have.prop("className", "foo");
+    expect(wrapper.find("button").prop("className")).to.match(
+      /^\S*button\S* \S*ghost-theme\S* \S*normal-size\S* \S*copy-button\S* bar$/
+    );
+    expect(wrapper.find(Stack).prop("selectedIndex")).to.equal(0);
   });
 });

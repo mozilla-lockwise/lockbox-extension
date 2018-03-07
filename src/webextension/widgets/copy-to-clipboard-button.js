@@ -15,16 +15,20 @@ import styles from "./copy-to-clipboard-button.css";
 export default class CopyToClipboardButton extends React.Component {
   static get propTypes() {
     return {
+      children: PropTypes.node,
       value: PropTypes.string.isRequired,
       title: PropTypes.string,
       timeout: PropTypes.number,
       onCopy: PropTypes.func,
+      className: PropTypes.string,
+      buttonClassName: PropTypes.string,
     };
   }
 
   static get defaultProps() {
     return {
       timeout: 2000,
+      buttonClassName: "",
     };
   }
 
@@ -46,16 +50,25 @@ export default class CopyToClipboardButton extends React.Component {
   }
 
   render() {
-    const {title} = this.props;
+    let {title, children, className, buttonClassName} = this.props;
     const selectedIndex = this.state.copied ? 1 : 0;
-    return (
-      <Stack stretch selectedIndex={selectedIndex}>
+    const finalClassName = (
+      `${styles.copyButton} ${buttonClassName}`
+    ).trimRight();
+
+    if (!children) {
+      children = (
         <Localized id="copy-to-clipboard-button">
-          <Button theme="ghost" className={styles.copyButton} title={title}
-                  onClick={() => this.handleCopy()}>
-            cOPy
-          </Button>
+          <span>cOPy</span>
         </Localized>
+      );
+    }
+    return (
+      <Stack stretch selectedIndex={selectedIndex} className={className}>
+        <Button theme="ghost" className={finalClassName} title={title}
+                onClick={() => this.handleCopy()}>
+          {children}
+        </Button>
         <Localized id="copy-to-clipboard-copied">
           <span className={styles.copiedLabel}>
             cOPIEd
