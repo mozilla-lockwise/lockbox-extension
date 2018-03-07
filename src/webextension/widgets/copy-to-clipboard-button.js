@@ -8,7 +8,7 @@ import React from "react";
 import copy from "copy-to-clipboard";
 
 import Button from "./button";
-import ButtonStack from "./button-stack";
+import Stack from "./stack";
 
 import styles from "./copy-to-clipboard-button.css";
 
@@ -49,7 +49,7 @@ export default class CopyToClipboardButton extends React.Component {
     const {title} = this.props;
     const selectedIndex = this.state.copied ? 1 : 0;
     return (
-      <ButtonStack selectedIndex={selectedIndex}>
+      <Stack stretch selectedIndex={selectedIndex}>
         <Localized id="copy-to-clipboard-button">
           <Button theme="ghost" className={styles.copyButton} title={title}
                   onClick={() => this.handleCopy()}>
@@ -61,7 +61,7 @@ export default class CopyToClipboardButton extends React.Component {
             cOPIEd
           </span>
         </Localized>
-      </ButtonStack>
+      </Stack>
     );
   }
 }

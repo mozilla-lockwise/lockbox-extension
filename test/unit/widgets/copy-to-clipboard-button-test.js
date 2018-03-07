@@ -10,7 +10,7 @@ import sinonChai from "sinon-chai";
 
 import chaiFocus from "test/chai-focus";
 import mountWithL10n from "test/mocks/l10n";
-import ButtonStack from "src/webextension/widgets/button-stack";
+import Stack from "src/webextension/widgets/stack";
 import CopyToClipboardButton from
        "src/webextension/widgets/copy-to-clipboard-button";
 
@@ -36,7 +36,7 @@ describe("widgets > <CopyToClipboardButton/>", () => {
     expect(wrapper.find("button").prop("className")).to.match(
       /^\S*button\S* \S*ghost-theme\S* \S*normal-size\S* \S*copy-button\S*$/
     );
-    expect(wrapper.find(ButtonStack).prop("selectedIndex")).to.equal(0);
+    expect(wrapper.find(Stack).prop("selectedIndex")).to.equal(0);
   });
 
   it("render label", () => {
@@ -47,14 +47,14 @@ describe("widgets > <CopyToClipboardButton/>", () => {
     }).find("span");
     expect(label).to.have.text("cOPIEd");
     expect(label.prop("className")).to.match(/\S*copied-label\S*$/);
-    expect(wrapper.find(ButtonStack).prop("selectedIndex")).to.equal(1);
+    expect(wrapper.find(Stack).prop("selectedIndex")).to.equal(1);
   });
 
   it("copy fired", () => {
     const wrapper = mountWithL10n(<CopyToClipboardButton value="hi there"/>);
     wrapper.find("button").simulate("click");
     expect(mockCopy).to.have.callCount(1);
-    expect(wrapper.find(ButtonStack).prop("selectedIndex")).to.equal(1);
+    expect(wrapper.find(Stack).prop("selectedIndex")).to.equal(1);
   });
 
   it("onCopy fired", () => {
@@ -76,7 +76,7 @@ describe("widgets > <CopyToClipboardButton/>", () => {
     const wrapper = mountWithL10n(<CopyToClipboardButton value="hi there"/>);
     wrapper.find("button").simulate("click");
     expect(mockCopy).to.have.callCount(1);
-    expect(wrapper.find(ButtonStack).prop("selectedIndex")).to.equal(0);
+    expect(wrapper.find(Stack).prop("selectedIndex")).to.equal(0);
 
     window.setTimeout = realSetTimeout;
   });
