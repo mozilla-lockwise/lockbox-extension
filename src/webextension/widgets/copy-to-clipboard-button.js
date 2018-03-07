@@ -16,7 +16,10 @@ export default class CopyToClipboardButton extends React.Component {
   static get propTypes() {
     return {
       children: PropTypes.node,
-      value: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.func,
+      ]).isRequired,
       title: PropTypes.string,
       timeout: PropTypes.number,
       onCopy: PropTypes.func,
@@ -39,9 +42,12 @@ export default class CopyToClipboardButton extends React.Component {
     };
   }
 
-  handleCopy() {
+  async handleCopy() {
     const {value, timeout, onCopy} = this.props;
-    copy(value);
+
+    const toCopy = value instanceof Function ? await value() : value;
+    copy(toCopy);
+
     this.setState({copied: true});
     setTimeout(() => this.setState({copied: false}), timeout);
     if (onCopy) {

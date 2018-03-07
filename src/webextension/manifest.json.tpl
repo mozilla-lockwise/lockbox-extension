@@ -34,7 +34,8 @@
   "permissions": [
     "identity",
     "storage",
-    "tabs"
+    "tabs",
+    "clipboardWrite"
   ],
 
   "options_ui": {
