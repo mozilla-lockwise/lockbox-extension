@@ -10,9 +10,6 @@ import Panel, { PanelHeader, PanelBody, PanelFooter, PanelFooterButton } from
        "../../../widgets/panel";
 import ItemFilter from "../../containers/item-filter";
 import AllItems from "../containers/all-items";
-import Toolbar from "../../../widgets/toolbar";
-
-import styles from "./item-list-panel.css";
 
 export default function ItemListPanel({inputRef}) {
   const openManager = () => {
@@ -25,10 +22,8 @@ export default function ItemListPanel({inputRef}) {
 
   return (
     <Panel>
-      <PanelHeader className={styles.searchHeader}>
-        <Toolbar className={styles.filterBar}>
-          <ItemFilter inputRef={inputRef}/>
-        </Toolbar>
+      <PanelHeader>
+        <ItemFilter inputRef={inputRef}/>
       </PanelHeader>
 
       <PanelBody>
