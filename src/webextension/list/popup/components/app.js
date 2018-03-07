@@ -12,7 +12,7 @@ import styles from "./app.css";
 
 export default class App extends React.Component {
   componentDidMount() {
-    this._filterField.focus();
+    this._filterField.focus(true);
   }
 
   render() {

@@ -74,7 +74,7 @@ export function ItemFields({fields, onCopy}) {
         <Localized id="item-fields-notes">
           <LabelText>nOTEs</LabelText>
         </Localized>
-        <FieldText className={styles.notes} data-name="notes">{fields.notes}</FieldText>
+        <FieldText className={styles.notesReadOnly} data-name="notes">{fields.notes}</FieldText>
       </div>
     </div>
   );

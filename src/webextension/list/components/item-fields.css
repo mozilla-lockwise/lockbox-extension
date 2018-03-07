@@ -29,6 +29,10 @@
   min-height: 60px;
 }
 
+.notes-read-only {
+  min-height: 73px;
+}
+
 .first-label {
   margin-top: 0;
 }

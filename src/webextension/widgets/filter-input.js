@@ -43,8 +43,11 @@ export default class FilterInput extends React.Component {
     }
   }
 
-  focus() {
+  focus(select = false) {
     this.inputElement.focus();
+    if (select) {
+      this.inputElement.setSelectionRange(0, this.inputElement.value.length);
+    }
   }
 
   render() {

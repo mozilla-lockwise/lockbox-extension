@@ -61,8 +61,14 @@ describe("list > manage > components > <App/>", () => {
     expect(wrapper).to.contain(<CurrentSelection/>);
   });
 
-  it("filter input focused", () => {
-    const store = mockStore(filledState);
+  it("filter input focused/selected", () => {
+    const store = mockStore({
+      ...filledState,
+      list: {
+        ...filledState.list,
+        filter: "filter",
+      },
+    });
     const wrapper = mountWithL10nIntoDOM(
       <Provider store={store}>
         <App/>
@@ -70,5 +76,6 @@ describe("list > manage > components > <App/>", () => {
     );
 
     expect(wrapper.find("input")).to.be.focused();
+    expect(wrapper.find("input")).to.have.selection();
   });
 });
