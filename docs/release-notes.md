@@ -8,15 +8,17 @@ _Date: 2018-03-08_
 
 - Added support For Telemetry Scalars so we can easily tell how many items are stored in your Lockbox datastore ([#552](https://github.com/mozilla-lockbox/lockbox-extension/pull/552))
 - Made it so the search box is automatically focused so you can start typing to search your entries immediately ([#573](https://github.com/mozilla-lockbox/lockbox-extension/issues/573))
+- The doorhanger also automatically fills the search with the domain of the current page you're viewing to help you quickly see matching entries ([#616](https://github.com/mozilla-lockbox/lockbox-extension/pull/616))
 - Improved contrast and colors of the entry list for accessibility ([#560](https://github.com/mozilla-lockbox/lockbox-extension/pull/560))
 - Improved interface colors and styles for entry list items ([#553](https://github.com/mozilla-lockbox/lockbox-extension/pull/553))
 - Improved search bar interface style with a simpler "Clear" button ([#562](https://github.com/mozilla-lockbox/lockbox-extension/pull/562))
-- Re-ordered the create/edit entry interface with improved spacing and styles ([#567](https://github.com/mozilla-lockbox/lockbox-extension/pull/567)) 
+- Re-ordered the create/edit entry interface with improved spacing and styles ([#567](https://github.com/mozilla-lockbox/lockbox-extension/pull/567))
 
 ### What's Fixed
 
 - Item notes with line breaks properly show those separate lines when editing ([#596](https://github.com/mozilla-lockbox/lockbox-extension/pull/596))
 - The "reset Lockbox" settings interface fits better in about:addons ([#603](https://github.com/mozilla-lockbox/lockbox-extension/pull/603))
+- Fixed alignment on the entry detail view so the buttons don't jump when switching between edit and view modes ([#608](https://github.com/mozilla-lockbox/lockbox-extension/pull/608))
 - Updated development and testing dependencies via Greenkeeper.io and pyup.io: documentation 6.0.0, selenium 3.10.0, flake8-docstrings 1.3.0, pytest-xdist 1.22.2, pypom 1.3.0, pytest-selenium 1.11.4, pytest 3.4.1, flake8-isort 2.4
 
 ### Known Issues
