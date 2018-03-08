@@ -8,7 +8,7 @@ _Date: 2018-03-08_
 
 - Added support For Telemetry Scalars so we can easily tell how many items are stored in your Lockbox datastore ([#552](https://github.com/mozilla-lockbox/lockbox-extension/pull/552))
 - Made it so the search box is automatically focused so you can start typing to search your entries immediately ([#573](https://github.com/mozilla-lockbox/lockbox-extension/issues/573))
-- The doorhanger automatically fills the search with the domain, which allows for future improvements to accommodate when there are no results ([#515](https://github.com/mozilla-lockbox/lockbox-extension/issues/515)) and parsing the results ([#521](https://github.com/mozilla-lockbox/lockbox-extension/issues/521)) ... stay tuned.
+- The doorhanger also automatically fills the search with the domain of the current page you're viewing to help you quickly see matching entries ([#616](https://github.com/mozilla-lockbox/lockbox-extension/pull/616))
 - Improved contrast and colors of the entry list for accessibility ([#560](https://github.com/mozilla-lockbox/lockbox-extension/pull/560))
 - Improved interface colors and styles for entry list items ([#553](https://github.com/mozilla-lockbox/lockbox-extension/pull/553))
 - Improved search bar interface style with a simpler "Clear" button ([#562](https://github.com/mozilla-lockbox/lockbox-extension/pull/562))
