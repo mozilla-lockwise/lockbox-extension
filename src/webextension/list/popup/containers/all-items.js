@@ -5,7 +5,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { selectItem } from "../../actions";
+import { selectItem, copiedField } from "../../actions";
 import { parseFilterString, filterItem } from "../../filter";
 import ItemList from "../../components/item-list";
 
@@ -51,6 +51,7 @@ export default connect(
     return {items};
   },
   (dispatch) => ({
-    onClick: (id) => dispatch(selectItem(id)),
+    onClick: (id) => { dispatch(selectItem(id)); },
+    onCopy: (field) => { dispatch(copiedField(field)); },
   }),
 )(AllItems);

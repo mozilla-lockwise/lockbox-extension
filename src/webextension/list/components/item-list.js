@@ -10,14 +10,15 @@ import ScrollingList from "../../widgets/scrolling-list";
 
 import styles from "./item-list.css";
 
-export default function ItemList({items, itemClassName, verbose, ...props}) {
+export default function ItemList({items, itemClassName, verbose, onCopy,
+                                  ...props}) {
   const finalItemClassName = `${styles.item} ${itemClassName}`.trimRight();
   return (
     <ScrollingList itemClassName={finalItemClassName} data={items} {...props}>
       {({id, title, username}) => {
         return (
           <ItemSummary id={id} title={title} username={username}
-                       verbose={verbose}/>
+                       verbose={verbose} onCopy={onCopy}/>
         );
       }}
     </ScrollingList>
@@ -34,6 +35,7 @@ ItemList.propTypes = {
   ).isRequired,
   itemClassName: PropTypes.string,
   verbose: PropTypes.bool,
+  onCopy: PropTypes.func,
 };
 
 ItemList.defaultProps = {
