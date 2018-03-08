@@ -11,7 +11,7 @@ import CopyToClipboardButton from "../../widgets/copy-to-clipboard-button";
 
 import styles from "./item-summary.css";
 
-function ItemSummaryCopyButtons({id, username}) {
+function ItemSummaryCopyButtons({id, username, onCopy}) {
   async function getPassword() {
     const response = await browser.runtime.sendMessage({
       type: "get_item",
@@ -26,14 +26,16 @@ function ItemSummaryCopyButtons({id, username}) {
       <Localized id="item-summary-copy-username">
         <CopyToClipboardButton className={styles.copyButton}
                                buttonClassName={styles.copyButtonInner}
-                               value={username}>
+                               value={username}
+                               onCopy={() => onCopy("username")}>
           cOPy uSERNAMe
         </CopyToClipboardButton>
       </Localized>
       <Localized id="item-summary-copy-password">
         <CopyToClipboardButton className={styles.copyButton}
                                buttonClassName={styles.copyButtonInner}
-                               value={getPassword}>
+                               value={getPassword}
+                               onCopy={() => onCopy("password")}>
           cOPy pASSWORd
         </CopyToClipboardButton>
       </Localized>
@@ -44,9 +46,10 @@ function ItemSummaryCopyButtons({id, username}) {
 ItemSummaryCopyButtons.propTypes = {
   id: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
+  onCopy: PropTypes.func.isRequired,
 };
 
-export default function ItemSummary({id, title, username, verbose}) {
+export default function ItemSummary({id, title, username, verbose, onCopy}) {
   if (id === NEW_ITEM_ID && verbose) {
     throw new Error("verbose <ItemSummary/> cannot be used with new items");
   }
@@ -69,7 +72,8 @@ export default function ItemSummary({id, title, username, verbose}) {
           <div className={styles.subtitle}>no uSERNAMe</div>
         </Localized>
       </div>
-      {verbose && <ItemSummaryCopyButtons id={id} username={username}/>}
+      {verbose && <ItemSummaryCopyButtons id={id} username={username}
+                                          onCopy={onCopy}/>}
     </div>
   );
 }
@@ -79,6 +83,7 @@ ItemSummary.propTypes = {
   title: PropTypes.string,
   username: PropTypes.string,
   verbose: PropTypes.bool,
+  onCopy: PropTypes.func,
 };
 
 ItemSummary.defaultProps = {
