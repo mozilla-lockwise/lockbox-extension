@@ -19,7 +19,6 @@ _Date: 2018-03-08_
 - Item notes with line breaks properly show those separate lines when editing ([#596](https://github.com/mozilla-lockbox/lockbox-extension/pull/596))
 - The "reset Lockbox" settings interface fits better in about:addons ([#603](https://github.com/mozilla-lockbox/lockbox-extension/pull/603))
 - Fixed alignment on the entry detail view so the buttons don't jump when switching between edit and view modes ([#608](https://github.com/mozilla-lockbox/lockbox-extension/pull/608))
-- Updated development and testing dependencies via Greenkeeper.io and pyup.io: documentation 6.0.0, selenium 3.10.0, flake8-docstrings 1.3.0, pytest-xdist 1.22.2, pypom 1.3.0, pytest-selenium 1.11.4, pytest 3.4.1, flake8-isort 2.4
 
 ### Known Issues
 
