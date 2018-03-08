@@ -5,6 +5,11 @@ _aliases:
     language: node_js
     node_js: stable
 
+cache:
+  directories:
+    - node_modules
+cache: pip
+
 sudo: required
 jobs:
   include:
@@ -52,6 +57,7 @@ jobs:
         provider: pages
         on:
           branch: master
+          python: '3.6'
         skip_cleanup: true
         local_dir: site
         github_token: $GITHUB_TOKEN

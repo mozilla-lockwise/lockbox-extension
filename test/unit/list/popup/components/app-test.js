@@ -33,10 +33,18 @@ describe("list > popup > components > <App/>", () => {
     expect(wrapper).to.have.descendants(CurrentSelection);
   });
 
-  it("filter input focused", () => {
+  it("filter input focused/selected", () => {
     const store = mockStore({
-      cache: {...filledState.cache, currentItem: null},
-      list: {...filledState.list, selectedItemid: null},
+      ...filledState,
+      cache: {
+        ...filledState.cache,
+        currentItem: null,
+      },
+      list: {
+        ...filledState.list,
+        filter: "filter",
+        selectedItemid: null,
+      },
     });
     const wrapper = mountWithL10nIntoDOM(
       <Provider store={store}>
@@ -45,5 +53,6 @@ describe("list > popup > components > <App/>", () => {
     );
 
     expect(wrapper.find("input")).to.be.focused();
+    expect(wrapper.find("input")).to.have.selection();
   });
 });

@@ -6,8 +6,7 @@ import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
-import Button from "../../../widgets/button";
-import Panel, { PanelHeader, PanelBody, PanelFooter } from
+import Panel, { PanelHeader, PanelBody, PanelFooter, PanelFooterButton } from
        "../../../widgets/panel";
 import ItemFilter from "../../containers/item-filter";
 import AllItems from "../containers/all-items";
@@ -33,9 +32,9 @@ export default function ItemListPanel({inputRef}) {
 
       <PanelFooter>
         <Localized id="manage-lockbox-button">
-          <Button theme="ghost" onClick={openManager}>
+          <PanelFooterButton onClick={openManager}>
             mANAGe lOCKBox
-          </Button>
+          </PanelFooterButton>
         </Localized>
       </PanelFooter>
     </Panel>
