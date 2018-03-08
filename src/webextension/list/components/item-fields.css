@@ -5,7 +5,7 @@
 .item-fields {
   display: grid;
   grid-template-columns: minmax(200px, 1fr);
-  max-width: 320px;
+  max-width: 360px;
 }
 
 .item-fields > label,
@@ -17,12 +17,24 @@
   resize: none;
 }
 
-.first-label {
-  margin-top: 0;
+.input {
+  max-width: 242px;
 }
 
-.copy-button {
-  color: #0060df;
+.password {
+  max-width: 258px;
+}
+
+.notes {
+  min-height: 60px;
+}
+
+.notes-read-only {
+  min-height: 73px;
+}
+
+.first-label {
+  margin-top: 0;
 }
 
 .inline-button {

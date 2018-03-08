@@ -10,7 +10,7 @@ import thunk from "redux-thunk";
 
 import AppLocalizationProvider from "../../l10n";
 import App from "./components/app";
-import { listItems } from "../actions";
+import { filterItems, listItems } from "../actions";
 import reducer from "./reducers";
 import initializeMessagePorts from "../message-ports";
 import * as telemetry from "../../telemetry";
@@ -19,6 +19,17 @@ import telemetryLogger from "./telemetry";
 const store = createStore(reducer, undefined, applyMiddleware(
   thunk, telemetryLogger
 ));
+
+// Pre-fill the URL of the current tab.
+// XXX: Eventually, we'll probably want to put this in another file.
+browser.tabs.query({ active: true, currentWindow: true }).then((result) => {
+  const validProtocols = ["http:", "https:"];
+  const url = new URL(result[0].url);
+  if (validProtocols.includes(url.protocol)) {
+    store.dispatch(filterItems(url.hostname));
+  }
+});
+
 store.dispatch(listItems());
 initializeMessagePorts(store);
 

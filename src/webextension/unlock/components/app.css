@@ -5,70 +5,40 @@
 body {
   padding: 0;
   margin: 0;
-  width: 344px;
+  width: 320px;
   color: #0c0c0d;
-  background-color: #f9f9fa;
+  background-color: #ededf0;
   font: caption;
   font-size: 13px;
   -moz-user-select: none;
 }
 
-.unlock {
-  margin: 0;
+.lockie {
+  display: block;
+  margin: 3em auto 0;
+  width: 200px;
+}
+
+.unlock-content {
+  margin: 1em auto 3em;
+  width: 250px;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
 }
 
-.unlock > img {
-  margin: 2em auto;
-  width: 229px;
-}
-
-.unlock > .content {
-  margin: 2em auto;
-  width: 229px;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-}
-
-.unlock > .content > h1 {
-  font-size: 2em;
-  font-weight: bold;
+.unlock-content > h1 {
+  font-size: 2.5em;
+  font-weight: 300;
   text-align: center;
-  margin: 0 0 .5em;
+  margin: 0 0 0.25em;
 }
 
-.unlock > .content > h2 {
-  font-size: 1.5em;
-  font-weight: normal;
+.unlock-content > h2 {
+  font-size: 1.3em;
+  font-weight: 300;
   font-style: italic;
   text-align: center;
   text-transform: lowercase;
   margin: 0;
-}
-
-.unlock > menu {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: stretch;
-}
-
-.unlock > menu > * {
-  width: 50%;
-  flex-grow: 1;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-.unlock > menu > *:first-child {
-  border-bottom-right-radius: 0;
-}
-
-.unlock > menu > *:last-child {
-  border-bottom-left-radius: 0;
 }

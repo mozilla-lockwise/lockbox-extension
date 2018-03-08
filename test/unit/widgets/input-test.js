@@ -52,9 +52,19 @@ describe("widgets > <Input/>", () => {
 
   it("focus() focuses input", () => {
     const wrapper = mountIntoDOM(
-      <Input className="foo" value="some text" onChange={() => {}}/>
+      <Input value="some text" onChange={() => {}}/>
     );
     wrapper.instance().focus();
     expect(wrapper.find("input")).to.be.focused();
+    expect(wrapper.find("input")).to.have.selection(0, 0);
+  });
+
+  it("focus(true) focuses/selects input", () => {
+    const wrapper = mountIntoDOM(
+      <Input value="some text" onChange={() => {}}/>
+    );
+    wrapper.instance().focus(true);
+    expect(wrapper.find("input")).to.be.focused();
+    expect(wrapper.find("input")).to.have.selection();
   });
 });
