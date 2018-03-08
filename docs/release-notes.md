@@ -1,14 +1,44 @@
 # Lockbox Release Notes
 
+## 0.1.8-alpha
+
+_Date: 2018-03-08_
+
+### What's New
+
+- Added support For Telemetry Scalars so we can easily tell how many items are stored in your Lockbox datastore ([#552](https://github.com/mozilla-lockbox/lockbox-extension/pull/552))
+- Made it so the search box is automatically focused so you can start typing to search your entries immediately ([#573](https://github.com/mozilla-lockbox/lockbox-extension/issues/573))
+- The doorhanger also automatically fills the search with the domain of the current page you're viewing to help you quickly see matching entries ([#616](https://github.com/mozilla-lockbox/lockbox-extension/pull/616))
+- Improved contrast and colors of the entry list for accessibility ([#560](https://github.com/mozilla-lockbox/lockbox-extension/pull/560))
+- Improved interface colors and styles for entry list items ([#553](https://github.com/mozilla-lockbox/lockbox-extension/pull/553))
+- Improved search bar interface style with a simpler "Clear" button ([#562](https://github.com/mozilla-lockbox/lockbox-extension/pull/562))
+- Re-ordered the create/edit entry interface with improved spacing and styles ([#567](https://github.com/mozilla-lockbox/lockbox-extension/pull/567))
+
+### What's Fixed
+
+- Item notes with line breaks properly show those separate lines when editing ([#596](https://github.com/mozilla-lockbox/lockbox-extension/pull/596))
+- The "reset Lockbox" settings interface fits better in about:addons ([#603](https://github.com/mozilla-lockbox/lockbox-extension/pull/603))
+- Fixed alignment on the entry detail view so the buttons don't jump when switching between edit and view modes ([#608](https://github.com/mozilla-lockbox/lockbox-extension/pull/608))
+
+### Known Issues
+
+* Profile information about you is only fetched and updated when you sign in; any changes made to your Firefox Accounts display name or avatar will not be displayed in Lockbox until you sign in again.
+* Once you link a Firefox Account to Lockbox, you cannot unlink it from that account.
+* Once you link a Firefox Account to Lockbox, signing in with a different account can render Lockbox unusable until you quit and restart Firefox.
+* Once you link a Firefox Account to Lockbox, resetting your Firefox Account password through "forgot your password" will render all your logins inaccessible; the only recourse is to reset Lockbox and start over.
+* Firefox's default prompt to save logins is only disabled on new installs of this extension; updating Lockbox will not change your current Firefox preferences.
+
 ## 0.1.7-alpha1
 
-_Dtae: 2018-02-23_
+_Date: 2018-02-23_
 
 This release is to address a critical defect from the previous release.
 
 ### What's Fixed
 
 * If you linked your Firefox Account, Lockbox would stop working when you restart Firefox ([#568](https://github.com/mozilla-lockbox/lockbox-extension/issues/568))
+
+### Known Issues
 
 * Profile information about you is only fetched and updated when you sign in; any changes made to your Firefox Accounts display name or avatar will not be displayed in Lockbox until you sign in again.
 * Once you link a Firefox Account to Lockbox, you cannot unlink it from that account.
