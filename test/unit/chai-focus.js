@@ -17,4 +17,21 @@ export default function chaiFocus(chai, utils) {
       doc.activeElement.tagName
     );
   });
+
+  chai.Assertion.addMethod("selection", function(start = 0, end = null) {
+    const obj = this._obj instanceof ReactWrapper ? this._obj.instance() :
+                this._obj;
+
+    if (end === null) {
+      end = obj.value.length;
+    }
+
+    this.assert(
+      obj.selectionStart === start && obj.selectionEnd === end,
+      "expected #{exp} of #{this} to be selected but got #{act}",
+      "expected not #{exp} of #{this} to be selected",
+      `[${start}, ${end})`,
+      `[${obj.selectionStart}, ${obj.selectionEnd})`,
+    );
+  });
 }

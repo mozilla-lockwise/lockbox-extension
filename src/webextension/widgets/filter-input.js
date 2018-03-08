@@ -43,8 +43,11 @@ export default class FilterInput extends React.Component {
     }
   }
 
-  focus() {
+  focus(select = false) {
     this.inputElement.focus();
+    if (select) {
+      this.inputElement.setSelectionRange(0, this.inputElement.value.length);
+    }
   }
 
   render() {
@@ -52,7 +55,7 @@ export default class FilterInput extends React.Component {
     const {className, onChange, value, disabled, ...props} = this.props;
     const disabledClass = disabled ? ` ${styles.disabled}` : "";
     const finalClassName = (
-      `${styles.inputWrapper}${disabledClass} ${className}`
+      `${styles.filter} ${styles.inputWrapper}${disabledClass} ${className}`
     ).trimRight();
 
     return (
@@ -61,10 +64,8 @@ export default class FilterInput extends React.Component {
                onChange={(e) => this.updateValue(e.target.value)}
                ref={(element) => this.inputElement = element} {...props}/>
         <Localized id="filter-input-clear">
-          <button type="button" disabled={disabled}
-                  onClick={() => this.updateValue("")}>
-            cLEAr
-          </button>
+          <button type="button" title="cLEAr" disabled={disabled}
+                  onClick={() => this.updateValue("")}/>
         </Localized>
       </div>
     );
