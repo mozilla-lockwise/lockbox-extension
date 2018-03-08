@@ -52,12 +52,12 @@ jobs:
     - stage: deploy
       if: branch = master
       <<: *node
+      python: '3.6'
       script: skip
       deploy:
         provider: pages
         on:
           branch: master
-          python: '3.6'
         skip_cleanup: true
         local_dir: site
         github_token: $GITHUB_TOKEN
