@@ -13,7 +13,7 @@ import styles from "./item-list.css";
 export default function ItemList({items, itemClassName, ...props}) {
   const finalItemClassName = `${styles.item} ${itemClassName}`.trimRight();
   return (
-    <ScrollingList itemClassName={finalItemClassName} data={items} {...props}>
+    <ScrollingList className={styles.itemList} itemClassName={finalItemClassName} data={items} styledItems={false} {...props}>
       {({id, title, username}) => {
         return (
           <ItemSummary id={id} title={title} username={username}/>

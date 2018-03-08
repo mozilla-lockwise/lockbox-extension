@@ -37,3 +37,7 @@
 .item:first-child[data-selected] {
   border-top-color: #99bff2;
 }
+
+.item-list:focus > .item[data-selected] {
+  box-shadow: inset 0 1px 0 #0a84ff, inset 0 -1px 0 #0a84ff;
+}
