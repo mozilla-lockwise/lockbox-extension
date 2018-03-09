@@ -12,32 +12,32 @@ import sinon from "sinon";
 
 chai.use(chaiEnzyme());
 
-import ButtonStack from "src/webextension/widgets/button-stack";
+import Stack from "src/webextension/widgets/stack";
 
-describe("widgets > <ButtonStack/>", () => {
+describe("widgets > <Stack/>", () => {
   beforeEach(() => {
-    sinon.spy(ButtonStack.prototype, "render");
+    sinon.spy(Stack.prototype, "render");
   });
 
   afterEach(() => {
-    ButtonStack.prototype.render.restore();
+    Stack.prototype.render.restore();
   });
 
   it("render stack", () => {
     const wrapper = mount(
-      <ButtonStack>
+      <Stack>
         <button>click me</button>
-      </ButtonStack>
+      </Stack>
     );
     expect(wrapper.find("button")).to.have.text("click me");
   });
 
   it("select child", async () => {
     const wrapper = mount(
-      <ButtonStack>
+      <Stack>
         <button>click me</button>
         <button>click me too</button>
-      </ButtonStack>
+      </Stack>
     );
 
     expect(wrapper.find("span").at(0)).to.have.prop("data-selected");
