@@ -19,3 +19,8 @@
   border-bottom: 1px solid #d7d7db;
   background-color: #ffffff;
 }
+
+.verbose + .verbose {
+  margin-top: 4px;
+  border-top: 1px solid #d7d7db;
+}

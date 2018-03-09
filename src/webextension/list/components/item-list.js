@@ -12,7 +12,11 @@ import styles from "./item-list.css";
 
 export default function ItemList({items, itemClassName, verbose, onCopy,
                                   ...props}) {
-  const finalItemClassName = `${styles.item} ${itemClassName}`.trimRight();
+  const verboseClass = verbose ? ` ${styles.verbose}` : "";
+  const finalItemClassName = (
+    `${styles.item}${verboseClass} ${itemClassName}`
+  ).trimRight();
+
   return (
     <ScrollingList itemClassName={finalItemClassName} data={items} {...props}>
       {({id, title, username}) => {

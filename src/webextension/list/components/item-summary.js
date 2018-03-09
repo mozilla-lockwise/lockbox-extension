@@ -21,7 +21,7 @@ function ItemSummaryCopyButtons({id, username, onCopy}) {
   }
 
   return (
-    <div className={styles.verbose}
+    <div className={styles.copyButtons}
          onMouseDown={(e) => e.stopPropagation()}>
       <Localized id="item-summary-copy-username">
         <CopyToClipboardButton className={styles.copyButton}
