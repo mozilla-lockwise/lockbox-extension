@@ -50,6 +50,7 @@ ItemSummaryCopyButtons.propTypes = {
 };
 
 export default function ItemSummary({id, title, username, verbose, onCopy}) {
+  // istanbul ignore next
   if (id === NEW_ITEM_ID && verbose) {
     throw new Error("verbose <ItemSummary/> cannot be used with new items");
   }
