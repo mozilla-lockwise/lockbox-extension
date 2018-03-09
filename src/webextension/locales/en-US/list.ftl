@@ -48,7 +48,9 @@ item-filter
 
 [[manage]]
 
-toolbar-add-item = New entry
+add-item-button = +
+  .title = New entry
+
 toolbar-go-home = Home
 toolbar-send-feedback = Provide Feedback
 toolbar-open-faq = FAQ

@@ -23,10 +23,8 @@ class Home(Base):
                                    '.ReactModal__Content--after-open '
                                    'menu button.{}'.format(
                                        munged_class_name('button')))
-    _new_entry_locator = (By.CSS_SELECTOR,
-                          'section menu '
-                          'button.{}:nth-child(1)'.format(
-                            munged_class_name('button')))
+    _new_entry_locator = (By.CSS_SELECTOR, 'section aside menu '
+                          'button.{}'.format(munged_class_name('button')))
     _sign_in_locator = (By.CSS_SELECTOR, '.{} .{}'.format(
                         munged_class_name('link'),
                         munged_class_name('puffy-size')))

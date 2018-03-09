@@ -31,7 +31,6 @@ export default class App extends React.Component {
           <div className={styles.app}>
             <section className={styles.appMain}>
               <Toolbar className={styles.navigation}>
-                <AddItem/>
                 <GoHome/>
                 <ToolbarSpace/>
                 <OpenFAQ/>
@@ -44,6 +43,7 @@ export default class App extends React.Component {
                               inputRef={(element) => {
                                 this._filterField = element;
                               }}/>
+                  <AddItem/>
                 </Toolbar>
                 <AllItems/>
               </aside>
