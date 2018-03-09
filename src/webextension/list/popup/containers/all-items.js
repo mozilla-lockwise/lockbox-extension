@@ -5,11 +5,19 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { selectItem } from "../../actions";
+import { selectItem, copiedField } from "../../actions";
 import { parseFilterString, filterItem } from "../../filter";
 import ItemList from "../../components/item-list";
 
+const MAX_VERBOSE_ITEMS = 2;
+
 class AllItems extends React.Component {
+  static get propTypes() {
+    return {
+      items: ItemList.propTypes.items,
+    };
+  }
+
   constructor(props) {
     super(props);
 
@@ -24,9 +32,10 @@ class AllItems extends React.Component {
 
   render() {
     const { selected } = this.state;
+    const verbose = this.props.items.length <= MAX_VERBOSE_ITEMS;
     return (
-      <ItemList {...this.props} selected={selected}
-                onChange={(s) => this.handleChange(s)}/>
+      <ItemList {...this.props} verbose={verbose}
+                selected={selected} onChange={(s) => this.handleChange(s)}/>
     );
   }
 }
@@ -42,6 +51,7 @@ export default connect(
     return {items};
   },
   (dispatch) => ({
-    onClick: (id) => dispatch(selectItem(id)),
+    onClick: (id) => { dispatch(selectItem(id)); },
+    onCopy: (field) => { dispatch(copiedField(field)); },
   }),
 )(AllItems);
