@@ -6,7 +6,7 @@ import chai, { expect } from "chai";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
-import getAccount, { setAccount, Account } from "src/webextension/background/accounts";
+import { setAccount, Account } from "src/webextension/background/accounts";
 import * as telemetry from "src/webextension/background/telemetry";
 
 chai.use(sinonChai);
