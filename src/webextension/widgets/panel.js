@@ -59,6 +59,24 @@ PanelBody.defaultProps = {
   scroll: true,
 };
 
+export function PanelBanner({className, children}) {
+  const finalClassName = `${styles.panelBanner} ${className}`.trimRight();
+  return (
+    <aside className={finalClassName}>
+      {children}
+    </aside>
+  );
+}
+
+PanelBanner.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node,
+};
+
+PanelBanner.defaultProps = {
+  className: "",
+};
+
 export function PanelFooter({className, children}) {
   return (
     <footer className={classNames([styles.panelFooter, className])}>

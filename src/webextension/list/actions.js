@@ -345,10 +345,11 @@ export function cancelEditing() {
   };
 }
 
-export function filterItems(filter) {
+export function filterItems(filter, userEntered = true) {
   return {
     type: FILTER_ITEMS,
     filter,
+    userEntered,
   };
 }
 

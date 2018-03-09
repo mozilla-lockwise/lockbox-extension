@@ -42,8 +42,11 @@ describe("list > popup > components > <App/>", () => {
       },
       list: {
         ...filledState.list,
-        filter: "filter",
         selectedItemid: null,
+        filter: {
+          query: "filter",
+          userEntered: false,
+        },
       },
     });
     const wrapper = mountWithL10nIntoDOM(
