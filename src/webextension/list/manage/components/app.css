@@ -56,3 +56,7 @@ body > main,
 .filter-bar {
   padding: 12px;
 }
+
+.all-items {
+  border-top: 1px solid #d7d7db;
+}
