@@ -17,7 +17,8 @@ const collator = new Intl.Collator();
 function AllItems({totalItemCount, ...props}) {
   if (props.items.length === 0) {
     return (
-      <Localized id={`all-items-${totalItemCount ? "filtered" : "empty"}`}>
+      <Localized id={`all-items-${totalItemCount ? "no-results" :
+                                                   "get-started"}`}>
         <ItemListPlaceholder>
           wHEn yOu cREATe an eNTRy...
         </ItemListPlaceholder>
