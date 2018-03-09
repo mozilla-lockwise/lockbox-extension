@@ -55,6 +55,8 @@ jobs:
       python: '3.6'
       script: skip
       deploy:
+        edge:
+          branch: v1.8.47
         provider: pages
         on:
           branch: master
