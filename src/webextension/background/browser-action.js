@@ -65,7 +65,7 @@ export default async function updateBrowserAction({account = getAccount(), datas
         return installEntriesAction();
       } catch (err) {
         // eslint-disable-next-line no-console
-        console.log(`WARNING: datastore is in an inconsistent state.  You may need to reset and start again`);
+        console.warn("datastore is in an inconsistent state.  You may need to reset and start again");
       }
     }
     // setup unlock popup
