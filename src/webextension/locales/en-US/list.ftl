@@ -103,6 +103,8 @@ item-details-cancel = Cancel
 
 manage-lockbox-button = Manage Lockbox
 
+no-results-banner = No entries found for current website.
+
 item-details-panel-title = Entry Details
 
 navigate-panel-backwards = Go back

@@ -38,7 +38,7 @@ AllItems.propTypes = {
 export default connect(
   (state, ownProps) => {
     const totalItemCount = state.cache.items.length;
-    const filter = parseFilterString(state.list.filter);
+    const filter = parseFilterString(state.list.filter.query);
     const selected = state.list.selectedItemId;
     const items = state.cache.items
                        .filter((i) => filterItem(filter, i))

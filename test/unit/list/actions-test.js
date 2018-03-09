@@ -419,7 +419,8 @@ describe("list > actions", () => {
     store.dispatch(actions.filterItems("my filter"));
     expect(store.getActions()).to.deep.equal([
       { type: actions.FILTER_ITEMS,
-        filter: "my filter" },
+        filter: "my filter",
+        userEntered: true },
     ]);
   });
 
