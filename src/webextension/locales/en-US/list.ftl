@@ -3,6 +3,11 @@
 document
   .title = Lockbox Entries
 
+all-items-get-started =
+  When you add an entry, it automatically shows up here.
+
+all-items-no-results = No results
+
 item-fields-title = Name
 item-fields-title-input
   .placeholder = e.g. primary bank
@@ -51,11 +56,6 @@ toolbar-open-faq = FAQ
 account-summary-account = Account
 account-summary-options = Preferences
 account-summary-signout = Sign Out
-
-all-items-empty =
-  When you add an entry, it automatically shows up here.
-
-all-items-filtered = No results
 
 intro-page-step-1 =
   Save username and password info to create a { product-title } entry.
