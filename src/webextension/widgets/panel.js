@@ -8,11 +8,12 @@ import PropTypes from "prop-types";
 
 import { classNames } from "../common";
 import Button from "./button";
+import Toolbar from "./toolbar";
 
 import buttonStyles from "./button.css";
 import styles from "./panel.css";
 
-export function PanelHeader({className, onBack, children}) {
+export function PanelHeader({className, toolbarClassName, onBack, children}) {
   const imgSrc = browser.extension.getURL("/icons/arrowhead-left-16.svg");
   return (
     <header className={classNames([styles.panelHeader, className])}>
@@ -23,19 +24,23 @@ export function PanelHeader({className, onBack, children}) {
           </Localized>
         </Button>
       ) : null}
-      <span>{children}</span>
+      <Toolbar className={classNames([
+                 styles.panelHeaderToolbar, toolbarClassName,
+               ])}>{children}</Toolbar>
     </header>
   );
 }
 
 PanelHeader.propTypes = {
   className: PropTypes.string,
+  toolbarClassName: PropTypes.string,
   onBack: PropTypes.func,
   children: PropTypes.node,
 };
 
 PanelHeader.defaultProps = {
   className: "",
+  toolbarClassName: "",
 };
 
 export function PanelBody({className, scroll, children}) {

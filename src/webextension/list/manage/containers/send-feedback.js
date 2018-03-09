@@ -7,17 +7,18 @@ import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
-import { ExternalLink } from "../../../widgets/link";
+import { PanelFooterButton } from "../../../widgets/panel";
 import { sendFeedback } from "../../actions";
 
 import styles from "./send-feedback.css";
 
 function SendFeedback({onSendFeedback}) {
   return (
-    <Localized id="toolbar-send-feedback">
-      <ExternalLink className={styles.sendFeedback} onClick={onSendFeedback}>
+    <Localized id="send-feedback-button">
+      <PanelFooterButton className={styles.sendFeedback}
+                         onClick={onSendFeedback}>
         fEEDBACk
-      </ExternalLink>
+      </PanelFooterButton>
     </Localized>
   );
 }
