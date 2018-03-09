@@ -40,9 +40,8 @@ body > main,
   grid-column: 1;
   min-width: 150px;
   min-height: 0;
-  background-color: #ededf0;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
   border-inline-end: 1px solid #d7d7db;
 }
 
@@ -54,9 +53,9 @@ body > main,
 }
 
 .filter-bar {
-  padding: 12px;
+  border-bottom-width: 0;
 }
 
-.filter-bar > * + * {
+.filter-toolbar > * + * {
   margin-inline-start: 8px;
 }

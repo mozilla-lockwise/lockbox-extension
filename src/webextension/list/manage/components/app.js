@@ -16,6 +16,7 @@ import ModalRoot from "../containers/modals";
 import SendFeedback from "../containers/send-feedback";
 import OpenFAQ from "../containers/open-faq";
 import Toolbar, { ToolbarSpace } from "../../../widgets/toolbar";
+import { PanelHeader, PanelBody, PanelFooter } from "../../../widgets/panel";
 
 import styles from "./app.css";
 
@@ -34,18 +35,23 @@ export default class App extends React.Component {
                 <GoHome/>
                 <ToolbarSpace/>
                 <OpenFAQ/>
-                <SendFeedback/>
                 <CurrentAccountSummary/>
               </Toolbar>
               <aside>
-                <Toolbar className={styles.filterBar}>
+                <PanelHeader className={styles.filterBar}
+                             toolbarClassName={styles.filterToolbar}>
                   <ItemFilter className={styles.filter}
                               inputRef={(element) => {
                                 this._filterField = element;
                               }}/>
                   <AddItem/>
-                </Toolbar>
-                <AllItems/>
+                </PanelHeader>
+                <PanelBody scroll={false}>
+                  <AllItems className={styles.allItems}/>
+                </PanelBody>
+                <PanelFooter>
+                  <SendFeedback/>
+                </PanelFooter>
               </aside>
               <article>
                 <CurrentSelection/>

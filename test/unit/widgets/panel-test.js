@@ -8,9 +8,10 @@ import React from "react";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
-import { mount } from "test/enzyme";
+import { mount, mountIntoDOM } from "test/enzyme";
 import mountWithL10n from "test/mocks/l10n";
-import Panel, { PanelHeader, PanelBody, PanelFooter } from
+import Toolbar from "src/webextension/widgets/toolbar";
+import Panel, { PanelHeader, PanelBody, PanelFooter, PanelFooterButton } from
        "src/webextension/widgets/panel";
 
 chai.use(chaiEnzyme());
@@ -20,7 +21,8 @@ describe("widgets > panel", () => {
   describe("<PanelHeader/>", () => {
     it("render header", () => {
       const wrapper = mount(<PanelHeader>header</PanelHeader>);
-      expect(wrapper.find("span")).to.have.text("header");
+      expect(wrapper.find("header")).to.have.descendants(Toolbar);
+      expect(wrapper.find("menu")).to.have.text("header");
       expect(wrapper.find("header").prop("className")).to.match(
         /^\S+panel-header\S+$/
       );
@@ -83,6 +85,42 @@ describe("widgets > panel", () => {
       expect(wrapper.find("footer").prop("className")).to.match(
         /^\S+panel-footer\S+ foo$/
       );
+    });
+  });
+
+  describe("<PanelFooterButton/>", () => {
+    it("render button", () => {
+      const wrapper = mount(<PanelFooterButton>click me</PanelFooterButton>);
+      expect(wrapper.find("button")).to.have.text("click me");
+      expect(wrapper.find("button").prop("className")).to.match(
+          /^\S+button\S+ \S+panel-footer-button\S+ \S+normal-theme\S+$/
+      );
+    });
+
+    it("merge classNames", () => {
+      const wrapper = mount(
+        <PanelFooterButton className="foo">click me</PanelFooterButton>
+      );
+      expect(wrapper.find("button").prop("className")).to.match(
+          /^\S+button\S+ \S+panel-footer-button\S+ \S+normal-theme\S+ foo$/
+      );
+    });
+
+    it("onClick fired", () => {
+      const onClick = sinon.spy();
+      const wrapper = mount(
+        <PanelFooterButton onClick={onClick}>click me</PanelFooterButton>
+      );
+      wrapper.find("button").simulate("click");
+      expect(onClick).to.have.callCount(1);
+    });
+
+    it("focus() focuses button", () => {
+      const wrapper = mountIntoDOM(
+        <PanelFooterButton>click me</PanelFooterButton>
+      );
+      wrapper.instance().focus();
+      expect(wrapper.find("button")).to.be.focused(document);
     });
   });
 
