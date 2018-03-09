@@ -2,75 +2,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { Localized } from "fluent-react";
-import PropTypes from "prop-types";
-import React from "react";
 import { connect } from "react-redux";
 
-import { PanelBanner } from "../../../widgets/panel";
+import PopupItemList from "../components/popup-item-list";
 import { selectItem, copiedField } from "../../actions";
 import { parseFilterString, filterItem } from "../../filter";
-import ItemList, { ItemListPlaceholder } from "../../components/item-list";
-
-const MAX_VERBOSE_ITEMS = 2;
 const collator = new Intl.Collator();
-
-import styles from "./all-items.css";
-
-class AllItems extends React.Component {
-  static get propTypes() {
-    return {
-      items: ItemList.propTypes.items,
-      noResultsBanner: PropTypes.bool,
-    };
-  }
-
-  static get defaultProps() {
-    return {
-      noResultsBanner: false,
-    };
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selected: null,
-    };
-  }
-
-  handleChange(selected) {
-    this.setState({selected});
-  }
-
-  render() {
-    const {items, noResultsBanner, ...props} = this.props;
-    if (items.length === 0) {
-      return (
-        <Localized id="all-items-no-results">
-          <ItemListPlaceholder>
-            no rESULTs
-          </ItemListPlaceholder>
-        </Localized>
-      );
-    }
-
-    const {selected} = this.state;
-    const verbose = items.length <= MAX_VERBOSE_ITEMS;
-    return (
-      <div className={styles.allItemsContainer}>
-        {noResultsBanner && (
-          <Localized id="no-results-banner">
-            <PanelBanner>no rESULTs</PanelBanner>
-          </Localized>
-        )}
-        <ItemList {...props} items={items} className={styles.allItems}
-                  verbose={verbose} selected={selected}
-                  onChange={(s) => this.handleChange(s)}/>
-      </div>
-    );
-  }
-}
 
 export default connect(
   (state) => {
@@ -89,4 +26,4 @@ export default connect(
     onClick: (id) => { dispatch(selectItem(id)); },
     onCopy: (field) => { dispatch(copiedField(field)); },
   }),
-)(AllItems);
+)(PopupItemList);
