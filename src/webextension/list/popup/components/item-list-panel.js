@@ -26,7 +26,7 @@ export default function ItemListPanel({inputRef}) {
         <ItemFilter inputRef={inputRef}/>
       </PanelHeader>
 
-      <PanelBody>
+      <PanelBody scroll={false}>
         <AllItems/>
       </PanelBody>
 
