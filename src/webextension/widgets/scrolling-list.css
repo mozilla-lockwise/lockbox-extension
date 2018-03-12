@@ -26,5 +26,4 @@
 .scrolling-list:focus > .styled-item[data-selected] {
   color: #ffffff;
   background-color: #0060df;
-  box-shadow: inset 0 1px 0 #0a84ff, inset 0 -1px 0 #0a84ff;
 }
