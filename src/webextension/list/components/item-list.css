@@ -20,23 +20,26 @@
   background-color: #ffffff;
 }
 
-.item:hover {
+.item:first-child {
+  border-top: 1px solid #d7d7db;
+}
+
+.item .item-summary:hover {
   background-color: #ededf0;
 }
 
-.item:active {
+.item .item-summary:active {
   background-color: #d7d7db;
 }
 
-.item[data-selected] {
+.item[data-selected] .item-summary {
   background-color: #ebF5ff;
-  border-bottom-color: #99bff2;
-  box-shadow: 0 -1px 0 #99bff2;
+  box-shadow: 0 -1px 0 #99bff2, 0 1px 0 #99bff2;
 }
 
-.item-list:focus > .item[data-selected] {
-  box-shadow: 0 -1px 0 #0a84ff;
-  border-bottom-color: #0a84ff;
+.item-list:focus > .item[data-selected] .item-summary {
+  box-shadow: 0 -1px 0 #0a84ff, 0 1px 0 #0a84ff;
+  position: relative;
 }
 
 .verbose + .verbose {

@@ -49,7 +49,7 @@ ItemSummaryCopyButtons.propTypes = {
   onCopy: PropTypes.func.isRequired,
 };
 
-export default function ItemSummary({id, title, username, verbose, onCopy}) {
+export default function ItemSummary({className, id, title, username, verbose, onCopy}) {
   // istanbul ignore next
   if (id === NEW_ITEM_ID && verbose) {
     throw new Error("verbose <ItemSummary/> cannot be used with new items");
@@ -61,9 +61,10 @@ export default function ItemSummary({id, title, username, verbose, onCopy}) {
   const idModifier = id === NEW_ITEM_ID ? "new-" : "";
   const titleId = `item-summary-${idModifier}title`;
   const usernameId = `item-summary-${idModifier}username`;
+  const finalClassName = `${styles.itemSummary} ${className}`.trimRight();
   return (
     <div>
-      <div className={styles.itemSummary}>
+      <div className={finalClassName}>
         <Localized id={titleId} $title={trimmedTitle}
                    $length={trimmedTitle.length}>
           <div className={styles.title}>no tITLe</div>
@@ -80,6 +81,7 @@ export default function ItemSummary({id, title, username, verbose, onCopy}) {
 }
 
 ItemSummary.propTypes = {
+  className: PropTypes.string,
   id: PropTypes.string,
   title: PropTypes.string,
   username: PropTypes.string,
@@ -88,6 +90,7 @@ ItemSummary.propTypes = {
 };
 
 ItemSummary.defaultProps = {
+  className: "",
   id: null,
   title: "",
   username: "",
