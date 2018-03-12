@@ -14,7 +14,7 @@ openAccount(browser.storage.local).then(async (account) => {
       await datastore.unlock(DEFAULT_APP_KEY);
     } catch (err) {
       // eslint-disable-next-line no-console
-      console.log(`WARNING: datastore is in an inconsistent state.`);
+      console.error("datastore is in an inconsistent state.");
     }
   }
 
