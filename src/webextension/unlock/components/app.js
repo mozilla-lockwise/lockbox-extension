@@ -30,7 +30,7 @@ export default function App() {
   return (
     <Localized id="document">
       <DocumentTitle title="lOCKBOx eNTRIEs">
-        <Panel>
+        <Panel className={styles.unlock}>
           <PanelBody>
             <img className={styles.lockie} src={imgSrc} alt=""/>
             <section className={styles.unlockContent}>

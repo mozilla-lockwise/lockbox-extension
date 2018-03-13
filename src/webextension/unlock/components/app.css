@@ -13,15 +13,19 @@ body {
   -moz-user-select: none;
 }
 
+.unlock {
+  height: 360px;
+}
+
 .lockie {
   display: block;
-  margin: 3em auto 0;
+  margin: 4em auto 0;
   width: 200px;
 }
 
 .unlock-content {
   margin: 1em auto 3em;
-  width: 250px;
+  width: 240px;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -35,7 +39,7 @@ body {
 }
 
 .unlock-content > h2 {
-  font-size: 1.3em;
+  font-size: 1.15em;
   font-weight: 300;
   font-style: italic;
   text-align: center;
