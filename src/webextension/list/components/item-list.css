@@ -25,16 +25,16 @@
 }
 
 .item .item-summary:hover {
-  background-color: #ededf0;
+  background-color: rgba(10, 132, 255, 0.07);
 }
 
 .item .item-summary:active {
-  background-color: #d7d7db;
+  background-color: rgba(10, 132, 255, 0.12);
 }
 
 .item[data-selected] .item-summary {
-  background-color: #ebF5ff;
-  box-shadow: 0 -1px 0 #99bff2, 0 1px 0 #99bff2;
+  background-color: rgba(10, 132, 255, 0.12);
+  box-shadow: 0 -1px 0 rgba(10, 132, 255, 0.4), 0 1px 0 rgba(10, 132, 255, 0.4);
 }
 
 .item-list:focus > .item[data-selected] .item-summary {
