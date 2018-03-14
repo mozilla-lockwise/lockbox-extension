@@ -7,16 +7,42 @@ export function parseFilterString(filter) {
   if (!filter) {
     return [];
   }
-  return filter.split(/\s+/).map((i) => i.toLocaleLowerCase());
+  return filter.split(/\s+/);
+}
+
+function tryMakeURL(string, defaultProtocol = null) {
+  let url = null;
+  try {
+    url = new URL(string);
+  } catch (e) {
+    if (defaultProtocol) {
+      try {
+        url = new URL(defaultProtocol + "//" + string);
+      } catch (e) {}
+    }
+  }
+  return {url, string};
 }
 
 function match(filterElement, value) {
-  return value.includes(filterElement);
+  return value.toLocaleLowerCase().includes(filterElement.toLocaleLowerCase());
 }
 
-function matchAny(filterElement, values) {
+function matchURL(filterElement, value) {
+  // If the user is in the middle of typing a URL or entered something not
+  // URL-like in the origin field, just to a string comparison. This is safe for
+  // strictly matching auto-filled URLs since they're always full hosts with
+  // protocol (and possibly port).
+  if (!filterElement.url || !value.url) {
+    return match(filterElement.string, value.string);
+  }
+  return (filterElement.url.protocol === value.url.protocol &&
+          filterElement.url.host === value.url.host);
+}
+
+function matchAny(filterElement, values, matcher = match) {
   for (let i of values) {
-    if (match(filterElement, i)) {
+    if (matcher(filterElement, i)) {
       return true;
     }
   }
@@ -24,12 +50,13 @@ function matchAny(filterElement, values) {
 }
 
 export function filterItem(filter, item) {
-  const title = item.title.toLocaleLowerCase();
-  const username = item.username.toLocaleLowerCase();
-  const origins = item.origins.map((i) => i.toLocaleLowerCase());
+  const title = item.title;
+  const username = item.username;
+  const origins = item.origins.map((i) => tryMakeURL(i, "https:"));
 
   for (let i of filter) {
-    if (!match(i, title) && !match(i, username) && !matchAny(i, origins)) {
+    if (!match(i, title) && !match(i, username) &&
+        !matchAny(tryMakeURL(i), origins, matchURL)) {
       return false;
     }
   }
