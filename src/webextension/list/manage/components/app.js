@@ -45,7 +45,7 @@ export default class App extends React.Component {
                                 this._filterField = element;
                               }}/>
                 </Toolbar>
-                <AllItems/>
+                <AllItems className={styles.allItems}/>
               </aside>
               <article>
                 <CurrentSelection/>
