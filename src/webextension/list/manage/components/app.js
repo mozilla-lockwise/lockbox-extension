@@ -38,7 +38,7 @@ export default class App extends React.Component {
                 <CurrentAccountSummary/>
               </Toolbar>
               <aside>
-                <PanelHeader className={styles.filterBar}
+                <PanelHeader floatingBorder
                              toolbarClassName={styles.filterToolbar}>
                   <ItemFilter className={styles.filter}
                               inputRef={(element) => {
@@ -47,9 +47,9 @@ export default class App extends React.Component {
                   <AddItem/>
                 </PanelHeader>
                 <PanelBody scroll={false}>
-                  <AllItems className={styles.allItems}/>
+                  <AllItems/>
                 </PanelBody>
-                <PanelFooter>
+                <PanelFooter floatingBorder>
                   <SendFeedback/>
                 </PanelFooter>
               </aside>

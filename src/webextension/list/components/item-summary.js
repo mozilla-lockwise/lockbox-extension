@@ -64,7 +64,7 @@ export default function ItemSummary({className, id, title, username, verbose,
   const titleId = `item-summary-${idModifier}title`;
   const usernameId = `item-summary-${idModifier}username`;
   return (
-    <div>
+    <div className={styles.itemSummaryContainer}>
       <div className={classNames([styles.itemSummary, className])}>
         <Localized id={titleId} $title={trimmedTitle}
                    $length={trimmedTitle.length}>

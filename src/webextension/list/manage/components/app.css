@@ -52,10 +52,6 @@ body > main,
   overflow: auto;
 }
 
-.filter-bar {
-  border-bottom-width: 0;
-}
-
 .filter-toolbar > * + * {
   margin-inline-start: 8px;
 }

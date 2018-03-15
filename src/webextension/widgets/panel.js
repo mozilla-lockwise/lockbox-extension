@@ -13,10 +13,14 @@ import Toolbar from "./toolbar";
 import buttonStyles from "./button.css";
 import styles from "./panel.css";
 
-export function PanelHeader({className, toolbarClassName, onBack, children}) {
+export function PanelHeader({className, toolbarClassName, floatingBorder,
+                             onBack, children}) {
   const imgSrc = browser.extension.getURL("/icons/arrowhead-left-16.svg");
   return (
-    <header className={classNames([styles.panelHeader, className])}>
+    <header className={classNames([
+              styles.panelHeader, floatingBorder && styles.floatingBorder,
+              className,
+            ])}>
       {onBack ? (
         <Button theme="ghost" size="micro" onClick={onBack}>
           <Localized id="panel-back-button">
@@ -34,6 +38,7 @@ export function PanelHeader({className, toolbarClassName, onBack, children}) {
 PanelHeader.propTypes = {
   className: PropTypes.string,
   toolbarClassName: PropTypes.string,
+  floatingBorder: PropTypes.bool,
   onBack: PropTypes.func,
   children: PropTypes.node,
 };
@@ -41,6 +46,7 @@ PanelHeader.propTypes = {
 PanelHeader.defaultProps = {
   className: "",
   toolbarClassName: "",
+  floatingBorder: false,
 };
 
 export function PanelBody({className, scroll, children}) {
@@ -82,9 +88,12 @@ PanelBanner.defaultProps = {
   className: "",
 };
 
-export function PanelFooter({className, children}) {
+export function PanelFooter({className, floatingBorder, children}) {
   return (
-    <footer className={classNames([styles.panelFooter, className])}>
+    <footer className={classNames([
+              styles.panelFooter, floatingBorder && styles.floatingBorder,
+              className,
+            ])}>
       {children}
     </footer>
   );
@@ -93,10 +102,12 @@ export function PanelFooter({className, children}) {
 PanelFooter.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
+  floatingBorder: PropTypes.bool,
 };
 
 PanelFooter.defaultProps = {
   className: "",
+  floatingBorder: false,
 };
 
 const THEME_CLASS_NAME = {
