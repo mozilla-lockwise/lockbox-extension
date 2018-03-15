@@ -18,10 +18,10 @@ export default function ItemList({items, itemClassName, verbose, onCopy,
   ).trimRight();
 
   return (
-    <ScrollingList itemClassName={finalItemClassName} data={items} {...props}>
+    <ScrollingList className={styles.itemList} itemClassName={finalItemClassName} data={items} styledItems={false} {...props}>
       {({id, title, username}) => {
         return (
-          <ItemSummary id={id} title={title} username={username}
+          <ItemSummary className={styles.itemSummary} id={id} title={title} username={username}
                        verbose={verbose} onCopy={onCopy}/>
         );
       }}
