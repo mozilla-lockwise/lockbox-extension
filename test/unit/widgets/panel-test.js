@@ -29,6 +29,13 @@ describe("widgets > panel", () => {
       expect(wrapper.find("button")).to.have.length(0);
     });
 
+    it("render floating border", () => {
+      const wrapper = mount(<PanelHeader floatingBorder>header</PanelHeader>);
+      expect(wrapper.find("header").prop("className")).to.match(
+        /^\S+panel-header\S+ \S+floating-border\S+$/
+      );
+    });
+
     it("merge classNames", () => {
       const wrapper = mount(<PanelHeader className="foo"/>);
       expect(wrapper.find("header").prop("className")).to.match(
@@ -77,6 +84,13 @@ describe("widgets > panel", () => {
       expect(wrapper.find("footer")).to.have.text("footer");
       expect(wrapper.find("footer").prop("className")).to.match(
         /^\S+panel-footer\S+$/
+      );
+    });
+
+    it("render floating border", () => {
+      const wrapper = mount(<PanelFooter floatingBorder>header</PanelFooter>);
+      expect(wrapper.find("footer").prop("className")).to.match(
+        /^\S+panel-footer\S+ \S+floating-border\S+$/
       );
     });
 
