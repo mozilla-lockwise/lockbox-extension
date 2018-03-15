@@ -35,11 +35,11 @@
 .item[data-selected] .item-summary {
   background-color: rgba(10, 132, 255, 0.12);
   box-shadow: 0 -1px 0 rgba(10, 132, 255, 0.4), 0 1px 0 rgba(10, 132, 255, 0.4);
+  position: relative;
 }
 
 .item-list:focus > .item[data-selected] .item-summary {
   box-shadow: 0 -1px 0 #0a84ff, 0 1px 0 #0a84ff;
-  position: relative;
 }
 
 .verbose + .verbose {
