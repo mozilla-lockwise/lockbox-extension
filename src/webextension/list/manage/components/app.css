@@ -43,6 +43,7 @@ body > main,
   background-color: #ededf0;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  border-inline-end: 1px solid #d7d7db;
 }
 
 .app-main > article {
@@ -52,13 +53,6 @@ body > main,
   overflow: auto;
 }
 
-.filter {
-  border: 1px solid #d1d1d2;
-  border-inline-start: 0px;
-  border-radius: 0;
-}
-
-.filter:focus-within,
-.filter:focus-within:hover {
-  box-shadow: none;
+.filter-bar {
+  padding: 12px;
 }

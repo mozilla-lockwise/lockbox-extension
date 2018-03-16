@@ -124,7 +124,7 @@ describe("list > manage > components > <EditItemDetails/>", () => {
       for (let i in updatedFields) {
         simulateTyping(wrapper.find(`[name="${i}"]`).filterWhere((x) => {
           return typeof x.type() === "string";
-        }), updatedFields[i]);
+        }), updatedFields[i], {clear: true});
       }
       wrapper.findWhere((x) => x.prop("id") === "item-details-save-existing")
              .find("button").simulate("submit");
