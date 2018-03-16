@@ -1,4 +1,4 @@
-"""Tests for lockbox extension."""
+"""Tests for guest mode."""
 
 
 def test_guest_login(login_page):
@@ -20,17 +20,3 @@ def test_delete_entry_as_guest(home_page):
     entry = home_page.entries[0].click()
     entry.delete()
     assert len(home_page.entries) == 0
-
-
-def test_sign_in_with_fxa(fxa_account, login_page):
-    """Sign in with fxa from the login page."""
-    fxa = fxa_account
-    home_page = login_page.sign_in(fxa.email, fxa.password)
-    assert home_page.sign_in_button_is_displayed() is False
-
-
-def test_sign_in_with_fxa_from_home(fxa_account, home_page):
-    """Sign in with fxa from 'Home' page."""
-    fxa = fxa_account
-    home_page.sign_in(fxa.email, fxa.password)
-    assert home_page.sign_in_button_is_displayed() is False
