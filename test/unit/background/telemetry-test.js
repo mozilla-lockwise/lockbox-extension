@@ -60,40 +60,4 @@ describe("background > telemetry", () => {
       });
     });
   });
-
-  describe("with fxa uid", () => {
-    before(() => {
-      // Pretend we're signed in.
-      getAccount().info = {
-        uid: "1234",
-      };
-    });
-
-    after(() => {
-      getAccount().info = undefined;
-    });
-
-    it("recordEvent() (with fxa uid)", async () => {
-      const result = await telemetry.recordEvent("method", "object");
-      expect(result).to.deep.equal({});
-      expect(onMessage).to.have.been.calledWith({
-        type: "telemetry_event",
-        method: "method",
-        object: "object",
-        extra: {fxauid: "1234"},
-      });
-    });
-
-    it("recordEvent() (with fxa uid and extras)", async () => {
-      const result = await telemetry.recordEvent("method", "object",
-                                                 {extra: "value"});
-      expect(result).to.deep.equal({});
-      expect(onMessage).to.have.been.calledWith({
-        type: "telemetry_event",
-        method: "method",
-        object: "object",
-        extra: {extra: "value", fxauid: "1234"},
-      });
-    });
-  });
 });

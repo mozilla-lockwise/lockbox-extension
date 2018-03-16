@@ -94,7 +94,6 @@ Services.telemetry.registerEvents("event_category", {
 
 For our purposes, we will use the `extra` field for a few purposes:
 
-- To log the FxA user id of the client logging the event (e.g. `"fxauid": uid`)
 - To log the UUID of the item that has been added or changed (e.g. `"item_id": UUID`)
 - To log the fields that are modified when an item is updated in the datastore (e.g. `"fields": "password,notes"`  (because the value has to be a string we will have to concat the fields that were updated somehow)
 
@@ -138,7 +137,7 @@ These are the metrics we currently collect regarding the state of user datastore
 
 ## List of Events Currently Recorded
 
-All events are currently implemented under the **category: lockboxV0**. The `extra` field always contains `fxauid` where possible (i.e. after FxA auth). For events pertaining to a particular Lockbox item, `itemid` is also included. They are listed and grouped together based on the contents of the event's `method` field.
+All events are currently implemented under the **category: lockboxV2**. The `extra` field always contains `item_id` for events pertaining to a particular Lockbox item. They are listed and grouped together based on the contents of the event's `method` field.
 
 1. `startup` fires when the webextension is loaded. **objects**: webextension. Note that this event fires whenever the browser is started, so is not indicative of direct user interaction with Lockbox.
 
