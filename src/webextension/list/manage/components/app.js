@@ -31,12 +31,6 @@ export default class App extends React.Component {
         <DocumentTitle title="lOCKBOx eNTRIEs">
           <div className={styles.app}>
             <section className={styles.appMain}>
-              <Toolbar className={styles.navigation}>
-                <GoHome/>
-                <ToolbarSpace/>
-                <OpenFAQ/>
-                <CurrentAccountSummary/>
-              </Toolbar>
               <aside>
                 <PanelHeader floatingBorder
                              toolbarClassName={styles.filterToolbar}>
@@ -54,6 +48,12 @@ export default class App extends React.Component {
                 </PanelFooter>
               </aside>
               <article>
+                <Toolbar className={styles.navigation}>
+                  <GoHome/>
+                  <ToolbarSpace/>
+                  <OpenFAQ/>
+                  <CurrentAccountSummary/>
+                </Toolbar>
                 <CurrentSelection/>
               </article>
             </section>

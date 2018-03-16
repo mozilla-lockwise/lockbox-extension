@@ -24,12 +24,6 @@ body > main,
   display: grid;
   height: 100%;
   grid-template-columns: 1fr 3fr;
-  grid-template-rows: auto 1fr;
-}
-
-.navigation {
-  background-color: #ededf0;
-  grid-column-start: span 2;
 }
 
 .navigation > * + * {
@@ -48,7 +42,6 @@ body > main,
 .app-main > article {
   grid-column: 2;
   background-color: #f9f9fa;
-  border-top: 1px solid #d1d1d2;
   overflow: auto;
 }
 
