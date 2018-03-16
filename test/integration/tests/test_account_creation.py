@@ -1,4 +1,4 @@
-"""Test login and new account creation flows"""
+"""Test login and new account creation flows."""
 
 
 def test_sign_in_with_fxa(fxa_account, login_page):

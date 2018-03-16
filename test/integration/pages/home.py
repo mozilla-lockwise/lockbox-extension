@@ -50,6 +50,7 @@ class Home(Base):
 
     def create_new_entry(self, site_name='', url='', username='',
                          password='', note=''):
+        """Create and save a new entry."""
         current_entries = len(self.entries)
         self.find_element(*self._new_entry_locator).click()
         entry = self.entries[0].click()
@@ -106,7 +107,6 @@ class Entry(Region):
         self.root.click()
         return self.EntryDetail(self)
 
-
     class EntryDetail(Region):
         """Entry detail locators and functions."""
 
@@ -122,33 +122,43 @@ class Entry(Region):
                           munged_class_name('first-label')))
         _title_text_locator = (By.CLASS_NAME, '{}'.format(
                                munged_class_name('field-text')))
-        _site_name_locator = (By.CSS_SELECTOR, 'article div form input[name="title"]')
-        _website_address_locator = (By.CSS_SELECTOR, 'article div form input[name="origin"]')
-        _username_locator = (By.CSS_SELECTOR, 'article div form input[name="username"]')
-        _password_locator = (By.CSS_SELECTOR, 'article div form input[name="password"]')
-        _note_locator = (By.CSS_SELECTOR, 'article div form textarea[name="notes"]')
+        _site_name_locator = (By.CSS_SELECTOR, 'article div form '
+                              'input[name="title"]')
+        _website_address_locator = (By.CSS_SELECTOR, 'article div form '
+                                    'input[name="origin"]')
+        _username_locator = (By.CSS_SELECTOR, 'article div form '
+                             'input[name="username"]')
+        _password_locator = (By.CSS_SELECTOR, 'article div form '
+                             'input[name="password"]')
+        _note_locator = (By.CSS_SELECTOR, 'article div form '
+                         'textarea[name="notes"]')
         _save_entry_locator = (By.CSS_SELECTOR, 'article div form menu'
                                'button.{}'.format(munged_class_name('button')))
         _save_entry_locator = (By.CSS_SELECTOR,
                                'article div form menu button[type="submit"]')
 
         def set_site_name(self, site_name):
+            """Set the entry site name."""
             field = self.find_element(*self._site_name_locator)
             field.send_keys(site_name)
 
         def set_website(self, url):
+            """Set the entry website."""
             field = self.find_element(*self._website_address_locator)
             field.send_keys(url)
 
         def set_username(self, username):
+            """Set the entry username."""
             field = self.find_element(*self._username_locator)
             field.send_keys(username)
 
         def set_password(self, password):
+            """Set the entry password."""
             field = self.find_element(*self._password_locator)
             field.send_keys(password)
 
         def set_note(self, note):
+            """Set the entry note."""
             field = self.find_element(*self._note_locator)
             field.send_keys(note)
 
@@ -159,6 +169,7 @@ class Entry(Region):
             return title.find_element(*self._title_text_locator).text
 
         def save(self):
+            """Save the entry."""
             self.find_element(*self._save_entry_locator).click()
 
         def delete(self):

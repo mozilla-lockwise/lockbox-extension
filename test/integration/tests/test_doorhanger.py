@@ -1,4 +1,4 @@
-"""Tests for the door hanger """
+"""Tests for the door hanger."""
 
 
 def test_door_hanger_interaction(fxa_account, login_page):
