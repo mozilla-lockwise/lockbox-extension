@@ -20,8 +20,13 @@ export default class TextArea extends React.Component {
     };
   }
 
-  focus() {
+  focus(select = false) {
     this.textAreaElement.focus();
+    if (select) {
+      this.textAreaElement.setSelectionRange(
+        0, this.textAreaElement.value.length
+      );
+    }
   }
 
   render() {

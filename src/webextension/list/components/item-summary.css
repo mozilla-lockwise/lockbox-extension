@@ -3,23 +3,19 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 .item-summary {
-  padding: 0.5em;
+  padding: 16px 20px;
   font-size: 15px;
 }
 
 .item-summary::before {
-  background-image: url(/icons/arrowhead-right-16.svg);
+  background-image: url(/icons/chevron-right.svg);
   background-repeat: no-repeat;
-  background-size: 16px 16px;
+  background-size: 5px 9px;
   content: "";
   float: right;
-  height: 16px;
-  width: 16px;
-  margin: 14px 0;
-}
-
-[data-selected] .item-summary::before {
-  display: none;
+  height: 9px;
+  width: 5px;
+  margin: 16px 0;
 }
 
 .title,
@@ -38,4 +34,34 @@
 .subtitle {
   font-size: 13px;
   font-weight: 400;
+}
+
+.copy-buttons {
+  border-top: 1px solid #d7d7db;
+  display: flex;
+}
+
+.copy-button {
+  flex: 1;
+  height: 40px;
+}
+
+.copy-button + .copy-button {
+  border-inline-start: 1px solid #d7d7db;
+}
+
+.copy-button-inner {
+  border-radius: 0;
+}
+
+.copy-button-inner:focus {
+  box-shadow: inset 0 0 0 2px #0a84ff;
+}
+
+.copy-button-inner:hover {
+  background-color: #ededf0;
+}
+
+.copy-button-inner:active:hover {
+  background-color: #d7d7db;
 }

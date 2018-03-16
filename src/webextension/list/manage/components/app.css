@@ -10,6 +10,7 @@ body {
   font: caption;
   font-size: 13px;
   -moz-user-select: none;
+  overflow: hidden;
 }
 
 html,
@@ -31,28 +32,27 @@ body > main,
   grid-column-start: span 2;
 }
 
+.navigation > * + * {
+  margin-inline-start: 40px;
+}
+
 .app-main > aside {
   grid-column: 1;
   min-width: 150px;
   min-height: 0;
-  background-color: rgba(215, 215, 219, 0.75);
+  background-color: #ededf0;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  border-inline-end: 1px solid #d7d7db;
 }
 
 .app-main > article {
   grid-column: 2;
   background-color: #f9f9fa;
   border-top: 1px solid #d1d1d2;
+  overflow: auto;
 }
 
-.filter {
-  border: 1px solid #d1d1d2;
-  border-inline-start: 0px;
-  border-radius: 0;
-}
-
-.filter:focus-within,
-.filter:focus-within:hover {
-  box-shadow: none;
+.filter-bar {
+  padding: 12px;
 }

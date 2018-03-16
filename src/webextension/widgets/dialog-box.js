@@ -14,7 +14,15 @@ export default class DialogBox extends React.Component {
   static get propTypes() {
     return {
       children: PropTypes.node.isRequired,
-      buttonLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+      buttons: PropTypes.arrayOf(
+        PropTypes.oneOf([
+          PropTypes.shape({ label: PropTypes.string }),
+          PropTypes.shape({
+            label: PropTypes.string,
+            theme: Button.propTypes.theme,
+          }),
+        ])
+      ).isRequired,
       onClick: PropTypes.func.isRequired,
       onClose: PropTypes.func.isRequired,
     };
@@ -25,25 +33,27 @@ export default class DialogBox extends React.Component {
   }
 
   render() {
-    const {children, buttonLabels, onClick, onClose} = this.props;
+    const {children, buttons, onClick, onClose} = this.props;
     return (
       <section className={styles.modalDialog}>
         <div>
           {children}
         </div>
         <menu>
-          {buttonLabels.map((label, i) => {
-            let primaryProps = {};
+          {buttons.map(({label, theme}, i) => {
+            let extraProps = {};
             if (i === 0) {
-              primaryProps = {
-                theme: "primary",
+              if (!theme) {
+                theme = "primary";
+              }
+              extraProps = {
                 ref: (element) => this._primaryButton = element,
               };
             }
 
             return (
               <Button key={i} onClick={() => { onClick(i); onClose(); }}
-                      {...primaryProps}>
+                      theme={theme} {...extraProps}>
                 {label}
               </Button>
             );
@@ -54,10 +64,13 @@ export default class DialogBox extends React.Component {
   }
 }
 
-export function ConfirmDialog({confirmLabel, cancelLabel, onConfirm,
+export function ConfirmDialog({confirmLabel, cancelLabel, theme, onConfirm,
                                ...props}) {
   return (
-    <DialogBox buttonLabels={[confirmLabel, cancelLabel]}
+    <DialogBox buttons={[
+                 {label: confirmLabel, theme},
+                 {label: cancelLabel},
+               ]}
                onClick={(i) => { if (i === 0) { onConfirm(); } }}
                {...props}/>
   );
@@ -67,14 +80,15 @@ ConfirmDialog.propTypes = {
   children: PropTypes.node.isRequired,
   confirmLabel: PropTypes.string.isRequired,
   cancelLabel: PropTypes.string.isRequired,
+  theme: Button.propTypes.theme,
   onConfirm: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export function LocalizedConfirmDialog({l10nId, onConfirm, onClose}) {
+export function LocalizedConfirmDialog({l10nId, theme, onConfirm, onClose}) {
   return (
     <Localized id={l10nId}>
-      <ConfirmDialog confirmLabel="yEs" cancelLabel="no"
+      <ConfirmDialog confirmLabel="yEs" cancelLabel="no" theme={theme}
                      onConfirm={onConfirm} onClose={onClose}>
         aRe yOu sURe?
       </ConfirmDialog>
@@ -84,6 +98,7 @@ export function LocalizedConfirmDialog({l10nId, onConfirm, onClose}) {
 
 LocalizedConfirmDialog.propTypes = {
   l10nId: PropTypes.string.isRequired,
+  theme: Button.propTypes.theme,
   onConfirm: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };

@@ -22,7 +22,11 @@
 }
 
 .button:focus {
-  box-shadow: inset 0 0 0 2px #0a84ff, 0 0 0 3px rgba(10, 132, 255, 0.3);
+  box-shadow: 0 0 0 1px #0a84ff inset, 0 0 0 1px #0a84ff, 0 0 0 4px rgba(10, 132, 255, 0.3);
+}
+
+.button.danger-theme:focus {
+  box-shadow: 0 0 0 1px #ff0039 inset, 0 0 0 1px #ff0039, 0 0 0 4px rgba(215, 0, 34, 0.3);
 }
 
 .button::-moz-focus-inner {
@@ -42,6 +46,11 @@
 .ghost-theme {
   color: #0c0c0d;
   background-color: transparent;
+}
+
+.danger-theme {
+  color: #ffffff;
+  background-color: #d70022;
 }
 
 .primary-theme:not([disabled]):hover {
@@ -71,10 +80,10 @@
 
 .normal-size {
   height: 32px;
-  min-width: 80px;
   padding: 0 8px;
   font-size: 13px;
   border-radius: 2px;
+  min-width: 80px;
 }
 
 .micro-size {
@@ -82,4 +91,8 @@
   padding: 0 8px;
   font-size: 11px;
   border-radius: 2px;
+}
+
+.wide-size {
+  min-width: 132px;
 }

@@ -7,7 +7,7 @@
   font: caption;
   font-size: 13px;
   color: #0c0c0d;
-  background-color: #f9f9fa;
+  background-color: #ffffff;
   border: 1px solid rgba(12, 12, 13, 0.3);
   border-radius: 2px;
 }
@@ -18,7 +18,7 @@
 
 .text-area:focus {
   border-color: #0a84ff;
-  /* Note: This is a best-guess from the screenshots for the Photon spec, since
-     the box shadow isn't actually specified. */
-  box-shadow: 0 0 3px rgba(10, 168, 255, 0.5);
+  /* Note: This is adapted from the Photon button spec, since the input fields
+     spec doesn't define this. */
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.3);
 }
