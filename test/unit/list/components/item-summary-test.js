@@ -46,6 +46,15 @@ describe("list > components > <ItemSummary/>", () => {
     expect(wrapper.find("button")).to.have.length(0);
   });
 
+  it("merge classNames", () => {
+    const wrapper = mountWithL10n(
+      <ItemSummary className="foo" title="title" username="username"/>
+    );
+    expect(wrapper.find("div > div").prop("className")).to.match(
+      /^\S*item-summary\S* foo$/
+    );
+  });
+
   describe("verbose", () => {
     let wrapper, mockCopy, onCopy;
 

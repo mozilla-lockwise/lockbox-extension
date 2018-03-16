@@ -13,8 +13,9 @@
   display: flex;
   align-items: center;
   font-weight: 500;
-  height: 32px;
-  padding: 2px 5px;
+  background: #ededf0;
+  height: 30px;
+  padding: 12px;
   border-bottom: 1px solid rgba(12, 12, 13, 0.3);
 }
 

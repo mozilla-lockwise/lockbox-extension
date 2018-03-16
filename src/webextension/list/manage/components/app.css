@@ -43,6 +43,7 @@ body > main,
   background-color: #ededf0;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  border-inline-end: 1px solid #d7d7db;
 }
 
 .app-main > article {
