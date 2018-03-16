@@ -10,14 +10,22 @@ import CurrentSelection from "../containers/current-selection";
 
 import styles from "./app.css";
 
-export default function App() {
-  return (
-    <Localized id="document">
-      <DocumentTitle title="lOCKBOx eNTRIEs">
-        <div className={styles.app}>
-          <CurrentSelection/>
-        </div>
-      </DocumentTitle>
-    </Localized>
-  );
+export default class App extends React.Component {
+  componentDidMount() {
+    this._filterField.focus(true);
+  }
+
+  render() {
+    return (
+      <Localized id="document">
+        <DocumentTitle title="lOCKBOx eNTRIEs">
+          <div className={styles.app}>
+            <CurrentSelection inputRef={(element) => {
+              this._filterField = element;
+            }}/>
+          </div>
+        </DocumentTitle>
+      </Localized>
+    );
+  }
 }

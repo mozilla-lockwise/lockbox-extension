@@ -6,7 +6,7 @@ import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
-import ButtonStack from "./button-stack";
+import Stack from "./stack";
 
 import styles from "./input.css";
 
@@ -48,7 +48,7 @@ export default class PasswordInput extends React.Component {
     const {showPassword} = this.state;
     const disabledClass = disabled ? ` ${styles.disabled}` : "";
     const finalClassName = (
-      `${styles.inputWrapper}${disabledClass} ${className}`
+      `${styles.password} ${styles.inputWrapper}${disabledClass} ${className}`
     ).trimRight();
     const selectedIndex = showPassword ? 1 : 0;
 
@@ -57,16 +57,16 @@ export default class PasswordInput extends React.Component {
         <input className={monospace ? styles.monospace : ""} disabled={disabled}
                type={showPassword ? "text" : "password"}
                ref={(element) => this.inputElement = element} {...props}/>
-        <ButtonStack selectedIndex={selectedIndex}>
+        <Stack stretch selectedIndex={selectedIndex}>
           <Localized id="password-input-show">
-            <button type="button" disabled={disabled}
-                    onClick={() => this.showPassword(true)}>sHOw</button>
+            <button className={styles.showBtn} type="button" title="sHOw" disabled={disabled}
+                    onClick={() => this.showPassword(true)}></button>
           </Localized>
           <Localized id="password-input-hide">
-            <button type="button" disabled={disabled}
-                    onClick={() => this.showPassword(false)}>hIDe</button>
+            <button className={styles.hideBtn} type="button" title="hIDe" disabled={disabled}
+                    onClick={() => this.showPassword(false)}></button>
           </Localized>
-        </ButtonStack>
+        </Stack>
       </div>
     );
   }

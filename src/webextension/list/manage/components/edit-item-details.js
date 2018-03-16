@@ -73,7 +73,7 @@ export default class EditItemDetails extends React.Component {
                         onChange={(e) => this.handleChange(e)}/>
         <Toolbar className={styles.buttons}>
           <Localized id={`item-details-save-${newItem ? "new" : "existing"}`}>
-            <Button type="submit" theme="primary">sAVe</Button>
+            <Button type="submit" theme="primary" size="wide">sAVe</Button>
           </Localized>
           <Localized id="item-details-cancel">
             <Button type="button" onClick={() => onCancel()}>

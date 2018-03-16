@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 
 import Button from "./button";
 
+import buttonStyles from "./button.css";
 import styles from "./panel.css";
 
 export function PanelHeader({className, onBack, children}) {
@@ -72,6 +73,45 @@ PanelFooter.propTypes = {
 PanelFooter.defaultProps = {
   className: "",
 };
+
+const THEME_CLASS_NAME = {
+  primary: `${styles.primaryTheme}`,
+  normal: `${styles.normalTheme}`,
+};
+
+export class PanelFooterButton extends React.Component {
+  static get propTypes() {
+    return {
+      theme: PropTypes.oneOf(Object.keys(THEME_CLASS_NAME)),
+      className: PropTypes.string,
+    };
+  }
+
+  static get defaultProps() {
+    return {
+      theme: "normal",
+      className: "",
+    };
+  }
+
+  focus() {
+    this.buttonElement.focus();
+  }
+
+  render() {
+    const {theme, className, ...props} = this.props;
+    const themeClass = THEME_CLASS_NAME[theme];
+    const finalClassName = (
+      `${buttonStyles.button} ${styles.panelFooterButton} ${themeClass} ` +
+      `${className}`
+    ).trimRight();
+
+    return (
+      <button className={finalClassName} {...props}
+              ref={(element) => this.buttonElement = element}/>
+    );
+  }
+}
 
 export default function Panel({className, children}) {
   const finalClassName = `${styles.panel} ${className}`.trimRight();
