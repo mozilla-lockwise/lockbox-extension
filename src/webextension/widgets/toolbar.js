@@ -5,12 +5,13 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import { classNames } from "../common";
+
 import styles from "./toolbar.css";
 
 export default function Toolbar({className, children}) {
-  const finalClassName = `${styles.toolbar} ${className}`.trimRight();
   return (
-    <menu className={finalClassName}>
+    <menu className={classNames([styles.toolbar, className])}>
       {children}
     </menu>
   );
@@ -26,9 +27,8 @@ Toolbar.defaultProps = {
 };
 
 export function ToolbarSpace({className}) {
-  const finalClassName = `${styles.toolbarSpace} ${className}`.trimRight();
   return (
-    <span className={finalClassName}/>
+    <span className={classNames([styles.toolbarSpace, className])}/>
   );
 }
 

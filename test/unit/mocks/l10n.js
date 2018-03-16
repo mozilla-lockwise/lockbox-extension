@@ -16,7 +16,7 @@ function* generateMessages() {
 
 export function MockLocalizationProvider(props) {
   return (
-    <LocalizationProvider messages={generateMessages()} {...props}/>
+    <LocalizationProvider {...props} messages={generateMessages()}/>
   );
 }
 

@@ -6,6 +6,7 @@ import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
+import { classNames } from "../../common";
 import { NEW_ITEM_ID } from "../common";
 import CopyToClipboardButton from "../../widgets/copy-to-clipboard-button";
 
@@ -62,10 +63,9 @@ export default function ItemSummary({className, id, title, username, verbose,
   const idModifier = id === NEW_ITEM_ID ? "new-" : "";
   const titleId = `item-summary-${idModifier}title`;
   const usernameId = `item-summary-${idModifier}username`;
-  const finalClassName = `${styles.itemSummary} ${className}`.trimRight();
   return (
     <div>
-      <div className={finalClassName}>
+      <div className={classNames([styles.itemSummary, className])}>
         <Localized id={titleId} $title={trimmedTitle}
                    $length={trimmedTitle.length}>
           <div className={styles.title}>no tITLe</div>

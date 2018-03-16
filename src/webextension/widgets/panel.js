@@ -6,16 +6,16 @@ import { Localized } from "fluent-react";
 import React from "react";
 import PropTypes from "prop-types";
 
+import { classNames } from "../common";
 import Button from "./button";
 
 import buttonStyles from "./button.css";
 import styles from "./panel.css";
 
 export function PanelHeader({className, onBack, children}) {
-  const finalClassName = `${styles.panelHeader} ${className}`.trimRight();
   const imgSrc = browser.extension.getURL("/icons/arrowhead-left-16.svg");
   return (
-    <header className={finalClassName}>
+    <header className={classNames([styles.panelHeader, className])}>
       {onBack ? (
         <Button theme="ghost" size="micro" onClick={onBack}>
           <Localized id="panel-back-button">
@@ -39,9 +39,8 @@ PanelHeader.defaultProps = {
 };
 
 export function PanelBody({className, children}) {
-  const finalClassName = `${styles.panelBody} ${className}`.trimRight();
   return (
-    <main className={finalClassName}>
+    <main className={classNames([styles.panelBody, className])}>
       {children}
     </main>
   );
@@ -57,9 +56,8 @@ PanelBody.defaultProps = {
 };
 
 export function PanelFooter({className, children}) {
-  const finalClassName = `${styles.panelFooter} ${className}`.trimRight();
   return (
-    <footer className={finalClassName}>
+    <footer className={classNames([styles.panelFooter, className])}>
       {children}
     </footer>
   );
@@ -100,23 +98,18 @@ export class PanelFooterButton extends React.Component {
 
   render() {
     const {theme, className, ...props} = this.props;
-    const themeClass = THEME_CLASS_NAME[theme];
-    const finalClassName = (
-      `${buttonStyles.button} ${styles.panelFooterButton} ${themeClass} ` +
-      `${className}`
-    ).trimRight();
-
     return (
-      <button className={finalClassName} {...props}
-              ref={(element) => this.buttonElement = element}/>
+      <button {...props} className={classNames([
+                buttonStyles.button, styles.panelFooterButton,
+                THEME_CLASS_NAME[theme], className,
+              ])} ref={(element) => this.buttonElement = element}/>
     );
   }
 }
 
 export default function Panel({className, children}) {
-  const finalClassName = `${styles.panel} ${className}`.trimRight();
   return (
-    <article className={finalClassName}>
+    <article className={classNames([styles.panel, className])}>
       {children}
     </article>
   );

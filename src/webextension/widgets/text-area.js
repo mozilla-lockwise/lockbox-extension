@@ -5,6 +5,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import { classNames } from "../common";
+
 import styles from "./text-area.css";
 
 export default class TextArea extends React.Component {
@@ -31,9 +33,9 @@ export default class TextArea extends React.Component {
 
   render() {
     const {className, ...props} = this.props;
-    const finalClassName = `${styles.textArea} ${className}`.trimRight();
     return (
-      <textarea className={finalClassName} {...props}
+      <textarea {...props}
+                className={classNames([styles.textArea, className])}
                 ref={(element) => this.textAreaElement = element}/>
     );
   }
