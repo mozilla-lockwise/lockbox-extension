@@ -10,3 +10,7 @@ export function makeItemSummary(item) {
     username: item.entry.username,
   };
 }
+
+export function classNames(classNames) {
+  return classNames.filter((i) => i).join(" ");
+}

@@ -6,6 +6,7 @@ import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
+import { classNames } from "../../../common";
 import Button from "../../../widgets/button";
 import Toolbar from "../../../widgets/toolbar";
 import { EditItemFields } from "../../components/item-fields";
@@ -61,7 +62,7 @@ export default class EditItemDetails extends React.Component {
     const newItem = itemId === null;
 
     return (
-      <form className={`${styles.itemDetails} ${styles.editing}`}
+      <form className={classNames([styles.itemDetails, styles.editing])}
             onSubmit={(e) => {
               e.preventDefault();
               onSave(this.state);

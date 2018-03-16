@@ -5,6 +5,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import { classNames } from "../common";
+
 import styles from "./input.css";
 
 export default class Input extends React.Component {
@@ -31,11 +33,10 @@ export default class Input extends React.Component {
 
   render() {
     const {className, monospace, ...props} = this.props;
-    const mono = monospace ? ` ${styles.monospace}` : "";
-    const finalClassName = `${styles.input}${mono} ${className}`.trimRight();
     return (
-      <input className={finalClassName} {...props}
-             ref={(element) => this.inputElement = element}/>
+      <input {...props} className={classNames([
+               styles.input, monospace && styles.monospace, className,
+             ])} ref={(element) => this.inputElement = element}/>
     );
   }
 }

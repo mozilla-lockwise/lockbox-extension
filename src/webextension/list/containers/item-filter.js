@@ -13,7 +13,7 @@ import FilterInput from "../../widgets/filter-input";
 function ItemFilter({inputRef, ...props}) {
   return (
     <Localized id="item-filter">
-      <FilterInput placeholder="fILTEr…" ref={inputRef} {...props}/>
+      <FilterInput {...props} placeholder="fILTEr…" ref={inputRef}/>
     </Localized>
   );
 }

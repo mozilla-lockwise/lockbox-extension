@@ -52,8 +52,8 @@ export default class DialogBox extends React.Component {
             }
 
             return (
-              <Button key={i} onClick={() => { onClick(i); onClose(); }}
-                      theme={theme} {...extraProps}>
+              <Button {...extraProps} key={i} theme={theme}
+                      onClick={() => { onClick(i); onClose(); }}>
                 {label}
               </Button>
             );
@@ -67,12 +67,11 @@ export default class DialogBox extends React.Component {
 export function ConfirmDialog({confirmLabel, cancelLabel, theme, onConfirm,
                                ...props}) {
   return (
-    <DialogBox buttons={[
+    <DialogBox {...props} buttons={[
                  {label: confirmLabel, theme},
                  {label: cancelLabel},
                ]}
-               onClick={(i) => { if (i === 0) { onConfirm(); } }}
-               {...props}/>
+               onClick={(i) => { if (i === 0) { onConfirm(); } }}/>
   );
 }
 

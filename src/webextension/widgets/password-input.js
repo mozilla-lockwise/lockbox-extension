@@ -6,6 +6,7 @@ import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
+import { classNames } from "../common";
 import Stack from "./stack";
 
 import styles from "./input.css";
@@ -46,25 +47,26 @@ export default class PasswordInput extends React.Component {
   render() {
     const {className, monospace, disabled, ...props} = this.props;
     const {showPassword} = this.state;
-    const disabledClass = disabled ? ` ${styles.disabled}` : "";
-    const finalClassName = (
-      `${styles.password} ${styles.inputWrapper}${disabledClass} ${className}`
-    ).trimRight();
     const selectedIndex = showPassword ? 1 : 0;
 
     return (
-      <div className={finalClassName}>
-        <input className={monospace ? styles.monospace : ""} disabled={disabled}
-               type={showPassword ? "text" : "password"}
-               ref={(element) => this.inputElement = element} {...props}/>
+      <div className={classNames([
+             styles.password, styles.inputWrapper, disabled && styles.disabled,
+             className,
+           ])}>
+        <input {...props} type={showPassword ? "text" : "password"}
+               className={monospace ? styles.monospace : ""} disabled={disabled}
+               ref={(element) => this.inputElement = element}/>
         <Stack stretch selectedIndex={selectedIndex}>
           <Localized id="password-input-show">
-            <button className={styles.showBtn} type="button" title="sHOw" disabled={disabled}
-                    onClick={() => this.showPassword(true)}></button>
+            <button type="button" className={styles.showBtn} title="sHOw"
+                    disabled={disabled}
+                    onClick={() => this.showPassword(true)}/>
           </Localized>
           <Localized id="password-input-hide">
-            <button className={styles.hideBtn} type="button" title="hIDe" disabled={disabled}
-                    onClick={() => this.showPassword(false)}></button>
+            <button type="button" className={styles.hideBtn} title="hIDe"
+                    disabled={disabled}
+                    onClick={() => this.showPassword(false)}/>
           </Localized>
         </Stack>
       </div>

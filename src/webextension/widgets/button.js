@@ -5,6 +5,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import { classNames } from "../common";
+
 import styles from "./button.css";
 
 const THEME_CLASS_NAME = {
@@ -44,15 +46,11 @@ export default class Button extends React.Component {
 
   render() {
     const {className, theme, size, ...props} = this.props;
-    const themeClass = THEME_CLASS_NAME[theme];
-    const sizeClass = SIZE_CLASS_NAME[size];
-    const finalClassName = (
-      `${styles.button} ${themeClass} ${sizeClass} ${className}`
-    ).trimRight();
-
     return (
-      <button className={finalClassName} {...props}
-              ref={(element) => this.buttonElement = element}/>
+      <button {...props} className={classNames([
+                styles.button, THEME_CLASS_NAME[theme],
+                SIZE_CLASS_NAME[size], className,
+              ])} ref={(element) => this.buttonElement = element}/>
     );
   }
 }
