@@ -11,12 +11,14 @@ const THEME_CLASS_NAME = {
   primary: `${styles.primaryTheme}`,
   normal: `${styles.normalTheme}`,
   ghost: `${styles.ghostTheme}`,
+  danger: `${styles.dangerTheme}`,
 };
 
 const SIZE_CLASS_NAME = {
   puffy: `${styles.puffySize}`,
   normal: `${styles.normalSize}`,
   micro: `${styles.microSize}`,
+  wide: `${styles.normalSize} ${styles.wideSize}`,
 };
 
 export default class Button extends React.Component {

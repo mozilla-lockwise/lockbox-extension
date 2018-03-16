@@ -5,6 +5,11 @@ _aliases:
     language: node_js
     node_js: stable
 
+cache:
+  directories:
+    - node_modules
+cache: pip
+
 sudo: required
 jobs:
   include:
@@ -47,8 +52,11 @@ jobs:
     - stage: deploy
       if: branch = master
       <<: *node
+      python: '3.6'
       script: skip
       deploy:
+        edge:
+          branch: v1.8.47
         provider: pages
         on:
           branch: master

@@ -6,7 +6,7 @@ import chai, { expect } from "chai";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
-import getAccount from "src/webextension/background/accounts";
+import { setAccount, Account } from "src/webextension/background/accounts";
 import * as telemetry from "src/webextension/background/telemetry";
 
 chai.use(sinonChai);
@@ -24,7 +24,13 @@ describe("background > telemetry", () => {
 
   describe("no fxa uid", () => {
     before(() => {
-      getAccount().info = undefined;
+      setAccount(new Account({
+        config: "mock-telemetry",
+        info: undefined,
+      }));
+    });
+    after(() => {
+      setAccount();
     });
 
     it("recordEvent()", async () => {
@@ -35,6 +41,16 @@ describe("background > telemetry", () => {
         method: "method",
         object: "object",
         extra: undefined,
+      });
+    });
+
+    it("setScalar()", async () => {
+      const result = await telemetry.setScalar("name", "value");
+      expect(result).to.deep.equal({});
+      expect(onMessage).to.have.been.calledWith({
+        type: "telemetry_scalar",
+        name: "name",
+        value: "value",
       });
     });
 
@@ -54,13 +70,16 @@ describe("background > telemetry", () => {
   describe("with fxa uid", () => {
     before(() => {
       // Pretend we're signed in.
-      getAccount().info = {
-        uid: "1234",
-      };
+      setAccount(new Account({
+        config: "mock-telemetry",
+        info: {
+          uid: "1234",
+        },
+      }));
     });
 
     after(() => {
-      getAccount().info = undefined;
+      setAccount();
     });
 
     it("recordEvent() (with fxa uid)", async () => {

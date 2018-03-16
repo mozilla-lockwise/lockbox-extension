@@ -4,13 +4,13 @@
 
 .toolbar {
   margin: 0;
-  padding: 1ch;
+  padding: 10px;
   display: flex;
   align-items: center;
 }
 
 .toolbar > * + * {
-  margin-inline-start: 2ch;
+  margin-inline-start: 20px;
 }
 
 .toolbar-space {

@@ -31,7 +31,11 @@ describe("background > message ports", () => {
     let keys = new Map();
     keys.set("https://identity.mozilla.com/apps/lockbox", appKey);
 
-    getAccount.__Rewire__("Account", class MockAccount extends accounts.Account {
+    class MockAccount extends accounts.Account {
+      constructor() {
+        super({ config: "mock-message-ports" });
+      }
+
       async signIn() {
         this.info = {
           uid: "1234",
@@ -44,8 +48,8 @@ describe("background > message ports", () => {
 
         return this;
       }
-    });
-    accounts.setAccount();
+    }
+    accounts.setAccount(new MockAccount());
 
     await openDataStore();
     // capture connect from message-ports

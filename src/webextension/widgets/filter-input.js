@@ -43,24 +43,29 @@ export default class FilterInput extends React.Component {
     }
   }
 
+  focus(select = false) {
+    this.inputElement.focus();
+    if (select) {
+      this.inputElement.setSelectionRange(0, this.inputElement.value.length);
+    }
+  }
+
   render() {
     // eslint-disable-next-line no-unused-vars
     const {className, onChange, value, disabled, ...props} = this.props;
     const disabledClass = disabled ? ` ${styles.disabled}` : "";
     const finalClassName = (
-      `${styles.inputWrapper}${disabledClass} ${className}`
+      `${styles.filter} ${styles.inputWrapper}${disabledClass} ${className}`
     ).trimRight();
 
     return (
       <div className={finalClassName}>
-        <input type="search" {...props} disabled={disabled}
-               value={this.state.value}
-               onChange={(e) => this.updateValue(e.target.value)}/>
+        <input type="search" disabled={disabled} value={this.state.value}
+               onChange={(e) => this.updateValue(e.target.value)}
+               ref={(element) => this.inputElement = element} {...props}/>
         <Localized id="filter-input-clear">
-          <button type="button" disabled={disabled}
-                  onClick={() => this.updateValue("")}>
-            cLEAr
-          </button>
+          <button type="button" title="cLEAr" disabled={disabled}
+                  onClick={() => this.updateValue("")}/>
         </Localized>
       </div>
     );

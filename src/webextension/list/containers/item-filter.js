@@ -3,23 +3,28 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { Localized } from "fluent-react";
+import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 
 import { filterItems } from "../actions";
 import FilterInput from "../../widgets/filter-input";
 
-function ItemFilter(props) {
+function ItemFilter({inputRef, ...props}) {
   return (
     <Localized id="item-filter">
-      <FilterInput placeholder="fILTEr…" {...props}/>
+      <FilterInput placeholder="fILTEr…" ref={inputRef} {...props}/>
     </Localized>
   );
 }
 
+ItemFilter.propTypes = {
+  inputRef: PropTypes.func,
+};
+
 export default connect(
   (state) => ({
-    value: state.filter,
+    value: state.list.filter,
     disabled: state.cache.items.length === 0,
   }),
   (dispatch) => ({

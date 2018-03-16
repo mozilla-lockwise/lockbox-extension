@@ -7,34 +7,93 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import { NEW_ITEM_ID } from "../common";
+import CopyToClipboardButton from "../../widgets/copy-to-clipboard-button";
+
 import styles from "./item-summary.css";
 
-export default function ItemSummary({id, title, username}) {
-  title = title.trim();
-  username = username.trim();
+function ItemSummaryCopyButtons({id, username, onCopy}) {
+  async function getPassword() {
+    const response = await browser.runtime.sendMessage({
+      type: "get_item",
+      id,
+    });
+    return response.item.entry.password;
+  }
 
-  const titleId = `item-summary-${id === NEW_ITEM_ID ? "new-title" : "title"}`;
   return (
-    <div className={styles.itemSummary}>
-      <Localized id={titleId} $title={title} $length={title.length}>
-        <div className={styles.title}>no tITLe</div>
+    <div className={styles.copyButtons}
+         onMouseDown={(e) => e.stopPropagation()}>
+      <Localized id="item-summary-copy-username">
+        <CopyToClipboardButton className={styles.copyButton}
+                               buttonClassName={styles.copyButtonInner}
+                               value={username}
+                               onCopy={() => onCopy("username")}>
+          cOPy uSERNAMe
+        </CopyToClipboardButton>
       </Localized>
-      <Localized id="item-summary-username" $username={username}
-                 $length={username.length}>
-        <div className={styles.subtitle}>no uSERNAMe</div>
+      <Localized id="item-summary-copy-password">
+        <CopyToClipboardButton className={styles.copyButton}
+                               buttonClassName={styles.copyButtonInner}
+                               value={getPassword}
+                               onCopy={() => onCopy("password")}>
+          cOPy pASSWORd
+        </CopyToClipboardButton>
       </Localized>
     </div>
   );
 }
 
+ItemSummaryCopyButtons.propTypes = {
+  id: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  onCopy: PropTypes.func.isRequired,
+};
+
+export default function ItemSummary({className, id, title, username, verbose,
+                                     onCopy}) {
+  // istanbul ignore next
+  if (id === NEW_ITEM_ID && verbose) {
+    throw new Error("verbose <ItemSummary/> cannot be used with new items");
+  }
+
+  const trimmedTitle = title.trim();
+  const trimmedUsername = username.trim();
+
+  const idModifier = id === NEW_ITEM_ID ? "new-" : "";
+  const titleId = `item-summary-${idModifier}title`;
+  const usernameId = `item-summary-${idModifier}username`;
+  const finalClassName = `${styles.itemSummary} ${className}`.trimRight();
+  return (
+    <div>
+      <div className={finalClassName}>
+        <Localized id={titleId} $title={trimmedTitle}
+                   $length={trimmedTitle.length}>
+          <div className={styles.title}>no tITLe</div>
+        </Localized>
+        <Localized id={usernameId} $username={trimmedUsername}
+                   $length={trimmedUsername.length}>
+          <div className={styles.subtitle}>no uSERNAMe</div>
+        </Localized>
+      </div>
+      {verbose && <ItemSummaryCopyButtons id={id} username={username}
+                                          onCopy={onCopy}/>}
+    </div>
+  );
+}
+
 ItemSummary.propTypes = {
+  className: PropTypes.string,
   id: PropTypes.string,
   title: PropTypes.string,
   username: PropTypes.string,
+  verbose: PropTypes.bool,
+  onCopy: PropTypes.func,
 };
 
 ItemSummary.defaultProps = {
+  className: "",
   id: null,
   title: "",
   username: "",
+  verbose: false,
 };

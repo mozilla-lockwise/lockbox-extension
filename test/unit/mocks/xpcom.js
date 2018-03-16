@@ -8,7 +8,7 @@ window.ADDON_UNINSTALL = "ADDON_UNINSTALL";
 
 window.Components = {
   utils: {
-    "import": function() {},
+    "import": () => { },
   },
 };
 
@@ -40,5 +40,7 @@ window.Services = {
   telemetry: {
     registerEvents() {},
     recordEvent() {},
+    registerScalars() {},
+    scalarSet() {},
   },
 };

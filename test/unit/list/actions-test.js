@@ -28,7 +28,7 @@ describe("list > actions", () => {
     browser.runtime.onMessage.mockClearListener();
   });
 
-  it("getAcountStatus() dispatched", async () => {
+  it("getAccountStatus() dispatched", async () => {
     const account = {
       mode: "guest",
     };
@@ -66,6 +66,44 @@ describe("list > actions", () => {
         actionId: dispatched[0].actionId,
         account,
       },
+    ]);
+  });
+
+  it("openAccountPage() dispatched", () => {
+    const windowOpen = sinon.stub(window, "open");
+    store.dispatch(actions.openAccountPage());
+    expect(windowOpen).to.have.callCount(1);
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.OPEN_ACCOUNT_PAGE },
+    ]);
+    windowOpen.restore();
+  });
+
+  it("openOptions() dispatched", () => {
+    const openOptionsPage = sinon.stub(browser.runtime, "openOptionsPage");
+    store.dispatch(actions.openOptions());
+    expect(openOptionsPage).to.have.callCount(1);
+    expect(store.getActions()).to.deep.equal([
+      { type: actions.OPEN_OPTIONS },
+    ]);
+    openOptionsPage.restore();
+  });
+
+  it("signout() dispatched", async () => {
+    browser.runtime.onMessage.addListener((msg) => {
+      if (msg.type === "signout") {
+        return {};
+      }
+      return null;
+    });
+
+    await store.dispatch(actions.signout());
+    const dispatched = store.getActions();
+    expect(dispatched).to.deep.equal([
+      { type: actions.SIGNOUT_STARTING,
+        actionId: dispatched[0].actionId },
+      { type: actions.SIGNOUT_COMPLETED,
+        actionId: dispatched[0].actionId },
     ]);
   });
 
