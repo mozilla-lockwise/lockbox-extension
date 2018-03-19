@@ -57,82 +57,70 @@ function startup({webExtension}, reason) {
       "iconClick": {
         methods: ["iconClick"],
         objects: ["toolbar"],
-        extra_keys: ["fxauid"],
       },
       "displayView": {
         methods: ["render"],
         objects: ["firstrun", "popupUnlock", "manage", "doorhanger"],
-        extra_keys: ["fxauid"],
       },
       "itemAdding": {
         methods: ["itemAdding"],
         objects: ["manage"],
-        extra_keys: ["fxauid"],
       },
       "itemUpdating": {
         methods: ["itemUpdating"],
         objects: ["manage"],
-        extra_keys: ["fxauid"],
       },
       "itemDeleting": {
         methods: ["itemDeleting"],
         objects: ["manage"],
-        extra_keys: ["fxauid"],
       },
       "itemAdded": {
         methods: ["itemAdded"],
         objects: ["manage"],
-        extra_keys: ["itemid", "fxauid"],
+        extra_keys: ["itemid"],
       },
       "itemUpdated": {
         methods: ["itemUpdated"],
         objects: ["manage"],
-        extra_keys: ["itemid", "fxauid"],
+        extra_keys: ["itemid"],
       },
       "itemDeleted": {
         methods: ["itemDeleted"],
         objects: ["manage"],
-        extra_keys: ["itemid", "fxauid"],
+        extra_keys: ["itemid"],
       },
       "itemSelected": {
         methods: ["itemSelected"],
         objects: ["manage", "doorhanger"],
-        extra_keys: ["fxauid"],
       },
       "addClick": {
         methods: ["addClick"],
         objects: ["manage"],
-        extra_keys: ["fxauid"],
       },
       "datastore": {
         methods: ["added", "updated", "deleted"],
         objects: ["datastore"],
-        extra_keys: ["itemid", "fxauid", "fields"],
+        extra_keys: ["itemid", "fields"],
       },
       "feedback": {
         methods: ["feedbackClick"],
         objects: ["manage"],
-        extra_keys: ["fxauid"],
       },
       "faq": {
         methods: ["faqClick"],
         objects: ["manage"],
-        extra_keys: ["fxauid"],
       },
       "itemCopied": {
         methods: ["usernameCopied", "passwordCopied"],
         objects: ["manage", "doorhanger"],
-        extra_keys: ["fxauid"],
       },
       "resetRequested": {
         methods: ["resetRequested"],
         objects: ["settings"],
-        extra_keys: ["fxauid"],
       },
       "resetCompleted": {
         methods: ["resetCompleted"],
         objects: ["settings"],
-        extra_keys: ["fxauid"],
       },
       "setupGuest": {
         methods: ["click"],
@@ -145,7 +133,6 @@ function startup({webExtension}, reason) {
       "fxaAuth": {
         methods: ["fxaUpgrade", "fxaSignin", "fxaSignout"],
         objects: ["accounts"],
-        extra_keys: ["fxauid"],
       },
       "fxaFail": {
         methods: ["fxaFailed"],
