@@ -15,5 +15,10 @@ pages:
 - 'Release Notes': 'release-notes.md'
 - 'FAQs': 'faqs.md'
 - 'Contribute': 'contributing.md'
-- 'Source Code': 'install.md'
-- 'Metrics': 'metrics.md'
+- 'Telemetry and Metrics': 'metrics.md'
+- 'Developer Guides':
+  - 'Build and Install': 'install.md'
+  - 'Release Instructions': 'releases.md'
+  - 'Test Plan': 'test-plan.md'
+  - 'Test Plan - Accessibility': 'accessibility-test-plan.md'
+  - 'Test Plan - Telemetry': 'telemetry-test-plan.md'
