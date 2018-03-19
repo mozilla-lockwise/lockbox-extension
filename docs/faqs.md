@@ -42,7 +42,7 @@ The alpha version of Lockbox hasn’t been tested widely with other password man
 
 ## Do Lockbox entries sync to other computers with Lockbox installed?
 
-Yes, if you secure Lockbox with a Firefox Account.
+No, not currently.
 
 ## Can I try Lockbox if I don’t have a Mozilla.com email address?
 
