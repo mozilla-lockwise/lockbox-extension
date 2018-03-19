@@ -6,6 +6,7 @@ body {
   padding: 0;
   margin: 0;
   width: 280px;
+  height: 360px;
   color: #0c0c0d;
   background-color: #ededf0;
   font: caption;
@@ -13,9 +14,13 @@ body {
   -moz-user-select: none;
 }
 
+body > main {
+  height: 100%;
+}
+
 .lockie {
   display: block;
-  margin: 3em auto 0;
+  margin: 4em auto 0;
   width: 200px;
 }
 
