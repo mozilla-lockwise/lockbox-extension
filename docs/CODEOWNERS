@@ -1,15 +1,18 @@
 # lockbox-extension code owners
 # https://help.github.com/articles/about-codeowners/
 
-# tests should also be reviewed by @m8ttyB
-/test/    @jimporter @m8ttyB
+# integration tests are maintained by PI
+/test/integration/  @mozilla-lockbox/product-integrity 
+/requirements/      @mozilla-lockbox/product-integrity 
 
-# docs are shepherded by @devinreams
-/docs/    @jimporter @devinreams
+# source code and unit tests are maintained by engineering
+/src/               @mozilla-lockbox/desktop-engineering
+/test/unit/         @mozilla-lockbox/desktop-engineering
+/docs/              @mozilla-lockbox/desktop-engineering
 
 # include Flod for l10n string changes
 # @todo uncomment below after initial string freeze
 #src/webextension/locales/en-US/*.ftl    @flodolo
 
-# otherwise, everything is to be reviewed by @jimporter
-*         @jimporter
+# otherwise, everything is to be reviewed by the desktop team
+*                   @mozilla-lockbox/desktop-engineering
