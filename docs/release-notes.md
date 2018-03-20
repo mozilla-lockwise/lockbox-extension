@@ -6,7 +6,13 @@ _Date: 2018-03-22_
 
 ### What's New
 
+- The doorhanger now presents "quick copy" buttons when there are one or two results to help you log in to websites faster ([#624](https://github.com/mozilla-lockbox/lockbox-extension/pull/624))
+- Size, spacing and hover style improvements to the doorhanger entry list ([#619](https://github.com/mozilla-lockbox/lockbox-extension/pull/619))
+- Improved visibility of buttons against background colors ([#657](https://github.com/mozilla-lockbox/lockbox-extension/pull/657))
+
 ### What's Fixed
+
+- The doorhanger is a consistent height in all cases (log in, view entry list) ([#655](https://github.com/mozilla-lockbox/lockbox-extension/pull/655))
 
 ### Known Issues
 
