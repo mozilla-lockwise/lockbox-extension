@@ -67,7 +67,7 @@ export default class FilterInput extends React.Component {
                ref={(element) => this.inputElement = element}/>
         <Localized id="filter-input-clear">
           <button type="button" title="cLEAr"
-                  disabled={disabled ? disabled : !this.state.value}
+                  disabled={disabled || !this.state.value}
                   onClick={() => this.updateValue("")}/>
         </Localized>
       </div>
