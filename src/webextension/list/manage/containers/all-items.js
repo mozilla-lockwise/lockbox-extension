@@ -4,7 +4,7 @@
 
 import { connect } from "react-redux";
 
-import ManageItemList from "../components/manage-item-list";
+import ItemListPanel from "../components/item-list-panel";
 import { requestSelectItem } from "../../actions";
 import { parseFilterString, filterItem } from "../../filter";
 import { NEW_ITEM_ID } from "../../common";
@@ -23,9 +23,9 @@ export default connect(
     if (selected === NEW_ITEM_ID) {
       items.unshift({id: NEW_ITEM_ID, title: "", username: ""});
     }
-    return {totalItemCount, items, selected};
+    return {...ownProps, totalItemCount, items, selected};
   },
   (dispatch) => ({
     onChange: (id) => dispatch(requestSelectItem(id)),
   }),
-)(ManageItemList);
+)(ItemListPanel);

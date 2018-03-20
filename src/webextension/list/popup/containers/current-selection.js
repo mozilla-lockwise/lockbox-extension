@@ -8,8 +8,8 @@ import { connect } from "react-redux";
 
 import { flattenItem } from "../../common";
 import { selectItem, copiedField } from "../../actions";
+import AllItemsPanel from "./all-items-panel";
 import ItemDetailsPanel from "../components/item-details-panel";
-import ItemListPanel from "../components/item-list-panel";
 
 const ConnectedItemDetailsPanel = connect(
   (state, ownProps) => ({
@@ -25,7 +25,7 @@ function CurrentSelection({item, inputRef}) {
   if (item) {
     return <ConnectedItemDetailsPanel item={item}/>;
   }
-  return <ItemListPanel inputRef={inputRef}/>;
+  return <AllItemsPanel inputRef={inputRef}/>;
 }
 
 CurrentSelection.propTypes = {

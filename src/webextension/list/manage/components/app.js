@@ -6,17 +6,13 @@ import { Localized } from "fluent-react";
 import React from "react";
 import DocumentTitle from "react-document-title";
 
-import AddItem from "../containers/add-item";
 import AllItems from "../containers/all-items";
 import CurrentAccountSummary from "../containers/current-account-summary";
 import CurrentSelection from "../containers/current-selection";
 import GoHome from "../containers/go-home";
-import ItemFilter from "../../containers/item-filter";
 import ModalRoot from "../containers/modals";
-import SendFeedback from "../containers/send-feedback";
 import OpenFAQ from "../containers/open-faq";
 import Toolbar, { ToolbarSpace } from "../../../widgets/toolbar";
-import { PanelHeader, PanelBody, PanelFooter } from "../../../widgets/panel";
 
 import styles from "./app.css";
 
@@ -31,22 +27,10 @@ export default class App extends React.Component {
         <DocumentTitle title="lOCKBOx eNTRIEs">
           <div className={styles.app}>
             <section className={styles.appMain}>
-              <aside>
-                <PanelHeader floatingBorder
-                             toolbarClassName={styles.filterToolbar}>
-                  <ItemFilter className={styles.filter}
-                              inputRef={(element) => {
-                                this._filterField = element;
-                              }}/>
-                  <AddItem/>
-                </PanelHeader>
-                <PanelBody scroll={false}>
-                  <AllItems/>
-                </PanelBody>
-                <PanelFooter floatingBorder>
-                  <SendFeedback/>
-                </PanelFooter>
-              </aside>
+              <AllItems className={styles.aside}
+                        inputRef={(element) => {
+                          this._filterField = element;
+                        }}/>
               <article>
                 <Toolbar className={styles.navigation}>
                   <GoHome/>

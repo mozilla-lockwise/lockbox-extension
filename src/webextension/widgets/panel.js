@@ -13,13 +13,18 @@ import Toolbar from "./toolbar";
 import buttonStyles from "./button.css";
 import styles from "./panel.css";
 
-export function PanelHeader({className, toolbarClassName, floatingBorder,
-                             onBack, children}) {
+const BORDER_CLASS_NAME = {
+  "normal": styles.normalBorder,
+  "floating": styles.floatingBorder,
+  "none": null,
+};
+
+export function PanelHeader({className, toolbarClassName, border, onBack,
+                             children}) {
   const imgSrc = browser.extension.getURL("/icons/arrowhead-left-16.svg");
   return (
     <header className={classNames([
-              styles.panelHeader, floatingBorder && styles.floatingBorder,
-              className,
+              styles.panelHeader, BORDER_CLASS_NAME[border], className,
             ])}>
       {onBack ? (
         <Button theme="ghost" size="micro" onClick={onBack}>
@@ -38,7 +43,7 @@ export function PanelHeader({className, toolbarClassName, floatingBorder,
 PanelHeader.propTypes = {
   className: PropTypes.string,
   toolbarClassName: PropTypes.string,
-  floatingBorder: PropTypes.bool,
+  border: PropTypes.oneOf(Object.keys(BORDER_CLASS_NAME)),
   onBack: PropTypes.func,
   children: PropTypes.node,
 };
@@ -46,7 +51,28 @@ PanelHeader.propTypes = {
 PanelHeader.defaultProps = {
   className: "",
   toolbarClassName: "",
-  floatingBorder: false,
+  border: "normal",
+};
+
+export function PanelBanner({className, border, children}) {
+  return (
+    <aside className={classNames([
+            styles.panelBanner, BORDER_CLASS_NAME[border], className,
+           ])}>
+      {children}
+    </aside>
+  );
+}
+
+PanelBanner.propTypes = {
+  className: PropTypes.string,
+  border: PropTypes.oneOf(Object.keys(BORDER_CLASS_NAME)),
+  children: PropTypes.node,
+};
+
+PanelBanner.defaultProps = {
+  className: "",
+  border: "normal",
 };
 
 export function PanelBody({className, scroll, children}) {
@@ -70,29 +96,10 @@ PanelBody.defaultProps = {
   scroll: true,
 };
 
-export function PanelBanner({className, children}) {
-  const finalClassName = `${styles.panelBanner} ${className}`.trimRight();
-  return (
-    <aside className={finalClassName}>
-      {children}
-    </aside>
-  );
-}
-
-PanelBanner.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node,
-};
-
-PanelBanner.defaultProps = {
-  className: "",
-};
-
-export function PanelFooter({className, floatingBorder, children}) {
+export function PanelFooter({className, border, children}) {
   return (
     <footer className={classNames([
-              styles.panelFooter, floatingBorder && styles.floatingBorder,
-              className,
+              styles.panelFooter, BORDER_CLASS_NAME[border], className,
             ])}>
       {children}
     </footer>
@@ -102,12 +109,12 @@ export function PanelFooter({className, floatingBorder, children}) {
 PanelFooter.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
-  floatingBorder: PropTypes.bool,
+  border: PropTypes.oneOf(Object.keys(BORDER_CLASS_NAME)),
 };
 
 PanelFooter.defaultProps = {
   className: "",
-  floatingBorder: false,
+  border: "normal",
 };
 
 const THEME_CLASS_NAME = {
