@@ -1,5 +1,21 @@
 # Lockbox Release Notes
 
+## 0.1.9-alpha
+
+_Date: 2018-03-22_
+
+### What's New
+
+### What's Fixed
+
+### Known Issues
+
+* Profile information about you is only fetched and updated when you sign in; any changes made to your Firefox Accounts display name or avatar will not be displayed in Lockbox until you sign in again.
+* Once you link a Firefox Account to Lockbox, you cannot unlink it from that account.
+* Once you link a Firefox Account to Lockbox, signing in with a different account can render Lockbox unusable until you quit and restart Firefox.
+* Once you link a Firefox Account to Lockbox, resetting your Firefox Account password through "forgot your password" will render all your logins inaccessible; the only recourse is to reset Lockbox and start over.
+* Firefox's default prompt to save logins is only disabled on new installs of this extension; updating Lockbox will not change your current Firefox preferences.
+
 ## 0.1.8-alpha
 
 _Date: 2018-03-08_
