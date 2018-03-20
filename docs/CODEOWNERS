@@ -1,9 +1,12 @@
 # lockbox-extension code owners
 # https://help.github.com/articles/about-codeowners/
 
-# integration tests are maintained by PI
-/test/integration/  @mozilla-lockbox/product-integrity 
-/requirements/      @mozilla-lockbox/product-integrity 
+# integration tests and related config are maintained by PI
+/requirements/      @mozilla-lockbox/product-integrity
+/test/integration/  @mozilla-lockbox/product-integrity
+/.pyup.ini          @mozilla-lockbox/product-integrity
+/setup.cfg          @mozilla-lockbox/product-integrity
+/tox.ini            @mozilla-lockbox/product-integrity
 
 # source code and unit tests are maintained by engineering
 /src/               @mozilla-lockbox/desktop-engineering
