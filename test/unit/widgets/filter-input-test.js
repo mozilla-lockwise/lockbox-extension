@@ -31,9 +31,19 @@ describe("widgets > <FilterInput/>", () => {
       <FilterInput value="some text" disabled={true}/>
     );
     expect(wrapper.find("input")).to.have.prop("disabled", true);
-    expect(wrapper.find("button")).to.have.prop("disabled", true);
     expect(wrapper.childAt(0).prop("className")).to.match(
       /^\S+filter\S+ \S+input-wrapper\S+ \S+disabled\S+$/
+    );
+  });
+
+  it("render disabled button if no filter value", () => {
+    const wrapper = mountWithL10n(
+      <FilterInput value="" disabled={false}/>
+    );
+    expect(wrapper.find("input")).to.have.prop("disabled", false);
+    expect(wrapper.find("button")).to.have.prop("disabled", true);
+    expect(wrapper.childAt(0).prop("className")).to.match(
+      /^\S+filter\S+ \S+input-wrapper\S+$/
     );
   });
 
