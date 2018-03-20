@@ -8,9 +8,13 @@
 /setup.cfg          @mozilla-lockbox/product-integrity
 /tox.ini            @mozilla-lockbox/product-integrity
 
-# source code and unit tests are maintained by engineering
-/src/               @mozilla-lockbox/desktop-engineering
+
+# unit tests and related config are maintained by engineering
 /test/unit/         @mozilla-lockbox/desktop-engineering
+/test/*             @mozilla-lockbox/desktop-engineering
+
+# source code and docs are maintained by engineering
+/src/               @mozilla-lockbox/desktop-engineering
 /docs/              @mozilla-lockbox/desktop-engineering
 
 # include Flod for l10n string changes
