@@ -2,24 +2,27 @@
 # https://help.github.com/articles/about-codeowners/
 
 # integration tests and related config are maintained by PI
-/requirements/      @mozilla-lockbox/product-integrity
-/test/integration/  @mozilla-lockbox/product-integrity
-/.pyup.ini          @mozilla-lockbox/product-integrity
-/setup.cfg          @mozilla-lockbox/product-integrity
-/tox.ini            @mozilla-lockbox/product-integrity
+/requirements/          @mozilla-lockbox/product-integrity
+/test/integration/      @mozilla-lockbox/product-integrity
+/.pyup.ini              @mozilla-lockbox/product-integrity
+/setup.cfg              @mozilla-lockbox/product-integrity
+/tox.ini                @mozilla-lockbox/product-integrity
 
 
 # unit tests and related config are maintained by engineering
-/test/unit/         @mozilla-lockbox/desktop-engineering
-/test/*             @mozilla-lockbox/desktop-engineering
+/test/unit/             @mozilla-lockbox/desktop-engineering
+/test/*                 @mozilla-lockbox/desktop-engineering
 
 # source code and docs are maintained by engineering
-/src/               @mozilla-lockbox/desktop-engineering
-/docs/              @mozilla-lockbox/desktop-engineering
+/src/                   @mozilla-lockbox/desktop-engineering
+/docs/                  @mozilla-lockbox/desktop-engineering
+
+# release notes are maintained by the product owners
+/docs/release-notes.md  @mozilla-lockbox/product
 
 # include Flod for l10n string changes
 # @todo uncomment below after initial string freeze
 #src/webextension/locales/en-US/*.ftl    @flodolo
 
 # otherwise, everything is to be reviewed by the desktop team
-*                   @mozilla-lockbox/desktop-engineering
+*                       @mozilla-lockbox/desktop-engineering
