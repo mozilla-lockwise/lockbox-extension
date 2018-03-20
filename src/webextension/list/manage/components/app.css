@@ -30,7 +30,7 @@ body > main,
   margin-inline-start: 40px;
 }
 
-.app-main > aside {
+.aside {
   grid-column: 1;
   min-width: 150px;
   min-height: 0;
@@ -43,8 +43,4 @@ body > main,
   grid-column: 2;
   background-color: #f9f9fa;
   overflow: auto;
-}
-
-.filter-toolbar > * + * {
-  margin-inline-start: 8px;
 }
