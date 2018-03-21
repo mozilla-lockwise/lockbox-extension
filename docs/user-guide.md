@@ -1,6 +1,6 @@
 # Lockbox User Guide
 
-First things first, [install the extension](install.md).
+First things first, [install the extension](developer/install.md).
 
 ## Commands
 
