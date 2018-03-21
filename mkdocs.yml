@@ -17,8 +17,8 @@ pages:
 - 'Contribute': 'contributing.md'
 - 'Telemetry and Metrics': 'metrics.md'
 - 'Developer Guides':
-  - 'Build and Install': 'install.md'
-  - 'Release Instructions': 'releases.md'
-  - 'Test Plan': 'test-plan.md'
-  - 'Test Plan - Accessibility': 'accessibility-test-plan.md'
-  - 'Test Plan - Telemetry': 'telemetry-test-plan.md'
+  - 'Build and Install': 'developer/install.md'
+  - 'Release Instructions': 'developer/releases.md'
+  - 'Test Plan': 'developer/test-plan.md'
+  - 'Test Plan - Accessibility': 'developer/test-plan-accessibility.md'
+  - 'Test Plan - Telemetry': 'developer/test-plan-telemetry.md'
