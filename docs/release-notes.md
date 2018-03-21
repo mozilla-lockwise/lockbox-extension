@@ -9,10 +9,12 @@ _Date: 2018-03-22_
 - The doorhanger now presents "quick copy" buttons when there are one or two results to help you log in to websites faster ([#624](https://github.com/mozilla-lockbox/lockbox-extension/pull/624))
 - Size, spacing and hover style improvements to the doorhanger entry list ([#619](https://github.com/mozilla-lockbox/lockbox-extension/pull/619))
 - Improved visibility of buttons against background colors ([#657](https://github.com/mozilla-lockbox/lockbox-extension/pull/657))
+- If you open the doorhanger and it doesn't find any matches, it will let you know that _and_ show you all your entries to help get you on your way ([#646](https://github.com/mozilla-lockbox/lockbox-extension/pull/646))
 
 ### What's Fixed
 
 - The doorhanger is a consistent height in all cases (log in, view entry list) ([#655](https://github.com/mozilla-lockbox/lockbox-extension/pull/655))
+- You won't see the "clear" button (the grey "X") on the search filter until you actually start searching and need to clear something ([#680](https://github.com/mozilla-lockbox/lockbox-extension/pull/680))
 
 ### Known Issues
 
