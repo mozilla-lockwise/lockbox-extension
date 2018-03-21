@@ -11,7 +11,7 @@
 
 # unit tests and related config are maintained by engineering
 /test/unit/             @mozilla-lockbox/desktop-engineering
-/test/*                 @mozilla-lockbox/desktop-engineering
+/test/                  @mozilla-lockbox/desktop-engineering
 
 # source code and docs are maintained by engineering
 /src/                   @mozilla-lockbox/desktop-engineering
