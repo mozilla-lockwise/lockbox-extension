@@ -1,5 +1,29 @@
 # Lockbox Release Notes
 
+## 0.1.9-alpha
+
+_Date: 2018-03-22_
+
+### What's New
+
+- The doorhanger now presents "quick copy" buttons when there are one or two results to help you log in to websites faster ([#624](https://github.com/mozilla-lockbox/lockbox-extension/pull/624))
+- Size, spacing and hover style improvements to the doorhanger entry list ([#619](https://github.com/mozilla-lockbox/lockbox-extension/pull/619))
+- Improved visibility of buttons against background colors ([#657](https://github.com/mozilla-lockbox/lockbox-extension/pull/657))
+- If you open the doorhanger and it doesn't find any matches, it will let you know that _and_ show you all your entries to help get you on your way ([#646](https://github.com/mozilla-lockbox/lockbox-extension/pull/646))
+
+### What's Fixed
+
+- The doorhanger is a consistent height in all cases (log in, view entry list) ([#655](https://github.com/mozilla-lockbox/lockbox-extension/pull/655))
+- You won't see the "clear" button (the grey "X") on the search filter until you actually start searching and need to clear something ([#680](https://github.com/mozilla-lockbox/lockbox-extension/pull/680))
+
+### Known Issues
+
+* Profile information about you is only fetched and updated when you sign in; any changes made to your Firefox Accounts display name or avatar will not be displayed in Lockbox until you sign in again.
+* Once you link a Firefox Account to Lockbox, you cannot unlink it from that account.
+* Once you link a Firefox Account to Lockbox, signing in with a different account can render Lockbox unusable until you quit and restart Firefox.
+* Once you link a Firefox Account to Lockbox, resetting your Firefox Account password through "forgot your password" will render all your logins inaccessible; the only recourse is to reset Lockbox and start over.
+* Firefox's default prompt to save logins is only disabled on new installs of this extension; updating Lockbox will not change your current Firefox preferences.
+
 ## 0.1.8-alpha
 
 _Date: 2018-03-08_
