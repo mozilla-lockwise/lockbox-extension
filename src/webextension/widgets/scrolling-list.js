@@ -5,6 +5,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import { classNames } from "../common";
+
 import styles from "./scrolling-list.css";
 
 export default class ScrollingList extends React.Component {
@@ -116,15 +118,15 @@ export default class ScrollingList extends React.Component {
   render() {
     const { className, itemClassName, styledItems, children, data, tabIndex,
             selected } = this.props;
-    const finalClassName = `${styles.scrollingList} ${className}`.trimRight();
-    const finalItemClassName = styledItems ?
-          `${styles.styledItem} ${itemClassName}`.trimRight() :
-          itemClassName;
+    const finalItemClassName = classNames([
+      styledItems && styles.styledItem, itemClassName,
+    ]);
 
     return (
-      <ul tabIndex={tabIndex} className={finalClassName}
-          ref={(element) => this._rootElement = element}
-          onKeyDown={(e) => this.handleKeyDown(e)}>
+      <ul className={classNames([
+            styles.scrollingList, className,
+          ])} tabIndex={tabIndex} onKeyDown={(e) => this.handleKeyDown(e)}
+          ref={(element) => this._rootElement = element}>
         {data.map((item) => {
           let props = {
             onMouseDown: (e) => this.handleMouseDown(e, item.id),
@@ -138,7 +140,7 @@ export default class ScrollingList extends React.Component {
           }
 
           return (
-            <li key={item.id} {...props}>
+            <li {...props} key={item.id}>
               {children(item)}
             </li>
           );

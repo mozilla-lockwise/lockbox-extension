@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import copy from "copy-to-clipboard";
 
+import { classNames } from "../common";
 import Button from "./button";
 import Stack from "./stack";
 
@@ -58,9 +59,6 @@ export default class CopyToClipboardButton extends React.Component {
   render() {
     let {title, children, className, buttonClassName} = this.props;
     const selectedIndex = this.state.copied ? 1 : 0;
-    const finalClassName = (
-      `${styles.copyButton} ${buttonClassName}`
-    ).trimRight();
 
     if (!children) {
       children = (
@@ -71,8 +69,9 @@ export default class CopyToClipboardButton extends React.Component {
     }
     return (
       <Stack stretch selectedIndex={selectedIndex} className={className}>
-        <Button theme="ghost" className={finalClassName} title={title}
-                onClick={() => this.handleCopy()}>
+        <Button theme="ghost" className={classNames([
+                  styles.copyButton, buttonClassName,
+                ])} title={title} onClick={() => this.handleCopy()}>
           {children}
         </Button>
         <Localized id="copy-to-clipboard-copied">

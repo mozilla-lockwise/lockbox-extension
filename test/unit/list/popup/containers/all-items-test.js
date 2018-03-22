@@ -79,7 +79,13 @@ describe("list > popup > containers > <AllItems/>", () => {
     beforeEach(() => {
       store = mockStore({
         ...filledState,
-        list: {...filledState.list, filter: "2"},
+        list: {
+          ...filledState.list,
+          filter: {
+            query: "2",
+            userEntered: true,
+          },
+        },
       });
       wrapper = mountWithL10n(
         <Provider store={store}>

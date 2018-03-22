@@ -5,6 +5,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import { classNames } from "../../common";
 import ItemSummary from "./item-summary";
 import ScrollingList from "../../widgets/scrolling-list";
 
@@ -12,17 +13,15 @@ import styles from "./item-list.css";
 
 export default function ItemList({items, itemClassName, verbose, onCopy,
                                   ...props}) {
-  const verboseClass = verbose ? ` ${styles.verbose}` : "";
-  const finalItemClassName = (
-    `${styles.item}${verboseClass} ${itemClassName}`
-  ).trimRight();
-
   return (
-    <ScrollingList className={styles.itemList} itemClassName={finalItemClassName} data={items} styledItems={false} {...props}>
+    <ScrollingList {...props} className={styles.itemList}
+                   itemClassName={classNames([
+                     styles.item, verbose && styles.verbose, itemClassName,
+                   ])} data={items} styledItems={false}>
       {({id, title, username}) => {
         return (
-          <ItemSummary className={styles.itemSummary} id={id} title={title} username={username}
-                       verbose={verbose} onCopy={onCopy}/>
+          <ItemSummary className={styles.itemSummary} id={id} title={title}
+                       username={username} verbose={verbose} onCopy={onCopy}/>
         );
       }}
     </ScrollingList>

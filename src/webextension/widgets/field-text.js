@@ -5,13 +5,15 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import { classNames } from "../common";
+
 import styles from "./input.css";
 
 export default function FieldText({className, monospace, ...props}) {
-  const mono = monospace ? ` ${styles.monospace}` : "";
-  const finalClassName = `${styles.fieldText}${mono} ${className}`.trimRight();
   return (
-    <span className={finalClassName} {...props}/>
+    <span {...props} className={classNames([
+            styles.fieldText, monospace && styles.monospace, className,
+          ])}/>
   );
 }
 

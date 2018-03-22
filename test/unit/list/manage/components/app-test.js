@@ -66,7 +66,10 @@ describe("list > manage > components > <App/>", () => {
       ...filledState,
       list: {
         ...filledState.list,
-        filter: "filter",
+        filter: {
+          query: "filter",
+          userEntered: true,
+        },
       },
     });
     const wrapper = mountWithL10nIntoDOM(

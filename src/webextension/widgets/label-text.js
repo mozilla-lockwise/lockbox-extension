@@ -5,12 +5,13 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import { classNames } from "../common";
+
 import styles from "./input.css";
 
 export default function LabelText({className, ...props}) {
-  const finalClassName = `${styles.labelText} ${className}`.trimRight();
   return (
-    <span className={finalClassName} {...props}/>
+    <span {...props} className={classNames([styles.labelText, className])}/>
   );
 }
 

@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import Modal from "react-modal";
 
+import { classNames } from "../../../common";
 import { Link } from "../../../widgets/link";
 
 import styles from "./account-summary.css";
@@ -39,7 +40,7 @@ export function AccountSummaryDropdown({isOpen, onClose, onClickAccount,
       <ul>
         <li>
           <Localized id="account-summary-account">
-            <Link className={`${styles.dropdownLink} ${styles.account}`}
+            <Link className={classNames([styles.dropdownLink, styles.account])}
                   onClick={() => { onClickAccount(); onClose(); }}>
               aCCOUNt
             </Link>
@@ -47,7 +48,7 @@ export function AccountSummaryDropdown({isOpen, onClose, onClickAccount,
         </li>
         <li>
           <Localized id="account-summary-options">
-            <Link className={`${styles.dropdownLink} ${styles.options}`}
+            <Link className={classNames([styles.dropdownLink, styles.options])}
                   onClick={() => { onClickOptions(); onClose(); }}>
               oPTIONs
             </Link>
@@ -55,7 +56,7 @@ export function AccountSummaryDropdown({isOpen, onClose, onClickAccount,
         </li>
         <li>
           <Localized id="account-summary-signout">
-            <Link className={`${styles.dropdownLink} ${styles.signout}`}
+            <Link className={classNames([styles.dropdownLink, styles.signout])}
                   onClick={() => { onClickSignout(); onClose(); }}>
               sIGn oUt
             </Link>
@@ -104,9 +105,8 @@ export default class AccountSummary extends React.Component {
       <div>
         <AccountSummaryButton displayName={displayName} avatar={avatar}
                               onClick={() => this.openDropdown()}/>
-        <AccountSummaryDropdown isOpen={showDropdown}
-                                onClose={() => this.closeDropdown()}
-                                {...props}/>
+        <AccountSummaryDropdown {...props} isOpen={showDropdown}
+                                onClose={() => this.closeDropdown()}/>
       </div>
     );
   }

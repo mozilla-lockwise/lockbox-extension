@@ -153,6 +153,10 @@ input::placeholder {
   height: 100%;
 }
 
+.filter button[disabled] {
+  display: none;
+}
+
 .filter button::before {
   background-image: url(/icons/clear.svg);
   background-repeat: no-repeat;

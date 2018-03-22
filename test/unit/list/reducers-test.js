@@ -366,7 +366,10 @@ describe("list > reducers", () => {
     it("initial state", () => {
       expect(listReducer(undefined, {})).to.deep.equal({
         selectedItemId: null,
-        filter: "",
+        filter: {
+          query: "",
+          userEntered: true,
+        },
       });
     });
 
@@ -383,7 +386,10 @@ describe("list > reducers", () => {
 
         expect(listReducer(undefined, action)).to.deep.equal({
           selectedItemId: "1",
-          filter: "",
+          filter: {
+            query: "",
+            userEntered: true,
+          },
         });
       });
 
@@ -399,7 +405,10 @@ describe("list > reducers", () => {
 
         expect(listReducer(undefined, action)).to.deep.equal({
           selectedItemId: null,
-          filter: "",
+          filter: {
+            query: "",
+            userEntered: true,
+          },
         });
       });
     });
@@ -413,7 +422,10 @@ describe("list > reducers", () => {
 
       expect(listReducer(undefined, action)).to.deep.equal({
         selectedItemId: "1",
-        filter: "",
+        filter: {
+          query: "",
+          userEntered: true,
+        },
       });
     });
 
@@ -424,7 +436,10 @@ describe("list > reducers", () => {
 
       expect(listReducer(undefined, action)).to.deep.equal({
         selectedItemId: NEW_ITEM_ID,
-        filter: "",
+        filter: {
+          query: "",
+          userEntered: true,
+        },
       });
     });
 
@@ -432,7 +447,10 @@ describe("list > reducers", () => {
       it("new item", () => {
         const state = {
           selectedItemId: NEW_ITEM_ID,
-          filter: "",
+          filter: {
+            query: "",
+            userEntered: true,
+          },
         };
         const action = {
           type: actions.CANCEL_EDITING,
@@ -440,14 +458,20 @@ describe("list > reducers", () => {
 
         expect(listReducer(state, action)).to.deep.equal({
           selectedItemId: null,
-          filter: "",
+          filter: {
+            query: "",
+            userEntered: true,
+          },
         });
       });
 
       it("existing item", () => {
         const state = {
           selectedItemId: "1",
-          filter: "",
+          filter: {
+            query: "",
+            userEntered: true,
+          },
         };
         const action = {
           type: actions.CANCEL_EDITING,
@@ -455,7 +479,10 @@ describe("list > reducers", () => {
 
         expect(listReducer(state, action)).to.deep.equal({
           selectedItemId: "1",
-          filter: "",
+          filter: {
+            query: "",
+            userEntered: true,
+          },
         });
       });
     });
@@ -464,11 +491,15 @@ describe("list > reducers", () => {
       const action = {
         type: actions.FILTER_ITEMS,
         filter: "my filter",
+        userEntered: false,
       };
 
       expect(listReducer(undefined, action)).to.deep.equal({
         selectedItemId: null,
-        filter: "my filter",
+        filter: {
+          query: "my filter",
+          userEntered: false,
+        },
       });
     });
   });
