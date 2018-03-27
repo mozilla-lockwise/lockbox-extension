@@ -1,6 +1,8 @@
 fxapom==1.10.1
 PyPOM==1.3.0
-pytest==3.4.2
-pytest-selenium==1.11.4
+pytest==3.5.0
+pytest-selenium==1.12.0
 pytest-xdist==1.22.2
 selenium==3.11.0
+axe-selenium-python==2.0.2
+pytest-axe==1.0.0

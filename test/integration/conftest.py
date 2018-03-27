@@ -36,7 +36,6 @@ return WebExtensionPolicy.getByID("{}").mozExtensionHostname;""".format(_id))  #
 def login_page(base_url, selenium, hostname):
     """Launch Lockbox."""
     selenium.get('moz-extension://{}/firstrun/index.html'.format(hostname))
-    # selenium.switch_to.window(selenium.window_handles[-1])
     return Login(selenium, base_url).wait_for_page_to_load()
 
 
