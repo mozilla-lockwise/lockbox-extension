@@ -12,3 +12,4 @@ __pycache__
 .tox
 *.log
 *.pyc
+.pytest_cache
