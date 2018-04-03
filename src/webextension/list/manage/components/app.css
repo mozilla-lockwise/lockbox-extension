@@ -26,6 +26,11 @@ body > main,
   grid-template-columns: 1fr 3fr;
 }
 
+.navigation {
+  height: 48px;
+  padding-inline-start: 4.6em;
+}
+
 .navigation > * + * {
   margin-inline-start: 40px;
 }

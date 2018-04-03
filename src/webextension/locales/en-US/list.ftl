@@ -56,6 +56,13 @@ send-feedback-button = Provide Feedback
 toolbar-go-home = Home
 toolbar-open-faq = FAQ
 
+breadcrumbs-item-new = New entry
+breadcrumbs-item =
+  { $length ->
+     [0]     (no site name)
+    *[other] { $title }
+  }
+
 account-summary-account = Account
 account-summary-options = Preferences
 account-summary-signout = Sign Out

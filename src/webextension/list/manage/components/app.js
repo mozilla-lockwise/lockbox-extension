@@ -8,8 +8,8 @@ import DocumentTitle from "react-document-title";
 
 import AllItems from "../containers/all-items";
 import CurrentAccountSummary from "../containers/current-account-summary";
+import CurrentBreadcrumbs from "../containers/current-breadcrumbs";
 import CurrentSelection from "../containers/current-selection";
-import GoHome from "../containers/go-home";
 import ModalRoot from "../containers/modals";
 import OpenFAQ from "../containers/open-faq";
 import Toolbar, { ToolbarSpace } from "../../../widgets/toolbar";
@@ -33,7 +33,7 @@ export default class App extends React.Component {
                         }}/>
               <article>
                 <Toolbar className={styles.navigation}>
-                  <GoHome/>
+                  <CurrentBreadcrumbs/>
                   <ToolbarSpace/>
                   <OpenFAQ/>
                   <CurrentAccountSummary/>
