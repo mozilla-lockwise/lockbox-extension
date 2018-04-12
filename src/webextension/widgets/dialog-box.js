@@ -86,7 +86,7 @@ ConfirmDialog.propTypes = {
 
 export function LocalizedConfirmDialog({l10nId, theme, onConfirm, onClose}) {
   return (
-    <Localized id={l10nId}>
+    <Localized id={l10nId} attrs={{confirmLabel: true, cancelLabel: true}}>
       <ConfirmDialog confirmLabel="yEs" cancelLabel="no" theme={theme}
                      onConfirm={onConfirm} onClose={onClose}>
         aRe yOu sURe?

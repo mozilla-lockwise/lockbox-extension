@@ -65,7 +65,7 @@ export default class FilterInput extends React.Component {
                value={this.state.value}
                onChange={(e) => this.updateValue(e.target.value)}
                ref={(element) => this.inputElement = element}/>
-        <Localized id="filter-input-clear">
+        <Localized id="filter-input-clear" attrs={{title: true}}>
           <button type="button" title="cLEAr"
                   disabled={disabled || !this.state.value}
                   onClick={() => this.updateValue("")}/>

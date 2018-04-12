@@ -1,10 +1,11 @@
 {
   "presets": [
     "react",
-    ["env", {"targets": {"browsers": ["firefox >= 56"]}}]
-  ],
-  "plugins": [
-    ["transform-object-rest-spread", {"useBuiltins": true}]
+    "stage-3",
+    ["env", {
+      "targets": {"browsers": ["firefox >= 56"]},
+      "useBuiltins": true
+    }]
   ],
   "env": {
     "test": {
