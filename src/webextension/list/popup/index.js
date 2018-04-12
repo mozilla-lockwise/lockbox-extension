@@ -26,7 +26,7 @@ browser.tabs.query({ active: true, currentWindow: true }).then((result) => {
   const validProtocols = ["http:", "https:"];
   const url = new URL(result[0].url);
   if (validProtocols.includes(url.protocol)) {
-    store.dispatch(filterItems(url.hostname));
+    store.dispatch(filterItems(url.hostname, false));
   }
 });
 

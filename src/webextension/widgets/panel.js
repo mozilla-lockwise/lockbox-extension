@@ -38,9 +38,11 @@ PanelHeader.defaultProps = {
   className: "",
 };
 
-export function PanelBody({className, children}) {
+export function PanelBody({className, scroll, children}) {
   return (
-    <main className={classNames([styles.panelBody, className])}>
+    <main className={classNames([
+            styles.panelBody, scroll && styles.scroll, className,
+          ])}>
       {children}
     </main>
   );
@@ -48,10 +50,30 @@ export function PanelBody({className, children}) {
 
 PanelBody.propTypes = {
   className: PropTypes.string,
+  scroll: PropTypes.bool,
   children: PropTypes.node,
 };
 
 PanelBody.defaultProps = {
+  className: "",
+  scroll: true,
+};
+
+export function PanelBanner({className, children}) {
+  const finalClassName = `${styles.panelBanner} ${className}`.trimRight();
+  return (
+    <aside className={finalClassName}>
+      {children}
+    </aside>
+  );
+}
+
+PanelBanner.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node,
+};
+
+PanelBanner.defaultProps = {
   className: "",
 };
 

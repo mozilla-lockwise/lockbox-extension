@@ -79,7 +79,7 @@ export function cacheReducer(state = {items: [], currentItem: null}, action) {
 }
 
 export function listReducer(state = {
-  selectedItemId: null, filter: "",
+  selectedItemId: null, filter: {query: "", userEntered: true},
 }, action) {
   switch (action.type) {
   case actions.ADD_ITEM_COMPLETED:
@@ -97,7 +97,10 @@ export function listReducer(state = {
     }
     return state;
   case actions.FILTER_ITEMS:
-    return {...state, filter: action.filter};
+    return {...state, filter: {
+      query: action.filter,
+      userEntered: action.userEntered,
+    }};
   default:
     return state;
   }

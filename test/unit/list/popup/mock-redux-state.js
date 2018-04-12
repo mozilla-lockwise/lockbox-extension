@@ -11,7 +11,10 @@ export const initialState = {
   },
   list: {
     selectedItemId: null,
-    filter: "",
+    filter: {
+      query: "",
+      userEntered: true,
+    },
   },
 };
 
@@ -39,6 +42,9 @@ export const filledState = {
   },
   list: {
     selectedItemId: "1",
-    filter: "",
+    filter: {
+      query: "",
+      userEntered: true,
+    },
   },
 };

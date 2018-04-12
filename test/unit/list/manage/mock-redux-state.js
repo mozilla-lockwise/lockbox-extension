@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-// Keep these in sync with <src/webextension/list/manage/reducers.js>.
+// Keep these in sync with <src/webextension/list/reducers.js>.
 
 export const initialState = {
   account: {
@@ -14,7 +14,10 @@ export const initialState = {
   },
   list: {
     selectedItemId: null,
-    filter: "",
+    filter: {
+      query: "",
+      userEntered: true,
+    },
   },
   editor: {
     editing: false,
@@ -54,7 +57,10 @@ export const filledState = {
   },
   list: {
     selectedItemId: "1",
-    filter: "",
+    filter: {
+      query: "",
+      userEntered: true,
+    },
   },
   editor: {
     editing: false,

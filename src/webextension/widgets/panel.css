@@ -26,9 +26,24 @@
 
 .panel-body {
   flex: 1;
-  overflow-x: hidden;
-  overflow-y: auto;
+  display: grid;
+  overflow: hidden;
   background-color: #ededf0;
+}
+
+.panel-body.scroll {
+  display: block;
+  overflow-y: auto;
+}
+
+.panel-banner {
+  text-align: center;
+  padding: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #737373;
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(12, 12, 13, 0.3);
 }
 
 .panel-footer {

@@ -22,7 +22,7 @@ describe("widgets > panel", () => {
       const wrapper = mount(<PanelHeader>header</PanelHeader>);
       expect(wrapper.find("span")).to.have.text("header");
       expect(wrapper.find("header").prop("className")).to.match(
-        /^\S*panel-header\S*$/
+        /^\S+panel-header\S+$/
       );
       expect(wrapper.find("button")).to.have.length(0);
     });
@@ -30,7 +30,7 @@ describe("widgets > panel", () => {
     it("merge classNames", () => {
       const wrapper = mount(<PanelHeader className="foo"/>);
       expect(wrapper.find("header").prop("className")).to.match(
-        /^\S*panel-header\S* foo$/
+        /^\S+panel-header\S+ foo$/
       );
     });
 
@@ -49,14 +49,22 @@ describe("widgets > panel", () => {
       const wrapper = mount(<PanelBody>body</PanelBody>);
       expect(wrapper.find("main")).to.have.text("body");
       expect(wrapper.find("main").prop("className")).to.match(
-        /^\S*panel-body\S*$/
+        /^\S+panel-body\S+ \S+scroll\S+$/
+      );
+    });
+
+    it("render without scrolling", () => {
+      const wrapper = mount(<PanelBody scroll={false}>body</PanelBody>);
+      expect(wrapper.find("main")).to.have.text("body");
+      expect(wrapper.find("main").prop("className")).to.match(
+        /^\S+panel-body\S+$/
       );
     });
 
     it("merge classNames", () => {
       const wrapper = mount(<PanelBody className="foo"/>);
       expect(wrapper.find("main").prop("className")).to.match(
-        /^\S*panel-body\S* foo$/
+        /^\S+panel-body\S+ \S+scroll\S+ foo$/
       );
     });
   });
@@ -66,14 +74,14 @@ describe("widgets > panel", () => {
       const wrapper = mount(<PanelFooter>footer</PanelFooter>);
       expect(wrapper.find("footer")).to.have.text("footer");
       expect(wrapper.find("footer").prop("className")).to.match(
-        /^\S*panel-footer\S*$/
+        /^\S+panel-footer\S+$/
       );
     });
 
     it("merge classNames", () => {
       const wrapper = mount(<PanelFooter className="foo"/>);
       expect(wrapper.find("footer").prop("className")).to.match(
-        /^\S*panel-footer\S* foo$/
+        /^\S+panel-footer\S+ foo$/
       );
     });
   });
@@ -91,7 +99,7 @@ describe("widgets > panel", () => {
       expect(wrapper.find("article").find("main")).to.have.text("body");
       expect(wrapper.find("article").find("footer")).to.have.text("footer");
       expect(wrapper.find("article").prop("className")).to.match(
-        /^\S*panel\S*$/
+        /^\S+panel\S+$/
       );
     });
 
@@ -101,7 +109,7 @@ describe("widgets > panel", () => {
           <PanelBody>body</PanelBody>
         </Panel>);
       expect(wrapper.find("article").prop("className")).to.match(
-        /^\S*panel\S* foo$/
+        /^\S+panel\S+ foo$/
       );
     });
   });

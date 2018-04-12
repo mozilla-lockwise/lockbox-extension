@@ -24,7 +24,7 @@ ItemFilter.propTypes = {
 
 export default connect(
   (state) => ({
-    value: state.list.filter,
+    value: state.list.filter.query,
     disabled: state.cache.items.length === 0,
   }),
   (dispatch) => ({
