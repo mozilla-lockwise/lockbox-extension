@@ -28,7 +28,7 @@ export default function App() {
   };
 
   return (
-    <Localized id="document">
+    <Localized id="document" attrs={{title: true}}>
       <DocumentTitle title="lOCKBOx eNTRIEs">
         <Panel>
           <PanelBody>
