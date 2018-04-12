@@ -2,16 +2,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import path from "path";
-import webpack from "webpack";
-import CopyWebpackPlugin from "copy-webpack-plugin";
-import MiniCSSExtractPlugin from "mini-css-extract-plugin";
-import HTMLWebpackPlugin from "html-webpack-plugin";
-import MinifyPlugin from "babel-minify-webpack-plugin";
+const path = require("path");
+const webpack = require("webpack");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
+const HTMLWebpackPlugin = require("html-webpack-plugin");
 
-import DirListWebpackPlugin from "./dir-list-webpack-plugin";
-import JSONWebpackPlugin from "./json-webpack-plugin";
-import thisPackage from "./package.json";
+const DirListWebpackPlugin = require("./dir-list-webpack-plugin");
+const JSONWebpackPlugin = require("./json-webpack-plugin");
+const thisPackage = require("./package.json");
 
 const NODE_ENV = (() => {
   if (process.env.NODE_ENV) {
@@ -39,7 +38,6 @@ let htmlMinifyOptions = false;
 if (NODE_ENV === "production") {
 
   extraPlugins.push(
-    new MinifyPlugin({mangle: false}),
     new MiniCSSExtractPlugin(),
   );
 
@@ -88,10 +86,13 @@ if (NODE_ENV === "production") {
 
 }
 
-export default {
+module.exports = {
   mode: NODE_ENV,
   context: path.join(__dirname, "src"),
   devtool: "cheap-module-source-map",
+  optimization: {
+    minimize: false,
+  },
 
   entry: {
     "webextension/background": "./webextension/background/index.js",
@@ -104,7 +105,7 @@ export default {
 
   output: {
     filename: "[name].js",
-    path: path.join(__dirname, "/dist"),
+    path: path.join(__dirname, "dist"),
     publicPath: "",
   },
 

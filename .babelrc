@@ -1,17 +1,26 @@
 {
   "presets": [
-    "react",
-    ["env", {"targets": {"browsers": ["firefox >= 56"]}}]
+    "@babel/preset-react",
+    ["@babel/preset-env", {
+      "targets": {"browsers": ["firefox >= 56"]},
+      "useBuiltins": true,
+      "modules": false
+    }]
   ],
   "plugins": [
-    ["transform-object-rest-spread", {"useBuiltins": true}]
+    "@babel/plugin-syntax-object-rest-spread",
+    "@babel/plugin-syntax-async-generators"
   ],
   "env": {
+    "production": {
+      "presets": [
+        "minify"
+      ]
+    },
     "test": {
       "plugins": [
         "istanbul",
-        "rewire",
-        "transform-runtime"
+        "rewire"
       ]
     }
   }

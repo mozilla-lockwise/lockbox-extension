@@ -2,11 +2,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import fs from "fs";
-import path from "path";
-import renderObject from "json-templater/object";
+const fs = require("fs");
+const path = require("path");
+const renderObject = require("json-templater/object");
 
-export default class JSONWebpackPlugin {
+module.exports = class JSONWebpackPlugin {
   constructor(options) {
     this.options = {
       template: undefined,
@@ -50,4 +50,4 @@ export default class JSONWebpackPlugin {
       });
     });
   }
-}
+};

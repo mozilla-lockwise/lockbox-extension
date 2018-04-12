@@ -17,7 +17,7 @@ export default function ModalRoot({modals, modalId, modalProps, onClose}) {
   }
 
   return (
-    <Localized id="modal-root">
+    <Localized id="modal-root" attrs={{contentLabel: true}}>
       <Modal isOpen={Boolean(modalId)} className={styles.modal}
              overlayClassName={styles.overlay}>
         {modal}
