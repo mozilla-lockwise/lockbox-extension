@@ -49,7 +49,8 @@ class Home(Base):
         """Lockie image locator."""
         return self.find_element(*self._lockie_locator).text
 
-    def create_new_entry(self, site_name, site_url, username, password, note):
+    def create_new_entry(self, site_name='', site_url='', username='',
+                         password='', note=''):
         """Create and save a new entry."""
         current_entries = self.entries
         self.find_element(*self._new_entry_locator).click()
