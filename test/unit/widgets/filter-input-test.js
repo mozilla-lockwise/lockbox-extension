@@ -96,7 +96,7 @@ describe("widgets > <FilterInput/>", () => {
     );
     wrapper.instance().focus();
     expect(wrapper.find("input")).to.be.focused();
-    expect(wrapper.find("input")).to.have.selection(0, 0);
+    expect(wrapper.find("input")).to.have.selection(11, 11);
   });
 
   it("focus(true) focuses/selects input", () => {

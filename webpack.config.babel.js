@@ -4,9 +4,8 @@
 
 import path from "path";
 import webpack from "webpack";
-import combineLoaders from "webpack-combine-loaders";
 import CopyWebpackPlugin from "copy-webpack-plugin";
-import ExtractTextPlugin from "extract-text-webpack-plugin";
+import MiniCSSExtractPlugin from "mini-css-extract-plugin";
 import HTMLWebpackPlugin from "html-webpack-plugin";
 import MinifyPlugin from "babel-minify-webpack-plugin";
 
@@ -25,7 +24,7 @@ const NODE_ENV = (() => {
 
 const cssLoader = {
   loader: "css-loader",
-  query: {
+  options: {
     modules: true,
     camelCase: "dashes",
     importLoaders: 1,
@@ -41,15 +40,16 @@ if (NODE_ENV === "production") {
 
   extraPlugins.push(
     new MinifyPlugin({mangle: false}),
-    new ExtractTextPlugin("[name].css"),
+    new MiniCSSExtractPlugin(),
   );
 
   extraLoaders.push({
     test: /\.css$/,
-    loader: ExtractTextPlugin.extract({
-      fallback: "style-loader",
-      use: combineLoaders([cssLoader]),
-    }),
+    exclude: /node_modules/,
+    use: [
+      MiniCSSExtractPlugin.loader,
+      cssLoader,
+    ],
   });
 
   extraCopy.push({from: "webextension/locales/locales.json",
@@ -80,15 +80,16 @@ if (NODE_ENV === "production") {
   extraLoaders.push({
     test: /\.css$/,
     exclude: /node_modules/,
-    loader: combineLoaders([
-      {loader: "style-loader"},
+    use: [
+      "style-loader",
       cssLoader,
-    ]),
+    ],
   });
 
 }
 
 export default {
+  mode: NODE_ENV,
   context: path.join(__dirname, "src"),
   devtool: "cheap-module-source-map",
 
@@ -108,7 +109,7 @@ export default {
   },
 
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
       loader: "babel-loader",
