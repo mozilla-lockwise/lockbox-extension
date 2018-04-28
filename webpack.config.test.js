@@ -4,30 +4,30 @@
 
 import path from "path";
 import webpack from "webpack";
-import combineLoaders from "webpack-combine-loaders";
 
 export default {
+  mode: "development",
   devtool: "inline-source-map",
 
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loader: "babel-loader",
+      use: "babel-loader",
     }, {
       test: /\.css$/,
       exclude: /node_modules/,
-      loader: combineLoaders([{
-        loader: "style-loader",
-      }, {
-        loader: "css-loader",
-        query: {
-          modules: true,
-          camelCase: "dashes",
-          importLoaders: 1,
-          localIdentName: "[name]__[local]___[hash:base64:5]",
+      use: [
+        "style-loader",
+        { loader: "css-loader",
+          options: {
+            modules: true,
+            camelCase: "dashes",
+            importLoaders: 1,
+            localIdentName: "[name]__[local]___[hash:base64:5]",
+          },
         },
-      }]),
+      ],
     }],
   },
 

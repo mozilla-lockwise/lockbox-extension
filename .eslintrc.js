@@ -33,5 +33,7 @@ module.exports = {
     "curly": "error",
     "no-console": "warn",
     "semi": "error",
+    "mozilla/no-define-cc-etc": "off",
+    "mozilla/use-chromeutils-import": "off",
   },
 };
