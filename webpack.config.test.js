@@ -12,7 +12,7 @@ export default {
   module: {
     loaders: [{
       test: /\.js$/,
-      exclude: /node_modules/,
+      exclude: /node_modules\/(?!(fluent|fluent-react)\/)/,
       loader: "babel-loader",
     }, {
       test: /\.css$/,

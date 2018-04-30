@@ -92,13 +92,21 @@ export default {
   context: path.join(__dirname, "src"),
   devtool: "cheap-module-source-map",
 
+  // XXX: Sadly, we need babel-polyfill because Babel 6 isn't happy about
+  // merely *parsing* async generators; it really wants to polyfill them...
   entry: {
-    "webextension/background": "./webextension/background/index.js",
-    "webextension/list/manage/index": "./webextension/list/manage/index.js",
-    "webextension/list/popup/index": "./webextension/list/popup/index.js",
-    "webextension/firstrun/index": "./webextension/firstrun/index.js",
-    "webextension/unlock/index": "./webextension/unlock/index.js",
-    "webextension/settings/index": "./webextension/settings/index.js",
+    "webextension/background":
+      ["babel-polyfill", "./webextension/background/index.js"],
+    "webextension/list/manage/index":
+      ["babel-polyfill", "./webextension/list/manage/index.js"],
+    "webextension/list/popup/index":
+      ["babel-polyfill", "./webextension/list/popup/index.js"],
+    "webextension/firstrun/index":
+      ["babel-polyfill", "./webextension/firstrun/index.js"],
+    "webextension/unlock/index":
+      ["babel-polyfill", "./webextension/unlock/index.js"],
+    "webextension/settings/index":
+      ["babel-polyfill", "./webextension/settings/index.js"],
   },
 
   output: {
@@ -110,7 +118,7 @@ export default {
   module: {
     loaders: [{
       test: /\.js$/,
-      exclude: /node_modules/,
+      exclude: /node_modules\/(?!(fluent|fluent-react)\/)/,
       loader: "babel-loader",
     }, ...extraLoaders],
   },

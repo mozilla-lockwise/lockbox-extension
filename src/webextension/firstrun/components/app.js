@@ -15,7 +15,7 @@ export default function App() {
   const imgSrc = browser.extension.getURL("/images/nessie_v2.svg");
 
   return (
-    <Localized id="document">
+    <Localized id="document" attrs={{title: true}}>
       <DocumentTitle title="wELCOMe to lOCKBOx">
         <article className={styles.firstrun}>
           <img src={imgSrc} alt=""/>
