@@ -14,9 +14,12 @@ import sinonChai from "sinon-chai";
 import { initialState, filledState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
 import ItemSummary from "src/webextension/list/components/item-summary";
+import { ItemListPlaceholder } from
+       "src/webextension/list/components/item-list";
 import ItemFilter from "src/webextension/list/containers/item-filter";
 import ItemListPanel from
        "src/webextension/list/popup/components/item-list-panel";
+import { PanelBanner } from "src/webextension/widgets/panel";
 
 chai.use(chaiEnzyme());
 chai.use(sinonChai);
@@ -44,14 +47,16 @@ describe("list > popup > components > <ItemListPanel/>", () => {
       store = mockStore(initialState);
       wrapper = mountWithL10n(
         <Provider store={store}>
-          <ItemListPanel/>
+          <ItemListPanel items={[]}/>
         </Provider>
       );
     });
 
     it("render panel", () => {
-      expect(wrapper).to.contain(ItemFilter);
+      expect(wrapper).to.have.descendants(ItemFilter);
       expect(wrapper.find(ItemSummary)).to.have.length(0);
+      expect(wrapper).to.have.descendants(ItemListPlaceholder);
+      expect(wrapper).not.to.have.descendants(PanelBanner);
     });
 
     it("open manager", () => {
@@ -74,14 +79,36 @@ describe("list > popup > components > <ItemListPanel/>", () => {
       }});
       wrapper = mountWithL10n(
         <Provider store={store}>
-          <ItemListPanel/>
+          <ItemListPanel items={filledState.cache.items}/>
         </Provider>
       );
     });
 
     it("render panel", () => {
-      expect(wrapper).to.contain(ItemFilter);
+      expect(wrapper).to.have.descendants(ItemFilter);
       expect(wrapper.find(ItemSummary)).to.have.length(3);
+      expect(wrapper).not.to.have.descendants(PanelBanner);
+    });
+  });
+
+  describe("filled state, no results banner", () => {
+    let store, wrapper;
+
+    beforeEach(() => {
+      store = mockStore({...filledState, list: {
+        ...filledState.list, selectedItemid: null,
+      }});
+      wrapper = mountWithL10n(
+        <Provider store={store}>
+          <ItemListPanel items={filledState.cache.items} noResultsBanner/>
+        </Provider>
+      );
+    });
+
+    it("render panel", () => {
+      expect(wrapper).to.have.descendants(ItemFilter);
+      expect(wrapper.find(ItemSummary)).to.have.length(3);
+      expect(wrapper).to.have.descendants(PanelBanner);
     });
   });
 });

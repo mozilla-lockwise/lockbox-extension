@@ -14,6 +14,8 @@ import { initialState, filledState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
 import { SELECT_ITEM_STARTING } from "src/webextension/list/actions";
 import { NEW_ITEM_ID } from "src/webextension/list/common";
+import { ItemListPlaceholder } from
+       "src/webextension/list/components/item-list";
 import ItemSummary from "src/webextension/list/components/item-summary";
 import AllItems from "src/webextension/list/manage/containers/all-items";
 
@@ -45,7 +47,7 @@ describe("list > manage > containers > <AllItems/>", () => {
 
     it("render items", () => {
       expect(wrapper.find(ItemSummary)).to.have.length(0);
-      expect(wrapper.find("div")).to.have.text(
+      expect(wrapper.find(ItemListPlaceholder)).to.have.text(
         "wHEn yOu cREATe an eNTRy..."
       );
     });
@@ -83,7 +85,13 @@ describe("list > manage > containers > <AllItems/>", () => {
     beforeEach(() => {
       store = mockStore({
         ...filledState,
-        list: {...filledState.list, filter: "2"},
+        list: {
+          ...filledState.list,
+          filter: {
+            query: "2",
+            userEntered: true,
+          },
+        },
       });
       wrapper = mountWithL10n(
         <Provider store={store}>

@@ -10,10 +10,12 @@ import { connect } from "react-redux";
 import Button from "../../../widgets/button";
 import { startNewItem } from "../../actions";
 
+import styles from "./add-item.css";
+
 function AddItem({disabled, onAddItem}) {
   return (
-    <Localized id="toolbar-add-item">
-      <Button theme="primary" size="puffy" disabled={disabled}
+    <Localized id="add-item-button">
+      <Button theme="primary" className={styles.addItem} disabled={disabled}
               onClick={onAddItem}>
         aDd iTEm
       </Button>

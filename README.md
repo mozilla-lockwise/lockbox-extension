@@ -49,7 +49,7 @@ version 2.0][license-link].
 [waffle-link]: https://waffle.io/mozilla-lockbox/lockbox-extension
 [greenkeeper-image]: https://badges.greenkeeper.io/mozilla-lockbox/lockbox-extension.svg
 [greenkeeper-link]: https://greenkeeper.io/
-[install-link]: /docs/install.md
+[install-link]: /docs/developer/install.md
 [org-website]: https://mozilla-lockbox.github.io/
 [docs-link]: /docs
 [contributing-link]: docs/contributing.md

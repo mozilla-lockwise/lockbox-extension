@@ -8,9 +8,10 @@ import React from "react";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
-import { mount } from "test/enzyme";
+import { mount, mountIntoDOM } from "test/enzyme";
 import mountWithL10n from "test/mocks/l10n";
-import Panel, { PanelHeader, PanelBody, PanelFooter } from
+import Toolbar from "src/webextension/widgets/toolbar";
+import Panel, { PanelHeader, PanelBody, PanelFooter, PanelFooterButton } from
        "src/webextension/widgets/panel";
 
 chai.use(chaiEnzyme());
@@ -20,17 +21,36 @@ describe("widgets > panel", () => {
   describe("<PanelHeader/>", () => {
     it("render header", () => {
       const wrapper = mount(<PanelHeader>header</PanelHeader>);
-      expect(wrapper.find("span")).to.have.text("header");
+      expect(wrapper.find("header")).to.have.descendants(Toolbar);
+      expect(wrapper.find("menu")).to.have.text("header");
       expect(wrapper.find("header").prop("className")).to.match(
-        /^\S*panel-header\S*$/
+        /^\S+panel-header\S+ \S+normal-border\S+$/
       );
       expect(wrapper.find("button")).to.have.length(0);
+    });
+
+    it("render floating border", () => {
+      const wrapper = mount(
+        <PanelHeader border="floating">header</PanelHeader>
+      );
+      expect(wrapper.find("header").prop("className")).to.match(
+        /^\S+panel-header\S+ \S+floating-border\S+$/
+      );
+    });
+
+    it("render no border", () => {
+      const wrapper = mount(
+        <PanelHeader border="none">header</PanelHeader>
+      );
+      expect(wrapper.find("header").prop("className")).to.match(
+        /^\S+panel-header\S+$/
+      );
     });
 
     it("merge classNames", () => {
       const wrapper = mount(<PanelHeader className="foo"/>);
       expect(wrapper.find("header").prop("className")).to.match(
-        /^\S*panel-header\S* foo$/
+        /^\S+panel-header\S+ \S+normal-border\S+ foo$/
       );
     });
 
@@ -49,14 +69,22 @@ describe("widgets > panel", () => {
       const wrapper = mount(<PanelBody>body</PanelBody>);
       expect(wrapper.find("main")).to.have.text("body");
       expect(wrapper.find("main").prop("className")).to.match(
-        /^\S*panel-body\S*$/
+        /^\S+panel-body\S+ \S+scroll\S+$/
+      );
+    });
+
+    it("render without scrolling", () => {
+      const wrapper = mount(<PanelBody scroll={false}>body</PanelBody>);
+      expect(wrapper.find("main")).to.have.text("body");
+      expect(wrapper.find("main").prop("className")).to.match(
+        /^\S+panel-body\S+$/
       );
     });
 
     it("merge classNames", () => {
       const wrapper = mount(<PanelBody className="foo"/>);
       expect(wrapper.find("main").prop("className")).to.match(
-        /^\S*panel-body\S* foo$/
+        /^\S+panel-body\S+ \S+scroll\S+ foo$/
       );
     });
   });
@@ -66,15 +94,69 @@ describe("widgets > panel", () => {
       const wrapper = mount(<PanelFooter>footer</PanelFooter>);
       expect(wrapper.find("footer")).to.have.text("footer");
       expect(wrapper.find("footer").prop("className")).to.match(
-        /^\S*panel-footer\S*$/
+        /^\S+panel-footer\S+ \S+normal-border\S+$/
+      );
+    });
+
+    it("render floating border", () => {
+      const wrapper = mount(
+        <PanelFooter border="floating">header</PanelFooter>
+      );
+      expect(wrapper.find("footer").prop("className")).to.match(
+        /^\S+panel-footer\S+ \S+floating-border\S+$/
+      );
+    });
+
+    it("render no border", () => {
+      const wrapper = mount(
+        <PanelFooter border="none">header</PanelFooter>
+      );
+      expect(wrapper.find("footer").prop("className")).to.match(
+        /^\S+panel-footer\S+$/
       );
     });
 
     it("merge classNames", () => {
       const wrapper = mount(<PanelFooter className="foo"/>);
       expect(wrapper.find("footer").prop("className")).to.match(
-        /^\S*panel-footer\S* foo$/
+        /^\S+panel-footer\S+ \S+normal-border\S+ foo$/
       );
+    });
+  });
+
+  describe("<PanelFooterButton/>", () => {
+    it("render button", () => {
+      const wrapper = mount(<PanelFooterButton>click me</PanelFooterButton>);
+      expect(wrapper.find("button")).to.have.text("click me");
+      expect(wrapper.find("button").prop("className")).to.match(
+          /^\S+button\S+ \S+panel-footer-button\S+ \S+normal-theme\S+$/
+      );
+    });
+
+    it("merge classNames", () => {
+      const wrapper = mount(
+        <PanelFooterButton className="foo">click me</PanelFooterButton>
+      );
+      expect(wrapper.find("button").prop("className")).to.match(
+          /^\S+button\S+ \S+panel-footer-button\S+ \S+normal-theme\S+ foo$/
+      );
+    });
+
+    it("onClick fired", () => {
+      const onClick = sinon.spy();
+      const wrapper = mount(
+        <PanelFooterButton onClick={onClick}>click me</PanelFooterButton>
+      );
+      wrapper.find("button").simulate("click");
+      expect(onClick).to.have.callCount(1);
+    });
+
+    it("focus() focuses button", () => {
+      const wrapper = mountIntoDOM(
+        <PanelFooterButton>click me</PanelFooterButton>
+      );
+      wrapper.instance().focus();
+      expect(wrapper.find("button")).to.be.focused(document);
     });
   });
 
@@ -91,7 +173,7 @@ describe("widgets > panel", () => {
       expect(wrapper.find("article").find("main")).to.have.text("body");
       expect(wrapper.find("article").find("footer")).to.have.text("footer");
       expect(wrapper.find("article").prop("className")).to.match(
-        /^\S*panel\S*$/
+        /^\S+panel\S+$/
       );
     });
 
@@ -101,7 +183,7 @@ describe("widgets > panel", () => {
           <PanelBody>body</PanelBody>
         </Panel>);
       expect(wrapper.find("article").prop("className")).to.match(
-        /^\S*panel\S* foo$/
+        /^\S+panel\S+ foo$/
       );
     });
   });

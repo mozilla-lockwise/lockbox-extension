@@ -56,7 +56,7 @@ describe("widgets > <Input/>", () => {
     );
     wrapper.instance().focus();
     expect(wrapper.find("input")).to.be.focused();
-    expect(wrapper.find("input")).to.have.selection(0, 0);
+    expect(wrapper.find("input")).to.have.selection(9, 9);
   });
 
   it("focus(true) focuses/selects input", () => {

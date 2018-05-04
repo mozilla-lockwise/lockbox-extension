@@ -35,7 +35,7 @@ To generate the next release binary:
       - Request an approval from the P.I. and Product representatives
     - Once the release has been reviewed, tested, and approved to go live, merge and close the pull request
     - Test Pilot's Jenkins will then build, sign, and deploy the extension (see ["Extension Signing"](#extension-signing))
-4. Tag the latest commit on `production` branch with an annotated version and push the tag:
+4. Tag the latest commit on `master` branch with an annotated version and push the tag:
     - `git tag -a -m "Release 0.1.0" 0.1.0`
     - `git push upstream 0.1.0`
     - Travis-CI will build and generate a [GitHub Release][releases]

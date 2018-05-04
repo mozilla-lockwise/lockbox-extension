@@ -6,14 +6,11 @@ import { Localized } from "fluent-react";
 import React from "react";
 import DocumentTitle from "react-document-title";
 
-import AddItem from "../containers/add-item";
 import AllItems from "../containers/all-items";
 import CurrentAccountSummary from "../containers/current-account-summary";
+import CurrentBreadcrumbs from "../containers/current-breadcrumbs";
 import CurrentSelection from "../containers/current-selection";
-import GoHome from "../containers/go-home";
-import ItemFilter from "../../containers/item-filter";
 import ModalRoot from "../containers/modals";
-import SendFeedback from "../containers/send-feedback";
 import OpenFAQ from "../containers/open-faq";
 import Toolbar, { ToolbarSpace } from "../../../widgets/toolbar";
 
@@ -30,24 +27,17 @@ export default class App extends React.Component {
         <DocumentTitle title="lOCKBOx eNTRIEs">
           <div className={styles.app}>
             <section className={styles.appMain}>
-              <Toolbar className={styles.navigation}>
-                <AddItem/>
-                <GoHome/>
-                <ToolbarSpace/>
-                <OpenFAQ/>
-                <SendFeedback/>
-                <CurrentAccountSummary/>
-              </Toolbar>
-              <aside>
-                <Toolbar className={styles.filterBar}>
-                  <ItemFilter className={styles.filter}
-                              inputRef={(element) => {
-                                this._filterField = element;
-                              }}/>
-                </Toolbar>
-                <AllItems/>
-              </aside>
+              <AllItems className={styles.aside}
+                        inputRef={(element) => {
+                          this._filterField = element;
+                        }}/>
               <article>
+                <Toolbar className={styles.navigation}>
+                  <CurrentBreadcrumbs/>
+                  <ToolbarSpace/>
+                  <OpenFAQ/>
+                  <CurrentAccountSummary/>
+                </Toolbar>
                 <CurrentSelection/>
               </article>
             </section>

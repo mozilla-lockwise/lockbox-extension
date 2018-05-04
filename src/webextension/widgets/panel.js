@@ -6,16 +6,26 @@ import { Localized } from "fluent-react";
 import React from "react";
 import PropTypes from "prop-types";
 
+import { classNames } from "../common";
 import Button from "./button";
+import Toolbar from "./toolbar";
 
 import buttonStyles from "./button.css";
 import styles from "./panel.css";
 
-export function PanelHeader({className, onBack, children}) {
-  const finalClassName = `${styles.panelHeader} ${className}`.trimRight();
+const BORDER_CLASS_NAME = {
+  "normal": styles.normalBorder,
+  "floating": styles.floatingBorder,
+  "none": null,
+};
+
+export function PanelHeader({className, toolbarClassName, border, onBack,
+                             children}) {
   const imgSrc = browser.extension.getURL("/icons/arrowhead-left-16.svg");
   return (
-    <header className={finalClassName}>
+    <header className={classNames([
+              styles.panelHeader, BORDER_CLASS_NAME[border], className,
+            ])}>
       {onBack ? (
         <Button theme="ghost" size="micro" onClick={onBack}>
           <Localized id="panel-back-button">
@@ -23,25 +33,53 @@ export function PanelHeader({className, onBack, children}) {
           </Localized>
         </Button>
       ) : null}
-      <span>{children}</span>
+      <Toolbar className={classNames([
+                 styles.panelHeaderToolbar, toolbarClassName,
+               ])}>{children}</Toolbar>
     </header>
   );
 }
 
 PanelHeader.propTypes = {
   className: PropTypes.string,
+  toolbarClassName: PropTypes.string,
+  border: PropTypes.oneOf(Object.keys(BORDER_CLASS_NAME)),
   onBack: PropTypes.func,
   children: PropTypes.node,
 };
 
 PanelHeader.defaultProps = {
   className: "",
+  toolbarClassName: "",
+  border: "normal",
 };
 
-export function PanelBody({className, children}) {
-  const finalClassName = `${styles.panelBody} ${className}`.trimRight();
+export function PanelBanner({className, border, children}) {
   return (
-    <main className={finalClassName}>
+    <aside className={classNames([
+            styles.panelBanner, BORDER_CLASS_NAME[border], className,
+           ])}>
+      {children}
+    </aside>
+  );
+}
+
+PanelBanner.propTypes = {
+  className: PropTypes.string,
+  border: PropTypes.oneOf(Object.keys(BORDER_CLASS_NAME)),
+  children: PropTypes.node,
+};
+
+PanelBanner.defaultProps = {
+  className: "",
+  border: "normal",
+};
+
+export function PanelBody({className, scroll, children}) {
+  return (
+    <main className={classNames([
+            styles.panelBody, scroll && styles.scroll, className,
+          ])}>
       {children}
     </main>
   );
@@ -49,17 +87,20 @@ export function PanelBody({className, children}) {
 
 PanelBody.propTypes = {
   className: PropTypes.string,
+  scroll: PropTypes.bool,
   children: PropTypes.node,
 };
 
 PanelBody.defaultProps = {
   className: "",
+  scroll: true,
 };
 
-export function PanelFooter({className, children}) {
-  const finalClassName = `${styles.panelFooter} ${className}`.trimRight();
+export function PanelFooter({className, border, children}) {
   return (
-    <footer className={finalClassName}>
+    <footer className={classNames([
+              styles.panelFooter, BORDER_CLASS_NAME[border], className,
+            ])}>
       {children}
     </footer>
   );
@@ -68,10 +109,12 @@ export function PanelFooter({className, children}) {
 PanelFooter.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
+  border: PropTypes.oneOf(Object.keys(BORDER_CLASS_NAME)),
 };
 
 PanelFooter.defaultProps = {
   className: "",
+  border: "normal",
 };
 
 const THEME_CLASS_NAME = {
@@ -100,23 +143,18 @@ export class PanelFooterButton extends React.Component {
 
   render() {
     const {theme, className, ...props} = this.props;
-    const themeClass = THEME_CLASS_NAME[theme];
-    const finalClassName = (
-      `${buttonStyles.button} ${styles.panelFooterButton} ${themeClass} ` +
-      `${className}`
-    ).trimRight();
-
     return (
-      <button className={finalClassName} {...props}
-              ref={(element) => this.buttonElement = element}/>
+      <button {...props} className={classNames([
+                buttonStyles.button, styles.panelFooterButton,
+                THEME_CLASS_NAME[theme], className,
+              ])} ref={(element) => this.buttonElement = element}/>
     );
   }
 }
 
 export default function Panel({className, children}) {
-  const finalClassName = `${styles.panel} ${className}`.trimRight();
   return (
-    <article className={finalClassName}>
+    <article className={classNames([styles.panel, className])}>
       {children}
     </article>
   );

@@ -5,6 +5,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import { classNames } from "../common";
+
 import styles from "./link.css";
 
 export class Link extends React.Component {
@@ -25,7 +27,7 @@ export class Link extends React.Component {
   }
 
   get baseClassName() {
-    return `${styles.link}`;
+    return styles.link;
   }
 
   focus() {
@@ -34,11 +36,10 @@ export class Link extends React.Component {
 
   render() {
     const {className, role, onClick, children, ...props} = this.props;
-    const finalClassName = `${this.baseClassName} ${className}`.trimRight();
     return (
-      <button ref={(element) => this.linkElement = element}
-              {...props} className={finalClassName} role={role}
-              onClick={onClick}>
+      <button {...props} role={role}
+              className={classNames([this.baseClassName, className])}
+              onClick={onClick} ref={(element) => this.linkElement = element}>
         {children}
       </button>
     );
@@ -51,6 +52,6 @@ export class Link extends React.Component {
 
 export class ExternalLink extends Link {
   get baseClassName() {
-    return `${styles.link} ${styles.external}`;
+    return classNames([styles.link, styles.external]);
   }
 }

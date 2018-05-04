@@ -3,6 +3,11 @@
 document
   .title = Lockbox Entries
 
+all-items-get-started =
+  When you add an entry, it automatically shows up here.
+
+all-items-no-results = No results
+
 item-fields-title = Name
 item-fields-title-input
   .placeholder = e.g. primary bank
@@ -43,19 +48,24 @@ item-filter
 
 [[manage]]
 
-toolbar-add-item = New entry
+add-item-button = +
+  .title = New entry
+
+send-feedback-button = Provide Feedback
+
 toolbar-go-home = Home
-toolbar-send-feedback = Provide Feedback
 toolbar-open-faq = FAQ
+
+breadcrumbs-item-new = New entry
+breadcrumbs-item =
+  { $length ->
+     [0]     (no site name)
+    *[other] { $title }
+  }
 
 account-summary-account = Account
 account-summary-options = Preferences
 account-summary-signout = Sign Out
-
-all-items-empty =
-  When you add an entry, it automatically shows up here.
-
-all-items-filtered = No results
 
 intro-page-step-1 =
   Save username and password info to create a { product-title } entry.
@@ -102,6 +112,8 @@ item-details-cancel = Cancel
 [[popup]]
 
 manage-lockbox-button = Manage Lockbox
+
+no-results-banner = No entries found for current website.
 
 item-details-panel-title = Entry Details
 

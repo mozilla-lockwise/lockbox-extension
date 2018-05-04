@@ -1,9 +1,11 @@
 # Manual Test Plan
 
 ## Keyboard Navigation
+
 _< 3 hours_
 
-Navigate the web content using only the keyboard
+Navigate the web content using only the keyboard:
+
 - Tab Order:`TAB`, as well as `SHIFT + TAB`, follows a logical and intuitive order.
 - All controls, links, buttons, etc., get focused.
 - Focus should be visibly apparent.
@@ -15,7 +17,9 @@ Navigate the web content using only the keyboard
 - Firefox toolbar icon can be accessed by keyboard and screen reader users.
 
 ## Page Structure
+
 _3 hours_
+
 - Links and buttons have text that give context.
 - All images contain alt text to describe the purpose or content of the image to a non-sighted user.
 - A logical hierarchy of header tags has been used.
@@ -26,7 +30,9 @@ _3 hours_
 - Form input fields and buttons have been labeled for screen reader users.
 
 ## Color
+
 _< 1 hour_
+
 - Text has sufficient color contrast against its background.
   - Contrast ratio of 4.5:1 for normal text (less than 18 point or 14 point bold.)
   - Contrast ratio of 3:1 for large text (at least 18 point or 14 point bold).
@@ -35,6 +41,7 @@ _< 1 hour_
 - Focus remains apparent, and contrast remains sufficient, when simulating varying types of colorblindness.  [Color blind simulators](https://www.toptal.com/designers/colorfilter)
 
 ## UX Design Considerations
+
 - Interactions available with a mouse are also available using a keyboard.
 - Information conveyed visually is also available by other means.
   - Pop-ups and other state changes are announced to screen readers using appropriate ARIA attributes.
@@ -42,7 +49,9 @@ _< 1 hour_
 - Animations are not excessively flashy, as this can cause seizures in some users.
 
 ## Tools and Resources
+
 Use a variety of testing tools to analyze pages:
+
 - aXe developer tools by Deque
 - Browser developer tools to inspect HTML for logical heading structure and ARIA roles
 - [Color blind simulators](https://www.toptal.com/designers/colorfilter)

@@ -10,7 +10,7 @@ This repository is governed by Mozilla's code of conduct and etiquette guideline
 
 ## How to Get Started
 
-Please refer to installation and build instructions in the [install documentation](install.md).
+Please refer to installation and build instructions in the [install documentation](developer/install.md).
 
 ## How to Report Bugs
 

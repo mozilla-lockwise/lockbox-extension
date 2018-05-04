@@ -28,7 +28,10 @@ describe("list > containers > <ItemFilter/>", () => {
       ...filledState,
       list: {
         ...filledState.list,
-        filter: "filter",
+        filter: {
+          query: "filter",
+          userEntered: false,
+        },
       },
     });
     wrapper = mountWithL10n(
@@ -48,6 +51,7 @@ describe("list > containers > <ItemFilter/>", () => {
     expect(store.getActions()[0]).to.deep.equal({
       type: FILTER_ITEMS,
       filter: "filtertext",
+      userEntered: true,
     });
   });
 
@@ -57,6 +61,7 @@ describe("list > containers > <ItemFilter/>", () => {
     expect(store.getActions()[0]).to.deep.equal({
       type: FILTER_ITEMS,
       filter: "",
+      userEntered: true,
     });
   });
 });

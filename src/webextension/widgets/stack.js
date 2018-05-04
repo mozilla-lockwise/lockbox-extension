@@ -5,6 +5,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import { classNames } from "../common";
+
 import styles from "./stack.css";
 
 export default class Stack extends React.Component {
@@ -25,20 +27,17 @@ export default class Stack extends React.Component {
 
   render() {
     const {children, selectedIndex, stretch, ...props} = this.props;
-    const stretchClass = stretch ? ` ${styles.stretch}` : "";
-    const innerClassName = `${styles.stack}${stretchClass}`;
-
     return (
       <section {...props}>
-        <div className={innerClassName}>
+        <div className={classNames([styles.stack, stretch && styles.stretch])}>
           {React.Children.map(children, (child, i) => {
-            const props = {};
+            const extraProps = {};
             if (i === selectedIndex) {
-              props["data-selected"] = true;
+              extraProps["data-selected"] = true;
             }
 
             return (
-              <span className={styles.stackItem} key={i} {...props}>
+              <span {...extraProps} className={styles.stackItem} key={i}>
                 {child}
               </span>
             );
