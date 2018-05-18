@@ -58,7 +58,7 @@
     "fluent": "^0.4.2",
     "fluent-intl-polyfill": "^0.1.0",
     "fluent-langneg": "^0.1.0",
-    "fluent-react": "^0.4.1",
+    "fluent-react": "^0.7.0",
     "intl-pluralrules": "^0.1.0",
     "lockbox-datastore": "github:mozilla-lockbox/lockbox-datastore#0.2.0",
     "node-jose": "^0.11.0",
