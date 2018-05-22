@@ -80,7 +80,7 @@ jobs:
 
 script:
   - STRICT_LINT=1 npm run test
-  - npx nsp check || true
+  - npm run nsp || exit 0
 
 after_success:
   - npm run codecov
