@@ -4,6 +4,72 @@
 
 import * as DataStore from "lockbox-datastore";
 import * as telemetry from "./telemetry";
+import UUID from "uuid";
+
+function convertInfo2Item(info) {
+  let title;
+  try {
+    title = (new URL(info.hostname)).host;
+  } catch (ex) {
+    title = info.hostname;
+  }
+  title = title.replace(/^www\./, "");
+
+  const id = info.guid || `{${UUID()}}`;
+  const origins = [ info.hostname, info.formSubmitURL, info.httpRealm ].
+      filter((u) => !!u);
+
+  let item = {
+    id,
+    title,
+    origins,
+    tags: [],
+    entry: {
+      kind: "login",
+      username: info.username,
+      password: info.password,
+    },
+  };
+  return item;
+}
+
+const MSG_LIST = {
+  type: "bootstrap_logins_list",
+};
+class BootstrapDataStore {
+  constructor() {}
+
+  async list() {
+    const logins = await browser.runtime.sendMessage(MSG_LIST);
+
+    let items = logins.items;
+    items = items.map(convertInfo2Item);
+
+    return items;
+  }
+  async get(id) {
+    let all = await this.list();
+    let one = all.find((i) => i.id === id);
+    return one;
+  }
+  async add() {
+
+  }
+  async update() {
+
+  }
+  async remove() {
+
+  }
+}
+
+let bootstrap;
+export async function openBootstrap() {
+  if (!bootstrap) {
+    bootstrap = new BootstrapDataStore();
+  }
+  return bootstrap;
+}
 
 let datastore;
 

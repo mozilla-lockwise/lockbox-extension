@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import openDataStore, { clearDataStore, DEFAULT_APP_KEY } from "./datastore";
+import openDataStore, { openBootstrap, clearDataStore, DEFAULT_APP_KEY } from "./datastore";
 import getAccount, * as accounts from "./accounts";
 import updateBrowserAction from "./browser-action";
 import * as telemetry from "./telemetry";
@@ -159,12 +159,28 @@ export default function initializeMessagePorts() {
         return {};
       });
 
-    case "list_items":
+    case "legacy_list_items":
       return openDataStore().then(async (ds) => {
         var entries = Array.from((await ds.list()).values(),
                                   makeItemSummary);
         telemetry.setScalar("datastoreCount", entries.length);
         return {items: entries};
+      });
+    case "legacy_get_item":
+      return openDataStore().then(async (ds) => {
+        return { item: await ds.get(message.id) };
+      });
+
+
+    case "list_items":
+      return openBootstrap().then(async (ds) => {
+        const entries = (await ds.list()).map(makeItemSummary);
+        telemetry.setScalar("datastoreCount", entries.length);
+        return { items: entries };
+      });
+    case "get_item":
+      return openBootstrap().then(async (ds) => {
+        return { item: await ds.get(message.id) };
       });
     case "add_item":
       return openDataStore().then(async (ds) => {
@@ -184,13 +200,12 @@ export default function initializeMessagePorts() {
         broadcast({type: "removed_item", id: message.id}, sender);
         return {};
       });
-    case "get_item":
-      return openDataStore().then(async (ds) => {
-        return {item: await ds.get(message.id)};
-      });
+
     case "proxy_telemetry_event":
       return telemetry.recordEvent(message.method, message.object,
                                    message.extra);
+    case "proxy_telemetry_scalar":
+        return telemetry.setScalar(message.name, message.value);
     default:
       return null;
     }

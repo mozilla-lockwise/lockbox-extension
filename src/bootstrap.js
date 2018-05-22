@@ -46,6 +46,16 @@ class EventDispatcher {
   }
 }
 
+function convertLogin(info) {
+  const meta = info.QueryInterface(Ci.nsILoginMetaInfo);
+
+  let obj = {
+    ...meta,
+    ...info,
+  };
+  return obj;
+}
+
 const dispatcher = new EventDispatcher();
 function startup({webExtension}, reason) {
   try {
@@ -184,6 +194,12 @@ function startup({webExtension}, reason) {
           `${TELEMETRY_CATEGORY}.${message.name}`, message.value
         );
         respond({});
+        break;
+      case "bootstrap_logins_list":
+        respond({
+          items: Services.logins.getAllLogins().map(convertLogin),
+        });
+        break;
       }
     });
 
