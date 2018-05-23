@@ -2,8 +2,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require("babel-register")();
-
 module.exports = function(config) {
   config.set({
     browsers: ["FirefoxHeadless"],
@@ -26,7 +24,7 @@ module.exports = function(config) {
     frameworks: ["mocha"],
     reporters: ["mocha", "coverage"],
 
-    webpack: require("./webpack.config.test.js").default,
+    webpack: require("./webpack.config.test.js"),
     webpackMiddleware: {
       stats: "errors-only",
     },

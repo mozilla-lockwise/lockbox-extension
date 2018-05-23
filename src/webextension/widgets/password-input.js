@@ -58,12 +58,12 @@ export default class PasswordInput extends React.Component {
                className={monospace ? styles.monospace : ""} disabled={disabled}
                ref={(element) => this.inputElement = element}/>
         <Stack stretch selectedIndex={selectedIndex}>
-          <Localized id="password-input-show">
+          <Localized id="password-input-show" attrs={{title: true}}>
             <button type="button" className={styles.showBtn} title="sHOw"
                     disabled={disabled}
                     onClick={() => this.showPassword(true)}/>
           </Localized>
-          <Localized id="password-input-hide">
+          <Localized id="password-input-hide" attrs={{title: true}}>
             <button type="button" className={styles.hideBtn} title="hIDe"
                     disabled={disabled}
                     onClick={() => this.showPassword(false)}/>

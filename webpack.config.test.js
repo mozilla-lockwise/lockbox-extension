@@ -2,10 +2,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import path from "path";
-import webpack from "webpack";
+const path = require("path");
+const webpack = require("webpack");
 
-export default {
+module.exports = {
   mode: "development",
   devtool: "inline-source-map",
 

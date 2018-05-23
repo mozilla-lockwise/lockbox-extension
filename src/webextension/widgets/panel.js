@@ -28,7 +28,7 @@ export function PanelHeader({className, toolbarClassName, border, onBack,
             ])}>
       {onBack ? (
         <Button theme="ghost" size="micro" onClick={onBack}>
-          <Localized id="panel-back-button">
+          <Localized id="panel-back-button" attrs={{alt: true}}>
             <img src={imgSrc} alt="go bACk"/>
           </Localized>
         </Button>
