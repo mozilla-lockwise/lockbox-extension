@@ -87,4 +87,5 @@ after_success:
 before_deploy:
   - pip install --user mkdocs
   - npm run package
-  - npm run doc
+  # Re-enable this when `documentation` updates to support Babel 7.
+  # - npm run doc
