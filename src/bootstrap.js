@@ -76,6 +76,18 @@ function modifyLogin(info) {
 
   return {};
 }
+function removeLogin(info) {
+  try {
+    const login = LoginHelper.vanillaObjectToLogin(info);
+    Services.logins.removeLogin(login);
+  } catch (ex) {
+    // eslint-disable-next-line no-console
+    console.log(`could not remove login: (${ex.name}) ${ex.message}`);
+    return null;
+  }
+
+  return {};
+}
 
 const dispatcher = new EventDispatcher();
 function startup({webExtension}, reason) {
@@ -224,6 +236,9 @@ function startup({webExtension}, reason) {
         break;
       case "bootstrap_logins_update":
         respond(modifyLogin(message.login));
+        break;
+      case "bootstrap_logins_remove":
+        respond(removeLogin(message.login));
         break;
       }
     });

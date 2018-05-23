@@ -176,6 +176,12 @@ export default function initializeMessagePorts() {
         broadcast({ type: "updated_item", item }, sender);
         return { item };
       });
+    case "legacy_remove_item":
+      return openDataStore().then(async (ds) => {
+        await ds.remove(message.id);
+        broadcast({ type: "removed_item", id: message.id }, sender);
+        return {};
+      });
 
     case "list_items":
       return openBootstrapStore().then(async (ds) => {
@@ -200,7 +206,7 @@ export default function initializeMessagePorts() {
         return { item };
       });
     case "remove_item":
-      return openDataStore().then(async (ds) => {
+      return openBootstrapStore().then(async (ds) => {
         await ds.remove(message.id);
         broadcast({type: "removed_item", id: message.id}, sender);
         return {};
