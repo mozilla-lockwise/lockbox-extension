@@ -7,10 +7,17 @@
 export const NEW_ITEM_ID = "new-item";
 
 export function unflattenItem(item, id) {
+  let origins = [];
+  if (item.origin) {
+    origins.push(item.origin);
+  }
+  if (item.formURL) {
+    origins.push(item.formURL);
+  }
   return {
     id,
     title: item.title,
-    origins: item.origin ? [item.origin] : [],
+    origins,
     entry: {
       kind: "login",
       username: item.username,
@@ -24,6 +31,7 @@ export function flattenItem(item) {
   return {
     title: item.title,
     origin: item.origins[0] || "",
+    formURL: item.origins[1] || "",
     username: item.entry.username,
     password: item.entry.password,
     notes: item.entry.notes,

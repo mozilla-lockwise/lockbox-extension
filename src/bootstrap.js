@@ -2,12 +2,18 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/* global ADDON_INSTALL, ADDON_UPGRADE, ADDON_UNINSTALL */
+/* global ADDON_INSTALL, ADDON_UPGRADE, ADDON_UNINSTALL, LoginHelper */
 /* eslint-disable no-unused-vars */
 
 const { utils: Cu } = Components;
 
-Cu.import("resource://gre/modules/Services.jsm");
+ChromeUtils.import("resource://gre/modules/Services.jsm");
+const LoginInfo = Components.Constructor("@mozilla.org/login-manager/loginInfo;1",
+                                         "nsILoginInfo",
+                                         "init");
+ChromeUtils.defineModuleGetter(this,
+                               "LoginHelper",
+                               "resource://gre/modules/LoginHelper.jsm");
 
 const REMEMBER_SIGNONS_PREF = "signon.rememberSignons";
 const ORIGINAL_REMEMBER_SIGNONS_PREF =
@@ -46,14 +52,29 @@ class EventDispatcher {
   }
 }
 
-function convertLogin(info) {
-  const meta = info.QueryInterface(Ci.nsILoginMetaInfo);
-
-  let obj = {
-    ...meta,
-    ...info,
+function modifyLogin(info) {
+  // find original login
+  const query = {
+    guid: info.guid,
   };
-  return obj;
+  const found = LoginHelper.searchLoginsWithObject(query);
+  if (!found.length) {
+    return null;
+  }
+
+  try {
+    const orig = found[0];
+    const pending = LoginHelper.newPropertyBag(info);
+    let updated = LoginHelper.buildModifiedLogin(orig, pending);
+    Services.logins.modifyLogin(orig, updated);
+    updated = LoginHelper.loginToVanillaObject(updated);
+  } catch (ex) {
+    // eslint-disable-next-line no-console
+    console.log(`could not update login: (${ex.name}) ${ex.message}`);
+    return null;
+  }
+
+  return {};
 }
 
 const dispatcher = new EventDispatcher();
@@ -195,10 +216,14 @@ function startup({webExtension}, reason) {
         );
         respond({});
         break;
+
       case "bootstrap_logins_list":
         respond({
-          items: Services.logins.getAllLogins().map(convertLogin),
+          logins: Services.logins.getAllLogins().map(LoginHelper.loginToVanillaObject),
         });
+        break;
+      case "bootstrap_logins_update":
+        respond(modifyLogin(message.login));
         break;
       }
     });

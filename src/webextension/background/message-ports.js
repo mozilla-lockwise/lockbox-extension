@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import openDataStore, { openBootstrap, clearDataStore, DEFAULT_APP_KEY } from "./datastore";
+import openDataStore, { openBootstrapStore, clearDataStore, DEFAULT_APP_KEY } from "./datastore";
 import getAccount, * as accounts from "./accounts";
 import updateBrowserAction from "./browser-action";
 import * as telemetry from "./telemetry";
@@ -170,16 +170,21 @@ export default function initializeMessagePorts() {
       return openDataStore().then(async (ds) => {
         return { item: await ds.get(message.id) };
       });
-
+    case "legacy_update_item":
+      return openDataStore().then(async (ds) => {
+        const item = await ds.update(message.item);
+        broadcast({ type: "updated_item", item }, sender);
+        return { item };
+      });
 
     case "list_items":
-      return openBootstrap().then(async (ds) => {
+      return openBootstrapStore().then(async (ds) => {
         const entries = (await ds.list()).map(makeItemSummary);
         telemetry.setScalar("datastoreCount", entries.length);
         return { items: entries };
       });
     case "get_item":
-      return openBootstrap().then(async (ds) => {
+      return openBootstrapStore().then(async (ds) => {
         return { item: await ds.get(message.id) };
       });
     case "add_item":
@@ -189,10 +194,10 @@ export default function initializeMessagePorts() {
         return {item};
       });
     case "update_item":
-      return openDataStore().then(async (ds) => {
+      return openBootstrapStore().then(async (ds) => {
         const item = await ds.update(message.item);
-        broadcast({type: "updated_item", item}, sender);
-        return {item};
+        broadcast({ type: "updated_item", item }, sender);
+        return { item };
       });
     case "remove_item":
       return openDataStore().then(async (ds) => {

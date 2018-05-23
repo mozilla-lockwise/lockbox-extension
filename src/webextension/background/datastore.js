@@ -4,7 +4,6 @@
 
 import * as DataStore from "lockbox-datastore";
 import * as telemetry from "./telemetry";
-import UUID from "uuid";
 
 function convertInfo2Item(info) {
   let title;
@@ -13,10 +12,12 @@ function convertInfo2Item(info) {
   } catch (ex) {
     title = info.hostname;
   }
-  title = title.replace(/^www\./, "");
+  title = title.replace(/^http:\/\//, "").
+                replace(/^https:\/\//, "").
+                replace(/^www\./, "");
 
-  const id = info.guid || `{${UUID()}}`;
-  const origins = [ info.hostname, info.formSubmitURL, info.httpRealm ].
+  const id = info.guid;
+  const origins = [ info.hostname, info.formSubmitURL ].
       filter((u) => !!u);
 
   let item = {
@@ -28,22 +29,58 @@ function convertInfo2Item(info) {
       kind: "login",
       username: info.username,
       password: info.password,
+      usernameField: info.usernameField,
+      passwordField: info.passwordField,
+      notes: "",
     },
   };
   return item;
 }
+function convertItem2Info(item) {
+  // dropped on the floor (for now ...)
+  // * title
+  // * tags
+  // * entry.notes
+  // * history
 
-const MSG_LIST = {
-  type: "bootstrap_logins_list",
-};
+  // item.id ==> info.guid
+  // item.title ==> undefined
+  // item.tags ==> undefined
+  // item.origins[0] ==> info.hostname
+  // item.origins[1] || null ==> info.formSubmitURL
+  // item.entry.kind ==> undefined
+  // item.entry.username ==> info.username
+  // item.entry.password ==> info.password
+  // item.entry.usernameField || "" ==> info.usernameField
+  // item.entry.passwordField || "" ==> info.passwordField
+  // item.entry.notes ==> info.undefined
+  const guid = item.id;
+  const hostname = item.origins[0];
+  const formSubmitURL = item.origins[1] || null;
+  const username = item.entry.username;
+  const password = item.entry.password;
+  const usernameField = item.entry.usernameField || "";
+  const passwordField = item.entry.passwordField || "";
+
+  let info = {
+    guid,
+    hostname,
+    formSubmitURL,
+    username,
+    password,
+    usernameField,
+    passwordField,
+  };
+
+  return info;
+}
+
 class BootstrapDataStore {
   constructor() {}
 
   async list() {
-    const logins = await browser.runtime.sendMessage(MSG_LIST);
-
-    let items = logins.items;
-    items = items.map(convertInfo2Item);
+    const logins = await browser.runtime.sendMessage({ type: "bootstrap_logins_list" });
+    const items = logins.logins.map(convertInfo2Item);
 
     return items;
   }
@@ -53,18 +90,45 @@ class BootstrapDataStore {
     return one;
   }
   async add() {
-
   }
-  async update() {
+  async update(item) {
+    const id = item.id;
+    if (!id) {
+      throw new TypeError("id missing");
+    }
 
+    const info = convertItem2Info(item);
+    const orig = await this.get(id);
+    if (!orig) {
+      throw new Error(`no existing item for ${id}`);
+    }
+
+    let updated = await browser.runtime.sendMessage({
+      type: "bootstrap_logins_update",
+      login: info,
+    });
+    if (!updated) {
+      throw new Error("update failed");
+    }
+    updated = convertInfo2Item(info);
+
+    return updated;
   }
-  async remove() {
-
+  async remove(id) {
+    const item = await this.get(id);
+    if (item) {
+      const login = convertItem2Info(item);
+      await browser.runtime.sendMessage({
+        type: "bootstrap_logins_remove",
+        login,
+      });
+    }
+    return item || null;
   }
 }
 
 let bootstrap;
-export async function openBootstrap() {
+export async function openBootstrapStore() {
   if (!bootstrap) {
     bootstrap = new BootstrapDataStore();
   }
