@@ -41,15 +41,16 @@ export default class EditItemDetails extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {...props.fields};
+    this.state = {};
   }
 
-  componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     // If we've changed the item we're editing, reset the form fields to their
     // (new) initial state.
-    if (nextProps.itemId !== this.props.itemId) {
-      this.setState(nextProps.fields);
+    if (nextProps.itemId !== prevState.itemId) {
+      return {itemId: nextProps.itemId, ...nextProps.fields};
     }
+    return null;
   }
 
   handleChange(event) {
@@ -58,14 +59,15 @@ export default class EditItemDetails extends React.Component {
   }
 
   render() {
-    const {itemId, onSave, onCancel} = this.props;
+    const {onSave, onCancel} = this.props;
+    const {itemId, ...saveState} = this.state;
     const newItem = itemId === null;
 
     return (
       <form className={classNames([styles.itemDetails, styles.editing])}
             onSubmit={(e) => {
               e.preventDefault();
-              onSave(this.state);
+              onSave(saveState);
             }}>
         <Localized id={`item-details-heading-${newItem ? "new" : "edit"}`}>
           <h1>eDIt iTEm</h1>
