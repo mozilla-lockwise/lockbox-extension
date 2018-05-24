@@ -1,6 +1,10 @@
-[[common]]
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-document
+## common
+
+document =
   .title = Enregistrements Lockbox
 
 all-items-get-started =
@@ -43,10 +47,10 @@ item-summary-copy-username = Copier Nom d'utilisateur
 item-summary-copy-password = Copier Mot de passe
   .title = Copier le mot de passe dans le presse-papier
 
-item-filter
+item-filter =
   .placeholder = Recherche Lockbox
 
-[[manage]]
+## manage
 
 add-item-button = +
   .title = Nouvel enregistrement
@@ -109,7 +113,7 @@ item-details-save-new = Créer Identifiants
 item-details-save-existing = Enregistrer
 item-details-cancel = Annuler
 
-[[popup]]
+## popup
 
 manage-lockbox-button = Gérrer Lockbox
 
@@ -119,7 +123,7 @@ item-details-panel-title = Détails de l'entrée
 
 navigate-panel-backwards = Retour arrière
 
-[[dialogs]]
+## dialogs
 
 modal-cancel-editing = Des modifications non enregistrées existent. Les jeter?
   .confirmLabel = Ignorer les changements
@@ -127,4 +131,4 @@ modal-cancel-editing = Des modifications non enregistrées existent. Les jeter?
 
 modal-delete = Supprimer cette entrée ?
   .confirmLabel = Supprimer
-.cancelLabel = Annuler
+  .cancelLabel = Annuler
