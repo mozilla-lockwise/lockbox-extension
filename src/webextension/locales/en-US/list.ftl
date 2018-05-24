@@ -49,6 +49,7 @@ item-summary-copy-password = Copy Password
 
 item-filter =
   .placeholder = Search Lockbox
+  .aria-label = Search Lockbox
 
 ## manage
 
@@ -67,6 +68,8 @@ breadcrumbs-item =
     *[other] { $title }
   }
 
+account-summary-avatar =
+  .alt = User Avatar
 account-summary-account = Account
 account-summary-options = Preferences
 account-summary-signout = Sign Out
