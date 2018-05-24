@@ -49,20 +49,21 @@ jobs:
     - stage:
       <<: *node
       before_deploy: skip
-    - stage: deploy
-      if: branch = master
-      <<: *node
-      python: '3.6'
-      script: skip
-      deploy:
-        edge:
-          branch: v1.8.47
-        provider: pages
-        on:
-          branch: master
-        skip_cleanup: true
-        local_dir: site
-        github_token: $GITHUB_TOKEN
+    # Re-enable this when `documentation` updates to support Babel 7.
+    # - stage: deploy
+    #   if: branch = master
+    #   <<: *node
+    #   python: '3.6'
+    #   script: skip
+    #   deploy:
+    #     edge:
+    #       branch: v1.8.47
+    #     provider: pages
+    #     on:
+    #       branch: master
+    #     skip_cleanup: true
+    #     local_dir: site
+    #    github_token: $GITHUB_TOKEN
     # deploy tags to GitHub Releases
     - stage: deploy
       if: tag =~ ^\d.\d.\d
