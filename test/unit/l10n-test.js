@@ -124,7 +124,7 @@ describe("<AppLocalizationProvider/>", () => {
     const provider = new AppLocalizationProvider({
       bundles, baseDir: "/nonexist",
     });
-    return expect(provider.componentWillMount()).to.be.rejectedWith(
+    return expect(provider.componentDidMount()).to.be.rejectedWith(
       Error, "unable to fetch available locales"
     );
   });
