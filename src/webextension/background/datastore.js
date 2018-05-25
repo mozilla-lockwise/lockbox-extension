@@ -97,7 +97,37 @@ class BootstrapDataStore {
 
     return one || null;
   }
-  async add() {
+  async add(item) {
+    if (!item) {
+      throw new TypeError("invalid item");
+    }
+
+    const info = convertItem2Info(item);
+    if (!info.hostname) {
+      throw new TypeError("missing hostname");
+    }
+    if (!info.password) {
+      throw new TypeError("missing password");
+    }
+    if (!info.username) {
+      info.username = "";
+    }
+
+    if (!info.formSubmitURL && !info.httpRealm) {
+      // assume formSubmitURL === hostname
+      info.formSubmitURL = info.hostname;
+    }
+    console.log(`info to add: ${JSON.stringify(info)}`);
+    let added = await browser.runtime.sendMessage({
+      type: "bootstrap_logins_add",
+      login: info,
+    });
+    if (!added) {
+      throw new Error("add failed");
+    }
+    added = convertInfo2Item(added);
+
+    return added;
   }
   async update(item) {
     const id = item.id;

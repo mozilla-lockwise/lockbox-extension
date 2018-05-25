@@ -52,6 +52,19 @@ class EventDispatcher {
   }
 }
 
+function addLogin(info) {
+  let added = null;
+  try {
+    added = LoginHelper.vanillaObjectToLogin(info);
+    added = Services.logins.addLogin(added);
+    added = LoginHelper.loginToVanillaObject(added);
+  } catch (ex) {
+    // eslint-disable-nextline no-console
+    console.log(`could not update login: (${ex.name}) ${ex.message}`);
+  }
+
+  return added;
+}
 function modifyLogin(info) {
   // find original login
   const query = {
@@ -236,6 +249,9 @@ function startup({webExtension}, reason) {
               filter((l) => !(l.hostname || "").startsWith("chrome://")).
               map(LoginHelper.loginToVanillaObject),
         });
+        break;
+      case "bootstrap_logins_add":
+        respond(addLogin(message.login));
         break;
       case "bootstrap_logins_update":
         respond(modifyLogin(message.login));
