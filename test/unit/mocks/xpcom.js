@@ -10,8 +10,15 @@ window.Components = {
   utils: {
     "import": () => { },
   },
+  Constructor: () => { },
 };
 
+window.ChromeUtils = {
+  import: () => { },
+  defineModuleGetter: () => { },
+};
+
+const _loginStore = [];
 window.Services = {
   prefs: {
     _prefs: {},
@@ -35,6 +42,10 @@ window.Services = {
     mockResetPrefs() {
       this._prefs = {};
     },
+  },
+
+  logins: {
+    getAllLogins: () => _loginStore.slice(),
   },
 
   telemetry: {
