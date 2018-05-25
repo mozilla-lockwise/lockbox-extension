@@ -231,7 +231,10 @@ function startup({webExtension}, reason) {
 
       case "bootstrap_logins_list":
         respond({
-          logins: Services.logins.getAllLogins().map(LoginHelper.loginToVanillaObject),
+          logins: Services.logins.
+              getAllLogins().
+              filter((l) => !(l.hostname || "").startsWith("chrome://")).
+              map(LoginHelper.loginToVanillaObject),
         });
         break;
       case "bootstrap_logins_update":
