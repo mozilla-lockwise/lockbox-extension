@@ -18,6 +18,7 @@ export function unflattenItem(item, id) {
     id,
     title: item.title,
     origins,
+    realm: item.realm || null,
     entry: {
       kind: "login",
       username: item.username,
@@ -32,6 +33,7 @@ export function flattenItem(item) {
     title: item.title,
     origin: item.origins[0] || "",
     formURL: item.origins[1] || "",
+    realm: item.realm || "",
     username: item.entry.username,
     password: item.entry.password,
     notes: item.entry.notes,

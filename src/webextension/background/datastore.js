@@ -24,6 +24,7 @@ function convertInfo2Item(info) {
     id,
     title,
     origins,
+    realm: info.httpRealm,
     tags: [],
     entry: {
       kind: "login",
@@ -57,6 +58,7 @@ function convertItem2Info(item) {
   const guid = item.id;
   const hostname = item.origins[0];
   const formSubmitURL = item.origins[1] || null;
+  const httpRealm = item.realm || null;
   const username = item.entry.username;
   const password = item.entry.password;
   const usernameField = item.entry.usernameField || "";
@@ -66,6 +68,7 @@ function convertItem2Info(item) {
     guid,
     hostname,
     formSubmitURL,
+    httpRealm,
     username,
     password,
     usernameField,
@@ -78,16 +81,21 @@ function convertItem2Info(item) {
 class BootstrapDataStore {
   constructor() {}
 
+  async _allLogins() {
+    let all = await browser.runtime.sendMessage({ type: "bootstrap_logins_list" });
+    return all.logins || [];
+  }
+
   async list() {
-    const logins = await browser.runtime.sendMessage({ type: "bootstrap_logins_list" });
-    const items = logins.logins.map(convertInfo2Item);
+    const logins = await this._allLogins();
+    const items = logins.map(convertInfo2Item);
 
     return items;
   }
   async get(id) {
-    let all = await this.list();
-    let one = all.find((i) => i.id === id);
-    return one;
+    let one = (await this.list()).find((item) => (item.id === id));
+
+    return one || null;
   }
   async add() {
   }
@@ -110,7 +118,7 @@ class BootstrapDataStore {
     if (!updated) {
       throw new Error("update failed");
     }
-    updated = convertInfo2Item(info);
+    updated = convertInfo2Item(updated);
 
     return updated;
   }

@@ -62,19 +62,19 @@ function modifyLogin(info) {
     return null;
   }
 
+  let updated = null;
   try {
     const orig = found[0];
     const pending = LoginHelper.newPropertyBag(info);
-    let updated = LoginHelper.buildModifiedLogin(orig, pending);
+    updated = LoginHelper.buildModifiedLogin(orig, pending);
     Services.logins.modifyLogin(orig, updated);
     updated = LoginHelper.loginToVanillaObject(updated);
   } catch (ex) {
     // eslint-disable-next-line no-console
     console.log(`could not update login: (${ex.name}) ${ex.message}`);
-    return null;
   }
 
-  return {};
+  return updated;
 }
 function removeLogin(info) {
   try {
