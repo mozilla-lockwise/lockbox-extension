@@ -5,16 +5,16 @@
 copy-to-clipboard-button = Copie
 copy-to-clipboard-copied = ✔ Copié
 
-filter-input-clear
+filter-input-clear =
   .title = Éffacer
 
-modal-root
+modal-root =
   .contentLabel = Dialogue modal
 
-password-input-show
+password-input-show =
   .title = Afficher
-password-input-hide 
+password-input-hide =
   .title = Masquer
 
-panel-back-button
+panel-back-button =
   .alt = Retour arrière
