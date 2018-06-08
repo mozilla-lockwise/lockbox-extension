@@ -13,32 +13,32 @@ all-items-get-started =
 all-items-no-results = Aucun résultats
 
 item-fields-title = Nom
-item-fields-title-input
+item-fields-title-input =
   .placeholder = p. ex. banque primaire
 item-fields-origin = Adresse du site web
-item-fields-origin-input
+item-fields-origin-input =
   .placeholder = www.exemple.fr
 item-fields-username = Nom d'utilisateur
-item-fields-username-input
+item-fields-username-input =
   .placeholder = nom@exemple.fr
-item-fields-copy-username
+item-fields-copy-username =
   .title = Copier le nom d'utilisateur dans le presse-papier
 item-fields-password = Mot de passe
-item-fields-copy-password
+item-fields-copy-password =
   .title = Copier le mot de passe dans le presse-papier
 item-fields-notes = Notes
 
 item-summary-new-title = Nouvel enregistrement
 item-summary-title =
   { $length ->
-     [0]     (no site name)
+     [0]     (pas de nom de site)
     *[other] { $title }
   }
 
 item-summary-new-username = (entrer vos informations de connexion)
 item-summary-username =
   { $length ->
-     [0]     (no username)
+     [0]     (pas de nom d\'utilisateur)
     *[other] { $username }
   }
 
@@ -63,7 +63,7 @@ toolbar-open-faq = FAQ
 breadcrumbs-item-new = Nouvel enregistrement
 breadcrumbs-item =
   { $length ->
-     [0]     (no site name)
+     [0]     (pas de nom de site)
     *[other] { $title }
   }
 
@@ -91,7 +91,7 @@ homepage-title = { product-tagline }
 homepage-linkaccount-title = Ajoutez une sécurité et une commodité sérieuses.
 homepage-linkaccount-description =
     Créez maintenant un compte Firefox - ou ajoutez { product-title } à un compte
-    éxistant – pour protéger vos noms d'utilisateurs avec le plus fort cryptage possible
+    éxistant - pour protéger vos noms d'utilisateurs avec le plus fort cryptage possible
     disponible et synchronisez les infos de votre { product-title } entre vos périphériques.
 
 homepage-linkaccount-action-create = Créer Compte
@@ -125,7 +125,7 @@ navigate-panel-backwards = Retour arrière
 
 ## dialogs
 
-modal-cancel-editing = Des modifications non enregistrées existent. Les jeter?
+modal-cancel-editing = Des modifications non enregistrées existent. Les jeter ?
   .confirmLabel = Ignorer les changements
   .cancelLabel = Revenir en arrière
 
