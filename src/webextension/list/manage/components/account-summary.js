@@ -20,7 +20,11 @@ export function AccountSummaryButton({displayName, avatar, onClick}) {
   return (
     <button className={styles.button} onClick={onClick}>
       <span className={styles.displayName}>{displayName}</span>
-      <span className={styles.avatar}><img src={avatar}/></span>
+      <span className={styles.avatar}>
+        <Localized id="account-summary-avatar" attrs={{alt: true}}>
+          <img alt="uSEr aVATAr" src={avatar}/>
+        </Localized>
+      </span>
     </button>
   );
 }
