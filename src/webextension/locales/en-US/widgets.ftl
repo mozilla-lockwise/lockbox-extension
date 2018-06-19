@@ -5,7 +5,7 @@
 copy-to-clipboard-button = Copy
 copy-to-clipboard-copied = ✔ Copied
 
-filter-input-clear
+filter-input-clear =
   .title = Clear
 
 modal-root =
