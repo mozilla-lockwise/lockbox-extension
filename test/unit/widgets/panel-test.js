@@ -67,23 +67,23 @@ describe("widgets > panel", () => {
   describe("<PanelBody/>", () => {
     it("render body", () => {
       const wrapper = mount(<PanelBody>body</PanelBody>);
-      expect(wrapper.find("main")).to.have.text("body");
-      expect(wrapper.find("main").prop("className")).to.match(
+      expect(wrapper.find("section")).to.have.text("body");
+      expect(wrapper.find("section").prop("className")).to.match(
         /^\S+panel-body\S+ \S+scroll\S+$/
       );
     });
 
     it("render without scrolling", () => {
       const wrapper = mount(<PanelBody scroll={false}>body</PanelBody>);
-      expect(wrapper.find("main")).to.have.text("body");
-      expect(wrapper.find("main").prop("className")).to.match(
+      expect(wrapper.find("section")).to.have.text("body");
+      expect(wrapper.find("section").prop("className")).to.match(
         /^\S+panel-body\S+$/
       );
     });
 
     it("merge classNames", () => {
       const wrapper = mount(<PanelBody className="foo"/>);
-      expect(wrapper.find("main").prop("className")).to.match(
+      expect(wrapper.find("section").prop("className")).to.match(
         /^\S+panel-body\S+ \S+scroll\S+ foo$/
       );
     });
@@ -170,7 +170,7 @@ describe("widgets > panel", () => {
         </Panel>
       );
       expect(wrapper.find("article").find("header")).to.have.text("header");
-      expect(wrapper.find("article").find("main")).to.have.text("body");
+      expect(wrapper.find("article").find("section")).to.have.text("body");
       expect(wrapper.find("article").find("footer")).to.have.text("footer");
       expect(wrapper.find("article").prop("className")).to.match(
         /^\S+panel\S+$/

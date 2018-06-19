@@ -77,11 +77,11 @@ PanelBanner.defaultProps = {
 
 export function PanelBody({className, scroll, children}) {
   return (
-    <main className={classNames([
+    <section className={classNames([
             styles.panelBody, scroll && styles.scroll, className,
           ])}>
       {children}
-    </main>
+    </section>
   );
 }
 
