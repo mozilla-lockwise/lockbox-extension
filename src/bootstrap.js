@@ -59,7 +59,7 @@ function addLogin(info) {
     added = Services.logins.addLogin(added);
     added = LoginHelper.loginToVanillaObject(added);
   } catch (ex) {
-    // eslint-disable-nextline no-console
+    // eslint-disable-next-line no-console
     console.log(`could not update login: (${ex.name}) ${ex.message}`);
   }
 
@@ -270,7 +270,11 @@ function startup({webExtension}, reason) {
 
 function shutdown(data, reason) {}
 
-function install(data, reason) {}
+function install(data, reason) {
+  if (reason === ADDON_INSTALL) {
+    dispatcher.record({ type: "extension_installed" });
+  }
+}
 
 function uninstall(data, reason) {}
 
