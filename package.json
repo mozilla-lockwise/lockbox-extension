@@ -130,7 +130,7 @@
     "stylelint": "^9.2.1",
     "stylelint-config-recommended": "2.1.0",
     "webpack": "^4.8.3",
-    "webpack-cli": "^2.1.4",
+    "webpack-cli": "^3.0.0",
     "webpack-node-externals": "^1.7.2"
   }
 }
