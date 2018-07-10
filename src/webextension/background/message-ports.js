@@ -159,36 +159,6 @@ export default function initializeMessagePorts() {
         return {};
       });
 
-    case "legacy_list_items":
-      return openDataStore().then(async (ds) => {
-        var entries = Array.from((await ds.list()).values(),
-                                  makeItemSummary);
-        telemetry.setScalar("datastoreCount", entries.length);
-        return {items: entries};
-      });
-    case "legacy_get_item":
-      return openDataStore().then(async (ds) => {
-        return { item: await ds.get(message.id) };
-      });
-    case "legacy_update_item":
-      return openDataStore().then(async (ds) => {
-        const item = await ds.update(message.item);
-        broadcast({ type: "updated_item", item }, sender);
-        return { item };
-      });
-    case "legacy_remove_item":
-      return openDataStore().then(async (ds) => {
-        await ds.remove(message.id);
-        broadcast({ type: "removed_item", id: message.id }, sender);
-        return {};
-      });
-    case "legacy_add_item":
-      return openDataStore().then(async (ds) => {
-        const item = await ds.add(message.item);
-        broadcast({ type: "added_item", item }, sender);
-        return { item };
-      });
-
     case "list_items":
       return openBootstrapStore().then(async (ds) => {
         const entries = (await ds.list()).map(makeItemSummary);
