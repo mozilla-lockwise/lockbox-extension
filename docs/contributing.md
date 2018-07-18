@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for considering and taking the time to contribute!
+Thank you for considering and taking the time to contribute! **Please note: this project is not currently or actively planning to fix non-critical (data loss, security related) bugs or implement new features.** This is an experimental prototype.
 
 The following are guidelines for contributing to this project.
 
