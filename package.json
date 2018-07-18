@@ -61,7 +61,7 @@
     "fluent-react": "^0.7.0",
     "intl-pluralrules": "^0.2.1",
     "lockbox-datastore": "^0.2.1",
-    "node-jose": "^0.11.1",
+    "node-jose": "^1.0.0",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
