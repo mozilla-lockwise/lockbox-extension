@@ -24,7 +24,7 @@ function ItemSummaryCopyButtons({id, username, onCopy}) {
   return (
     <div className={styles.copyButtons}
          onMouseDown={(e) => e.stopPropagation()}>
-      <Localized id="item-summary-copy-username">
+      <Localized id="item-summary-copy-username" attrs={{title: true}}>
         <CopyToClipboardButton className={styles.copyButton}
                                buttonClassName={styles.copyButtonInner}
                                value={username}
@@ -32,7 +32,7 @@ function ItemSummaryCopyButtons({id, username, onCopy}) {
           cOPy uSERNAMe
         </CopyToClipboardButton>
       </Localized>
-      <Localized id="item-summary-copy-password">
+      <Localized id="item-summary-copy-password" attrs={{title: true}}>
         <CopyToClipboardButton className={styles.copyButton}
                                buttonClassName={styles.copyButtonInner}
                                value={getPassword}

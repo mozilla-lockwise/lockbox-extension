@@ -1,6 +1,10 @@
-[[common]]
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-document
+## common
+
+document =
   .title = Lockbox Entries
 
 all-items-get-started =
@@ -9,18 +13,18 @@ all-items-get-started =
 all-items-no-results = No results
 
 item-fields-title = Name
-item-fields-title-input
+item-fields-title-input =
   .placeholder = e.g. primary bank
 item-fields-origin = Website Address
-item-fields-origin-input
+item-fields-origin-input =
   .placeholder = www.example.com
 item-fields-username = Username
-item-fields-username-input
+item-fields-username-input =
   .placeholder = name@example.com
-item-fields-copy-username
+item-fields-copy-username =
   .title = Copy the username to the clipboard
 item-fields-password = Password
-item-fields-copy-password
+item-fields-copy-password =
   .title = Copy the password to the clipboard
 item-fields-notes = Notes
 
@@ -43,10 +47,11 @@ item-summary-copy-username = Copy Username
 item-summary-copy-password = Copy Password
   .title = Copy the password to the clipboard
 
-item-filter
+item-filter =
   .placeholder = Search Lockbox
+  .aria-label = Search Lockbox
 
-[[manage]]
+## manage
 
 add-item-button = +
   .title = New entry
@@ -63,6 +68,8 @@ breadcrumbs-item =
     *[other] { $title }
   }
 
+account-summary-avatar =
+  .alt = User Avatar
 account-summary-account = Account
 account-summary-options = Preferences
 account-summary-signout = Sign Out
@@ -109,7 +116,7 @@ item-details-save-new = Create Entry
 item-details-save-existing = Save
 item-details-cancel = Cancel
 
-[[popup]]
+## popup
 
 manage-lockbox-button = Manage Lockbox
 
@@ -119,7 +126,7 @@ item-details-panel-title = Entry Details
 
 navigate-panel-backwards = Go back
 
-[[dialogs]]
+## dialogs
 
 modal-cancel-editing = Unsaved changes exist. Discard them?
   .confirmLabel = Discard Changes

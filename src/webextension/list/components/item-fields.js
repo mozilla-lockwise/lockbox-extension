@@ -74,7 +74,9 @@ export function ItemFields({fields, onCopy}) {
         <Localized id="item-fields-notes">
           <LabelText>nOTEs</LabelText>
         </Localized>
-        <FieldText className={styles.notesReadOnly} data-name="notes">{fields.notes}</FieldText>
+        <FieldText className={styles.notesReadOnly} data-name="notes">
+          {fields.notes}
+        </FieldText>
       </div>
     </div>
   );
@@ -111,9 +113,9 @@ export class EditItemFields extends React.Component {
           <Localized id="item-fields-title">
             <LabelText className={styles.firstLabel}>tITLe</LabelText>
           </Localized>
-          <Localized id="item-fields-title-input">
-            <Input className={styles.input} type="text" {...controlledProps("title")}
-                   placeholder="eNTRy nAMe"
+          <Localized id="item-fields-title-input" attrs={{placeholder: true}}>
+            <Input className={styles.input} type="text" placeholder="eNTRy nAMe"
+                   {...controlledProps("title")}
                    ref={(element) => this._firstField = element} />
           </Localized>
         </label>
@@ -121,7 +123,7 @@ export class EditItemFields extends React.Component {
           <Localized id="item-fields-origin">
             <LabelText>oRIGIn</LabelText>
           </Localized>
-          <Localized id="item-fields-origin-input">
+          <Localized id="item-fields-origin-input" attrs={{placeholder: true}}>
             <Input className={styles.input} type="text"
                    placeholder="wWw.eXAMPLe.cOm"
                    {...controlledProps("origin")}/>
@@ -131,7 +133,8 @@ export class EditItemFields extends React.Component {
           <Localized id="item-fields-username">
             <LabelText>uSERNAMe</LabelText>
           </Localized>
-          <Localized id="item-fields-username-input">
+          <Localized id="item-fields-username-input"
+                     attrs={{placeholder: true}}>
             <Input className={styles.input} type="text"
                    placeholder="nAMe@eXAMPLe.cOm"
                    {...controlledProps("username")}/>
@@ -141,15 +144,15 @@ export class EditItemFields extends React.Component {
           <Localized id="item-fields-password">
             <LabelText>pASSWORd</LabelText>
           </Localized>
-          <PasswordInput className={styles.password} {...controlledProps("password")}/>
+          <PasswordInput className={styles.password}
+                         {...controlledProps("password")}/>
         </label>
         <label>
           <Localized id="item-fields-notes">
             <LabelText>nOTEs</LabelText>
           </Localized>
-          <Localized id="item-fields-notes-input">
-            <TextArea className={styles.notes} {...controlledProps("notes", 10000)}/>
-          </Localized>
+          <TextArea className={styles.notes}
+                    {...controlledProps("notes", 10000)}/>
         </label>
       </div>
     );

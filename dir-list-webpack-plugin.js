@@ -2,8 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import fs from "fs";
-import path from "path";
+const fs = require("fs");
+const path = require("path");
 
 function statPromise(path) {
   return new Promise((resolve, reject) => {
@@ -13,7 +13,7 @@ function statPromise(path) {
   });
 }
 
-export default class DirListWebpackPlugin {
+module.exports = class DirListWebpackPlugin {
   constructor(options) {
     this.options = {
       directory: undefined,
@@ -83,4 +83,4 @@ export default class DirListWebpackPlugin {
       });
     });
   }
-}
+};

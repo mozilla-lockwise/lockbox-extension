@@ -19,6 +19,7 @@ pages:
 - 'Developer Guides':
   - 'Build and Install': 'developer/install.md'
   - 'Release Instructions': 'developer/releases.md'
+  - 'Directory Structure': 'developer/directory-structure.md'
   - 'Test Plan': 'developer/test-plan.md'
   - 'Test Plan - Accessibility': 'developer/test-plan-accessibility.md'
   - 'Test Plan - Telemetry': 'developer/test-plan-telemetry.md'

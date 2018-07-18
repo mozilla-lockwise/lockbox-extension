@@ -23,7 +23,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <Localized id="document">
+      <Localized id="document" attrs={{title: true}}>
         <DocumentTitle title="lOCKBOx eNTRIEs">
           <div className={styles.app}>
             <section className={styles.appMain}>
