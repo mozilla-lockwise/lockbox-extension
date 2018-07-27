@@ -5,8 +5,6 @@
 import { Localized } from "fluent-react";
 import React from "react";
 
-import AccountDetails from "../containers/account-details";
-
 import styles from "./homepage.css";
 
 export default function Homepage() {
@@ -18,7 +16,6 @@ export default function Homepage() {
       <Localized id="homepage-title">
         <h1>tHe sIMPLe wAy tO sTORE...</h1>
       </Localized>
-      <AccountDetails />
     </article>
   );
 }

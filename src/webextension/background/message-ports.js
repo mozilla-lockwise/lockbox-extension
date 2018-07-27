@@ -3,7 +3,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import openDataStore from "./datastore";
-import getAccount from "./accounts";
 import * as telemetry from "./telemetry";
 import { openView, closeView } from "./views";
 import { makeItemSummary } from "../common";
@@ -40,8 +39,6 @@ export default function initializeMessagePorts() {
 
   browser.runtime.onMessage.addListener(async (message, sender) => {
     switch (message.type) {
-    case "get_account_details":
-      return {account: getAccount().details()};
     case "open_view":
       return openView(message.name).then(() => ({}));
     case "close_view":

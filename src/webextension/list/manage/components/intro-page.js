@@ -6,8 +6,6 @@ import { Localized } from "fluent-react";
 import PropTypes from "prop-types";
 import React from "react";
 
-import AccountDetails from "../containers/account-details";
-
 import styles from "./intro-page.css";
 
 function IntroImage({src, title, children}) {
@@ -49,7 +47,6 @@ export default function IntroPage() {
           </IntroImage>
         </Localized>
       </section>
-      <AccountDetails/>
     </article>
   );
 }

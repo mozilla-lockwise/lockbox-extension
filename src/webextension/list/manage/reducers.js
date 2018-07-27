@@ -5,7 +5,7 @@
 import { combineReducers } from "redux";
 
 import * as actions from "../actions";
-import { accountReducer, cacheReducer, listReducer } from "../reducers";
+import { cacheReducer, listReducer } from "../reducers";
 
 export function editorReducer(state = {
   editing: false, changed: false, hideHome: false,
@@ -45,7 +45,6 @@ export function modalReducer(state = {id: null, props: null}, action) {
 }
 
 export default combineReducers({
-  account: accountReducer,
   cache: cacheReducer,
   list: listReducer,
   editor: editorReducer,

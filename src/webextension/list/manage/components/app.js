@@ -7,7 +7,6 @@ import React from "react";
 import DocumentTitle from "react-document-title";
 
 import AllItems from "../containers/all-items";
-import CurrentAccountSummary from "../containers/current-account-summary";
 import CurrentBreadcrumbs from "../containers/current-breadcrumbs";
 import CurrentSelection from "../containers/current-selection";
 import ModalRoot from "../containers/modals";
@@ -36,7 +35,6 @@ export default class App extends React.Component {
                   <CurrentBreadcrumbs/>
                   <ToolbarSpace/>
                   <OpenFAQ/>
-                  <CurrentAccountSummary/>
                 </Toolbar>
                 <CurrentSelection/>
               </article>

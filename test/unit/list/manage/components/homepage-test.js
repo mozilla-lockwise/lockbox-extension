@@ -11,12 +11,11 @@ import { Provider } from "react-redux";
 import { initialState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
 import Homepage from "src/webextension/list/manage/components/homepage";
-import AccountDetails from "src/webextension/list/manage/containers/account-details";
 
 chai.use(chaiEnzyme());
 
-const middlewares = [];
-const mockStore = configureStore(middlewares);
+const middleware = {};
+const mockStore = configureStore(middleware);
 
 describe("list > manage > components > <Homepage/>", () => {
   it("render homepage with welcome", () => {
@@ -28,6 +27,5 @@ describe("list > manage > components > <Homepage/>", () => {
     );
 
     expect(wrapper.find("h1")).to.contain.text("tHe sIMPLe wAy tO sTORE...");
-    expect(wrapper).to.contain(AccountDetails);
   });
 });

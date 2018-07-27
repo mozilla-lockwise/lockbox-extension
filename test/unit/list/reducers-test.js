@@ -6,40 +6,11 @@ import { expect } from "chai";
 
 import * as actions from "src/webextension/list/actions";
 import {
-  accountReducer, cacheReducer, listReducer,
+  cacheReducer, listReducer,
 } from "src/webextension/list/reducers";
 import { NEW_ITEM_ID } from "src/webextension/list/common";
 
 describe("list > reducers", () => {
-  describe("account reducer", () => {
-    it("initial state", () => {
-      expect(accountReducer(undefined, {})).to.deep.equal({
-        mode: "guest",
-      });
-    });
-
-    it("handle GET_ACCOUNT_DETAILS_COMPLETED", () => {
-      const state = {
-        mode: "guest",
-      };
-      const action = {
-        type: actions.GET_ACCOUNT_DETAILS_COMPLETED,
-        actionId: 0,
-        account: {
-          mode: "authenticated",
-          uid: "1234",
-          email: "eripley@wyutani.com",
-        },
-      };
-
-      expect(accountReducer(state, action)).to.deep.equal({
-        mode: "authenticated",
-        uid: "1234",
-        email: "eripley@wyutani.com",
-      });
-    });
-  });
-
   describe("cache reducer", () => {
     it("initial state", () => {
       const action = {};
