@@ -27,6 +27,19 @@ export default function initializeMessagePorts() {
     case "extension_installed":
       openView("manage");
       break;
+
+    case "login_changed":
+      openDataStore().then(async (ds) => {
+          const mode = message.mode;
+          const item = message.login && ds.toItem(message.login);
+
+          broadcast({
+            type: `${mode}_item`,
+            item,
+          }, false);
+      });
+      break;
+
     default:
       break;
     }

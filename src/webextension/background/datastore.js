@@ -98,6 +98,13 @@ class BootstrapDataStore {
     return all.logins || [];
   }
 
+  toItem(info) {
+    return convertInfo2Item(info);
+  }
+  toInfo(item) {
+    return convertItem2Info(item);
+  }
+
   async list() {
     const logins = await this._allLogins();
     const items = logins.map(convertInfo2Item);
@@ -129,7 +136,6 @@ class BootstrapDataStore {
       // assume formSubmitURL === hostname
       info.formSubmitURL = info.hostname;
     }
-    console.log(`info to add: ${JSON.stringify(info)}`);
     let added = await browser.runtime.sendMessage({
       type: "bootstrap_logins_add",
       login: info,

@@ -7,6 +7,7 @@
 
 const { utils: Cu } = Components;
 
+ChromeUtils.import("resource://gre/modules/Console.jsm");
 ChromeUtils.import("resource://gre/modules/Services.jsm");
 const LoginInfo = Components.Constructor("@mozilla.org/login-manager/loginInfo;1",
                                          "nsILoginInfo",
@@ -42,6 +43,11 @@ class EventDispatcher {
   }
 
   connect(port) {
+    if (this.port) {
+      // eslint-disable-next-line no-console
+      console.log("port already connected!");
+      return;
+    }
     this.port = port;
 
     const events = this.pendingEvents;
@@ -51,59 +57,124 @@ class EventDispatcher {
     }
   }
 }
-
-function addLogin(info) {
-  let added = null;
-  try {
-    added = LoginHelper.vanillaObjectToLogin(info);
-    added = Services.logins.addLogin(added);
-    added = LoginHelper.loginToVanillaObject(added);
-  } catch (ex) {
-    // eslint-disable-next-line no-console
-    console.log(`could not update login: (${ex.name}) ${ex.message}`);
-  }
-
-  return added;
-}
-function modifyLogin(info) {
-  // find original login
-  const query = {
-    guid: info.guid,
-  };
-  const found = LoginHelper.searchLoginsWithObject(query);
-  if (!found.length) {
-    return null;
-  }
-
-  let updated = null;
-  try {
-    const orig = found[0];
-    const pending = LoginHelper.newPropertyBag(info);
-    updated = LoginHelper.buildModifiedLogin(orig, pending);
-    Services.logins.modifyLogin(orig, updated);
-    updated = LoginHelper.loginToVanillaObject(updated);
-  } catch (ex) {
-    // eslint-disable-next-line no-console
-    console.log(`could not update login: (${ex.name}) ${ex.message}`);
-  }
-
-  return updated;
-}
-function removeLogin(info) {
-  try {
-    const login = LoginHelper.vanillaObjectToLogin(info);
-    Services.logins.removeLogin(login);
-  } catch (ex) {
-    // eslint-disable-next-line no-console
-    console.log(`could not remove login: (${ex.name}) ${ex.message}`);
-    return null;
-  }
-
-  return {};
-}
-
 const dispatcher = new EventDispatcher();
+
+class LoginAdapter {
+  constructor() {
+    this.working = false;
+  }
+
+  attach() {
+    Services.obs.addObserver(this, "passwordmgr-storage-changed");
+  }
+  detach() {
+    Services.obs.removeObserver(this, "passwordmgr-storage-changed");
+  }
+
+  list() {
+    const logins = Services.logins.
+                   getAllLogins().
+                   filter((l) => !(l.hostname || "").startsWith("chrome://")).
+                   map(LoginHelper.loginToVanillaObject);
+    return { logins };
+  }
+  add(info) {
+    this.working = true;
+    let added = null;
+    try {
+      added = LoginHelper.vanillaObjectToLogin(info);
+      added = Services.logins.addLogin(added);
+      added = LoginHelper.loginToVanillaObject(added);
+    } catch (ex) {
+      // eslint-disable-next-line no-console
+      console.log(`could not update login: (${ex.name}) ${ex.message}`);
+    }
+    this.working = false;
+
+    return added;
+  }
+  modify(info) {
+    this.working = true;
+    // find original login
+    const query = {
+      guid: info.guid,
+    };
+    const found = LoginHelper.searchLoginsWithObject(query);
+    if (!found.length) {
+      return null;
+    }
+
+    let updated = null;
+    try {
+      const orig = found[0];
+      const pending = LoginHelper.newPropertyBag(info);
+      updated = LoginHelper.buildModifiedLogin(orig, pending);
+      Services.logins.modifyLogin(orig, updated);
+      updated = LoginHelper.loginToVanillaObject(updated);
+    } catch (ex) {
+      // eslint-disable-next-line no-console
+      console.log(`could not update login: (${ex.name}) ${ex.message}`);
+    }
+    this.working = false;
+
+    return updated;
+  }
+  remove(info) {
+    this.working = true;
+    try {
+      const login = LoginHelper.vanillaObjectToLogin(info);
+      Services.logins.removeLogin(login);
+    } catch (ex) {
+      // eslint-disable-next-line no-console
+      console.log(`could not remove login: (${ex.name}) ${ex.message}`);
+      return null;
+    } finally {
+      this.working = false;
+    }
+
+    return info;
+  }
+
+  // nsIObserver interface
+  observe(subject, topic, type) {
+    if (this.working || topic !== "passwordmgr-storage-changed") {
+      return;
+    }
+
+    switch (type) {
+    case "addLogin":
+      subject = LoginHelper.loginToVanillaObject(subject);
+      dispatcher.record({
+        type: "login_changed",
+        mode: "added",
+        login: subject,
+      });
+      break;
+    case "removeLogin":
+      subject = LoginHelper.loginToVanillaObject(subject);
+      dispatcher.record({
+        type: "login_changed",
+        mode: "removed",
+        login: subject,
+      });
+      break;
+    case "modifyLogin":
+      subject.QueryInterface(Ci.nsIArrayExtensions);
+      subject = subject.GetElementAt(1);
+      subject = LoginHelper.loginToVanillaObject(subject);
+      dispatcher.record({
+        type: "login_changed",
+        mode: "updated",
+        login: subject,
+      });
+      break;
+    }
+  }
+}
+const logins = new LoginAdapter();
+
 function startup({webExtension}, reason) {
+  logins.attach();
   try {
     Services.telemetry.registerEvents(TELEMETRY_CATEGORY, {
       "startup": {
@@ -252,21 +323,16 @@ function startup({webExtension}, reason) {
         break;
 
       case "bootstrap_logins_list":
-        respond({
-          logins: Services.logins.
-              getAllLogins().
-              filter((l) => !(l.hostname || "").startsWith("chrome://")).
-              map(LoginHelper.loginToVanillaObject),
-        });
+        respond(logins.list());
         break;
       case "bootstrap_logins_add":
-        respond(addLogin(message.login));
+        respond(logins.add(message.login));
         break;
       case "bootstrap_logins_update":
-        respond(modifyLogin(message.login));
+        respond(logins.modify(message.login));
         break;
       case "bootstrap_logins_remove":
-        respond(removeLogin(message.login));
+        respond(logins.remove(message.login));
         break;
       }
     });
@@ -277,7 +343,9 @@ function startup({webExtension}, reason) {
   });
 }
 
-function shutdown(data, reason) {}
+function shutdown(data, reason) {
+  logins.detach();
+}
 
 function install(data, reason) {
   if (reason === ADDON_INSTALL) {
