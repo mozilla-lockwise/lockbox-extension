@@ -98,7 +98,6 @@ module.exports = {
     "webextension/background": "./webextension/background/index.js",
     "webextension/list/manage/index": "./webextension/list/manage/index.js",
     "webextension/list/popup/index": "./webextension/list/popup/index.js",
-    "webextension/firstrun/index": "./webextension/firstrun/index.js",
     "webextension/unlock/index": "./webextension/unlock/index.js",
     "webextension/settings/index": "./webextension/settings/index.js",
   },
@@ -131,14 +130,6 @@ module.exports = {
       "process.env": {
         "NODE_ENV": JSON.stringify(NODE_ENV),
       },
-    }),
-    new HTMLWebpackPlugin({
-      template: "template.ejs",
-      filename: "webextension/firstrun/index.html",
-      chunks: ["webextension/firstrun/index"],
-      inject: false,
-      minify: htmlMinifyOptions,
-      icon: "/icons/lb_locked.svg",
     }),
     new HTMLWebpackPlugin({
       template: "template.ejs",

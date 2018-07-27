@@ -56,7 +56,6 @@ export class SingletonView {
 }
 
 const views = {
-  firstrun: new SingletonView("/firstrun/index.html"),
   manage: new SingletonView("/list/manage/index.html"),
 };
 
