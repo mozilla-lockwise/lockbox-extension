@@ -70,14 +70,6 @@ export function ItemFields({fields, onCopy}) {
           </Localized>
         </div>
       </div>
-      <div className={styles.field}>
-        <Localized id="item-fields-notes">
-          <LabelText>nOTEs</LabelText>
-        </Localized>
-        <FieldText className={styles.notesReadOnly} data-name="notes">
-          {fields.notes}
-        </FieldText>
-      </div>
     </div>
   );
 }
@@ -146,13 +138,6 @@ export class EditItemFields extends React.Component {
           </Localized>
           <PasswordInput className={styles.password}
                          {...controlledProps("password")}/>
-        </label>
-        <label>
-          <Localized id="item-fields-notes">
-            <LabelText>nOTEs</LabelText>
-          </Localized>
-          <TextArea className={styles.notes}
-                    {...controlledProps("notes", 10000)}/>
         </label>
       </div>
     );

@@ -21,7 +21,6 @@ describe("list > popup > components > <ItemDetailsPanel/>", () => {
     origin: "origin",
     username: "username",
     password: "password",
-    notes: "notes",
   };
 
   let onBack, wrapper;

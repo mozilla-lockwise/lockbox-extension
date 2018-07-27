@@ -22,7 +22,6 @@ describe("list > manage > components > <EditItemDetails/>", () => {
     origin: "",
     username: "",
     password: "",
-    notes: "",
   };
 
   const originalFields = {
@@ -30,7 +29,6 @@ describe("list > manage > components > <EditItemDetails/>", () => {
     origin: "origin",
     username: "username",
     password: "password",
-    notes: "notes",
   };
 
   const updatedFields = {
@@ -38,7 +36,6 @@ describe("list > manage > components > <EditItemDetails/>", () => {
     origin: "new origin",
     username: "new username",
     password: "new password",
-    notes: "new notes",
   };
 
   let onChange, onSave, onCancel, wrapper;
