@@ -242,6 +242,15 @@ function startup({webExtension}, reason) {
         respond({});
         break;
 
+      case "bootstrap_logins_hostname_disable":
+        Services.logins.setLoginSavingEnabled(message.hostname, false);
+        respond({});
+        break;
+      case "bootstrap_logins_hostname_enable":
+        Services.logins.setLoginSavingEnabled(message.hostname, true);
+        respond({});
+        break;
+
       case "bootstrap_logins_list":
         respond({
           logins: Services.logins.

@@ -9,4 +9,12 @@ import updateBrowserAction from "./browser-action";
 openDataStore().then(async () => {
   initializeMessagePorts();
   await updateBrowserAction();
+
+  // add this webextension's origin to saved logins' disabled hosts
+  const extURL = new URL(browser.extension.getURL("/dummy"));
+  const extHostname = extURL.origin;
+  await browser.runtime.sendMessage({
+    type: "bootstrap_logins_hostname_disable",
+    hostname: extHostname,
+  });
 });
