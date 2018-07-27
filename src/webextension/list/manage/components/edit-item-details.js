@@ -34,7 +34,6 @@ export default class EditItemDetails extends React.Component {
         origin: "",
         username: "",
         password: "",
-        notes: "",
       },
     };
   }

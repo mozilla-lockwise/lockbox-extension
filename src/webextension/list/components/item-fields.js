@@ -105,11 +105,7 @@ export class EditItemFields extends React.Component {
           <Localized id="item-fields-title">
             <LabelText className={styles.firstLabel}>tITLe</LabelText>
           </Localized>
-          <Localized id="item-fields-title-input" attrs={{placeholder: true}}>
-            <Input className={styles.input} type="text" placeholder="eNTRy nAMe"
-                   {...controlledProps("title")}
-                   ref={(element) => this._firstField = element} />
-          </Localized>
+          <FieldText data-name="title">{fields.title}</FieldText>
         </label>
         <label>
           <Localized id="item-fields-origin">
@@ -118,7 +114,8 @@ export class EditItemFields extends React.Component {
           <Localized id="item-fields-origin-input" attrs={{placeholder: true}}>
             <Input className={styles.input} type="text"
                    placeholder="wWw.eXAMPLe.cOm"
-                   {...controlledProps("origin")}/>
+                   {...controlledProps("origin")}
+                   ref={(element) => this._firstField = element} />
           </Localized>
         </label>
         <label>
