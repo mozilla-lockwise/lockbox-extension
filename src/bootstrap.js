@@ -281,11 +281,30 @@ function shutdown(data, reason) {}
 
 function install(data, reason) {
   if (reason === ADDON_INSTALL) {
+    // Remember the original value for `signons.rememberSignons` so we can
+    // restore it during uninstall, then enable it to improve the experience?
+    Services.prefs.setBoolPref(
+      ORIGINAL_REMEMBER_SIGNONS_PREF,
+      Services.prefs.getBoolPref(REMEMBER_SIGNONS_PREF)
+    );
+    Services.prefs.setBoolPref(REMEMBER_SIGNONS_PREF, true);
+
     dispatcher.record({ type: "extension_installed" });
   }
 }
 
-function uninstall(data, reason) {}
+function uninstall(data, reason) {
+  if (reason === ADDON_UNINSTALL) {
+    // Restore the original value for `signons.rememberSignons`.
+    if (Services.prefs.getBoolPref(REMEMBER_SIGNONS_PREF) === false) {
+      Services.prefs.setBoolPref(
+        REMEMBER_SIGNONS_PREF,
+        Services.prefs.getBoolPref(ORIGINAL_REMEMBER_SIGNONS_PREF)
+      );
+    }
+    Services.prefs.clearUserPref(ORIGINAL_REMEMBER_SIGNONS_PREF);
+  }
+}
 
 // We need to reference these functions so that babel-plugin-rewire can see
 // them for our tests.
