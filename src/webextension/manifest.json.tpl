@@ -33,6 +33,7 @@
 
   "permissions": [
     "identity",
+    "privacy",
     "storage",
     "tabs",
     "clipboardWrite"

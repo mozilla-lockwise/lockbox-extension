@@ -16,10 +16,6 @@ ChromeUtils.defineModuleGetter(this,
                                "LoginHelper",
                                "resource://gre/modules/LoginHelper.jsm");
 
-const REMEMBER_SIGNONS_PREF = "signon.rememberSignons";
-const ORIGINAL_REMEMBER_SIGNONS_PREF =
-      "extensions.lockbox.originalRememberSignons";
-
 // In order to allow us to register new telemetry events in the middle of a
 // Firefox session, we currently need to ensure that our events have a unique
 // category name. In order to do this, every time we update the events in any
@@ -349,28 +345,13 @@ function shutdown(data, reason) {
 
 function install(data, reason) {
   if (reason === ADDON_INSTALL) {
-    // Remember the original value for `signons.rememberSignons` so we can
-    // restore it during uninstall, then enable it to improve the experience?
-    Services.prefs.setBoolPref(
-      ORIGINAL_REMEMBER_SIGNONS_PREF,
-      Services.prefs.getBoolPref(REMEMBER_SIGNONS_PREF)
-    );
-    Services.prefs.setBoolPref(REMEMBER_SIGNONS_PREF, true);
-
     dispatcher.record({ type: "extension_installed" });
   }
 }
 
 function uninstall(data, reason) {
   if (reason === ADDON_UNINSTALL) {
-    // Restore the original value for `signons.rememberSignons`.
-    if (Services.prefs.getBoolPref(REMEMBER_SIGNONS_PREF) === false) {
-      Services.prefs.setBoolPref(
-        REMEMBER_SIGNONS_PREF,
-        Services.prefs.getBoolPref(ORIGINAL_REMEMBER_SIGNONS_PREF)
-      );
-    }
-    Services.prefs.clearUserPref(ORIGINAL_REMEMBER_SIGNONS_PREF);
+    dispatcher.record({ type: "extension_uninstalled" });
   }
 }
 

@@ -19,13 +19,37 @@ function broadcast(message, excludedSender) {
 
 let addonPort;
 
+const ORIGINAL_REMEMBER_SIGNONS_PREF = "originalRememberSignons";
+
 export default function initializeMessagePorts() {
   // setup port to receive messages from bootstrapped addon
   addonPort = browser.runtime.connect({ name: "webext-to-legacy" });
   addonPort.onMessage.addListener(async (message) => {
     switch (message.type) {
     case "extension_installed":
-      openView("manage");
+      browser.privacy.services.passwordSavingEnabled.get({}).then(async (pref) => {
+        // if password saving is disabled, enable it and save the original value ...
+        if (!pref.value) {
+          await browser.privacy.services.passwordSavingEnabled.set({
+            value: true,
+          });
+          browser.storage.local.set({
+            ORIGINAL_REMEMBER_SIGNONS_PREF: pref,
+          });
+        }
+        openView("manage");
+      });
+      break;
+    case "extension_uninstalled":
+      browser.storage.local.get(ORIGINAL_REMEMBER_SIGNONS_PREF).then(async (got) => {
+        // If missing from local storage, assume the original was `true` to prevent changing it
+        const orig = got[ORIGINAL_REMEMBER_SIGNONS_PREF] || true;
+        if (!orig) {
+          await browser.privacy.services.passwordSavingEnabled.set({
+            value: orig,
+          });
+        }
+      });
       break;
 
     case "login_changed":
