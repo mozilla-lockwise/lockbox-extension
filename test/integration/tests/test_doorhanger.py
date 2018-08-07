@@ -1,6 +1,9 @@
 """Tests for the door hanger."""
 
+import pytest
 
+
+@pytest.mark.xfail
 def test_door_hanger_interaction(fxa_account, login_page):
     """Add an entry and test it shows in the door hanger."""
     fxa = fxa_account

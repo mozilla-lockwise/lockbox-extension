@@ -96,7 +96,7 @@
     "eslint": "^5.0.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-mozilla": "^0.14.0",
+    "eslint-plugin-mozilla": "^0.15.0",
     "eslint-plugin-no-unsanitized": "^3.0.2",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-only-warn": "^1.0.1",
