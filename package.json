@@ -2,7 +2,7 @@
   "title": "Lockbox",
   "name": "lockbox",
   "id": "lockbox@mozilla.com",
-  "version": "0.1.9-alpha",
+  "version": "0.1.10-alpha",
   "main": "dist/bootstrap.js",
   "description": "The simple way to store, retrieve and manage website login info",
   "author": "Lockbox Team <lockbox-dev@mozilla.com>",
@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/mozilla-lockbox/lockbox-extension/issues"
   },
-  "homepage": "https://mozilla-lockbox.github.io/lockbox-extension/",
+  "homepage": "https://lockbox.firefox.com/",
   "keywords": [
     "passwords",
     "crypto",
