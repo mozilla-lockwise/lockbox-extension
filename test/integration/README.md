@@ -32,7 +32,7 @@ npm run package
 The tests must be run in Firefox 57 or later.
 
 1. Install [Tox].
-2. Download geckodriver [v0.20.1][geckodriver] or later and ensure it's
+2. Download geckodriver [v0.21.0][geckodriver] or later and ensure it's
    executable and in your path.
 
 ```sh
