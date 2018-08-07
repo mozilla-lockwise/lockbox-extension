@@ -2,8 +2,6 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-settings-disclaimer = Note: This is no longer an actively-developed prototype and not officially supported. Any data stored is not guaranteed to be retained in future updates.
-
 settings-local-reset-title = Reset Lockbox
 settings-local-reset-description = This resets Lockbox to its uninitialized state.  Once performed, it cannot be undone.
 settings-local-reset-button = 💥💣 Reset 💣💥

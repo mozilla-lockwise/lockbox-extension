@@ -13,7 +13,7 @@ import "./app.css";
 export default function App() {
   return (
     <article>
-      <Localized id="settings-disclaimer">
+      <Localized id="product-disclaimer">
         <h1>nOTe: tHIs eXTENSION Is nOt mAINTAINEd</h1>
       </Localized>
       <LocalReset/>
