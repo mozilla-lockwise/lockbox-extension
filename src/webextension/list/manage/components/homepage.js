@@ -18,6 +18,9 @@ export default function Homepage() {
       <Localized id="homepage-title">
         <h1>tHe sIMPLe wAy tO sTORE...</h1>
       </Localized>
+      <Localized id="product-disclaimer">
+        <h3>uNMAINTAINEd dISCLAIMEr</h3>
+      </Localized>
       <AccountDetails />
     </article>
   );
