@@ -2,9 +2,11 @@
 
 Firefox password manager is the built-in feature that saves and autofills website login information. You can protect these logins with a master password. 
 
-Lockbox is a stand-alone password manager extension that you can secure with a Firefox Account for newer encryption than what is offered with password manager. 
+Lockbox is a stand-alone password manager extension that you can secure with a Firefox Account for newer encryption than what is offered with password manager.
 
-The alpha version of Lockbox lets you create, store and manage entries (a site’s username and password) and copy and paste login information. We realize managing passwords this way may feel very manual, but we plan to add features like autofill and password generation in future releases. We are also working to build cloud backup, create a mobile app, and support multiple browsers.
+**Lockbox is an experimental prototype and is not currently or actively planning to fix non-critical (data loss, security related) bugs or implement new features.**
+
+The alpha version of Lockbox lets you create, store and manage entries (a site’s username and password) and copy and paste login information.
 
 ## Can I use Lockbox and the Firefox password manager at the same time?
 
