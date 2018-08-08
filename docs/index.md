@@ -17,6 +17,8 @@ with Firefox for desktop. It’s the first of several planned experiments
 designed to help us test and improve password management and online
 security.
 
+**Lockbox is an experimental prototype and is not currently or actively planning to fix non-critical (data loss, security related) bugs or implement new features.**
+
 Install it and sign in with your Firefox Account to encrypt your data with
 tamper-resistant block cipher technology. Then [share feedback
 here][feedback-link].
