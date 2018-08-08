@@ -13,14 +13,15 @@ import { initialState, filledState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
 import { SELECT_ITEM_STARTING } from "src/webextension/list/actions";
 import ItemSummary from "src/webextension/list/components/item-summary";
-import AllItems from "src/webextension/list/popup/containers/all-items";
+import AllItemsPanel from
+       "src/webextension/list/popup/containers/all-items-panel";
 
 chai.use(chaiEnzyme());
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe("list > popup > containers > <AllItems/>", () => {
+describe("list > popup > containers > <AllItemsPanel/>", () => {
   beforeEach(() => {
     browser.runtime.onMessage.addListener(() => ({}));
   });
@@ -36,7 +37,7 @@ describe("list > popup > containers > <AllItems/>", () => {
       store = mockStore(initialState);
       wrapper = mountWithL10n(
         <Provider store={store}>
-          <AllItems/>
+          <AllItemsPanel/>
         </Provider>
       );
     });
@@ -55,7 +56,7 @@ describe("list > popup > containers > <AllItems/>", () => {
       }});
       wrapper = mountWithL10n(
         <Provider store={store}>
-          <AllItems/>
+          <AllItemsPanel/>
         </Provider>
       );
     });
@@ -89,7 +90,7 @@ describe("list > popup > containers > <AllItems/>", () => {
       });
       wrapper = mountWithL10n(
         <Provider store={store}>
-          <AllItems/>
+          <AllItemsPanel/>
         </Provider>
       );
     });

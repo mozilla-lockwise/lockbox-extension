@@ -56,9 +56,9 @@ describe("list > manage > components > <App/>", () => {
       </Provider>
     );
 
-    expect(wrapper).to.contain(<AddItem/>);
-    expect(wrapper).to.contain(<AllItems/>);
-    expect(wrapper).to.contain(<CurrentSelection/>);
+    expect(wrapper).to.have.descendants(AddItem);
+    expect(wrapper).to.have.descendants(AllItems);
+    expect(wrapper).to.have.descendants(CurrentSelection);
   });
 
   it("filter input focused/selected", () => {

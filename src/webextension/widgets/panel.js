@@ -8,43 +8,80 @@ import PropTypes from "prop-types";
 
 import { classNames } from "../common";
 import Button from "./button";
+import Toolbar from "./toolbar";
 
 import buttonStyles from "./button.css";
 import styles from "./panel.css";
 
-export function PanelHeader({className, onBack, children}) {
+const BORDER_CLASS_NAME = {
+  "normal": styles.normalBorder,
+  "floating": styles.floatingBorder,
+  "none": null,
+};
+
+export function PanelHeader({className, toolbarClassName, border, onBack,
+                             children}) {
   const imgSrc = browser.extension.getURL("/icons/arrowhead-left-16.svg");
   return (
-    <header className={classNames([styles.panelHeader, className])}>
+    <header className={classNames([
+              styles.panelHeader, BORDER_CLASS_NAME[border], className,
+            ])}>
       {onBack ? (
         <Button theme="ghost" size="micro" onClick={onBack}>
-          <Localized id="panel-back-button">
+          <Localized id="panel-back-button" attrs={{alt: true}}>
             <img src={imgSrc} alt="go bACk"/>
           </Localized>
         </Button>
       ) : null}
-      <span>{children}</span>
+      <Toolbar className={classNames([
+                 styles.panelHeaderToolbar, toolbarClassName,
+               ])}>{children}</Toolbar>
     </header>
   );
 }
 
 PanelHeader.propTypes = {
   className: PropTypes.string,
+  toolbarClassName: PropTypes.string,
+  border: PropTypes.oneOf(Object.keys(BORDER_CLASS_NAME)),
   onBack: PropTypes.func,
   children: PropTypes.node,
 };
 
 PanelHeader.defaultProps = {
   className: "",
+  toolbarClassName: "",
+  border: "normal",
+};
+
+export function PanelBanner({className, border, children}) {
+  return (
+    <aside className={classNames([
+            styles.panelBanner, BORDER_CLASS_NAME[border], className,
+           ])}>
+      {children}
+    </aside>
+  );
+}
+
+PanelBanner.propTypes = {
+  className: PropTypes.string,
+  border: PropTypes.oneOf(Object.keys(BORDER_CLASS_NAME)),
+  children: PropTypes.node,
+};
+
+PanelBanner.defaultProps = {
+  className: "",
+  border: "normal",
 };
 
 export function PanelBody({className, scroll, children}) {
   return (
-    <main className={classNames([
+    <section className={classNames([
             styles.panelBody, scroll && styles.scroll, className,
           ])}>
       {children}
-    </main>
+    </section>
   );
 }
 
@@ -59,27 +96,11 @@ PanelBody.defaultProps = {
   scroll: true,
 };
 
-export function PanelBanner({className, children}) {
-  const finalClassName = `${styles.panelBanner} ${className}`.trimRight();
+export function PanelFooter({className, border, children}) {
   return (
-    <aside className={finalClassName}>
-      {children}
-    </aside>
-  );
-}
-
-PanelBanner.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node,
-};
-
-PanelBanner.defaultProps = {
-  className: "",
-};
-
-export function PanelFooter({className, children}) {
-  return (
-    <footer className={classNames([styles.panelFooter, className])}>
+    <footer className={classNames([
+              styles.panelFooter, BORDER_CLASS_NAME[border], className,
+            ])}>
       {children}
     </footer>
   );
@@ -88,10 +109,12 @@ export function PanelFooter({className, children}) {
 PanelFooter.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
+  border: PropTypes.oneOf(Object.keys(BORDER_CLASS_NAME)),
 };
 
 PanelFooter.defaultProps = {
   className: "",
+  border: "normal",
 };
 
 const THEME_CLASS_NAME = {

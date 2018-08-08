@@ -8,23 +8,24 @@ import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 
-import { initialState } from "../mock-redux-state";
+import { filledState } from "../mock-redux-state";
 import mountWithL10n from "test/mocks/l10n";
 import { SELECT_ITEM_STARTING } from "src/webextension/list/actions";
-import GoHome from "src/webextension/list/manage/containers/go-home";
+import CurrentBreadcrumbs from
+       "src/webextension/list/manage/containers/current-breadcrumbs";
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe("list > manage > containers > <GoHome/>", () => {
+describe("list > manage > containers > <CurrentBreadcrumbs/>", () => {
   it("selectItem() dispatched", () => {
-    const store = mockStore(initialState);
+    const store = mockStore(filledState);
     const wrapper = mountWithL10n(
       <Provider store={store}>
-        <GoHome/>
+        <CurrentBreadcrumbs/>
       </Provider>
     );
-    wrapper.simulate("click");
+    wrapper.find("button").simulate("click");
     expect(store.getActions()[0]).to.deep.include({
       type: SELECT_ITEM_STARTING,
       id: null,

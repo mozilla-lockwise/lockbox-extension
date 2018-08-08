@@ -32,7 +32,7 @@ npm run package
 The tests must be run in Firefox 57 or later.
 
 1. Install [Tox].
-2. Download geckodriver [v0.19.1][geckodriver] or later and ensure it's
+2. Download geckodriver [v0.21.0][geckodriver] or later and ensure it's
    executable and in your path.
 
 ```sh
@@ -60,7 +60,7 @@ full documentation for the plugin can be found [here][pytest-selenium].
 [flake8]: http://flake8.pycqa.org/en/latest/
 [git-clone]: https://help.github.com/articles/cloning-a-repository/
 [git-fork]: https://help.github.com/articles/fork-a-repo/
-[geckodriver]: https://github.com/mozilla/geckodriver/releases/tag/v0.19.1
+[geckodriver]: https://github.com/mozilla/geckodriver/releases/tag/v0.21.0
 [pytest-selenium]: http://pytest-selenium.readthedocs.org/
 [Selenium]: http://selenium-python.readthedocs.io/index.html
 [selenium-api]: http://selenium-python.readthedocs.io/locating-elements.html

@@ -5,12 +5,11 @@
 
 # Lockbox for Firefox
 
-Lockbox for Firefox is a work-in-progress extension for Firefox to improve upon
-Firefox's built-in password management. If you're interested, you should
-probably come back later when we have more to show!
+Lockbox for Firefox is an experimental extension prototype for Firefox.
 
-:warning: **Note: This is a rapidly evolving prototype that will change. Any
-data stored here is not guaranteed to be retained in future updates.**
+:warning: **Note: This is no longer an actively-developed prototype and not
+officially supported. Any data stored is not guaranteed to be retained in
+future updates.**
 
 ## [Quick Installation][install-link]
 
@@ -32,6 +31,9 @@ please see the [`docs` directory][docs-link].
 
 ## Contributing ##
 
+:warning: **Note: This is not an actively-developed prototype and we are not
+actively seeking contributions at this time.**
+
 See the [guidelines][contributing-link] for contributing to this project.
 
 This project is governed by a [Code Of Conduct][coc-link].
@@ -49,7 +51,7 @@ version 2.0][license-link].
 [waffle-link]: https://waffle.io/mozilla-lockbox/lockbox-extension
 [greenkeeper-image]: https://badges.greenkeeper.io/mozilla-lockbox/lockbox-extension.svg
 [greenkeeper-link]: https://greenkeeper.io/
-[install-link]: /docs/install.md
+[install-link]: /docs/developer/install.md
 [org-website]: https://mozilla-lockbox.github.io/
 [docs-link]: /docs
 [contributing-link]: docs/contributing.md

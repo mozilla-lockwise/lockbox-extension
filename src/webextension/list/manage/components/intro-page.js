@@ -30,19 +30,19 @@ export default function IntroPage() {
   return (
     <article className={styles.introPage}>
       <section className={styles.introImages}>
-        <Localized id="intro-page-step-1">
+        <Localized id="intro-page-step-1" attrs={{title: true}}>
           <IntroImage src={browser.extension.getURL("/images/intro-step-1.png")}
                       title="aDd lOGIn iNFo to lOCKBOx">
             sAVe uSERNAMe aNd pASSWORd...
           </IntroImage>
         </Localized>
-        <Localized id="intro-page-step-2">
+        <Localized id="intro-page-step-2" attrs={{title: true}}>
           <IntroImage src={browser.extension.getURL("/images/intro-step-2.png")}
                       title="go sTRAIGHt to yOUr lOGINs">
             cLICk tHe lOCKBOx iCOn...
           </IntroImage>
         </Localized>
-        <Localized id="intro-page-step-3">
+        <Localized id="intro-page-step-3" attrs={{title: true}}>
           <IntroImage src={browser.extension.getURL("/images/intro-step-3.png")}
                       title="sIGn in fROm lOCKBOx">
             cOPy an eNTRY&apos;s iNFo...

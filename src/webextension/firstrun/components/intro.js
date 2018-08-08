@@ -16,6 +16,9 @@ export default function Intro() {
       <Localized id="firstrun-intro-tagline">
         <h2>mORe wELCOMe</h2>
       </Localized>
+      <Localized id="product-disclaimer">
+        <h3>uNMAINTAINEd dISCLAIMEr</h3>
+      </Localized>
     </section>
   );
 }

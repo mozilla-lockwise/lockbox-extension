@@ -83,7 +83,7 @@ export default class AppLocalizationProvider extends Component {
     };
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     const { baseDir, userLocales, bundles } = this.state;
 
     const availableLocales = await fetchAvailableLocales(baseDir);

@@ -1,5 +1,19 @@
 # Lockbox Release Notes
 
+## 0.1.10-alpha
+
+_Date: 2018-08-07_
+
+**Please note: this is no longer an actively-developed prototype and not
+officially supported. Any data stored is not guaranteed to be retained in
+future updates.**
+
+### What's New
+
+* The user experience is streamlined and simpler to navigate.
+* Added French string translation.
+* Added disclaimers to express this is not currently maintained or developed.
+
 ## 0.1.9-alpha
 
 _Date: 2018-03-22_

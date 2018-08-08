@@ -2,20 +2,22 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-.item-summary {
-  padding: 16px 20px;
-  font-size: 15px;
-}
-
-.item-summary::before {
+.item-summary-container::before {
+  content: "";
+  float: right;
+  position: relative;
+  width: 5px;
+  height: 9px;
+  margin: 32px 20px;
   background-image: url(/icons/chevron-right.svg);
   background-repeat: no-repeat;
   background-size: 5px 9px;
-  content: "";
-  float: right;
-  height: 9px;
-  width: 5px;
-  margin: 16px 0;
+  z-index: 2;
+}
+
+.item-summary {
+  padding: 16px 20px;
+  font-size: 15px;
 }
 
 .title,

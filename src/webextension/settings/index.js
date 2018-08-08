@@ -16,7 +16,7 @@ const store = createStore(reducer, undefined, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppLocalizationProvider bundles={["settings", "widgets"]}
+    <AppLocalizationProvider bundles={["settings", "widgets", "common"]}
                              userLocales={navigator.languages}>
       <App/>
     </AppLocalizationProvider>
