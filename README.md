@@ -41,7 +41,6 @@ This project is governed by a [Code Of Conduct][coc-link].
 To disclose potential a security vulnerability please see our
 [security][security-link] documentation.
 
-
 ## [License][license-link]
 
 This extension is licensed under the [Mozilla Public License,
@@ -60,4 +59,5 @@ version 2.0][license-link].
 [docs-link]: /docs
 [contributing-link]: docs/contributing.md
 [coc-link]: docs/code_of_conduct.md
+[security-link]: docs/SECURITY.md
 [license-link]: /LICENSE
