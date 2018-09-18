@@ -18,6 +18,8 @@ Please open [a new issue in the appropriate GitHub repository][new-issue] with s
 
 Be sure to include as much information including screenshots, text output, and both your expected and actual results.
 
+If you believe that you've found a security vulnerability, please report it by sending email to the addresses: security@mozilla.org and lockbox-dev@mozilla.com
+
 ## How to Request Enhancements
 
 First, please refer to the applicable [GitHub repository][github-repos] and search [the repository's GitHub issues][issues-list] to make sure your idea has not been (or is not still) considered. It may also be easier to see and search across all projects combined on our [Waffle.io planning board][waffle].
